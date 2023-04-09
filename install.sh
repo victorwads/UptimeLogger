@@ -36,7 +36,7 @@ if [[ "$*" == *"--restart"* || "$*" == *"--reload"* ]]; then
 fi
 
 # Check for restart option
-if [[ "$*" == *"--uninstall"* || "$*" == *"--reinstall"* ]]; then
+if [[ "$*" == *"--uninstall"* ]]; then
     removeService
 
     read -p "Deseja apagar todos os logs registrados? (y/N) " choice
@@ -52,6 +52,19 @@ if [[ "$*" == *"--uninstall"* || "$*" == *"--reinstall"* ]]; then
         sudo rm -f "$INSTALL_FOLDER/log_latest.txt"
         ;;
     esac
+    echo ""
+
+    exit 0
+fi
+
+# Check for restart option
+if [[ "$*" == *"--reinstall"* ]]; then
+    removeService
+
+    echo "Removing old program files using sudo"
+    sudo rm -f "$INSTALL_FOLDER/watch.sh"
+    sudo rm -f "$INSTALL_FOLDER/uptime_logger.sh"
+    sudo rm -f "$INSTALL_FOLDER/log_latest.txt"
     echo ""
 
     if [[ "$*" == *"--uninstall"* ]]; then
