@@ -38,7 +38,7 @@ while true; do
         UPTIME=$(echo "$(($(date +%s) - $(sysctl -n kern.boottime | awk '{print $4}' | sed 's/,//')))" | awk '{printf "%d days, %02d:%02d:%02d",($1/60/60/24),($1/60/60%24),($1/60%60),($1%60)}')
     else
         # Define o comando para obter o tempo de inicialização no Linux
-        UPTIME=$(uptim -p)
+        UPTIME=$(uptime -p)
     fi
 
     if [ "$DEBUG" = true ]; then
