@@ -47,8 +47,7 @@ while true; do
         echo "last record: $UPTIME"
     fi
 
-    echo "$INIT_STRING" >>"$LOG_FILE"
-    echo "" >>"$LOG_FILE"
-    echo "last record: $UPTIME" >"$LOG_FILE"
+    echo "$INIT_STRING" > "$LOG_FILE"
+    echo "last record: $UPTIME" >> "$LOG_FILE"
     sleep 1
 done
