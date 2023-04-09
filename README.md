@@ -18,9 +18,11 @@ bash uptime_logger.sh --debug
 
 ## Install as Service
 
-For now, only for macs, the `install.sh` provides a easy to intall service. The code will be copy to `/Library/UptimeLogger` and create service to run on System Load.
+The `install.sh` provides a easy to intall service. This will install de files copying to a program folder according to the OS and create service to run on System Load.
 
-Every 1 system startUp it will create a file at `/Library/UptimeLogger/logs` and that file will be updated every second with de how long the SO have been alive.
+Every 1 system startUp it will create a file at `/PROGRAM_FOLDER/logs` and that file will be updated every second with de how long the SO have been alive.
+
+`For now, it was only tested on MacOs.`
 
 ```bash
 # To Install

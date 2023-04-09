@@ -1,60 +1,65 @@
 #!/bin/bash
-PROGRAM_NAME="UptimeLogger"
-SERVICE_NAME="br.com.victorwads.uptimelogger"
+export PROGRAM_NAME="UptimeLogger"
+export SERVICE_NAME="br.com.victorwads.uptimelogger"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if command -v lsb_release >/dev/null; then
+        os_name=$(lsb_release -si)
+    elif [[ -f /etc/os-release ]]; then
+        os_name=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+    fi
+
+    case "$os_name" in
+    "Ubuntu")
+        # Define o comando para obter o tempo de inicialização no Ubuntu
+        source installUbuntu.sh
+        ;;
+    *)
+        # Define o comando para obter o tempo de inicialização no linux Generico
+        source installLinux.sh
+        ;;
+    esac
+elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Define o comando para obter o tempo de inicialização no macOS
-    INSTALL_FOLDER="/Library/$PROGRAM_NAME"
-    SERVICE_FILE="/Library/LaunchDaemons/$SERVICE_NAME.plist"
+    source installDarwin.sh
 else
     # Define o comando para obter o tempo de inicialização no Linux
-    echo "Service install support Only MacOs now, seek for future version or contribute yourself in:"
+    echo "Service install support Only MacOs and Ubuntu now, seek for future version or contribute yourself in:"
     echo "https://github.com/victorwads/UptimeLogger"
     exit 1
 fi
 
 # Check for restart option
 if [[ "$*" == *"--restart"* || "$*" == *"--reload"* ]]; then
-    echo "Restarting services using sudo"
-    sudo launchctl unload "$SERVICE_FILE"
-    sudo launchctl load "$SERVICE_FILE"
+    restartService
     exit 0
 fi
 
 # Check for restart option
 if [[ "$*" == *"--uninstall"* || "$*" == *"--reinstall"* ]]; then
-    echo "Stoping services using sudo"
-    sudo launchctl unload "$SERVICE_FILE"
-    sudo rm "$SERVICE_FILE"
+    removeService
 
-    echo "Removing files using sudo"
-    sudo rm -r "$INSTALL_FOLDER"
+    read -p "Deseja apagar todos os logs registrados? (y/N) " choice
+    case "$choice" in
+    y | Y)
+        echo "Removing program files and logs using sudo"
+        sudo rm -rf "$INSTALL_FOLDER"
+        ;;
+    *)
+        echo "Removing program files using sudo"
+        sudo rm -f "$INSTALL_FOLDER/watch.sh"
+        sudo rm -f "$INSTALL_FOLDER/uptime_logger.sh"
+        sudo rm -f "$INSTALL_FOLDER/log_latest.txt"
+        ;;
+    esac
+    echo ""
+
     if [[ "$*" == *"--uninstall"* ]]; then
         exit 0
     fi
 fi
 
-SERVICE_PLIST=$(
-    cat <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-   <key>Label</key>
-   <string>$SERVICE_NAME</string>
-   <key>ProgramArguments</key>
-   <array>
-      <string>/bin/bash</string>
-      <string>$INSTALL_FOLDER/uptime_logger.sh</string>
-   </array>
-   <key>KeepAlive</key>
-   <true/>
-</dict>
-</plist>
-EOF
-)
-
-# Installing
+# Install Files
 echo "Copying files to $INSTALL_FOLDER using sudo"
 if [[ ! -d "$INSTALL_FOLDER" ]]; then
     sudo mkdir "$INSTALL_FOLDER"
@@ -62,8 +67,4 @@ fi
 sudo cp ./uptime_logger.sh "$INSTALL_FOLDER"
 sudo cp ./watch.sh "$INSTALL_FOLDER"
 
-echo "Installer service at $SERVICE_FILE using sudo"
-echo "$SERVICE_PLIST" | sudo tee "$SERVICE_FILE" >/dev/null
-
-echo "Starting service"
-sudo launchctl load "$SERVICE_FILE"
+installService
