@@ -1,0 +1,15 @@
+# Arquivos compilados
+*.o
+*.a
+*.exe
+
+# Arquivos gerados por Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcworkspace
+*.xcuserstate
+
+# Arquivos de compilação do Swift Package Manager
+.build/
