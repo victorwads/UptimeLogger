@@ -8,8 +8,8 @@ LOG_LATEST="$SCRIPT_DIR/log_latest.txt"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi
-chmod 766 "$LOGS_DIR"
 chmod -R 766 "$LOGS_DIR"
+chmod 777 "$LOGS_DIR"
 
 # Allowed Shutdown Features
 UPDATE_FILE="$LOGS_DIR/updated"
