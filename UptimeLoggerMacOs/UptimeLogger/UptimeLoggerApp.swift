@@ -39,7 +39,7 @@ struct UptimeLoggerApp: App {
             Menus(
                 foldersHistory: $foldersHistory,
                 reloadAction: loadLogs,
-                changeFolderAction: { folder in changeFolder(true, folder)},
+                changeFolderAction: { folder in changeFolder(folder==nil, folder)},
                 clearRecentsAction: {
                     foldersHistory = []
                     logsFolderHistory = ""
