@@ -9,13 +9,12 @@ import Foundation
 
 struct LogItemInfo: Identifiable {
     let id = UUID()
-    let fileName: String
     let startUpTime: Date
     let uptimeInSeconds: TimeInterval
-    let formatter = DateFormatter()
+    let shutdownAllowed: Bool
 
     init(fileName: String, content: String) {
-        self.fileName = fileName
+        let formatter = DateFormatter()
         formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"
 
         // Extract start up date and time from file name
@@ -25,10 +24,12 @@ struct LogItemInfo: Identifiable {
             self.startUpTime = Date.distantPast
         }
 
+        let lines = content.components(separatedBy: "\n")
+        // Extract shutdown allowed
+        shutdownAllowed = lines.first(where: { $0.hasPrefix("shutdown allowed") }) != nil
+        
         // Extract uptime from file content
-        let uptimeString = content
-            .components(separatedBy: "\n")
-            .first(where: { $0.hasPrefix("last record:") })?
+        let uptimeString = lines.first(where: { $0.hasPrefix("last record:") })?
             .replacingOccurrences(of: "last record: ", with: "")
         
         let dayPart: String = uptimeString?.components(separatedBy: ", ").first?

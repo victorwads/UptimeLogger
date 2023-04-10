@@ -9,6 +9,7 @@ import SwiftUI
 struct Menus: Commands {
     
     let reloadAction: () -> Void
+    let setLogsPathAction: (String) -> Void
     
     var body: some Commands {
         CommandMenu("Logs") {
@@ -19,7 +20,7 @@ struct Menus: Commands {
     }
     
     func showLogs() {
-        NSWorkspace.shared.open(URL(fileURLWithPath: LogsProvider.folder))
+        NSWorkspace.shared.open(URL(fileURLWithPath: LogsProvider.shared.folder))
     }
     
     func changeFolder() {
@@ -27,13 +28,13 @@ struct Menus: Commands {
         openPanel.canChooseDirectories = true
         openPanel.canChooseFiles = false
         openPanel.allowsMultipleSelection = false
-        openPanel.directoryURL = URL(fileURLWithPath: LogsProvider.folder)
+        openPanel.directoryURL = URL(fileURLWithPath: LogsProvider.shared.folder)
 
         openPanel.begin { result in
             if result == .OK, let url = openPanel.url {
-                LogsProvider.folder = url.relativePath+"/"
+                setLogsPathAction(url.relativePath+"/")
             }
+            reloadAction()
         }
-        reloadAction()
     }
 }
