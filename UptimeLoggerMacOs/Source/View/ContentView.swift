@@ -14,31 +14,46 @@ struct ContentView: View {
     @Binding var current: LogItemInfo
     var toggleCurrentAction: () -> Void = { }
     var toggleItemAction: (LogItemInfo) -> Void = {_ in }
-    var allowState: Bool {
+    var informed: Bool {
         get { current.shutdownAllowed }
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .bottom) {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(Strings.mainLogs.value)
-                        .font(.title)
-                        .foregroundColor(.gray)
-                    LogItemView(
-                        log: $current,
-                        onToggleAction: {_ in toggleCurrentAction()},
-                        allowText: Strings.mainCurrentAllow.value,
-                        denyText: Strings.mainCurrentDeny.value
-                    )
-                }
-            }
-            Text(Strings.mainLogs.value)
+            Text(Strings.mainCurrent.value)
                 .font(.title)
                 .foregroundColor(.gray)
-            Text(logsFolder)
-                .font(.subheadline)
-                .foregroundColor(.gray)
+            
+            HStack {
+                Text(Strings.mainCurrentInfo.value)
+                Spacer()
+                Button(action: {
+                    toggleCurrentAction()
+                }) {
+                    Image(systemName: informed ? "" : "power")
+                    Text((informed ? Strings.mainCurrentCancel : Strings.mainCurrentInform).value)
+                }.help((informed ? Strings.mainCurrentCancelTip : Strings.mainCurrentInformTip).value)
+            }
+
+            
+            Divider().padding(.top, 10)
+            LogItemView(
+                log: $current
+            )
+            .padding(10)
+            .padding(.horizontal, 20)
+            Divider()
+                .padding(.bottom, 20)
+            
+            HStack {
+                Text(Strings.mainLogs.value)
+                    .font(.title)
+                    .foregroundColor(.gray)
+                Spacer()
+                Text(logsFolder)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
             
             LogsView(
                 onToggleAction: toggleItemAction,
@@ -53,14 +68,12 @@ struct ContentView: View {
 
 
 struct ContentView_Previews: PreviewProvider {
+    static var item = LogItemInfo()
     static var previews: some View {
         ContentView(
-            logs: .constant([
-                LogItemInfo(fileName: "", content: "shutdown allowed"),
-                LogItemInfo()
-            ]),
+            logs: .constant([item]),
             logsFolder: .constant("Some Path"),
-            current: .constant(LogItemInfo())
+            current: .constant(item)
         )
     }
 }

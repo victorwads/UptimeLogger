@@ -10,13 +10,19 @@ import SwiftUI
 struct LogItemView: View {
     
     @Binding var log: LogItemInfo
-
-    var onToggleAction: (LogItemInfo) -> Void
-    var allowText: String = Strings.logAllow.value
-    var denyText: String = Strings.logDeny.value
+    var onToggleAction: ((LogItemInfo) -> Void)? = nil
     
     private var allow: Bool {
         get { log.shutdownAllowed }
+    }
+    
+    var stack: some View {
+        HStack(alignment: .center) {
+            Image(systemName: allow ? "powersleep" : "bolt.slash.fill")
+                .foregroundColor(allow ? .green : .red)
+            Text(!allow ? Strings.logUnexpectedYes.value : Strings.logUnexpectedNo.value)
+                .foregroundColor(allow ? .green : .red)
+        }
     }
     
     var body: some View {
@@ -34,25 +40,17 @@ struct LogItemView: View {
                 }
             }
             Spacer()
-            HStack(alignment: .center) {
-                Text(Strings.logAllowed.value).bold()
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Text(allow ? Strings.logAllowedYes.value : Strings.logAllowedNo.value)
-                    .foregroundColor(allow ? .green : .red)
-                Image(systemName: allow ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundColor(allow ? .green : .red)
-            }
-            Spacer()
-            Button(action: { onToggleAction(log) }) {
-                Label(
-                    title: { Text(allow ? denyText : allowText) },
-                    icon: { Image(
-                        systemName: allow ? "xmark.circle.fill" : "checkmark.circle.fill"
-                    ) }
-                )
-            }
+            Text(Strings.logUnexpected.value).bold()
+                .font(.subheadline)
+                .foregroundColor(.gray)
 
+            if let onToggleAction = onToggleAction {
+                stack.onTapGesture {
+                    onToggleAction(log)
+                }.help(Strings.logHelp.value)
+            } else {
+                stack
+            }
         }
     }
 }

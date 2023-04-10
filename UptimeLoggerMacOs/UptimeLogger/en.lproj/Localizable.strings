@@ -6,33 +6,37 @@
   
 */
 
-/* Menus */
-"menu.logs" = "Logs";
-"menu.folders.reload" = "Reload";
-"menu.folders.cleanrecents" = "Clean Recents";
-"menu.folders.change" = "Change logs folder";
-"menu.folders.new" = "New";
-"menu.folders.open" = "Open Logs Folder";
-
 /* Files Provider */
 "provider.files.openmessage" = "No permission to access logs folder\nTo allow access, select the logs folder";
 
 /* LogsView */
 "main.logs" = "Logs";
-"main.current" = "Current";
-"main.current.allow" = "Allow ShutDown";
-"main.current.deny" = "Deny ShutDown";
+"main.current" = "Current Log";
+"main.current.info" = "If your computer shutdowns now, the log will be like this:";
+"main.current.inform" = "Inform Shutdown";
+"main.current.inform.remove" = "Cancel Shutdown";
+"main.current.inform.tip" = "click here to inform a shutdown intent";
+"main.current.inform.remove.tip" = "click here to cancel a scheduled shutdown";
+
+"main.current.allow" = "Allow shutdown";
+"main.current.deny" = "Deny shutdown";
+
+/* Menus */
+"menu.logs" = "Shutdown Logs";
+"menu.folders.reload" = "Reload";
+"menu.folders.cleanrecents" = "Clear Recents";
+"menu.folders.change" = "Change logs folder";
+"menu.folders.new" = "New folder";
+"menu.folders.open" = "Open logs folder";
 
 /* LogsView */
 "logs.loading" = "Loading...";
 "logs.notfound" = "No logs found";
 
 /* LogItemView */
-"log.allow" = "Mark Allowed";
-"log.deny" = "Mark Denied";
-"log.startup" = "StartUp: ";
+"log.help" = "Click to change shutdown record information";
+"log.startup" = "Startup: ";
 "log.uptime" = "Uptime: ";
-"log.allowed" = "Shutdown Allowed: ";
-"log.allowed.yes" = "Yes";
-"log.allowed.no" = "No";
-
+"log.unexpected" = "";
+"log.unexpected.yes" = "Unexpected";
+"log.unexpected.no" = "Intended";

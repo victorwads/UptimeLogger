@@ -5,32 +5,38 @@
   Created by Victor Wads on 10/04/23.
   
 */
-/* Menus */
-"menu.logs" = "Registros";
-"menu.folders.reload" = "Recarregar";
-"menu.folders.cleanrecents" = "Limpar Recentes";
-"menu.folders.change" = "Mudar pasta de registros";
-"menu.folders.new" = "Nova pasta";
-"menu.folders.open" = "Abrir pasta de registros";
 
 /* Files Provider */
 "provider.files.openmessage" = "Sem permissão para acessar a pasta de registros\nPara permitir o acesso, selecione a pasta de registros";
 
 /* LogsView */
 "main.logs" = "Registros";
-"main.current" = "Atual";
+"main.current" = "Registro Atual";
+"main.current.info" = "No momento, se seu computador desligar, o log ficará assim:";
+"main.current.inform" = "Informar Desligamento";
+"main.current.inform.remove" = "Cancelar Desligamento";
+"main.current.inform.tip" = "clique aqui para informadar um desligamento planejado";
+"main.current.inform.remove.tip" = "clique aqui para cancelar um desligamento planejado";
+
 "main.current.allow" = "Permitir desligamento";
 "main.current.deny" = "Negar desligamento";
+
+/* Menus */
+"menu.logs" = "Registros de Desligamento";
+"menu.folders.reload" = "Recarregar";
+"menu.folders.cleanrecents" = "Limpar Recentes";
+"menu.folders.change" = "Mudar pasta de registros";
+"menu.folders.new" = "Nova pasta";
+"menu.folders.open" = "Abrir pasta de registros";
 
 /* LogsView */
 "logs.loading" = "Carregando...";
 "logs.notfound" = "Nenhum registro encontrado";
 
 /* LogItemView */
-"log.allow" = "Permitir";
-"log.deny" = "Negar";
+"log.help" = "clique para alterar a informação do registro de desligamento";
 "log.startup" = "Inicialização: ";
-"log.uptime" = "Tempo de atividade: ";
-"log.allowed" = "Desligamento permitido: ";
-"log.allowed.yes" = "Sim";
-"log.allowed.no" = "Não";
+"log.uptime" = "Tempo ligado: ";
+"log.unexpected" = "";
+"log.unexpected.yes" = "Inesperado";
+"log.unexpected.no" = "Informado";

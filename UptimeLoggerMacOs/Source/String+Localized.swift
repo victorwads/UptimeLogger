@@ -9,25 +9,32 @@ import Foundation
 
 enum Strings: String {
     case providerFilesOpenMessage = "provider.files.openmessage"
+    
     case mainLogs = "main.logs"
     case mainCurrent = "main.current"
-    case mainCurrentAllow = "main.current.allow"
-    case mainCurrentDeny = "main.current.deny"
+    case mainCurrentInfo = "main.current.info"
+    case mainCurrentInform = "main.current.inform"
+    case mainCurrentCancel = "main.current.inform.remove"
+    case mainCurrentInformTip = "main.current.inform.tip"
+    case mainCurrentCancelTip = "main.current.inform.remove.tip"
+
     case menuLogs = "menu.logs"
     case menuFoldersReload = "menu.folders.reload"
     case menuFoldersCleanRecents = "menu.folders.cleanrecents"
     case menuFoldersChange = "menu.folders.change"
     case menuFoldersNew = "menu.folders.new"
     case menuFoldersOpen = "menu.folders.open"
+
     case logsLoading = "logs.loading"
     case logsNotFound = "logs.notfound"
-    case logAllow = "log.allow"
-    case logDeny = "log.deny"
+    
+    case logHelp = "log.help"
     case logStartup = "log.startup"
     case logUptime = "log.uptime"
-    case logAllowed = "log.allowed"
-    case logAllowedYes = "log.allowed.yes"
-    case logAllowedNo = "log.allowed.no"
+    case logUnexpected = "log.unexpected"
+    case logUnexpectedYes = "log.unexpected.yes"
+    case logUnexpectedNo = "log.unexpected.no"
+    
     
     var value: String{
         get { NSLocalizedString(self.rawValue, comment: "") }
