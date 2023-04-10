@@ -34,7 +34,8 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(
             logs: .constant([
-                LogItemInfo(fileName: "", content: "")
+                LogItemInfo(fileName: "", content: "shutdown allowed"),
+                LogItemInfo(fileName: "fds", content: "test")
             ]),
             logsFolder: .constant("Some Path")
         )

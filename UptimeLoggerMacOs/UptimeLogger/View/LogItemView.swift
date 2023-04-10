@@ -29,7 +29,11 @@ struct LogItemView: View {
             HStack(alignment: .center) {
                 Text("Shutdown Allowed:").bold()
                 Text(log.shutdownAllowed ? "Yes" : "No")
-                Image(systemName: log.shutdownAllowed ? "checkmark.circle.fill" : "xmark.circle.fill")
+                    .foregroundColor(log.shutdownAllowed ? .green : .red)
+                Image(
+                    systemName: log.shutdownAllowed
+                    ? "checkmark.circle.fill" : "xmark.circle.fill"
+                ).foregroundColor(log.shutdownAllowed ? .green : .red)
             }
         }
         

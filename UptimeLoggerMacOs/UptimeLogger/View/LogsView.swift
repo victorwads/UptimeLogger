@@ -40,8 +40,6 @@ struct LogsView: View {
 struct LogsView_Previews: PreviewProvider {
     static var previews: some View {
         LogsView(items: .constant([
-            LogItemInfo(fileName: "", content: ""),
-            LogItemInfo(fileName: "", content: "shutdown allowed "),
             LogItemInfo(fileName: "", content: "")
         ]))
     }
