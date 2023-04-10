@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  UptimeLogger
+
+  Created by Victor Wads on 10/04/23.
+  
+*/
+/* Menus */
+"menu.logs" = "Registros";
+"menu.folders.reload" = "Recarregar";
+"menu.folders.cleanrecents" = "Limpar Recentes";
+"menu.folders.change" = "Mudar pasta de registros";
+"menu.folders.new" = "Nova pasta";
+"menu.folders.open" = "Abrir pasta de registros";
+
+/* Files Provider */
+"provider.files.openmessage" = "Sem permissão para acessar a pasta de registros\nPara permitir o acesso, selecione a pasta de registros";
+
+/* LogsView */
+"main.logs" = "Registros";
+"main.current" = "Atual";
+"main.current.allow" = "Permitir desligamento";
+"main.current.deny" = "Negar desligamento";
+
+/* LogsView */
+"logs.loading" = "Carregando...";
+"logs.notfound" = "Nenhum registro encontrado";
+
+/* LogItemView */
+"log.allow" = "Permitir";
+"log.deny" = "Negar";
+"log.startup" = "Inicialização: ";
+"log.uptime" = "Tempo de atividade: ";
+"log.allowed" = "Desligamento permitido: ";
+"log.allowed.yes" = "Sim";
+"log.allowed.no" = "Não";

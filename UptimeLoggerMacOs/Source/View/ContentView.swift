@@ -22,18 +22,18 @@ struct ContentView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Current")
+                    Text(Strings.mainLogs.value)
                         .font(.title)
                         .foregroundColor(.gray)
                     LogItemView(
                         log: $current,
                         onToggleAction: {_ in toggleCurrentAction()},
-                        allowText: "Allow ShutDown",
-                        denyText: "Deny ShutDown"
+                        allowText: Strings.mainCurrentAllow.value,
+                        denyText: Strings.mainCurrentDeny.value
                     )
                 }
             }
-            Text("Logs")
+            Text(Strings.mainLogs.value)
                 .font(.title)
                 .foregroundColor(.gray)
             Text(logsFolder)

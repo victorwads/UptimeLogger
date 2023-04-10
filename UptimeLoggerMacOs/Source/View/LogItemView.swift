@@ -12,13 +12,11 @@ struct LogItemView: View {
     @Binding var log: LogItemInfo
 
     var onToggleAction: (LogItemInfo) -> Void
-    var allowText: String = "Mark Allowed"
-    var denyText: String = "Mark Denied"
+    var allowText: String = Strings.logAllow.value
+    var denyText: String = Strings.logDeny.value
     
     private var allow: Bool {
-        get {
-            log.shutdownAllowed
-        }
+        get { log.shutdownAllowed }
     }
     
     var body: some View {
@@ -26,21 +24,21 @@ struct LogItemView: View {
             VStack(alignment: .leading){
                 HStack(alignment: .center) {
                     Image(systemName: "power")
-                    Text("StartUp:").bold()
+                    Text(Strings.logStartup.value).bold()
                     Text("\(log.formattedStartUptime)")
                 }
                 HStack(alignment: .center) {
                     Image(systemName: "clock")
-                    Text("Uptime:").bold()
+                    Text(Strings.logUptime.value).bold()
                     Text("\(log.formattedUptime)")
                 }
             }
             Spacer()
             HStack(alignment: .center) {
-                Text("Shutdown Allowed:").bold()
+                Text(Strings.logAllowed.value).bold()
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Text(allow ? "Yes" : "No")
+                Text(allow ? Strings.logAllowedYes.value : Strings.logAllowedNo.value)
                     .foregroundColor(allow ? .green : .red)
                 Image(systemName: allow ? "checkmark.circle.fill" : "xmark.circle.fill")
                     .foregroundColor(allow ? .green : .red)

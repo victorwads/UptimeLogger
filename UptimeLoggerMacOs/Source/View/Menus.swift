@@ -15,22 +15,30 @@ struct Menus: Commands {
     let clearRecentsAction: () -> Void
     
     var body: some Commands {
-        CommandMenu("Logs") {
-            Button(action: reloadAction) { Text("Reload") }
+        CommandMenu(Strings.menuLogs.value) {
+            Button(action: reloadAction) {
+                Text(Strings.menuFoldersReload.value)
+            }
             if foldersHistory.count < 2 {
-                Button(action: {changeFolderAction(nil)}) { Text("Change logs folder") }
+                Button(action: {changeFolderAction(nil)}) {
+                    Text(Strings.menuFoldersChange.value)
+                }
             } else {
-                Menu("Change logs folder") {
-                    Button(action: clearRecentsAction) { Text("Clean Recents") }
+                Menu(Strings.menuFoldersChange.value) {
+                    Button(action: clearRecentsAction) {
+                        Text(Strings.menuFoldersCleanRecents.value)
+                    }
                     Divider()
                     ForEach(foldersHistory, id: \.self) { folder in
                         Button(action: {changeFolderAction(folder)}) { Text(folder) }
                     }
                     Divider()
-                    Button(action: {changeFolderAction(nil)}) { Text("New") }
+                    Button(action: {changeFolderAction(nil)}) {
+                        Text(Strings.menuFoldersNew.value)
+                    }
                 }
             }
-            Button(action: showLogs) { Text("Open Logs Folder") }
+            Button(action: showLogs) { Text(Strings.menuFoldersOpen.value) }
         }
     }
     

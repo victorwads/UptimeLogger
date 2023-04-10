@@ -17,7 +17,7 @@ struct LogsView: View {
             List([0], id: \.self) { item in
                 HStack(alignment: .center) {
                     Spacer()
-                    ProgressView("Loading...")
+                    ProgressView(Strings.logsLoading.value)
                     Spacer()
                 }
             }
@@ -25,7 +25,7 @@ struct LogsView: View {
             List([0], id: \.self) { item in
                 HStack(alignment: .center) {
                     Spacer()
-                    Text("No logs found.").foregroundColor(.gray)
+                    Text(Strings.logsNotFound.value).foregroundColor(.gray)
                     Spacer()
                 }
             }

@@ -34,12 +34,11 @@ class FilesProvider {
     openPanel.canCreateDirectories = false
     openPanel.canChooseFiles = false
     openPanel.directoryURL = URL(fileURLWithPath: path)
-    openPanel.message = "No permission to access logs folder\nTo allow access, select the logs folder"
+    openPanel.message = Strings.providerFilesOpenMessage.value
     openPanel.showsHiddenFiles = true
     openPanel.begin { (result) -> Void in
       if result == NSApplication.ModalResponse.OK {
         let url = openPanel.urls.first!
-        print("selected url", url, url.path)
         do{
           let bookmarkData = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
           UserDefaults.standard.setValue(bookmarkData, forKey: bookmarkKey(url: url))
