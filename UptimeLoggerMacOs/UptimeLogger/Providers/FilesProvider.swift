@@ -8,7 +8,6 @@ import Cocoa
 import Foundation
 
 func bookmarkKey(_ path: String) -> String{
-//  return "bm:\(path.hasSuffix("/") ? path : path + "/")"
   return "bm2:\(path)"
 }
 
