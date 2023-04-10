@@ -11,21 +11,24 @@ import SwiftUI
 struct UptimeLoggerApp: App {
     
     @State private var logs: [LogItemInfo]? = nil
-    @State private var allowShutDown: Bool = false
+    @State private var currentLog: LogItemInfo = LogItemInfo()
     @State private var foldersHistory: [String] = []
 
     @AppStorage("logsFolder") var logsFolder: String = LogsProvider.shared.folder
     @AppStorage("foldersHistory") var logsFolderHistory: String = ""
     
-    var provider = LogsProvider.shared
+    private var wrapper = TimerWrapper()
+    private var provider = LogsProvider.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView(
                 logs: $logs,
                 logsFolder: $logsFolder,
-                allowState: $allowShutDown,
-                toggleShutdownAction: toggleShutdown,
+                current: $currentLog,
+                toggleCurrentAction: {
+                    provider.setShutDownAllowed(allow: !currentLog.shutdownAllowed)
+                },
                 toggleItemAction: {item in
                     provider.toggleShutdownAllowed(item)
                     loadLogs()
@@ -35,6 +38,16 @@ struct UptimeLoggerApp: App {
                 loadRecents()
                 changeFolder(false)
             }
+            .onAppear(perform: {
+                wrapper.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                    loadCurrent()
+                }
+                wrapper.timer?.fire()
+            })
+            .onDisappear(perform: {
+                wrapper.timer?.invalidate()
+                wrapper.timer = nil
+            })
         }.commands {
             Menus(
                 foldersHistory: $foldersHistory,
@@ -48,11 +61,11 @@ struct UptimeLoggerApp: App {
         }
     }
     
-    func loadRecents() {
+    private func loadRecents() {
         foldersHistory = logsFolderHistory.components(separatedBy: ",").filter { !$0.isEmpty }
     }
 
-    func updateRecents() {
+    private func updateRecents() {
         let path = provider.folder
         if !foldersHistory.contains(path) {
             foldersHistory.append(path)
@@ -60,7 +73,7 @@ struct UptimeLoggerApp: App {
         }
     }
     
-    func changeFolder(_ change: Bool = true, _ folder: String? = nil) {
+    private func changeFolder(_ change: Bool = true, _ folder: String? = nil) {
         let folder = folder ?? LogsProvider.shared.folder
         FilesProvider.shared.authorize(folder, change) {
             provider.folder = $0
@@ -69,21 +82,22 @@ struct UptimeLoggerApp: App {
             updateRecents()
         }
     }
-
-    func toggleShutdown() {
-        provider.setShutDownAllowed(allow: !allowShutDown)
-        loadAllowShutDownState()
+    
+    private func loadCurrent() {
+        var current = provider.loadCurrentLog()
+        current.shutdownAllowed = provider.getShutDownAllowed()
+        currentLog = current
     }
 
-    func loadAllowShutDownState() {
-        allowShutDown = provider.getShutDownAllowed()
-    }
-
-    func loadLogs() {
+    private func loadLogs() {
         logs = nil
-        loadAllowShutDownState()
+        loadCurrent()
         DispatchQueue.global().async {
             logs = provider.loadLogs()
         }
     }
+}
+
+class TimerWrapper {
+    var timer: Timer? = nil
 }

@@ -32,9 +32,10 @@ struct LogsView: View {
         } else if let logItems = items {
             List(logItems, id: \.startUpTime) { logItem in
                 LogItemView(
-                    onToggleAction: onToggleAction,
-                    log: .constant(logItem)
+                    log: .constant(logItem),
+                    onToggleAction: onToggleAction
                 )
+                Divider()
             }
         }
     }

@@ -9,10 +9,13 @@ import SwiftUI
 
 struct LogItemView: View {
     
-    var onToggleAction: (LogItemInfo) -> Void
-    
     @Binding var log: LogItemInfo
-    var allow: Bool {
+
+    var onToggleAction: (LogItemInfo) -> Void
+    var allowText: String = "Mark Allowed"
+    var denyText: String = "Mark Denied"
+    
+    private var allow: Bool {
         get {
             log.shutdownAllowed
         }
@@ -35,6 +38,8 @@ struct LogItemView: View {
             Spacer()
             HStack(alignment: .center) {
                 Text("Shutdown Allowed:").bold()
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
                 Text(allow ? "Yes" : "No")
                     .foregroundColor(allow ? .green : .red)
                 Image(systemName: allow ? "checkmark.circle.fill" : "xmark.circle.fill")
@@ -43,9 +48,7 @@ struct LogItemView: View {
             Spacer()
             Button(action: { onToggleAction(log) }) {
                 Label(
-                    title: { Text(
-                        allow ? "Mark Denied" : "Mark Allowed"
-                    ) },
+                    title: { Text(allow ? denyText : allowText) },
                     icon: { Image(
                         systemName: allow ? "xmark.circle.fill" : "checkmark.circle.fill"
                     ) }
@@ -53,16 +56,14 @@ struct LogItemView: View {
             }
 
         }
-        
-        Divider()
     }
 }
 
 struct LogItemView_Previews: PreviewProvider {
     static var previews: some View {
         LogItemView(
-            onToggleAction: {_ in },
-            log: .constant(LogItemInfo(fileName: "", content: ""))
+            log: .constant(LogItemInfo(fileName: "", content: "")),
+            onToggleAction: {_ in }
         )
     }
 }

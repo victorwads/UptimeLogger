@@ -13,15 +13,36 @@ class LogsProvider {
     static let shared = LogsProvider()
     
     var folder = "/Library/UptimeLogger/logs"
+    
+    private func getFileContents(_ filePath: String) -> String? {
+        if let logData = FileManager.default.contents(atPath: filePath) {
+            return String(data: logData, encoding: .utf8)
+        }
+        return ""
+    }
  
+    public func loadCurrentLog() -> LogItemInfo {
+        let symlinkPath = folder + "/latest"
+        do {
+            let realPath = try FileManager.default.destinationOfSymbolicLink(atPath: symlinkPath)
+            let url = URL(fileURLWithPath: realPath)
+            let filename = url.lastPathComponent
+            let contents = getFileContents(url.path) ?? ""
+            
+            return LogItemInfo(fileName: filename, content: contents)
+        } catch {
+            print(error.localizedDescription)
+        }
+        return LogItemInfo()
+    }
+    
     public func loadLogs() -> [LogItemInfo] {
         var results: [LogItemInfo] = []
         let logFiles = FileManager.default.enumerator(atPath: folder)?.allObjects as? [String] ?? []
         let logFilePaths = logFiles.filter { $0.hasSuffix(".txt") }.map { $0 }
         
         for logFilePath in logFilePaths {
-            if let logData = FileManager.default.contents(atPath: folder+"/"+logFilePath),
-               let log = String(data: logData, encoding: .utf8) {
+            if let log = getFileContents(folder+"/"+logFilePath) {
                 results.append(
                     LogItemInfo(fileName: logFilePath, content: log)
                 )

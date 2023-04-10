@@ -11,10 +11,10 @@ struct LogItemInfo: Identifiable {
     let id = UUID()
     let startUpTime: Date
     let uptimeInSeconds: TimeInterval
-    let shutdownAllowed: Bool
+    var shutdownAllowed: Bool
     let fileName: String
 
-    init(fileName: String, content: String) {
+    init(fileName: String = "", content: String = "") {
         self.fileName = fileName
         let formatter = DateFormatter()
         formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"

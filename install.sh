@@ -13,7 +13,7 @@ function update() {
 
 # Check for restart option
 if [[ "$*" == *"--fake-update"* ]]; then
-    update log_latest.txt logs/updated
+    update logs/latest logs/updated
     exit 0
 fi
 
@@ -65,6 +65,8 @@ if [[ "$*" == *"--uninstall"* ]]; then
         sudo rm -f "$INSTALL_FOLDER/watch.sh"
         sudo rm -f "$INSTALL_FOLDER/uptime_logger.sh"
         sudo rm -f "$INSTALL_FOLDER/log_latest.txt"
+        sudo rm -f "$INSTALL_FOLDER/logs/latest"
+        sudo rm -f "$INSTALL_FOLDER/logs/cached"
         ;;
     esac
     echo ""
@@ -75,6 +77,11 @@ fi
 # Check for restart option
 if [[ "$*" == *"--reinstall"* ]]; then
     # Allow Shutdown for continue the same log file on restart
+    if [ -f "$INSTALL_FOLDER/logs/latest" ]; then
+        echo "Allowing logger shutdown for update"
+        update "$INSTALL_FOLDER/logs/latest" "$INSTALL_FOLDER/logs/updated"
+    fi
+    # Deprecated
     if [ -f "$INSTALL_FOLDER/log_latest.txt" ]; then
         echo "Allowing logger shutdown for update"
         update "$INSTALL_FOLDER/log_latest.txt" "$INSTALL_FOLDER/logs/updated"

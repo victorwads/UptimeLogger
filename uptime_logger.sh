@@ -4,7 +4,7 @@ DEBUG=false
 # Define paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 LOGS_DIR="$SCRIPT_DIR/logs"
-LOG_LATEST="$SCRIPT_DIR/log_latest.txt"
+LOG_LATEST="$LOGS_DIR/latest"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi

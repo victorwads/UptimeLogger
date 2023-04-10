@@ -11,47 +11,34 @@ struct ContentView: View {
     
     @Binding var logs: [LogItemInfo]?
     @Binding var logsFolder: String
-    @Binding var allowState: Bool
-    var toggleShutdownAction: () -> Void = { }
+    @Binding var current: LogItemInfo
+    var toggleCurrentAction: () -> Void = { }
     var toggleItemAction: (LogItemInfo) -> Void = {_ in }
+    var allowState: Bool {
+        get { current.shutdownAllowed }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Logs")
+                    Text("Current")
                         .font(.title)
                         .foregroundColor(.gray)
-                    Text(logsFolder)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-                Spacer()
-                VStack(alignment: .trailing, spacing: 10) {
-                    Button(action: toggleShutdownAction) {
-                        Label(
-                            title: { Text(
-                                allowState ? "Deny Shutdown" : "Allow ShutDown"
-                            ) },
-                            icon: { Image(
-                                systemName: allowState ? "xmark.circle.fill" : "checkmark.circle.fill"
-                            ) }
-                        )
-                    }
-                    HStack() {
-                        Text("Current Shutdown Allowed:")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                        Text(allowState ? "Yes" : "No")
-                            .font(.subheadline)
-                            .foregroundColor(allowState ? .green : .red)
-                        Image(
-                            systemName: allowState
-                            ? "checkmark.circle.fill" : "xmark.circle.fill"
-                        ).foregroundColor(allowState ? .green : .red)
-                    }
+                    LogItemView(
+                        log: $current,
+                        onToggleAction: {_ in toggleCurrentAction()},
+                        allowText: "Allow ShutDown",
+                        denyText: "Deny ShutDown"
+                    )
                 }
             }
+            Text("Logs")
+                .font(.title)
+                .foregroundColor(.gray)
+            Text(logsFolder)
+                .font(.subheadline)
+                .foregroundColor(.gray)
             
             LogsView(
                 onToggleAction: toggleItemAction,
@@ -70,10 +57,10 @@ struct ContentView_Previews: PreviewProvider {
         ContentView(
             logs: .constant([
                 LogItemInfo(fileName: "", content: "shutdown allowed"),
-                LogItemInfo(fileName: "fds", content: "test")
+                LogItemInfo()
             ]),
             logsFolder: .constant("Some Path"),
-            allowState: .constant(true)
+            current: .constant(LogItemInfo())
         )
     }
 }
