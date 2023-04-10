@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 class LogsProvider {
     
@@ -31,4 +32,22 @@ class LogsProvider {
         return results
     }
     
+    public func setShutDownAllowed(allow: Bool) {
+        let filePath = folder + "shutdown"
+        if allow {
+            FileManager.default.createFile(atPath: filePath, contents: "".data(using: .utf8), attributes: nil)
+        } else {
+            do {
+                try FileManager.default.removeItem(atPath: filePath)
+            } catch {
+                print("Error removing shutdown file: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    public func getShutDownAllowed() -> Bool {
+        let filePath = folder + "shutdown"
+        return FileManager.default.fileExists(atPath: filePath)
+    }
+
 }
