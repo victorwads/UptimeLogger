@@ -10,6 +10,8 @@ import SwiftUI
 @main
 struct UptimeLoggerApp: App {
     
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     @State private var serviceInstalled: Bool = false
     @State private var showInstallation: Bool = false
     @State private var logs: [LogItemInfo]? = nil
