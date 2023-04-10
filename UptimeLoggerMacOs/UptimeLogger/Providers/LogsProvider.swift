@@ -20,26 +20,32 @@ class LogsProvider {
         }
         return ""
     }
- 
-    public func loadCurrentLog() -> LogItemInfo {
-        let symlinkPath = folder + "/latest"
+    
+    private func getCurrentFileName() -> String {
         do {
+            let symlinkPath = folder + "/latest"
             let realPath = try FileManager.default.destinationOfSymbolicLink(atPath: symlinkPath)
             let url = URL(fileURLWithPath: realPath)
-            let filename = url.lastPathComponent
-            let contents = getFileContents(url.path) ?? ""
-            
-            return LogItemInfo(fileName: filename, content: contents)
+            return url.lastPathComponent
         } catch {
-            print(error.localizedDescription)
+            return ""
         }
-        return LogItemInfo()
+    }
+ 
+    public func loadCurrentLog() -> LogItemInfo {
+        let filename = getCurrentFileName()
+        let contents = getFileContents(folder + "/" + filename) ?? ""
+
+        return LogItemInfo(fileName: filename, content: contents)
     }
     
     public func loadLogs() -> [LogItemInfo] {
         var results: [LogItemInfo] = []
+        
+        let currentFileName = getCurrentFileName()
+        
         let logFiles = FileManager.default.enumerator(atPath: folder)?.allObjects as? [String] ?? []
-        let logFilePaths = logFiles.filter { $0.hasSuffix(".txt") }.map { $0 }
+        let logFilePaths = logFiles.filter { $0.hasSuffix(".txt") && $0 != currentFileName }
         
         for logFilePath in logFilePaths {
             if let log = getFileContents(folder+"/"+logFilePath) {
