@@ -10,6 +10,7 @@
 *.perspectivev3
 *.xcworkspace
 *.xcuserstate
+**/xcuserdata/**
 
 # Arquivos de compilação do Swift Package Manager
 .build/
