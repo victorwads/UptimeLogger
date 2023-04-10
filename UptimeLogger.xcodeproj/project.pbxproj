@@ -41,6 +41,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9350B23029E49F6A00223594 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		93057FD429E3589900D1FD50 /* LogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsView.swift; sourceTree = "<group>"; };
 		938F6D6129E3909000DACB7A /* LogsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsProvider.swift; sourceTree = "<group>"; };
@@ -89,6 +101,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9350B23129E49FA900223594 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		938F6D5F29E3905B00DACB7A /* Providers */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +131,7 @@
 		93A07CDF29E35501000EDA9C = {
 			isa = PBXGroup;
 			children = (
+				9350B23129E49FA900223594 /* Scripts */,
 				93BEA29029E4659300280DAC /* Source */,
 				93A07CEA29E35501000EDA9C /* UptimeLogger */,
 				93A07CFC29E35502000EDA9C /* UptimeLoggerTests */,
@@ -196,6 +216,7 @@
 				93A07CE429E35501000EDA9C /* Sources */,
 				93A07CE529E35501000EDA9C /* Frameworks */,
 				93A07CE629E35501000EDA9C /* Resources */,
+				9350B23029E49F6A00223594 /* CopyFiles */,
 			);
 			buildRules = (
 			);

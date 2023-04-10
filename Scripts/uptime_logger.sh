@@ -62,13 +62,16 @@ while true; do
         UPTIME=$(uptime -p)
     fi
 
-    echo "Init: $STARTUP" >"$LOG_FILE"
-    echo "last record: $UPTIME" >>"$LOG_FILE"
+    LOG="init: $STARTUP"
+    LOG+="lastrecord: $UPTIME"
+    LOG+="lastdate: $(date +"%Y-%m-%d_%H-%M-%S")"    
+    LOG+="version: 1"    
+
+    echo "$LOG" >"$LOG_FILE"
 
     if [ $DEBUG = true ]; then
         echo ""
-        echo "Init: $STARTUP"
-        echo "last record: $UPTIME"
+        echo "$LOG"
     fi
     sleep 1
 done

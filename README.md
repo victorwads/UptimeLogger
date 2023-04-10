@@ -9,6 +9,8 @@ I started this script to help create a report of how much times restarts and for
 
 just run:
 ```bash
+cd Scrtpits
+
 # To Log
 bash uptime_logger.sh
 
@@ -25,6 +27,8 @@ Every 1 system startUp it will create a file at `/PROGRAM_FOLDER/logs` and that 
 `For now, it was only tested on MacOs.`
 
 ```bash
+cd Scrtpits
+
 # To Install
 ./install.sh
 
