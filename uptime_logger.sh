@@ -1,34 +1,55 @@
 #!/bin/bash
 DEBUG=false
 
-# Registra a data e hora de inicialização
-INIT_STRING="Init: $(date +"%Y-%m-%d %H:%M:%S")"
-echo $INIT_STRING >$LOG_FILE
-
-# Define o diretório do script e o diretório de log
+# Define paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 LOGS_DIR="$SCRIPT_DIR/logs"
+LOG_LATEST="$SCRIPT_DIR/log_latest.txt"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi
+chmod -R 777 "$LOGS_DIR"
+
+# Allowed Shutdown Features
+CACHE_FILE="$LOGS_DIR/cache"
+UPDATE_FILE="$LOGS_DIR/updated"
+SHUTDOWN_FILE="$LOGS_DIR/shutdown"
+
+# Allow Shutdown Script
+if [[ "$*" == *"-s"* ]] || [[ "$*" == *"--allow-shutdown"* ]]; then
+    touch "$SHUTDOWN_FILE"
+    exit 0
+fi
+if test -f "$SHUTDOWN_FILE" && test -f "$LOG_LATEST"; then
+    echo "shutdown allowed" >>"$LOG_LATEST"
+    rm "$SHUTDOWN_FILE"
+fi
+
+# Registra a data e hora de inicialização
+if [ -f "$UPDATE_FILE" ]; then
+    STARTUP="$(cat "$UPDATE_FILE")"
+    mv "$UPDATE_FILE" "$CACHE_FILE"
+    echo "Continuing from update of $STARTUP"
+else
+    STARTUP="$(date +"%Y-%m-%d_%H-%M-%S")"
+    echo "$STARTUP" > "$CACHE_FILE"
+fi
 
 # Set log files names
-LOG_FILE="$LOGS_DIR/log_$(date +"%Y-%m-%d_%H-%M-%S").txt"
-LOG_LATEST="$SCRIPT_DIR/log_latest.txt"
+LOG_FILE="$LOGS_DIR/log_$STARTUP.txt"
+ln -sf $LOG_FILE $LOG_LATEST
 
 # Verifica se o modo de depuração está habilitado
 if [[ "$*" == *"--debug"* ]] || [[ "$*" == *"-d"* ]]; then
     DEBUG=true
+    echo ""
     echo "OSTYPE: $OSTYPE"
     echo "SCRIPT_DIR: $SCRIPT_DIR"
     echo "LOGS_DIR: $LOGS_DIR"
-    echo "LOG_FILE: $LOG_FILE"
     echo "LOG_LATEST: $LOG_LATEST"
-    echo "INIT_STRING: $INIT_STRING"
+    echo "LOG_FILE: $LOG_FILE"
+    echo "STARTUP: $STARTUP"
 fi
-
-# Cria um link simbólico para o último arquivo de log
-ln -sf $LOG_FILE $LOG_LATEST
 
 # Loop infinito para atualizar o uptime a cada 5 minutos
 while true; do
@@ -41,13 +62,13 @@ while true; do
         UPTIME=$(uptime -p)
     fi
 
-    if [ "$DEBUG" = true ]; then
+    echo "Init: $STARTUP" >"$LOG_FILE"
+    echo "last record: $UPTIME" >>"$LOG_FILE"
+
+    if [ $DEBUG = true ]; then
         echo ""
-        echo "$INIT_STRING"
+        echo "Init: $STARTUP"
         echo "last record: $UPTIME"
     fi
-
-    echo "$INIT_STRING" > "$LOG_FILE"
-    echo "last record: $UPTIME" >> "$LOG_FILE"
     sleep 1
 done

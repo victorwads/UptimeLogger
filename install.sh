@@ -2,6 +2,12 @@
 export PROGRAM_NAME="UptimeLogger"
 export SERVICE_NAME="br.com.victorwads.uptimelogger"
 
+# Check for restart option
+if [[ "$*" == *"--fake-update"* ]]; then
+    mv logs/cache logs/updated
+    exit 0
+fi
+
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if command -v lsb_release >/dev/null; then
         os_name=$(lsb_release -si)
@@ -59,6 +65,12 @@ fi
 
 # Check for restart option
 if [[ "$*" == *"--reinstall"* ]]; then
+    # Allow Shutdown for continue the same log file on restart
+    if [ -f "$INSTALL_FOLDER/logs/cache" ]; then
+        echo "Allowing logger shutdown for update"
+        sudo mv "$INSTALL_FOLDER/logs/cache" "$INSTALL_FOLDER/logs/updated"
+    fi
+
     removeService
 
     echo "Removing old program files using sudo"
