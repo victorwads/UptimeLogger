@@ -12,7 +12,8 @@ struct ContentView: View {
     @Binding var logs: [LogItemInfo]?
     @Binding var logsFolder: String
     @Binding var allowState: Bool
-    var toggleShutdownAction: () -> Void
+    var toggleShutdownAction: () -> Void = { }
+    var toggleItemAction: (LogItemInfo) -> Void = {_ in }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -52,7 +53,10 @@ struct ContentView: View {
                 }
             }
             
-            LogsView(items: $logs)
+            LogsView(
+                onToggleAction: toggleItemAction,
+                items: $logs
+            )
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -69,8 +73,7 @@ struct ContentView_Previews: PreviewProvider {
                 LogItemInfo(fileName: "fds", content: "test")
             ]),
             logsFolder: .constant("Some Path"),
-            allowState: .constant(true),
-            toggleShutdownAction: {}
+            allowState: .constant(true)
         )
     }
 }

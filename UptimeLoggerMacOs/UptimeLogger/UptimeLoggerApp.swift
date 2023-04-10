@@ -25,7 +25,11 @@ struct UptimeLoggerApp: App {
                 logs: $logs,
                 logsFolder: $logsFolder,
                 allowState: $allowShutDown,
-                toggleShutdownAction: toggleShutdown
+                toggleShutdownAction: toggleShutdown,
+                toggleItemAction: {item in
+                    provider.toggleShutdownAllowed(item)
+                    loadLogs()
+                }
             ).onAppear {
                 provider.folder = logsFolder
                 loadRecents()

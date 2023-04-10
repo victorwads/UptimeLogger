@@ -50,5 +50,25 @@ class LogsProvider {
         let filePath = folder + "/" + "shutdown"
         return FileManager.default.fileExists(atPath: filePath)
     }
+    
+    public func toggleShutdownAllowed(_ file: LogItemInfo) {
+        let allowed = !file.shutdownAllowed
+        if let logData = FileManager.default.contents(atPath: folder+"/"+file.fileName),
+           let log = String(data: logData, encoding: .utf8) {
+            
+            let key = "shutdown allowed"
+            var lines = log.components(separatedBy: "\n")
+            if allowed {
+                lines.append(key)
+            } else {
+                lines = lines.filter { !$0.hasPrefix(key) }
+            }
+            do {
+                try lines.joined(separator: "\n").write(toFile: folder+"/"+file.fileName, atomically: true, encoding: .utf8)
+            } catch {
+                
+            }
+        }
+    }
 
 }

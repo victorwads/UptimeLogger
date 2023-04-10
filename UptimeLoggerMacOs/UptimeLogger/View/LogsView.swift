@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LogsView: View {
     
+    var onToggleAction: (LogItemInfo) -> Void = {_ in }
     @Binding var items: [LogItemInfo]?
 
     var body: some View {
@@ -30,7 +31,10 @@ struct LogsView: View {
             }
         } else if let logItems = items {
             List(logItems, id: \.startUpTime) { logItem in
-                LogItemView(log: .constant(logItem))
+                LogItemView(
+                    onToggleAction: onToggleAction,
+                    log: .constant(logItem)
+                )
             }
         }
     }
