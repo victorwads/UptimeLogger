@@ -37,8 +37,9 @@ class LogsProvider {
         if allow {
             FileManager.default.createFile(atPath: filePath, contents: "".data(using: .utf8), attributes: nil)
         } else {
+            let url = URL.init(fileURLWithPath: filePath, isDirectory: true)
             do {
-                try FileManager.default.removeItem(atPath: filePath)
+                try FileManager.default.trashItem(at: url, resultingItemURL: nil)
             } catch {
                 print("Error removing shutdown file: \(error.localizedDescription)")
             }

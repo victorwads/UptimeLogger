@@ -30,7 +30,7 @@ struct UptimeLoggerApp: App {
             .alert(isPresented: $showingAlert) {
                 Alert(
                     title: Text("No permission to access logs folder"),
-                    message: Text("To allow access, click Open in the next dialog and select the Logs folder."),
+                    message: Text("To allow access, select the logs folder."),
                     primaryButton: .default(Text("OK"), action: {
                         changeFolder()
                     }),
@@ -57,20 +57,11 @@ struct UptimeLoggerApp: App {
     }
 
     func changeFolder() {
-        let openPanel = NSOpenPanel()
-        openPanel.canChooseDirectories = true
-        openPanel.canChooseFiles = false
-        openPanel.allowsMultipleSelection = false
-        openPanel.directoryURL = URL(fileURLWithPath: LogsProvider.shared.folder)
-
-        openPanel.begin { result in
-            if result == .OK, let url = openPanel.url {
-                provider.folder = url.relativePath+"/"
-                logsFolder = url.relativePath+"/"
-            }
+        FilesProvider.shared.authorize(LogsProvider.shared.folder) {
+            provider.folder = $0+"/"
+            logsFolder = $0+"/"
             loadLogs()
         }
-        
     }
 
     func toggleShutdown() {

@@ -8,8 +8,8 @@ LOG_LATEST="$SCRIPT_DIR/log_latest.txt"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi
-chmod 777 "$LOGS_DIR"
-chmod -R 777 "$LOGS_DIR"
+chmod 766 "$LOGS_DIR"
+chmod -R 766 "$LOGS_DIR"
 
 # Allowed Shutdown Features
 UPDATE_FILE="$LOGS_DIR/updated"
@@ -18,6 +18,7 @@ SHUTDOWN_FILE="$LOGS_DIR/shutdown"
 # Allow Shutdown Script
 if [[ "$*" == *"-s"* ]] || [[ "$*" == *"--allow-shutdown"* ]]; then
     touch "$SHUTDOWN_FILE"
+    chmod 766 "$SHUTDOWN_FILE"
     exit 0
 fi
 if test -f "$SHUTDOWN_FILE" && test -f "$LOG_LATEST"; then
