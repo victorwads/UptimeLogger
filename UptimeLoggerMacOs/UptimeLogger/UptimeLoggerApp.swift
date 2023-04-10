@@ -12,7 +12,6 @@ struct UptimeLoggerApp: App {
     
     @State private var logs: [LogItemInfo]? = nil
     @State private var allowShutDown: Bool = false
-    @State private var showingAlert = false
 
     @AppStorage("logsFolder") var logsFolder: String = LogsProvider.shared.folder
     var provider = LogsProvider.shared
@@ -27,22 +26,10 @@ struct UptimeLoggerApp: App {
             ).onAppear {
                 checkPermission()
             }
-            .alert(isPresented: $showingAlert) {
-                Alert(
-                    title: Text("No permission to access logs folder"),
-                    message: Text("To allow access, select the logs folder."),
-                    primaryButton: .default(Text("OK"), action: {
-                        changeFolder()
-                    }),
-                    secondaryButton: .cancel(Text("Cancel"), action: {
-                        NSApplication.shared.terminate(self)
-                    })
-                )
-            }
         }.commands {
             Menus(
                 reloadAction: loadLogs,
-                changeFolderAction: changeFolder
+                changeFolderAction: {changeFolder()}
             )
         }
     }
@@ -52,14 +39,14 @@ struct UptimeLoggerApp: App {
         if FileManager.default.isReadableFile(atPath: provider.folder) {
             loadLogs()
         } else {
-            showingAlert = true
+            changeFolder(false)
         }
     }
 
-    func changeFolder() {
-        FilesProvider.shared.authorize(LogsProvider.shared.folder) {
-            provider.folder = $0+"/"
-            logsFolder = $0+"/"
+    func changeFolder(_ change: Bool = true) {
+        FilesProvider.shared.authorize(LogsProvider.shared.folder, change) {
+            provider.folder = $0
+            logsFolder = $0
             loadLogs()
         }
     }

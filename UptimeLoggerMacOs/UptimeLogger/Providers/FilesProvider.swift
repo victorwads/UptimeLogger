@@ -18,12 +18,14 @@ func bookmarkKey(url: URL) -> String{
 class FilesProvider {
   public static let shared = FilesProvider()
   
-  func authorize(_ path: String, callback: @escaping (String) -> Void){
-    if let bookmarkData = UserDefaults.standard.object(forKey: bookmarkKey(path)){
-      if self.resolveBookmark(data: bookmarkData as! Data){
-        callback(path)
-        return
-      }
+    func authorize(_ path: String, _ change: Bool, callback: @escaping (String) -> Void){
+    if !change {
+        if let bookmarkData = UserDefaults.standard.object(forKey: bookmarkKey(path)){
+            if self.resolveBookmark(data: bookmarkData as! Data){
+                callback(path)
+                return
+            }
+        }
     }
     
     let openPanel = NSOpenPanel()
@@ -41,7 +43,7 @@ class FilesProvider {
         do{
           let bookmarkData = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
           UserDefaults.standard.setValue(bookmarkData, forKey: bookmarkKey(url: url))
-          _ = self.resolveBookmark(data: bookmarkData)
+          self.resolveBookmark(data: bookmarkData)
           callback(url.path)
         } catch {
           print(error.localizedDescription)
@@ -55,10 +57,7 @@ class FilesProvider {
       var isStale = ObjCBool(false)
       let url = try NSURL(resolvingBookmarkData: data, options: URL.BookmarkResolutionOptions.withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale)
       
-      print("resolved url \(url)")
-      
       if isStale.boolValue{
-        print("renew bookmark data")
         let bookmark = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
         UserDefaults.standard.setValue(bookmark, forKey:bookmarkKey(url.path!))
       }
@@ -67,12 +66,11 @@ class FilesProvider {
           print("Failed to access sandbox files")
       }
       
-      print("Started accessing")
       return true
       
     } catch {
         print(error.localizedDescription)
-      return false
+        return false
     }
   }
 

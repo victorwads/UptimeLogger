@@ -12,7 +12,7 @@ class LogsProvider {
     
     static let shared = LogsProvider()
     
-    var folder = "/Library/UptimeLogger/logs/"
+    var folder = "/Library/UptimeLogger/logs"
  
     public func loadLogs() -> [LogItemInfo] {
         var results: [LogItemInfo] = []
@@ -20,7 +20,7 @@ class LogsProvider {
         let logFilePaths = logFiles.filter { $0.hasSuffix(".txt") }.map { $0 }
         
         for logFilePath in logFilePaths {
-            if let logData = FileManager.default.contents(atPath: folder+logFilePath),
+            if let logData = FileManager.default.contents(atPath: folder+"/"+logFilePath),
                let log = String(data: logData, encoding: .utf8) {
                 results.append(
                     LogItemInfo(fileName: logFilePath, content: log)
