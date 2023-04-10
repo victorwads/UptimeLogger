@@ -44,6 +44,15 @@ else
     exit 1
 fi
 
+# Welcome
+echo "#################################################################"
+echo "##               Installing UptimeLogger Service               ##"
+echo "#################################################################"
+echo "##                                                             ##"
+echo "##       Your password will be asked, type for continue        ##"
+echo "##                                                             ##"
+echo "#################################################################"
+
 # Check for restart option
 if [[ "$*" == *"--restart"* || "$*" == *"--reload"* ]]; then
     restartService

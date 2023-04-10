@@ -10,10 +10,12 @@ import AppKit
 
 class LogsProvider {
     
+    private static let serviceFolder = "/Library/UptimeLogger/"
+    private let scriptName = "uptime_logger.sh"
+
     static let shared = LogsProvider()
-    
-    var folder = "/Library/UptimeLogger/logs"
-    
+    var folder = serviceFolder + "logs"
+
     private func getFileContents(_ filePath: String) -> String? {
         if let logData = FileManager.default.contents(atPath: filePath) {
             return String(data: logData, encoding: .utf8)
@@ -95,6 +97,21 @@ class LogsProvider {
             } catch {
                 
             }
+        }
+    }
+    
+    public var isServiceInstalled: Bool {
+        get {
+            FileManager.default.fileExists(atPath: LogsProvider.serviceFolder + scriptName)
+        }
+    }
+    
+    public func installService() {
+        if let resourcePath = Bundle.main.resourcePath {
+            let task = Process()
+            task.launchPath = "/usr/bin/open"
+            task.arguments = ["-a", "Terminal", "-n", resourcePath + "/Scripts/"]
+            task.launch()
         }
     }
 

@@ -8,12 +8,14 @@ import SwiftUI
 
 struct Menus: Commands {
     
+    @Binding var serviceInstalled: Bool
     @Binding var foldersHistory: [String]
     
     let reloadAction: () -> Void
     let changeFolderAction: (String?) -> Void
     let clearRecentsAction: () -> Void
-    
+    let installAction: () -> Void
+
     var body: some Commands {
         CommandMenu(Strings.menuLogs.value) {
             Button(action: reloadAction) {
@@ -39,6 +41,12 @@ struct Menus: Commands {
                 }
             }
             Button(action: showLogs) { Text(Strings.menuFoldersOpen.value) }
+            if(!serviceInstalled){
+                Divider()
+                Button(action: installAction) {
+                    Text("Install Service")
+                }
+            }
         }
     }
     

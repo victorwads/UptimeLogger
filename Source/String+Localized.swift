@@ -35,6 +35,12 @@ enum Strings: String {
     case logUnexpectedYes = "log.unexpected.yes"
     case logUnexpectedNo = "log.unexpected.no"
     
+    case installTitle = "install.title"
+    case installServiceTitle = "install.service.title"
+    case installMessage = "install.message"
+    case installStep1 = "install.1"
+    case installStep1Tip = "install.1.tip"
+    case installStep2 = "install.2"
     
     var value: String{
         get { NSLocalizedString(self.rawValue, comment: "") }
