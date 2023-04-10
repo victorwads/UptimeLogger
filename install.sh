@@ -2,9 +2,18 @@
 export PROGRAM_NAME="UptimeLogger"
 export SERVICE_NAME="br.com.victorwads.uptimelogger"
 
+function update() {
+    LASTLOG="$(readlink "$1")"
+    FILENAME=$(basename "$LASTLOG" _*.txt)
+    LATEST_STARTUP="${FILENAME#*_}"
+    LATEST_STARTUP="${LATEST_STARTUP%.txt}"
+    echo "$LATEST_STARTUP" > "$2"
+    cat "$2"
+}
+
 # Check for restart option
 if [[ "$*" == *"--fake-update"* ]]; then
-    mv logs/cache logs/updated
+    update log_latest.txt logs/updated
     exit 0
 fi
 
@@ -66,9 +75,9 @@ fi
 # Check for restart option
 if [[ "$*" == *"--reinstall"* ]]; then
     # Allow Shutdown for continue the same log file on restart
-    if [ -f "$INSTALL_FOLDER/logs/cache" ]; then
+    if [ -f "$INSTALL_FOLDER/log_latest.txt" ]; then
         echo "Allowing logger shutdown for update"
-        sudo mv "$INSTALL_FOLDER/logs/cache" "$INSTALL_FOLDER/logs/updated"
+        update "$INSTALL_FOLDER/log_latest.txt" "$INSTALL_FOLDER/logs/updated"
     fi
 
     removeService

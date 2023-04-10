@@ -8,10 +8,10 @@ LOG_LATEST="$SCRIPT_DIR/log_latest.txt"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi
+chmod 777 "$LOGS_DIR"
 chmod -R 777 "$LOGS_DIR"
 
 # Allowed Shutdown Features
-CACHE_FILE="$LOGS_DIR/cache"
 UPDATE_FILE="$LOGS_DIR/updated"
 SHUTDOWN_FILE="$LOGS_DIR/shutdown"
 
@@ -28,11 +28,10 @@ fi
 # Registra a data e hora de inicialização
 if [ -f "$UPDATE_FILE" ]; then
     STARTUP="$(cat "$UPDATE_FILE")"
-    mv "$UPDATE_FILE" "$CACHE_FILE"
+    rm "$UPDATE_FILE"
     echo "Continuing from update of $STARTUP"
 else
     STARTUP="$(date +"%Y-%m-%d_%H-%M-%S")"
-    echo "$STARTUP" > "$CACHE_FILE"
 fi
 
 # Set log files names
