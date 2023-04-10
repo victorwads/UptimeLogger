@@ -11,6 +11,7 @@
 *.xcworkspace
 *.xcuserstate
 **/xcuserdata/**
+**/xcshareddata/**
 
 # Arquivos de compilação do Swift Package Manager
 .build/
