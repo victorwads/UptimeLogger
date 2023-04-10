@@ -26,14 +26,28 @@ struct ContentView: View {
                         .foregroundColor(.gray)
                 }
                 Spacer()
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .trailing, spacing: 10) {
                     Button(action: toggleShutdownAction) {
                         Label(
                             title: { Text(
                                 allowState ? "Deny Shutdown" : "Allow ShutDown"
                             ) },
-                            icon: { Image(systemName: "power") }
+                            icon: { Image(
+                                systemName: allowState ? "xmark.circle.fill" : "checkmark.circle.fill"
+                            ) }
                         )
+                    }
+                    HStack() {
+                        Text("Current Shutdown Allowed:")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Text(allowState ? "Yes" : "No")
+                            .font(.subheadline)
+                            .foregroundColor(allowState ? .green : .red)
+                        Image(
+                            systemName: allowState
+                            ? "checkmark.circle.fill" : "xmark.circle.fill"
+                        ).foregroundColor(allowState ? .green : .red)
                     }
                 }
             }

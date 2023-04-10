@@ -33,7 +33,7 @@ class LogsProvider {
     }
     
     public func setShutDownAllowed(allow: Bool) {
-        let filePath = folder + "shutdown"
+        let filePath = folder + "/" + "shutdown"
         if allow {
             FileManager.default.createFile(atPath: filePath, contents: "".data(using: .utf8), attributes: nil)
         } else {
@@ -47,7 +47,7 @@ class LogsProvider {
     }
 
     public func getShutDownAllowed() -> Bool {
-        let filePath = folder + "shutdown"
+        let filePath = folder + "/" + "shutdown"
         return FileManager.default.fileExists(atPath: filePath)
     }
 
