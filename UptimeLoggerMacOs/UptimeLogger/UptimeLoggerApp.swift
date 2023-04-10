@@ -9,39 +9,24 @@ import SwiftUI
 
 @main
 struct UptimeLoggerApp: App {
+    
+    @State var logs: [LogItemInfo]? = nil
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(logs: $logs)
+                .onAppear(perform: loadLogs)
         }.commands {
-            Menus()
+            Menus(
+                reloadAction: loadLogs
+            )
         }
     }
-}
-
-struct Menus: Commands {
-    var body: some Commands {
-        CommandMenu("Logs") {
-            Button(action: {
-                let openPanel = NSOpenPanel()
-                openPanel.canChooseDirectories = true
-                openPanel.canChooseFiles = false
-                openPanel.allowsMultipleSelection = false
-                openPanel.directoryURL = URL(fileURLWithPath: LogsProvider.folder)
-
-                openPanel.begin { result in
-                    if result == .OK, let url = openPanel.url {
-                        LogsProvider.folder = url.relativePath+"/"
-                    }
-                }
-            }) {
-                Text("Change logs folder")
-            }
-            Button(action: {
-                let logsFolderURL = URL(fileURLWithPath: LogsProvider.folder)
-                NSWorkspace.shared.open(logsFolderURL)
-            }) {
-                Text("Open Logs Folder")
-            }
+    
+    func loadLogs() {
+        logs = nil
+        DispatchQueue.global().async {
+            logs = LogsProvider.shared.loadLogs()
         }
     }
 }

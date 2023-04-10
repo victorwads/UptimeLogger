@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct LogsView: View {
-    @State private var logItems: [LogItemInfo]? = nil
+    
+    @Binding var items: [LogItemInfo]?
 
     var body: some View {
-        if logItems == nil {
+        if items == nil {
             List([0], id: \.self) { item in
                 HStack(alignment: .center) {
                     Spacer()
                     ProgressView("Loading...")
                     Spacer()
                 }
-            }.onAppear() {
-                load()
             }
-        } else if logItems?.isEmpty ?? false {
+        } else if items?.isEmpty ?? false {
             List([0], id: \.self) { item in
                 HStack(alignment: .center) {
                     Spacer()
@@ -29,7 +28,7 @@ struct LogsView: View {
                     Spacer()
                 }
             }
-        } else if let logItems = logItems {
+        } else if let logItems = items {
             List(logItems, id: \.startUpTime) { logItem in
                 HStack(alignment: .center) {
                     Image(systemName: "power")
@@ -44,31 +43,16 @@ struct LogsView: View {
                 Divider()
             }
         }
-        Button("Reload"){ load() }
     }
-    
-    private func load() {
-        self.logItems = nil
-        DispatchQueue.global().async {
-            var results: [LogItemInfo] = []
-            let logFiles = FileManager.default.enumerator(atPath: LogsProvider.folder)?.allObjects as? [String] ?? []
-            let logFilePaths = logFiles.filter { $0.hasSuffix(".txt") }.map { $0 }
-            
-            for logFilePath in logFilePaths {
-                if let logData = FileManager.default.contents(atPath: LogsProvider.folder+logFilePath),
-                   let log = String(data: logData, encoding: .utf8) {
-                    results.append(
-                        LogItemInfo(fileName: logFilePath, content: log)
-                    )
-                }
-            }
-            self.logItems = results.sorted(by: { $0.startUpTime > $1.startUpTime })
-        }
-    }
+
 }
 
 struct LogsView_Previews: PreviewProvider {
     static var previews: some View {
-        LogsView()
+        LogsView(items: .constant([
+            LogItemInfo(fileName: "", content: ""),
+            LogItemInfo(fileName: "", content: ""),
+            LogItemInfo(fileName: "", content: "")
+        ]))
     }
 }

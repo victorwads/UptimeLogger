@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let logs = LogsView()
+    @Binding var logs: [LogItemInfo]?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -17,17 +17,10 @@ struct ContentView: View {
                 .font(.title)
                 .foregroundColor(.gray)
             
-            logs
+            LogsView(items: $logs)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Uptime Logger")
-                    .font(.headline)
-                    .foregroundColor(.primary)
-            }
-        }
     }
     
 }
@@ -35,7 +28,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(logs: .constant([]))
     }
 }
 
