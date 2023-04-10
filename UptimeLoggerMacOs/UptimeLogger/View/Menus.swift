@@ -8,13 +8,28 @@ import SwiftUI
 
 struct Menus: Commands {
     
+    @Binding var foldersHistory: [String]
+    
     let reloadAction: () -> Void
-    let changeFolderAction: () -> Void
-
+    let changeFolderAction: (String?) -> Void
+    let clearRecentsAction: () -> Void
+    
     var body: some Commands {
         CommandMenu("Logs") {
             Button(action: reloadAction) { Text("Reload") }
-            Button(action: changeFolderAction) { Text("Change logs folder") }
+            if foldersHistory.count < 2 {
+                Button(action: {changeFolderAction(nil)}) { Text("Change logs folder") }
+            } else {
+                Menu("Change logs folder") {
+                    Button(action: clearRecentsAction) { Text("Clean Recents") }
+                    Divider()
+                    ForEach(foldersHistory, id: \.self) { folder in
+                        Button(action: {changeFolderAction(folder)}) { Text(folder) }
+                    }
+                    Divider()
+                    Button(action: {changeFolderAction(nil)}) { Text("New") }
+                }
+            }
             Button(action: showLogs) { Text("Open Logs Folder") }
         }
     }
