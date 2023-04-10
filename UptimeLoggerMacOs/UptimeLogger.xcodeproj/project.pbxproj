@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		93057FD529E3589900D1FD50 /* LogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93057FD429E3589900D1FD50 /* LogsView.swift */; };
+		938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6129E3909000DACB7A /* LogsProvider.swift */; };
 		93A07CEC29E35501000EDA9C /* UptimeLoggerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */; };
 		93A07CEE29E35501000EDA9C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07CED29E35501000EDA9C /* ContentView.swift */; };
 		93A07CF029E35502000EDA9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A07CEF29E35502000EDA9C /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 		93A07CFE29E35502000EDA9C /* UptimeLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07CFD29E35502000EDA9C /* UptimeLoggerTests.swift */; };
 		93A07D0829E35502000EDA9C /* UptimeLoggerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07D0729E35502000EDA9C /* UptimeLoggerUITests.swift */; };
 		93A07D0A29E35502000EDA9C /* UptimeLoggerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07D0929E35502000EDA9C /* UptimeLoggerUITestsLaunchTests.swift */; };
+		93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		93057FD429E3589900D1FD50 /* LogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsView.swift; sourceTree = "<group>"; };
+		938F6D6129E3909000DACB7A /* LogsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsProvider.swift; sourceTree = "<group>"; };
 		93A07CE829E35501000EDA9C /* UptimeLogger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UptimeLogger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerApp.swift; sourceTree = "<group>"; };
 		93A07CED29E35501000EDA9C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +50,7 @@
 		93A07D0329E35502000EDA9C /* UptimeLoggerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UptimeLoggerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A07D0729E35502000EDA9C /* UptimeLoggerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerUITests.swift; sourceTree = "<group>"; };
 		93A07D0929E35502000EDA9C /* UptimeLoggerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		938F6D5F29E3905B00DACB7A /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				938F6D6129E3909000DACB7A /* LogsProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		938F6D6029E3906E00DACB7A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				93A07CED29E35501000EDA9C /* ContentView.swift */,
+				93057FD429E3589900D1FD50 /* LogsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		93A07CDF29E35501000EDA9C = {
 			isa = PBXGroup;
 			children = (
@@ -97,12 +118,13 @@
 		93A07CEA29E35501000EDA9C /* UptimeLogger */ = {
 			isa = PBXGroup;
 			children = (
+				938F6D6029E3906E00DACB7A /* View */,
+				938F6D5F29E3905B00DACB7A /* Providers */,
+				93AB39FA29E3771C006BF0B9 /* Models */,
 				93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */,
-				93A07CED29E35501000EDA9C /* ContentView.swift */,
 				93A07CEF29E35502000EDA9C /* Assets.xcassets */,
 				93A07CF429E35502000EDA9C /* UptimeLogger.entitlements */,
 				93A07CF129E35502000EDA9C /* Preview Content */,
-				93057FD429E3589900D1FD50 /* LogsView.swift */,
 			);
 			path = UptimeLogger;
 			sourceTree = "<group>";
@@ -130,6 +152,14 @@
 				93A07D0929E35502000EDA9C /* UptimeLoggerUITestsLaunchTests.swift */,
 			);
 			path = UptimeLoggerUITests;
+			sourceTree = "<group>";
+		};
+		93AB39FA29E3771C006BF0B9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +292,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */,
 				93A07CEE29E35501000EDA9C /* ContentView.swift in Sources */,
+				93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */,
 				93057FD529E3589900D1FD50 /* LogsView.swift in Sources */,
 				93A07CEC29E35501000EDA9C /* UptimeLoggerApp.swift in Sources */,
 			);
@@ -428,11 +460,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Uptime Logger";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -455,11 +490,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Uptime Logger";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
