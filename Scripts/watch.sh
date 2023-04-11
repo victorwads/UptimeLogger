@@ -4,10 +4,10 @@ ls -1p ./logs
 
 echo ""
 echo "Watching latest:"
-readlink -f log_latest.txt
+readlink -f logs/latest    
 echo ""
 
 while true; do
-    cat log_latest.txt
+    cat logs/latest
     sleep 1
 done

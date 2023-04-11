@@ -9,41 +9,65 @@ import Foundation
 
 struct LogItemInfo: Identifiable {
     let id = UUID()
-    let startUpTime: Date
-    let uptimeInSeconds: TimeInterval
-    var shutdownAllowed: Bool
     let fileName: String
+    let version: Int
+
+    var shutdownAllowed: Bool = false
+    var startUpTime: Date = Date.distantPast
+    var endTime: Date? = nil
+    var uptimeInSeconds: TimeInterval = 0
 
     init(fileName: String = "", content: String = "") {
         self.fileName = fileName
+        let lines = content.components(separatedBy: "\n")
         let formatter = DateFormatter()
-        formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"
 
-        // Extract start up date and time from file name
+        // Extract Version
+        let version = lines.first(where: { $0.hasPrefix("version: ") })?.components(separatedBy: " ").last ?? ""
+        self.version = Int(version) ?? 0
+        
+        // Extract startUpTime
+        formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"
         if let date = formatter.date(from: fileName) {
             self.startUpTime = date
-        } else {
-            self.startUpTime = Date.distantPast
         }
 
-        let lines = content.components(separatedBy: "\n")
+        // Extract endTime
+        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        if let endTimeString = lines.first(where: {
+            $0.hasPrefix("ended:") // V2
+        })?.components(separatedBy: ": ").last,
+        let date = formatter.date(from: endTimeString) {
+            self.endTime = date
+        }
+
         // Extract shutdown allowed
-        shutdownAllowed = lines.first(where: { $0.hasPrefix("shutdown allowed") }) != nil
+        self.shutdownAllowed = lines.first(where: { $0.hasPrefix("shutdown allowed") }) != nil
         
         // Extract uptime from file content
-        let uptimeString = lines.first(where: { $0.hasPrefix("last record:") })?
-            .replacingOccurrences(of: "last record: ", with: "")
-        
-        let dayPart: String = uptimeString?.components(separatedBy: ", ").first?
-            .replacingOccurrences(of: " days", with: "") ?? "0"
+        if let uptimeString = lines.first(where: {
+            $0.hasPrefix("uptime:") // V2
+        })?.components(separatedBy: ": ").last {
+            uptimeInSeconds = TimeInterval(Int(uptimeString) ?? 0)
+            return
+        }
 
-        let timeParts = uptimeString?
-            .components(separatedBy: ", ").last?
-            .components(separatedBy: ":").compactMap({ Int($0) }) ?? []
+        // Extract uptime older versions
+        let uptimeString = lines.first(where: {
+            $0.hasPrefix("last record:") || // V0
+            $0.hasPrefix("lastrecord:")     // V1
+        })?.components(separatedBy: ": ").last
+        uptimeInSeconds = fromOldVersion(uptimeString)
+
+    }
+    
+    private func fromOldVersion(_ uptimeString: String?) -> TimeInterval {
+        let parts = uptimeString?.components(separatedBy: ", ")
+        let dayPart = parts?.first?.replacingOccurrences(of: " days", with: "") ?? "0"
+        let timeParts = parts?.last?.components(separatedBy: ":").compactMap({ Int($0) }) ?? []
         
         if timeParts.count < 3 {
-            self.uptimeInSeconds = TimeInterval(0)
-            return
+            return TimeInterval(0)
         }
         
         let day = Int(dayPart) ?? 0
@@ -51,9 +75,9 @@ struct LogItemInfo: Identifiable {
         let hours: Int = timeParts[0] * 3600
         let minutes: Int = timeParts[1] * 60
         let seconds: Int = timeParts[2]
-
-        self.uptimeInSeconds = TimeInterval( days + hours + minutes + seconds )
+        return  TimeInterval( days + hours + minutes + seconds )
     }
+
 }
 
 extension LogItemInfo {

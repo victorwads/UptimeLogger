@@ -40,7 +40,7 @@ LOG_FILE="$LOGS_DIR/log_$STARTUP.txt"
 ln -sf $LOG_FILE $LOG_LATEST
 
 # Verifica se o modo de depuração está habilitado
-if [[ "$*" == *"--debug"* ]] || [[ "$*" == *"-d"* ]]; then
+if [[ "$*" == *"--debug"* ]]; then
     DEBUG=true
     echo ""
     echo "OSTYPE: $OSTYPE"
@@ -51,26 +51,40 @@ if [[ "$*" == *"--debug"* ]] || [[ "$*" == *"-d"* ]]; then
     echo "STARTUP: $STARTUP"
 fi
 
+function finishwithUpdate() {
+    echo "$STARTUP" > "$UPDATE_FILE"
+    cat "$UPDATE_FILE"
+}
+
+if [ $DEBUG = true ] && [[ "$*" == *"--exit-with-update"* ]]; then
+    trap "finishwithUpdate; exit;" INT TERM
+fi
+
 # Loop infinito para atualizar o uptime a cada 5 minutos
 while true; do
 
+    LOG="init: $STARTUP"$'\n'
+    LOG+="version: 2"$'\n'
+    LOG+="ended: $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
+
     # Verifica o tipo de sistema operacional
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        UPTIME=$(echo "$(($(date +%s) - $(sysctl -n kern.boottime | awk '{print $4}' | sed 's/,//')))" | awk '{printf "%d days, %02d:%02d:%02d",($1/60/60/24),($1/60/60%24),($1/60%60),($1%60)}')
+        kernelboottime=$(sysctl -n kern.boottime)
+        boottimestamp=$(echo $kernelboottime | sed 's/^.*sec = \([0-9]*\), usec.*$/\1/')
+        currenttimestamp=$(date +%s)
+        elapsedtime=$((currenttimestamp - boottimestamp))
+
+        LOG+="uptime: $elapsedtime"$'\n'
     else
         # Define o comando para obter o tempo de inicialização no Linux
         UPTIME=$(uptime -p)
+        
+        LOG+="lastrecord: $UPTIME"$'\n'
     fi
-
-    LOG="init: $STARTUP"
-    LOG+="lastrecord: $UPTIME"
-    LOG+="lastdate: $(date +"%Y-%m-%d_%H-%M-%S")"    
-    LOG+="version: 1"    
 
     echo "$LOG" >"$LOG_FILE"
 
     if [ $DEBUG = true ]; then
-        echo ""
         echo "$LOG"
     fi
     sleep 1

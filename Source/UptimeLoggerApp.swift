@@ -58,8 +58,11 @@ struct UptimeLoggerApp: App {
                 reloadAction: loadLogs,
                 changeFolderAction: { folder in changeFolder(folder==nil, folder)},
                 clearRecentsAction: {
-                    foldersHistory = []
-                    logsFolderHistory = ""
+                    logsFolder = LogsProvider.logsFolder
+                    foldersHistory = [LogsProvider.logsFolder]
+                    logsFolderHistory = LogsProvider.logsFolder
+                    provider.folder = LogsProvider.logsFolder
+                    loadLogs()
                 },
                 installAction: { showInstallation = true }
             )

@@ -11,10 +11,11 @@ import AppKit
 class LogsProvider {
     
     private static let serviceFolder = "/Library/UptimeLogger/"
-    private let scriptName = "uptime_logger.sh"
+    public static let logsFolder = serviceFolder + "logs"
+    public static let shared = LogsProvider()
 
-    static let shared = LogsProvider()
-    var folder = serviceFolder + "logs"
+    private let scriptName = "uptime_logger.sh"
+    public var folder = logsFolder
 
     private func getFileContents(_ filePath: String) -> String? {
         if let logData = FileManager.default.contents(atPath: filePath) {
