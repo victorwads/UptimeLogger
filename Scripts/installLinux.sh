@@ -27,7 +27,7 @@ Description=$PROGRAM_NAME
 After=network.target
 
 [Service]
-ExecStart=/bin/bash $INSTALL_FOLDER/uptime_logger.sh
+ExecStart=/bin/bash $INSTALL_FOLDER/uptime_logger
 Restart=always
 User=root
 

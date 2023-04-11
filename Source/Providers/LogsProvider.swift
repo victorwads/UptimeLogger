@@ -14,7 +14,7 @@ class LogsProvider {
     public static let logsFolder = serviceFolder + "logs"
     public static let shared = LogsProvider()
 
-    private let scriptName = "uptime_logger.sh"
+    private let scriptName = "uptime_logger"
     public var folder = logsFolder
 
     private func getFileContents(_ filePath: String) -> String? {

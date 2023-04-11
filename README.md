@@ -12,15 +12,15 @@ just run:
 cd Scrtpits
 
 # To Log
-bash uptime_logger.sh
+bash uptime_logger
 
 # To Log and Debbug [-d | --debug]
-bash uptime_logger.sh --debug
+bash uptime_logger --debug
 ```
 
 ## Install as Service
 
-The `install.sh` provides a easy to intall service. This will install de files copying to a program folder according to the OS and create service to run on System Load.
+The `install` provides a easy to intall service. This will install de files copying to a program folder according to the OS and create service to run on System Load.
 
 Every 1 system startUp it will create a file at `/PROGRAM_FOLDER/logs` and that file will be updated every second with de how long the SO have been alive.
 
@@ -30,12 +30,12 @@ Every 1 system startUp it will create a file at `/PROGRAM_FOLDER/logs` and that 
 cd Scrtpits
 
 # To Install
-./install.sh
+./install
 
 # To Reinstall / Update
-./install.sh --reinstall
+./install --reinstall
 # To Uninstall
-./install.sh --uninstall
+./install --uninstall
 # To Just Restart Services [--restart | --reload]
-./install.sh --restart
+./install --restart
 ```

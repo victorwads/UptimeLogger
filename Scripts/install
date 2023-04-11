@@ -77,8 +77,8 @@ if [[ "$*" == *"--uninstall"* ]]; then
         ;;
     *)
         echo "Removing program files using sudo"
-        sudo rm -f "$INSTALL_FOLDER/watch.sh"
-        sudo rm -f "$INSTALL_FOLDER/uptime_logger.sh"
+        sudo rm -f "$INSTALL_FOLDER/watch"
+        sudo rm -f "$INSTALL_FOLDER/uptime_logger"
         sudo rm -f "$INSTALL_FOLDER/log_latest.txt"
         sudo rm -f "$INSTALL_FOLDER/logs/latest"
         sudo rm -f "$INSTALL_FOLDER/logs/cached"
@@ -105,8 +105,8 @@ if [[ "$*" == *"--reinstall"* ]]; then
     removeService
 
     echo "Removing old program files using sudo"
-    sudo rm -f "$INSTALL_FOLDER/watch.sh"
-    sudo rm -f "$INSTALL_FOLDER/uptime_logger.sh"
+    sudo rm -f "$INSTALL_FOLDER/watch"
+    sudo rm -f "$INSTALL_FOLDER/uptime_logger"
     sudo rm -f "$INSTALL_FOLDER/log_latest.txt"
     echo ""
 
@@ -120,7 +120,7 @@ echo "Copying files to $INSTALL_FOLDER using sudo"
 if [[ ! -d "$INSTALL_FOLDER" ]]; then
     sudo mkdir "$INSTALL_FOLDER"
 fi
-sudo cp ./uptime_logger.sh "$INSTALL_FOLDER"
-sudo cp ./watch.sh "$INSTALL_FOLDER"
+sudo cp ./uptime_logger "$INSTALL_FOLDER"
+sudo cp ./watch "$INSTALL_FOLDER"
 
 installService

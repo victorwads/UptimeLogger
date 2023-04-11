@@ -29,7 +29,7 @@ function installService() {
    <string>$SERVICE_NAME</string>
    <key>ProgramArguments</key>
    <array>
-      <string>$INSTALL_FOLDER/uptime_logger.sh</string>
+      <string>$INSTALL_FOLDER/uptime_logger</string>
    </array>
    <key>KeepAlive</key>
    <true/>

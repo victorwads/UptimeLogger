@@ -29,7 +29,7 @@ After=network.target
 [Service]
 User=root
 Type=simple
-ExecStart=/bin/bash $INSTALL_FOLDER/uptime_logger.sh
+ExecStart=/bin/bash $INSTALL_FOLDER/uptime_logger
 Restart=always
 RestartSec=60
 
