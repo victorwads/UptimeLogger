@@ -42,6 +42,10 @@ enum Strings: String {
     case installStep1Tip = "install.1.tip"
     case installStep2 = "install.2"
     
+    case dateAt = "date.at"
+    case dateToday = "date.today"
+    case dateYesterday = "date.yesterday"
+
     var value: String{
         get { NSLocalizedString(self.rawValue, comment: "") }
     }

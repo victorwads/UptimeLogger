@@ -48,3 +48,8 @@
 "install.1" = "To install the service it's pretty simple, just click the continue button and a window will open where you must paste the command below and press enter:";
 "install.1.tip" = "you must be an admin user";
 "install.2" = "After running the command in the opened window, you must enter your user password and press enter (it is normal for characters to be invisible)\n\nUpon completion, you can click continue again.";
+
+/* Date */
+"date.at" = "at";
+"date.today" = "Today";
+"date.yesterday" = "Yesterday";

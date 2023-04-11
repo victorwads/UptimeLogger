@@ -101,18 +101,32 @@ extension LogItemInfo {
         result += "\(seconds) seconds"
         return result
     }
+    
     var formattedStartUptime: String {
+        return formatDate(startUpTime)
+    }
+    
+    var formattedEndtime: String {
+        if let data = endTime {
+            return " " + formatDate(data)
+        } else {
+            return ""
+        }
+    }
+    
+    private func formatDate(_ date: Date) -> String {
         let calendar = Calendar.current
         let formatter = DateFormatter()
+        let at = Strings.dateAt.value
 
         if calendar.isDateInToday(startUpTime) {
-            formatter.dateFormat = "'Today at' HH:mm:ss"
+            formatter.dateFormat = "'\(Strings.dateToday.value) \(at)' HH:mm:ss"
         } else if calendar.isDateInYesterday(startUpTime) {
-            formatter.dateFormat = "'Yesterday at' HH:mm:ss"
+            formatter.dateFormat = "'\(Strings.dateYesterday.value) \(at)' HH:mm:ss"
         } else {
-            formatter.dateFormat = "dd/MM/yyyy 'at' HH:mm:ss"
+            formatter.dateFormat = "dd/MM/yyyy '\(at)' HH:mm:ss"
         }
         
-        return formatter.string(from: startUpTime)
+        return formatter.string(from: date)
     }
 }

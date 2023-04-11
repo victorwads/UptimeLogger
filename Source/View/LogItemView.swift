@@ -17,10 +17,12 @@ struct LogItemView: View {
     }
     
     var stack: some View {
-        HStack(alignment: .center) {
-            Image(systemName: allow ? "powersleep" : "bolt.slash.fill")
+        HStack(alignment: .center, spacing: 4) {
+            let info = (!allow ? Strings.logUnexpectedYes.value : Strings.logUnexpectedNo.value) + log.formattedEndtime
+            Text(info)
                 .foregroundColor(allow ? .green : .red)
-            Text(!allow ? Strings.logUnexpectedYes.value : Strings.logUnexpectedNo.value)
+            Image(systemName: allow ? "checkmark.seal.fill" : "bolt.trianglebadge.exclamationmark.fill")
+                .font(.headline)
                 .foregroundColor(allow ? .green : .red)
         }
     }
@@ -31,12 +33,14 @@ struct LogItemView: View {
                 HStack(alignment: .center) {
                     Image(systemName: "power")
                     Text(Strings.logStartup.value).bold()
-                    Text("\(log.formattedStartUptime)")
-                }
+                    Text(log.formattedStartUptime)
+                        .font(.subheadline)
+                }.padding(.bottom, 2)
                 HStack(alignment: .center) {
-                    Image(systemName: "clock")
+                    Image(systemName: "bolt.badge.clock.fill")
                     Text(Strings.logUptime.value).bold()
-                    Text("\(log.formattedUptime)")
+                    Text(log.formattedUptime)
+                        .font(.subheadline)
                 }
             }
             Spacer()
@@ -48,6 +52,9 @@ struct LogItemView: View {
                 stack.onTapGesture {
                     onToggleAction(log)
                 }.help(Strings.logHelp.value)
+                Divider()
+                Text("v\(log.version)")
+                    .foregroundColor(.gray)
             } else {
                 stack
             }

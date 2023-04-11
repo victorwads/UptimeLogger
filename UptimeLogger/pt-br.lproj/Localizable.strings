@@ -48,3 +48,8 @@
 "install.1" = "Para instalar o serviço é bem simples, basta clicar no botão continuar e será aberta uma janela onde você deve colar o comando abaixo e precionar enter:";
 "install.1.tip" = "é necessário ser um usuário administrador";
 "install.2" = "Após executar o comando na janela aberta, você deve inserir a senha do seu usuário e precionar enter (é normal que os caracteres fiquem invisiveis)\n\nAo finalizar, você pode clicar em continuar novamente.";
+
+/* Date */
+"date.at" = "às";
+"date.today" = "Hoje";
+"date.yesterday" = "Ontem";

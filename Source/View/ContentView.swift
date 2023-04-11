@@ -30,7 +30,8 @@ struct ContentView: View {
                 Button(action: {
                     toggleCurrentAction()
                 }) {
-                    Image(systemName: informed ? "" : "power")
+                    Image(systemName: informed ? "arrow.counterclockwise.circle" : "power")
+                        .font(.headline)
                     Text((informed ? Strings.mainCurrentCancel : Strings.mainCurrentInform).value)
                 }.help((informed ? Strings.mainCurrentCancelTip : Strings.mainCurrentInformTip).value)
             }
