@@ -28,9 +28,13 @@ if [[ "$*" == *"-s"* ]] || [[ "$*" == *"--allow-shutdown"* ]]; then
     chmod 766 "$SHUTDOWN_FILE"
     exit 0
 fi
-if test -f "$SHUTDOWN_FILE" && test -f "$LOG_LATEST"; then
+
+function allowShutdown() {
     echo "shutdown allowed" >>"$LOG_LATEST"
     rm "$SHUTDOWN_FILE"
+}
+if test -f "$SHUTDOWN_FILE" && test -f "$LOG_LATEST"; then
+    allowShutdown
 fi
 
 # Registra a data e hora de inicialização
@@ -58,13 +62,15 @@ if [[ "$*" == *"--debug"* ]]; then
     echo "STARTUP: $STARTUP"
 fi
 
-function finishwithUpdate() {
-    echo "$STARTUP" > "$UPDATE_FILE"
-    cat "$UPDATE_FILE"
-}
-
 if [ $DEBUG = true ] && [[ "$*" == *"--exit-with-update"* ]]; then
-    trap "finishwithUpdate; exit;" INT TERM
+    function finishwithUpdate() {
+        echo "$STARTUP" > "$UPDATE_FILE"
+        cat "$UPDATE_FILE"
+        exit
+    }
+    trap finishwithUpdate INT TERM
+else
+    trap "allowShutdown; exit;" INT TERM
 fi
 
 # Loop infinito para atualizar o uptime a cada 5 minutos
