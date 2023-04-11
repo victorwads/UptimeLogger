@@ -8,10 +8,15 @@
 import Foundation
 
 struct LogItemInfo: Identifiable {
+    static let shutdownAllowed = "shutdown allowed"
+    static let shutdownUnexpected = "shutdown unexpected"
+    static let edited = "manually: "
+
     let id = UUID()
     let fileName: String
     let version: Int
 
+    var edited: Bool = false
     var shutdownAllowed: Bool = false
     var scriptStartTime: Date = Date.distantPast
     var scriptEndTime: Date? = nil
@@ -43,8 +48,17 @@ struct LogItemInfo: Identifiable {
         }
 
         // Extract shutdown allowed
-        self.shutdownAllowed = lines.first(where: { $0.hasPrefix("shutdown allowed") }) != nil
+        if let manuallyDeny = lines.first(where: { $0.hasPrefix(LogItemInfo.edited + LogItemInfo.shutdownUnexpected) }) {
+            self.shutdownAllowed = false
+        } else {
+            self.shutdownAllowed = lines.first(where: {$0.hasSuffix(LogItemInfo.shutdownAllowed)}) != nil
+        }
         
+        // Extract Edited
+        let autoShuwDownAllowed = lines.first(where: {$0.hasPrefix(LogItemInfo.shutdownAllowed)}) != nil
+        let edition = lines.first(where: { $0.hasPrefix(LogItemInfo.edited) })?.replacingOccurrences(of: LogItemInfo.edited, with: "")
+        self.edited = edition != nil && edition != (autoShuwDownAllowed ? LogItemInfo.shutdownAllowed : LogItemInfo.shutdownUnexpected)
+
         // Extract uptime from file content
         if let uptimeString = lines.first(where: {
             $0.hasPrefix("uptime:") // V2

@@ -52,12 +52,17 @@ struct LogItemView: View {
                 stack.onTapGesture {
                     onToggleAction(log)
                 }.help(Strings.logHelp.value)
+                if(log.edited) {
+                    Divider().padding(.leading, 5)
+                    Image(systemName: "square.and.pencil")
+                        .help(Strings.logEditedTip.value)
+                }
                 Divider()
-                Text("v\(log.version)")
-                    .foregroundColor(.gray)
             } else {
                 stack
             }
+            Text("v\(log.version)")
+                .foregroundColor(.gray)
         }
     }
 }

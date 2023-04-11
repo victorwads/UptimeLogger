@@ -34,6 +34,7 @@ enum Strings: String {
     case logUnexpected = "log.unexpected"
     case logUnexpectedYes = "log.unexpected.yes"
     case logUnexpectedNo = "log.unexpected.no"
+    case logEditedTip = "log.edited.tip"
     
     case installTitle = "install.title"
     case installServiceTitle = "install.service.title"
