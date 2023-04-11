@@ -48,7 +48,7 @@ struct LogItemInfo: Identifiable {
         }
 
         // Extract shutdown allowed
-        if let manuallyDeny = lines.first(where: { $0.hasPrefix(LogItemInfo.edited + LogItemInfo.shutdownUnexpected) }) {
+        if lines.first(where: { $0.hasPrefix(LogItemInfo.edited + LogItemInfo.shutdownUnexpected) }) != nil {
             self.shutdownAllowed = false
         } else {
             self.shutdownAllowed = lines.first(where: {$0.hasSuffix(LogItemInfo.shutdownAllowed)}) != nil

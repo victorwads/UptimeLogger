@@ -12,19 +12,12 @@
 /* LogsView */
 "main.logs" = "Registros";
 "main.current" = "Registro Atual";
-"main.current.info" = "No momento, se seu computador desligar, o log ficará assim:";
-"main.current.inform" = "Informar Desligamento";
-"main.current.inform.remove" = "Cancelar Desligamento";
-"main.current.inform.tip" = "clique aqui para informadar um desligamento planejado";
-"main.current.inform.remove.tip" = "clique aqui para cancelar um desligamento planejado";
-
-"main.current.allow" = "Permitir desligamento";
-"main.current.deny" = "Negar desligamento";
+"main.current.info" = "No momento, se seu computador desligar inesperadamente, o registro ficará assim:";
 
 /* Menus */
 "menu.logs" = "Registros";
 "menu.folders.reload" = "Recarregar";
-"menu.folders.cleanrecents" = "Limpar Recentes";
+"menu.folders.cleanrecents" = "Limpar Pastas Recentes";
 "menu.folders.change" = "Mudar pasta de registros";
 "menu.folders.new" = "Nova pasta";
 "menu.folders.open" = "Abrir pasta de registros";

@@ -12,11 +12,7 @@
 /* LogsView */
 "main.logs" = "Logs";
 "main.current" = "Current Log";
-"main.current.info" = "If your computer shutdowns now, the log will be like this:";
-"main.current.inform" = "Inform Shutdown";
-"main.current.inform.remove" = "Cancel Shutdown";
-"main.current.inform.tip" = "click here to inform a shutdown intent";
-"main.current.inform.remove.tip" = "click here to cancel a scheduled shutdown";
+"main.current.info" = "If your computer shutdowns unexpectedlly now, the log will be like this:";
 
 "main.current.allow" = "Allow shutdown";
 "main.current.deny" = "Deny shutdown";
@@ -24,7 +20,7 @@
 /* Menus */
 "menu.logs" = "Logs";
 "menu.folders.reload" = "Reload";
-"menu.folders.cleanrecents" = "Clear Recents";
+"menu.folders.cleanrecents" = "Clear Recent Folders";
 "menu.folders.change" = "Change logs folder";
 "menu.folders.new" = "New folder";
 "menu.folders.open" = "Open logs folder";

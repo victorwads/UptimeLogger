@@ -23,20 +23,8 @@ struct ContentView: View {
             Text(Strings.mainCurrent.value)
                 .font(.title)
                 .foregroundColor(.gray)
-            
-            HStack {
-                Text(Strings.mainCurrentInfo.value)
-                Spacer()
-                Button(action: {
-                    toggleCurrentAction()
-                }) {
-                    Image(systemName: informed ? "arrow.counterclockwise.circle" : "power")
-                        .font(.headline)
-                    Text((informed ? Strings.mainCurrentCancel : Strings.mainCurrentInform).value)
-                }.help((informed ? Strings.mainCurrentCancelTip : Strings.mainCurrentInformTip).value)
-            }
+            Text(Strings.mainCurrentInfo.value)
 
-            
             Divider().padding(.top, 10)
             LogItemView(
                 log: $current
