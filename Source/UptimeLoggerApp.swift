@@ -29,6 +29,7 @@ struct UptimeLoggerApp: App {
             VStack {
                 if(showInstallation){
                     InstallationView(
+                        currentFolder: $logsFolder,
                         onContinue: continueInstall
                     )
                 } else {
@@ -71,9 +72,6 @@ struct UptimeLoggerApp: App {
         changeFolder(false)
         
         serviceInstalled = provider.isServiceInstalled
-        if(!serviceInstalled && foldersHistory.count < 2 && logs?.count ?? 0 < 1) {
-            showInstallation = true
-        }
         
         wrapper.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             loadCurrent()
@@ -110,6 +108,12 @@ struct UptimeLoggerApp: App {
         loadCurrent()
         DispatchQueue.global().async {
             logs = provider.loadLogs()
+            
+            if(!serviceInstalled && logs?.count ?? 0 < 1) {
+                showInstallation = true
+            } else {
+                showInstallation = false
+            }
         }
     }
     

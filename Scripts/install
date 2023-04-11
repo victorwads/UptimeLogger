@@ -44,6 +44,12 @@ else
     exit 1
 fi
 
+# Check for restart option
+if [[ "$*" == *"--prepare-update"* ]]; then
+    update "$INSTALL_FOLDER/logs/latest" "$INSTALL_FOLDER/logs/updated"
+    exit 0
+fi
+
 # Welcome
 echo "#################################################################"
 echo "##               Installing UptimeLogger Service               ##"
