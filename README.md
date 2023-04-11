@@ -33,7 +33,7 @@ cd Scrtpits
 ./install
 
 # To Reinstall / Update
-./install --reinstall
+./install --update
 # To Uninstall
 ./install --uninstall
 # To Just Restart Services [--restart | --reload]

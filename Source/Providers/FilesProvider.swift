@@ -36,7 +36,7 @@ class FilesProvider {
             if result == NSApplication.ModalResponse.OK, let url = openPanel.urls.first {
                 do{
                     let bookmarkData = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-                    self.resolveBookmark(data: bookmarkData)
+                    _ = self.resolveBookmark(data: bookmarkData)
                 } catch {}
                 callback(url.path)
             }

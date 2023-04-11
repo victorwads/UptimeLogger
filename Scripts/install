@@ -11,7 +11,7 @@ function update() {
     cat "$2"
 }
 
-# Check for restart option
+# Check for developing update option
 if [[ "$*" == *"--fake-update"* ]]; then
     update logs/latest logs/updated
     exit 0
@@ -90,7 +90,7 @@ if [[ "$*" == *"--uninstall"* ]]; then
 fi
 
 # Check for restart option
-if [[ "$*" == *"--reinstall"* ]]; then
+if [[ "$*" == *"--update"* ]]; then
     # Allow Shutdown for continue the same log file on restart
     if [ -f "$INSTALL_FOLDER/logs/latest" ]; then
         echo "Allowing logger shutdown for update"
