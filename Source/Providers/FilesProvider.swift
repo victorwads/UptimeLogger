@@ -11,10 +11,6 @@ func bookmarkKey(_ path: String) -> String{
     return "bm2:\(path)"
 }
 
-func bookmarkKey(url: URL) -> String{
-    return bookmarkKey(url.path)
-}
-
 class FilesProvider {
     public static let shared = FilesProvider()
     
@@ -37,16 +33,12 @@ class FilesProvider {
         openPanel.message = Strings.providerFilesOpenMessage.value
         openPanel.showsHiddenFiles = true
         openPanel.begin { (result) -> Void in
-            if result == NSApplication.ModalResponse.OK {
-                let url = openPanel.urls.first!
+            if result == NSApplication.ModalResponse.OK, let url = openPanel.urls.first {
                 do{
                     let bookmarkData = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-                    UserDefaults.standard.setValue(bookmarkData, forKey: bookmarkKey(url: url))
                     self.resolveBookmark(data: bookmarkData)
-                    callback(url.path)
-                } catch {
-                    print(error.localizedDescription)
-                }
+                } catch {}
+                callback(url.path)
             }
         }
     }
@@ -58,18 +50,19 @@ class FilesProvider {
             
             if isStale.boolValue{
                 let bookmark = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-                UserDefaults.standard.setValue(bookmark, forKey:bookmarkKey(url.path!))
+                if let path = url.path {
+                    UserDefaults.standard.setValue(bookmark, forKey:bookmarkKey(path))
+                }
             }
             
-            if !url.startAccessingSecurityScopedResource(){
-                print("Failed to access sandbox files")
+            guard url.startAccessingSecurityScopedResource() else {
+                // Access was not granted, handle it here
+                return false
             }
             
             return  FileManager.default.fileExists(atPath: url.path ?? "") &&
-                    FileManager.default.isWritableFile(atPath: url.path ?? "")
-            
+                    FileManager.default.isReadableFile(atPath: url.path ?? "")
         } catch {
-            print(error.localizedDescription)
             return false
         }
     }
