@@ -57,7 +57,7 @@ class LogsProvider {
                 )
             }
         }
-        results = results.sorted(by: { $0.startUpTime > $1.startUpTime })
+        results = results.sorted(by: { $0.scriptStartTime > $1.scriptStartTime })
         
         return results
     }

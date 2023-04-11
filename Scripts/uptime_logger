@@ -1,5 +1,12 @@
 #!/bin/bash
 DEBUG=false
+VERSION=3
+
+# Check for version option
+if [[ "$*" == *"-v"* ]] || [[ "$*" == *"--version"* ]]; then
+    echo "$VERSION"
+    exit 0
+fi
 
 # Define paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
@@ -64,7 +71,7 @@ fi
 while true; do
 
     LOG="init: $STARTUP"$'\n'
-    LOG+="version: 2"$'\n'
+    LOG+="version: $VERSION"$'\n'
     LOG+="ended: $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
 
     # Verifica o tipo de sistema operacional
@@ -74,6 +81,7 @@ while true; do
         currenttimestamp=$(date +%s)
         elapsedtime=$((currenttimestamp - boottimestamp))
 
+        LOG+="boottime: $boottimestamp"$'\n'
         LOG+="uptime: $elapsedtime"$'\n'
     else
         # Define o comando para obter o tempo de inicialização no Linux

@@ -30,7 +30,7 @@ struct LogsView: View {
                 }
             }
         } else if let logItems = items {
-            List(logItems, id: \.startUpTime) { logItem in
+            List(logItems, id: \.scriptStartTime) { logItem in
                 LogItemView(
                     log: .constant(logItem),
                     onToggleAction: onToggleAction

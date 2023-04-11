@@ -13,9 +13,10 @@ struct LogItemInfo: Identifiable {
     let version: Int
 
     var shutdownAllowed: Bool = false
-    var startUpTime: Date = Date.distantPast
-    var endTime: Date? = nil
-    var uptimeInSeconds: TimeInterval = 0
+    var scriptStartTime: Date = Date.distantPast
+    var scriptEndTime: Date? = nil
+    var systemBootTime: Date? = nil
+    var systemUptime: TimeInterval = 0
 
     init(fileName: String = "", content: String = "") {
         self.fileName = fileName
@@ -29,7 +30,7 @@ struct LogItemInfo: Identifiable {
         // Extract startUpTime
         formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"
         if let date = formatter.date(from: fileName) {
-            self.startUpTime = date
+            self.scriptStartTime = date
         }
 
         // Extract endTime
@@ -38,7 +39,7 @@ struct LogItemInfo: Identifiable {
             $0.hasPrefix("ended:") // V2
         })?.components(separatedBy: ": ").last,
         let date = formatter.date(from: endTimeString) {
-            self.endTime = date
+            self.scriptEndTime = date
         }
 
         // Extract shutdown allowed
@@ -48,17 +49,24 @@ struct LogItemInfo: Identifiable {
         if let uptimeString = lines.first(where: {
             $0.hasPrefix("uptime:") // V2
         })?.components(separatedBy: ": ").last {
-            uptimeInSeconds = TimeInterval(Int(uptimeString) ?? 0)
+            systemUptime = TimeInterval(Int(uptimeString) ?? 0)
             return
+        } else {
+            // Extract uptime older versions
+            let uptimeString = lines.first(where: {
+                $0.hasPrefix("last record:") || // V0
+                $0.hasPrefix("lastrecord:")     // V1
+            })?.components(separatedBy: ": ").last
+            self.systemUptime = fromOldVersion(uptimeString)
         }
 
-        // Extract uptime older versions
-        let uptimeString = lines.first(where: {
-            $0.hasPrefix("last record:") || // V0
-            $0.hasPrefix("lastrecord:")     // V1
-        })?.components(separatedBy: ": ").last
-        uptimeInSeconds = fromOldVersion(uptimeString)
-
+        // Extract boot time from file content
+        if let bootTimeInt = lines.first(where: {
+            $0.hasPrefix("boottime:") // V3
+        })?.components(separatedBy: ": ").last,
+        let bootTimestamp = Double(bootTimeInt) {
+            self.systemBootTime = Date(timeIntervalSince1970: bootTimestamp)
+        }
     }
     
     private func fromOldVersion(_ uptimeString: String?) -> TimeInterval {
@@ -82,7 +90,7 @@ struct LogItemInfo: Identifiable {
 
 extension LogItemInfo {
     var formattedUptime: String {
-        let totalSeconds = Int(self.uptimeInSeconds)
+        let totalSeconds = Int(self.systemUptime)
         let days = totalSeconds / 86400
         let hours = (totalSeconds % 86400) / 3600
         let minutes = (totalSeconds % 3600) / 60
@@ -103,11 +111,11 @@ extension LogItemInfo {
     }
     
     var formattedStartUptime: String {
-        return formatDate(startUpTime)
+        return formatDate(scriptStartTime)
     }
     
     var formattedEndtime: String {
-        if let data = endTime {
+        if let data = scriptEndTime {
             return " " + formatDate(data)
         } else {
             return ""
@@ -119,9 +127,9 @@ extension LogItemInfo {
         let formatter = DateFormatter()
         let at = Strings.dateAt.value
 
-        if calendar.isDateInToday(startUpTime) {
+        if calendar.isDateInToday(scriptStartTime) {
             formatter.dateFormat = "'\(Strings.dateToday.value) \(at)' HH:mm:ss"
-        } else if calendar.isDateInYesterday(startUpTime) {
+        } else if calendar.isDateInYesterday(scriptStartTime) {
             formatter.dateFormat = "'\(Strings.dateYesterday.value) \(at)' HH:mm:ss"
         } else {
             formatter.dateFormat = "dd/MM/yyyy '\(at)' HH:mm:ss"
