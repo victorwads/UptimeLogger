@@ -24,7 +24,7 @@ struct LogItemInfo: Identifiable {
 
         // Extract Version
         let version = lines.first(where: { $0.hasPrefix("version: ") })?.components(separatedBy: " ").last ?? ""
-        self.version = Int(version) ?? 0
+        self.version = Int(version) ?? 1
         
         // Extract startUpTime
         formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"

@@ -22,7 +22,7 @@
 "main.current.deny" = "Negar desligamento";
 
 /* Menus */
-"menu.logs" = "Registros de Desligamento";
+"menu.logs" = "Registros";
 "menu.folders.reload" = "Recarregar";
 "menu.folders.cleanrecents" = "Limpar Recentes";
 "menu.folders.change" = "Mudar pasta de registros";
@@ -38,8 +38,8 @@
 "log.startup" = "Inicialização: ";
 "log.uptime" = "Tempo ligado: ";
 "log.unexpected" = "";
-"log.unexpected.yes" = "Inesperado";
-"log.unexpected.no" = "Informado";
+"log.unexpected.yes" = "Inesperadamente";
+"log.unexpected.no" = "Desligado";
 
 /* InstallationView */
 "install.service.title" = "Serviço de Monitoramento";

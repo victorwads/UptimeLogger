@@ -22,7 +22,7 @@
 "main.current.deny" = "Deny shutdown";
 
 /* Menus */
-"menu.logs" = "Shutdown Logs";
+"menu.logs" = "Logs";
 "menu.folders.reload" = "Reload";
 "menu.folders.cleanrecents" = "Clear Recents";
 "menu.folders.change" = "Change logs folder";
@@ -38,8 +38,8 @@
 "log.startup" = "Startup: ";
 "log.uptime" = "Uptime: ";
 "log.unexpected" = "";
-"log.unexpected.yes" = "Unexpected";
-"log.unexpected.no" = "Intended";
+"log.unexpected.yes" = "Unexpectedly";
+"log.unexpected.no" = "Shutdown";
 
 /* InstallationView */
 "install.service.title" = "Monitoring Service";
