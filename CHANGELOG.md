@@ -1,14 +1,17 @@
 # App and Logger Changelog
 
-- 1.5 - TODO
+- 3.0 - Features Requested
   - App
     - Adds Service Uninstall Help Flow
+    - Adds Service Uninstall Help Flow
+  - Logger Service
+    - Logs process running at shutdown time
 
-* [1.4 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-1.4.zip)
+* [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-2.0.zip)
   * App
-    * Install Service Flow
-    * Improve Layout
-    * Remove 
+    * Remove shutdown button
+    * Mark logs as "edited" when thet are updated
+    * Improve Logs Layout
   * Logger Service
     * Logs Versioning - started v3
         * Add boottime: timestamp

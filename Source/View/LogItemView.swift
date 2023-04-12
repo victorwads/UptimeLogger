@@ -8,7 +8,14 @@
 import SwiftUI
 
 struct LogItemView: View {
-    
+    static let iconNormalShutDown = "checkmark.seal.fill"
+    static let iconUnexpected = "bolt.trianglebadge.exclamationmark.fill"
+    static let iconScriptStartTime = "power"
+    static let iconShutdownTime = ""
+    static let iconBootTime = ""
+    static let iconUpTime = "bolt.badge.clock.fill"
+    static let iconEdited = "square.and.pencil"
+
     @Binding var log: LogItemInfo
     var onToggleAction: ((LogItemInfo) -> Void)? = nil
     
@@ -21,7 +28,7 @@ struct LogItemView: View {
             let info = (!allow ? Strings.logUnexpectedYes.value : Strings.logUnexpectedNo.value) + log.formattedEndtime
             Text(info)
                 .foregroundColor(allow ? .green : .red)
-            Image(systemName: allow ? "checkmark.seal.fill" : "bolt.trianglebadge.exclamationmark.fill")
+            Image(systemName: allow ? LogItemView.iconNormalShutDown : LogItemView.iconUnexpected)
                 .font(.headline)
                 .foregroundColor(allow ? .green : .red)
         }
@@ -31,13 +38,13 @@ struct LogItemView: View {
         HStack(alignment: .center) {
             VStack(alignment: .leading){
                 HStack(alignment: .center) {
-                    Image(systemName: "power")
+                    Image(systemName: LogItemView.iconScriptStartTime)
                     Text(Strings.logStartup.value).bold()
                     Text(log.formattedStartUptime)
                         .font(.subheadline)
                 }.padding(.bottom, 2)
                 HStack(alignment: .center) {
-                    Image(systemName: "bolt.badge.clock.fill")
+                    Image(systemName: LogItemView.iconUpTime)
                     Text(Strings.logUptime.value).bold()
                     Text(log.formattedUptime)
                         .font(.subheadline)
@@ -54,7 +61,7 @@ struct LogItemView: View {
                 }.help(Strings.logHelp.value)
                 if(log.edited) {
                     Divider().padding(.leading, 5)
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: LogItemView.iconEdited)
                         .help(Strings.logEditedTip.value)
                 }
                 Divider()
