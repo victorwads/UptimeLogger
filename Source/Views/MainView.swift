@@ -38,25 +38,32 @@ struct MenuView: View {
                 .font(.title)
                 .foregroundColor(.gray)
                 .padding()
+            
+            Divider()
             List() {
                 NavigationLink(destination: LogsListScreen(provider: provider), tag: 1, selection: $selectedScreen) {
                     Label("Registros de Logs", systemImage: "list.bullet.rectangle")
                 }
-                NavigationLink(destination: SettingsScreen(), tag: 2, selection: $selectedScreen) {
-                    Label("Configuração", systemImage: "gearshape")
-                }
+            }
+
+            Divider()
+            List() {
                 NavigationLink(destination: InstallationView(
                     currentFolder: .constant(""), onContinue: {}
                 ), tag: 3, selection: $selectedScreen) {
                     Label("Manutenção de Serviço", systemImage: "wrench.fill")
                 }
+                NavigationLink(destination: SettingsScreen(provider: provider), tag: 2, selection: $selectedScreen) {
+                    Label("Configurações", systemImage: "gearshape")
+                }
             }
-            .listStyle(.sidebar)
-            
+            .frame(height: 80)
+
+            Divider()
             Text(version)
                 .foregroundColor(.gray)
                 .font(.footnote)
-                .padding(.bottom)
+                .padding()
         }
     }
 }
