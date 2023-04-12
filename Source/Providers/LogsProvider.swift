@@ -10,13 +10,14 @@ import AppKit
 
 class LogsProvider {
     
-    private static let serviceFolder = "/Library/UptimeLogger/"
-    public static let logsFolder = serviceFolder + "logs"
-    public static let shared = LogsProvider()
+    static let shared = LogsProvider()
 
-    private let scriptName = "uptime_logger"
-    public var folder = logsFolder
+    static let serviceFolder = "/Library/UptimeLogger/"
+    static let defaultLogsFolder = serviceFolder + "logs"
+    static let scriptName = "uptime_logger"
 
+    public var folder = defaultLogsFolder
+    
     private func getFileContents(_ filePath: String) -> String? {
         if let logData = FileManager.default.contents(atPath: filePath) {
             return String(data: logData, encoding: .utf8)
@@ -61,26 +62,7 @@ class LogsProvider {
         
         return results
     }
-    
-    public func setShutDownAllowed(allow: Bool) {
-        let filePath = folder + "/" + "shutdown"
-        if allow {
-            FileManager.default.createFile(atPath: filePath, contents: "".data(using: .utf8), attributes: nil)
-        } else {
-            let url = URL.init(fileURLWithPath: filePath, isDirectory: true)
-            do {
-                try FileManager.default.trashItem(at: url, resultingItemURL: nil)
-            } catch {
-                print("Error removing shutdown file: \(error.localizedDescription)")
-            }
-        }
-    }
 
-    public func getShutDownAllowed() -> Bool {
-        let filePath = folder + "/" + "shutdown"
-        return FileManager.default.fileExists(atPath: filePath)
-    }
-    
     public func toggleShutdownAllowed(_ file: LogItemInfo) {
         let allowed = !file.shutdownAllowed
         if let logData = FileManager.default.contents(atPath: folder+"/"+file.fileName),
@@ -99,20 +81,4 @@ class LogsProvider {
             }
         }
     }
-    
-    public var isServiceInstalled: Bool {
-        get {
-            FileManager.default.fileExists(atPath: LogsProvider.serviceFolder + scriptName)
-        }
-    }
-    
-    public func installService() {
-        if let resourcePath = Bundle.main.resourcePath {
-            let task = Process()
-            task.launchPath = "/usr/bin/open"
-            task.arguments = ["-a", "Terminal", "-n", resourcePath + "/Scripts/"]
-            task.launch()
-        }
-    }
-
 }

@@ -38,9 +38,6 @@ struct LogsListScreen: View {
                         logs: $logs,
                         logsFolder: $logsFolder,
                         current: $currentLog,
-                        toggleCurrentAction: {
-                            provider.setShutDownAllowed(allow: !currentLog.shutdownAllowed)
-                        },
                         toggleItemAction: {item in
                             provider.toggleShutdownAllowed(item)
                             loadLogs()
@@ -88,7 +85,6 @@ struct LogsListScreen: View {
     
     private func loadCurrent() {
         var current = provider.loadCurrentLog()
-        current.shutdownAllowed = provider.getShutDownAllowed()
         currentLog = current
     }
 

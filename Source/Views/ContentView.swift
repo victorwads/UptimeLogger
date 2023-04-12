@@ -12,7 +12,6 @@ struct ContentView: View {
     @Binding var logs: [LogItemInfo]?
     @Binding var logsFolder: String
     @Binding var current: LogItemInfo
-    var toggleCurrentAction: () -> Void = { }
     var toggleItemAction: (LogItemInfo) -> Void = {_ in }
     var informed: Bool {
         get { current.shutdownAllowed }

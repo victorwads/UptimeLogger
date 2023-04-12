@@ -26,6 +26,7 @@
 		93BEA29329E46C4700280DAC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93BEA29129E46C4700280DAC /* Localizable.strings */; };
 		93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BEA29529E46E5900280DAC /* String+Localized.swift */; };
 		93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2748629E3D5DB0033AB01 /* FilesProvider.swift */; };
+		93C922B829E6E8CE002400A0 /* LogsProvider+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C922B729E6E8CE002400A0 /* LogsProvider+Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		93BEA29429E46C5500280DAC /* pt-br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-br"; path = "pt-br.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		93BEA29529E46E5900280DAC /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		93C2748629E3D5DB0033AB01 /* FilesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesProvider.swift; sourceTree = "<group>"; };
+		93C922B729E6E8CE002400A0 /* LogsProvider+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+Service.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				938F6D6129E3909000DACB7A /* LogsProvider.swift */,
+				93C922B729E6E8CE002400A0 /* LogsProvider+Service.swift */,
 				93C2748629E3D5DB0033AB01 /* FilesProvider.swift */,
 			);
 			path = Providers;
@@ -350,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */,
+				93C922B829E6E8CE002400A0 /* LogsProvider+Service.swift in Sources */,
 				934DC48B29E636870072A25C /* MainView.swift in Sources */,
 				93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */,
 				934DC48D29E638940072A25C /* LogsListScreen.swift in Sources */,
