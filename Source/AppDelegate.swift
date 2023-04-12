@@ -8,8 +8,8 @@
 import SwiftUI
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    private let allowedMenus = [
-        Strings.menuLogs.value
+    private let allowedMenus: [String] = [
+        //Strings.menuLogs.value
     ]
 
     func applicationWillUpdate(_ notification: Notification) {

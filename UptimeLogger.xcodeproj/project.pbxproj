@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		93057FD529E3589900D1FD50 /* LogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93057FD429E3589900D1FD50 /* LogsView.swift */; };
+		934DC48B29E636870072A25C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48A29E636870072A25C /* MainView.swift */; };
+		934DC48D29E638940072A25C /* LogsListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48C29E638940072A25C /* LogsListScreen.swift */; };
+		934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48E29E63B640072A25C /* SettingsScreen.swift */; };
 		938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6129E3909000DACB7A /* LogsProvider.swift */; };
 		938F6D6429E3ACF400DACB7A /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6329E3ACF400DACB7A /* Menus.swift */; };
 		938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6529E3B02E00DACB7A /* LogItemView.swift */; };
@@ -43,6 +46,9 @@
 
 /* Begin PBXFileReference section */
 		93057FD429E3589900D1FD50 /* LogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsView.swift; sourceTree = "<group>"; };
+		934DC48A29E636870072A25C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		934DC48C29E638940072A25C /* LogsListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsListScreen.swift; sourceTree = "<group>"; };
+		934DC48E29E63B640072A25C /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		938F6D6129E3909000DACB7A /* LogsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsProvider.swift; sourceTree = "<group>"; };
 		938F6D6329E3ACF400DACB7A /* Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menus.swift; sourceTree = "<group>"; };
 		938F6D6529E3B02E00DACB7A /* LogItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemView.swift; sourceTree = "<group>"; };
@@ -89,6 +95,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		934DC48329E635AA0072A25C /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				934DC48729E636080072A25C /* Settings */,
+				934DC48629E635FE0072A25C /* Logs */,
+				934DC48529E635D90072A25C /* ServiceManagement */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		934DC48529E635D90072A25C /* ServiceManagement */ = {
+			isa = PBXGroup;
+			children = (
+				939983FF29E4AC1900631A20 /* InstallationView.swift */,
+			);
+			path = ServiceManagement;
+			sourceTree = "<group>";
+		};
+		934DC48629E635FE0072A25C /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				93057FD429E3589900D1FD50 /* LogsView.swift */,
+				938F6D6529E3B02E00DACB7A /* LogItemView.swift */,
+				934DC48C29E638940072A25C /* LogsListScreen.swift */,
+			);
+			path = Logs;
+			sourceTree = "<group>";
+		};
+		934DC48729E636080072A25C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				934DC48E29E63B640072A25C /* SettingsScreen.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		938F6D5F29E3905B00DACB7A /* Providers */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,16 +140,15 @@
 			path = Providers;
 			sourceTree = "<group>";
 		};
-		938F6D6029E3906E00DACB7A /* View */ = {
+		938F6D6029E3906E00DACB7A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				934DC48329E635AA0072A25C /* Screens */,
 				93A07CED29E35501000EDA9C /* ContentView.swift */,
-				93057FD429E3589900D1FD50 /* LogsView.swift */,
-				938F6D6529E3B02E00DACB7A /* LogItemView.swift */,
 				938F6D6329E3ACF400DACB7A /* Menus.swift */,
-				939983FF29E4AC1900631A20 /* InstallationView.swift */,
+				934DC48A29E636870072A25C /* MainView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		93A07CDF29E35501000EDA9C = {
@@ -160,7 +201,7 @@
 		93BEA29029E4659300280DAC /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				938F6D6029E3906E00DACB7A /* View */,
+				938F6D6029E3906E00DACB7A /* Views */,
 				938F6D5F29E3905B00DACB7A /* Providers */,
 				93AB39FA29E3771C006BF0B9 /* Models */,
 				93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */,
@@ -306,11 +347,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */,
+				934DC48B29E636870072A25C /* MainView.swift in Sources */,
 				93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */,
+				934DC48D29E638940072A25C /* LogsListScreen.swift in Sources */,
 				938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */,
 				93A07CEE29E35501000EDA9C /* ContentView.swift in Sources */,
 				938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */,
 				938F6D6429E3ACF400DACB7A /* Menus.swift in Sources */,
+				934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */,
 				93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */,
 				93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */,
 				93057FD529E3589900D1FD50 /* LogsView.swift in Sources */,
