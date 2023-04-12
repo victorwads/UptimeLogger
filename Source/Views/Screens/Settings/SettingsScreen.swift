@@ -11,7 +11,10 @@ struct SettingsScreen: View {
     
     @AppStorage("monitoringEnabled") private var monitoringEnabled = false
     @AppStorage("monitoringInterval") private var monitoringInterval = 1.0
-    
+    @AppStorage("logsFolder") var storedFolder: String = LogsProvider.defaultLogsFolder
+    @AppStorage("foldersHistory") var storedFoldersHistory: String = LogsProvider.defaultLogsFolder
+    @State private var foldersHistory: [String] = []
+
     let provider: LogsProvider
     
     var body: some View {
@@ -48,10 +51,10 @@ struct SettingsScreen: View {
                 .font(.headline)
             
             HStack {
-                TextField("", text: .constant(provider.folder))
+                TextField("", text: .constant(storedFolder))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                Button(action: {}) {
+                Button(action: changeFolder) {
                     Text(Strings.menuFoldersChange.value)
                 }
             }
@@ -68,7 +71,7 @@ struct SettingsScreen: View {
         if monitoringEnabled {
             _ = provider.saveSettings(Int(monitoringInterval))
         } else {
-            _ = provider.saveSettings(nil)
+            _ =  provider.saveSettings(nil)
         }
     }
     
@@ -80,11 +83,28 @@ struct SettingsScreen: View {
         } else {
             monitoringEnabled = false
         }
+        foldersHistory = storedFoldersHistory.components(separatedBy: ",").filter { !$0.isEmpty }
+    }
+    
+    private func updateRecents() {
+        let path = provider.folder
+        if !foldersHistory.contains(path) {
+            foldersHistory.append(path)
+        }
+        storedFoldersHistory = foldersHistory.joined(separator: ",")
+    }
+
+    private func changeFolder() {
+        FilesProvider.shared.authorize(provider.folder, true) {
+            provider.folder = $0
+            storedFolder = $0
+            updateRecents()
+        }
     }
 }
 
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsScreen(provider: LogsProvider.shared)
+        SettingsScreen(provider: LogsProvider())
     }
 }

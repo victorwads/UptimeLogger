@@ -25,6 +25,10 @@ struct MainView: View {
 
 struct MenuView: View {
     
+    private let logsTag = 1
+    private let settingsTag = 2
+    private let installTag = 3
+
     @State private var selectedScreen: Int? = 1
 
     let provider: LogsProvider
@@ -41,7 +45,9 @@ struct MenuView: View {
             
             Divider()
             List() {
-                NavigationLink(destination: LogsScreen(provider: provider), tag: 1, selection: $selectedScreen) {
+                NavigationLink(destination: LogsScreen(provider: provider, showInstallation: {
+                    selectedScreen = installTag
+                }), tag: logsTag, selection: $selectedScreen) {
                     Label("Registros de Logs", systemImage: "list.bullet.rectangle")
                 }
             }
@@ -49,7 +55,8 @@ struct MenuView: View {
             Divider()
             List() {
                 NavigationLink(destination: InstallationView(
-                    currentFolder: .constant(""), onContinue: {}
+                    provider: provider,
+                    navigateToLogs: { selectedScreen = logsTag }
                 ), tag: 3, selection: $selectedScreen) {
                     Label("Manutenção de Serviço", systemImage: "wrench.fill")
                 }
@@ -70,6 +77,6 @@ struct MenuView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(provider: LogsProvider.shared)
+        MainView(provider: LogsProvider())
     }
 }

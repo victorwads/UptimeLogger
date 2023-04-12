@@ -51,7 +51,7 @@ struct Menus: Commands {
     }
     
     func showLogs() {
-        NSWorkspace.shared.open(URL(fileURLWithPath: LogsProvider.shared.folder))
+        NSWorkspace.shared.open(URL(fileURLWithPath: LogsProvider.defaultLogsFolder))
     }
 
 }

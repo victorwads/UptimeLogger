@@ -9,9 +9,9 @@ import SwiftUI
 
 struct InstallationView: View {
 
-    @Binding var currentFolder: String
+    let provider: LogsProvider
+    let navigateToLogs: () -> Void
 
-    let onContinue: () -> Void
     private let installComand = "./install"
     
     var ServiceInfoView: some View {
@@ -25,7 +25,7 @@ struct InstallationView: View {
                 Spacer()
             }
             Text(Strings.installMessage.value)
-            Text(currentFolder)
+            Text(provider.folder)
                 .font(.subheadline)
                 .foregroundColor(.gray)
 
@@ -61,27 +61,32 @@ struct InstallationView: View {
 
     var body: some View {
             VStack() {
+                InstallView.padding(.bottom, 60)
                 ServiceInfoView
-                InstallView.padding(.top, 60)
                 Spacer()
                 HStack {
                     Spacer()
-                    Button("Continuar", action: onContinue)
+                    Button("Continuar", action: continueInstall)
                 }
             }
             .padding()
-            .onAppear {
-                NSPasteboard.general.clearContents()
-                NSPasteboard.general.setString(installComand, forType: .string)
-            }
         }
+    
+    private func continueInstall() {
+        if (!provider.isServiceInstalled) {
+            provider.installService()
+        } else {
+            navigateToLogs()
+        }
+    }
+
 }
 
 struct InstallationView_Previews: PreviewProvider {
     static var previews: some View {
         InstallationView(
-            currentFolder: .constant(""),
-            onContinue: {}
+            provider: LogsProvider(),
+            navigateToLogs: {}
         )
     }
 }

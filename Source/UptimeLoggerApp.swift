@@ -12,9 +12,13 @@ struct UptimeLoggerApp: App {
     
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @AppStorage("logsFolder") var storedFolder: String = LogsProvider.defaultLogsFolder
+
     var body: some Scene {
         WindowGroup {
-            MainView(provider: LogsProvider.shared)
+            MainView(
+                provider: LogsProvider(folder: storedFolder)
+            )
         }.commands {
 //            CommandMenu("HelpTools") {
 //                Button(action: {

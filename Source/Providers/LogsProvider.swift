@@ -10,12 +10,14 @@ import AppKit
 
 class LogsProvider {
     
-    static let shared = LogsProvider()
-
     static let serviceFolder = "/Library/UptimeLogger/"
     static let defaultLogsFolder = serviceFolder + "logs"
 
     public var folder = defaultLogsFolder
+    
+    init(folder: String = defaultLogsFolder) {
+        self.folder = folder
+    }
     
     private func getCurrentFileName() -> String {
         do {

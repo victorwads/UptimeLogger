@@ -14,37 +14,28 @@ class TimerWrapper {
 struct LogsScreen: View {
 
     @State private var serviceInstalled: Bool = false
-    @State private var showInstallation: Bool = false
     @State private var logs: [LogItemInfo] = []
     @State private var currentLog: LogItemInfo = LogItemInfo()
-    @State private var foldersHistory: [String] = []
 
-    @AppStorage("logsFolder") var logsFolder: String = LogsProvider.shared.folder
-    @AppStorage("foldersHistory") var logsFolderHistory: String = ""
+    @AppStorage("logsFolder") var logsFolder: String = LogsProvider.defaultLogsFolder
     
     let provider: LogsProvider
+    let showInstallation: () -> Void
 
     private let wrapper = TimerWrapper()
 
     var body: some View {
             VStack {
-                if(showInstallation){
-                    InstallationView(
-                        currentFolder: $logsFolder,
-                        onContinue: continueInstall
-                    )
-                } else {
-                    ContentView(
-                        logs: $logs,
-                        logsFolder: $logsFolder,
-                        current: $currentLog,
-                        toggleItemAction: {item in
-                            provider.toggleShutdownAllowed(item)
-                            loadLogs()
-                        }
-                    )
-                    LegendView()
-                }
+                ContentView(
+                    logs: $logs,
+                    logsFolder: $logsFolder,
+                    current: $currentLog,
+                    toggleItemAction: {item in
+                        provider.toggleShutdownAllowed(item)
+                        loadLogs()
+                    }
+                )
+                LegendView()
             }.onAppear(perform: self.initLogs)
             .onDisappear(perform: {
                 wrapper.timer?.invalidate()
@@ -53,9 +44,12 @@ struct LogsScreen: View {
     }
     
     private func initLogs(){
-        foldersHistory = logsFolderHistory.components(separatedBy: ",").filter { !$0.isEmpty }
         provider.folder = logsFolder
-        changeFolder(false)
+        FilesProvider.shared.authorize(logsFolder, false) {
+            provider.folder = $0
+            logsFolder = $0
+            loadLogs()
+        }
         
         serviceInstalled = provider.isServiceInstalled
         
@@ -63,24 +57,6 @@ struct LogsScreen: View {
             loadCurrent()
         }
         wrapper.timer?.fire()
-    }
-    
-    private func updateRecents() {
-        let path = provider.folder
-        if !foldersHistory.contains(path) {
-            foldersHistory.append(path)
-            logsFolderHistory = foldersHistory.joined(separator: ",")
-        }
-    }
-    
-    private func changeFolder(_ change: Bool = true, _ folder: String? = nil) {
-        let folder = folder ?? LogsProvider.shared.folder
-        FilesProvider.shared.authorize(folder, change) {
-            provider.folder = $0
-            logsFolder = $0
-            loadLogs()
-            updateRecents()
-        }
     }
     
     private func loadCurrent() {
@@ -94,18 +70,8 @@ struct LogsScreen: View {
             logs = provider.loadLogs()
             
             if(!serviceInstalled && logs.count < 1) {
-                showInstallation = true
-            } else {
-                showInstallation = false
+                showInstallation()
             }
-        }
-    }
-    
-    private func continueInstall() {
-        if (!provider.isServiceInstalled) {
-            provider.installService()
-        } else {
-            showInstallation=false
         }
     }
 }
@@ -113,7 +79,8 @@ struct LogsScreen: View {
 struct LogsListScreen_Previews: PreviewProvider {
     static var previews: some View {
         LogsScreen(
-            provider: LogsProvider.shared
+            provider: LogsProvider(),
+            showInstallation: {}
         )
     }
 }
