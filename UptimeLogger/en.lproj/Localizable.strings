@@ -26,7 +26,6 @@
 "menu.folders.open" = "Open logs folder";
 
 /* LogsView */
-"logs.loading" = "Loading...";
 "logs.notfound" = "No logs found";
 
 /* LogItemView */

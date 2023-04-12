@@ -41,7 +41,7 @@ struct MenuView: View {
             
             Divider()
             List() {
-                NavigationLink(destination: LogsListScreen(provider: provider), tag: 1, selection: $selectedScreen) {
+                NavigationLink(destination: LogsScreen(provider: provider), tag: 1, selection: $selectedScreen) {
                     Label("Registros de Logs", systemImage: "list.bullet.rectangle")
                 }
             }

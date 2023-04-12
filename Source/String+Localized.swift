@@ -25,7 +25,6 @@ enum Strings: String {
     case menuFoldersNew = "menu.folders.new"
     case menuFoldersOpen = "menu.folders.open"
 
-    case logsLoading = "logs.loading"
     case logsNotFound = "logs.notfound"
     
     case logHelp = "log.help"

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @Binding var logs: [LogItemInfo]?
+    @Binding var logs: [LogItemInfo]
     @Binding var logsFolder: String
     @Binding var current: LogItemInfo
     var toggleItemAction: (LogItemInfo) -> Void = {_ in }
@@ -43,7 +43,7 @@ struct ContentView: View {
                     .foregroundColor(.gray)
             }
             
-            LogsView(
+            LogsListView(
                 onToggleAction: toggleItemAction,
                 items: $logs
             )

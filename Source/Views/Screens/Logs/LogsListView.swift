@@ -7,21 +7,13 @@
 
 import SwiftUI
 
-struct LogsView: View {
+struct LogsListView: View {
     
     var onToggleAction: (LogItemInfo) -> Void = {_ in }
-    @Binding var items: [LogItemInfo]?
+    @Binding var items: [LogItemInfo]
 
     var body: some View {
-        if items == nil {
-            List([0], id: \.self) { item in
-                HStack(alignment: .center) {
-                    Spacer()
-                    ProgressView(Strings.logsLoading.value)
-                    Spacer()
-                }
-            }
-        } else if items?.isEmpty ?? false {
+        if items.isEmpty {
             List([0], id: \.self) { item in
                 HStack(alignment: .center) {
                     Spacer()
@@ -29,8 +21,8 @@ struct LogsView: View {
                     Spacer()
                 }
             }
-        } else if let logItems = items {
-            List(logItems, id: \.scriptStartTime) { logItem in
+        } else {
+            List(items, id: \.fileName) { logItem in
                 LogItemView(
                     log: .constant(logItem),
                     onToggleAction: onToggleAction
@@ -44,7 +36,7 @@ struct LogsView: View {
 
 struct LogsView_Previews: PreviewProvider {
     static var previews: some View {
-        LogsView(items: .constant([
+        LogsListView(items: .constant([
             LogItemInfo(fileName: "", content: "")
         ]))
     }

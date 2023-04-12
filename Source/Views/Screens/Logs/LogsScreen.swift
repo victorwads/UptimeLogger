@@ -11,11 +11,11 @@ class TimerWrapper {
     public var timer: Timer?
 }
 
-struct LogsListScreen: View {
+struct LogsScreen: View {
 
     @State private var serviceInstalled: Bool = false
     @State private var showInstallation: Bool = false
-    @State private var logs: [LogItemInfo]? = nil
+    @State private var logs: [LogItemInfo] = []
     @State private var currentLog: LogItemInfo = LogItemInfo()
     @State private var foldersHistory: [String] = []
 
@@ -89,12 +89,11 @@ struct LogsListScreen: View {
     }
 
     private func loadLogs() {
-        logs = nil
         loadCurrent()
         DispatchQueue.global().async {
             logs = provider.loadLogs()
             
-            if(!serviceInstalled && logs?.count ?? 0 < 1) {
+            if(!serviceInstalled && logs.count < 1) {
                 showInstallation = true
             } else {
                 showInstallation = false
@@ -113,7 +112,7 @@ struct LogsListScreen: View {
 
 struct LogsListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LogsListScreen(
+        LogsScreen(
             provider: LogsProvider.shared
         )
     }
