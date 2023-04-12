@@ -12,6 +12,7 @@
     * Remove shutdown button
     * Mark logs as "edited" when thet are updated
     * Improve Logs Layout
+    * Fix not saving file permision
   * Logger Service
     * Logs Versioning - started v3
         * Add boottime: timestamp
