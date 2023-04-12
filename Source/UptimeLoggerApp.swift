@@ -15,8 +15,15 @@ struct UptimeLoggerApp: App {
     var body: some Scene {
         WindowGroup {
             MainView(provider: LogsProvider.shared)
-        }
-//        }.commands {
+        }.commands {
+//            CommandMenu("HelpTools") {
+//                Button(action: {
+//                    let domain = Bundle.main.bundleIdentifier!
+//                    UserDefaults.standard.removePersistentDomain(forName: domain)
+//                }) {
+//                    Text("Clean preferences")
+//                }
+//            }
 //            Menus(
 //                foldersHistory: $foldersHistory,
 //                reloadAction: {loadLogs},
@@ -30,6 +37,6 @@ struct UptimeLoggerApp: App {
 //                },
 //                installAction: { showInstallation = true }
 //            )
-//        }
+        }
     }
 }
