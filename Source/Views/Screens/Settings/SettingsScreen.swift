@@ -59,11 +59,29 @@ struct SettingsScreen: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationTitle("Configurações")
+        .onChange(of: monitoringEnabled, perform: {_ in saveConfigs()})
+        .onChange(of: monitoringInterval, perform: {_ in saveConfigs()})
+        .onAppear(perform: loadConfigs)
+    }
+    
+    func saveConfigs(){
+        if monitoringEnabled {
+            _ = provider.saveSettings(Int(monitoringInterval))
+        } else {
+            _ = provider.saveSettings(nil)
+        }
+    }
+    
+    func loadConfigs(){
+        let configs = provider.getSettings()
+        if let interval = configs {
+            monitoringEnabled = true
+            monitoringInterval = Double(interval)
+        } else {
+            monitoringEnabled = false
+        }
     }
 }
-
-
-
 
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {

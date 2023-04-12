@@ -14,16 +14,8 @@ class LogsProvider {
 
     static let serviceFolder = "/Library/UptimeLogger/"
     static let defaultLogsFolder = serviceFolder + "logs"
-    static let scriptName = "uptime_logger"
 
     public var folder = defaultLogsFolder
-    
-    private func getFileContents(_ filePath: String) -> String? {
-        if let logData = FileManager.default.contents(atPath: filePath) {
-            return String(data: logData, encoding: .utf8)
-        }
-        return ""
-    }
     
     private func getCurrentFileName() -> String {
         do {
@@ -35,7 +27,14 @@ class LogsProvider {
             return ""
         }
     }
- 
+     
+    func getFileContents(_ filePath: String) -> String? {
+        if let logData = FileManager.default.contents(atPath: filePath) {
+            return String(data: logData, encoding: .utf8)
+        }
+        return ""
+    }
+
     public func loadCurrentLog() -> LogItemInfo {
         let filename = getCurrentFileName()
         let contents = getFileContents(folder + "/" + filename) ?? ""

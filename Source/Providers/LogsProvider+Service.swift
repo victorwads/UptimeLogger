@@ -9,6 +9,8 @@ import Foundation
 
 extension LogsProvider {
     
+    private static let scriptName = "uptime_logger"
+
     public var isServiceInstalled: Bool {
         get {
             FileManager.default.fileExists(atPath: LogsProvider.serviceFolder + LogsProvider.scriptName)
