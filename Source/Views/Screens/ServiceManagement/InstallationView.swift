@@ -9,13 +9,16 @@ import SwiftUI
 
 struct InstallationView: View {
     
+    static private let installComand = "./install"
+    static private let updateComand = "./install --update"
+    static private let deleteComand = "./install --uninstall"
+
     let provider: LogsProvider
     let navigateToLogs: () -> Void
     
     @State var isRunning: Bool = false
-    
-    private let installComand = "./install"
-    private let updateComand = "./install --update"
+    @State var command: String = InstallationView.installComand
+
 
     var ServiceInfoView: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -49,7 +52,7 @@ struct InstallationView: View {
                     .foregroundColor(.gray)
             }
             Text(Strings.installStep1.value)
-            TextEditor(text: .constant(isRunning ? updateComand : installComand))
+            TextEditor(text: $command)
                 .font(.system(.body, design: .monospaced))
                 .foregroundColor(.primary)
                 .background(Color(NSColor.textBackgroundColor))
@@ -59,7 +62,8 @@ struct InstallationView: View {
             HStack {
                 Spacer()
                 if(isRunning){
-                    Button("Atualizar", action: { provider.installService() })
+                    Button("Desinstalar", action: { sendComand(InstallationView.deleteComand) })
+                    Button("Atualizar", action: { sendComand(InstallationView.updateComand) })
                 }
                 Button("Continuar", action: continueInstall)
             }
@@ -78,16 +82,18 @@ struct InstallationView: View {
     
     private func updateStatus(){
         isRunning = provider.isServiceInstalled
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(updateComand, forType: .string)
     }
-    
+
+    private func sendComand(_ command: String){
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(command, forType: .string)
+        provider.installService()
+    }
+
     private func continueInstall() {
         updateStatus()
         if (!provider.isServiceInstalled) {
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString(installComand, forType: .string)
-            provider.installService()
+            sendComand(InstallationView.installComand)
         } else {
             navigateToLogs()
         }
