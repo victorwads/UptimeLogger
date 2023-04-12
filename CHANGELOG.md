@@ -3,9 +3,6 @@
 - 3.0 - Features Requested
   - App
     - Adds Service Uninstall Help Flow
-    - Adds Service Uninstall Help Flow
-  - Logger Service
-    - Logs process running at shutdown time
 
 * [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-2.0.zip)
   * App
@@ -14,8 +11,8 @@
     * Improve Logs Layout
     * Fix not saving file permision
   * Logger Service
-    * Logs Versioning - started v3
-        * Add boottime: timestamp
+    * Logs Versioning - started v4
+        * Logs process running at shutdown time
     * Identifies unexpected shutdowns automatically using "trap" comand
 
 - [1.3](https://github.com/victorwads/UptimeLogger/releases/download/1.3/UptimeLogger-1.3.zip)

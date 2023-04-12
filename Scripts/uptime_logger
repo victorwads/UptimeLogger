@@ -1,6 +1,6 @@
 #!/bin/bash
 DEBUG=false
-VERSION=3
+VERSION=4
 
 # Check for version option
 if [[ "$*" == *"-v"* ]] || [[ "$*" == *"--version"* ]]; then
@@ -12,6 +12,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 LOGS_DIR="$SCRIPT_DIR/logs"
 LOG_LATEST="$LOGS_DIR/latest"
+CONFIG_FILE="$LOGS_DIR/config"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi
@@ -48,6 +49,7 @@ fi
 
 # Set log files names
 LOG_FILE="$LOGS_DIR/log_$STARTUP.txt"
+PLOG_FILE="$LOGS_DIR/log_$STARTUP.log"
 ln -sf $LOG_FILE $LOG_LATEST
 
 # Verifica se o modo de depuração está habilitado
@@ -73,7 +75,15 @@ else
     trap "allowShutdown; exit;" INT TERM
 fi
 
+# Define a contagem inicial
+LOG_PROCCESS=false
+
+if [[ "$X" =~ ^[0-9]+$ ]] && [ "$X" -gt 0 ]; then
+    LOG_PROCCESS=true
+fi
+
 # Loop infinito para atualizar o uptime a cada 5 minutos
+COUNT=0
 while true; do
 
     LOG="init: $STARTUP"$'\n'
@@ -98,8 +108,23 @@ while true; do
 
     echo "$LOG" >"$LOG_FILE"
 
+    LOGPROCESS=false
+    if [ -r "$CONFIG_FILE" ]; then
+        EACHSEC=$(cat $CONFIG_FILE)
+        if [ $((COUNT % EACHSEC)) -eq 0 ]; then            
+            ps -ax -o user,pid,pcpu,pmem,start,time,command > "$PLOG_FILE"
+            if [ $DEBUG = true ]; then
+                echo "logged proceess to file"
+            fi
+        fi
+        LOGPROCESS=true
+        LOG+="logprocessinterval: $EACHSEC"$'\n'
+    fi
+    LOG+="logprocess: $LOGPROCESS"$'\n'
+
     if [ $DEBUG = true ]; then
         echo "$LOG"
     fi
     sleep 1
+    ((COUNT++))
 done
