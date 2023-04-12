@@ -46,6 +46,7 @@ struct LogsListScreen: View {
                             loadLogs()
                         }
                     )
+                    LegendView()
                 }
             }.onAppear(perform: self.initLogs)
             .onDisappear(perform: {

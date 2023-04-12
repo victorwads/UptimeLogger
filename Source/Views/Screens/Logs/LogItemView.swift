@@ -10,9 +10,9 @@ import SwiftUI
 struct LogItemView: View {
     static let iconNormalShutDown = "checkmark.seal.fill"
     static let iconUnexpected = "bolt.trianglebadge.exclamationmark.fill"
-    static let iconScriptStartTime = "power"
-    static let iconShutdownTime = ""
-    static let iconBootTime = ""
+    static let iconScriptStartTime = "gearshape.arrow.triangle.2.circlepath"
+    static let iconShutdownTime = "powersleep"
+    static let iconBootTime = "power"
     static let iconUpTime = "bolt.badge.clock.fill"
     static let iconEdited = "square.and.pencil"
 
