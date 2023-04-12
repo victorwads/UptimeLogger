@@ -13,7 +13,11 @@ struct MainView: View {
     
     var body: some View {
         NavigationView {
-            MenuView(provider: provider, name: name).navigationTitle("Menu")
+            MenuView(
+                provider: provider,
+                name: name
+            ).navigationTitle("Menu")
+            .frame(minWidth: 250)
         }
         .navigationTitle(name)
     }
@@ -21,11 +25,12 @@ struct MainView: View {
 
 struct MenuView: View {
     
+    @State private var selectedScreen: Int? = 1
+
     let provider: LogsProvider
-    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     let name: String
-    
-    @State private var selectedScreen: Int? = nil
+
+    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
 
     var body: some View {
         VStack() {
@@ -36,20 +41,17 @@ struct MenuView: View {
             List() {
                 NavigationLink(destination: LogsListScreen(provider: provider), tag: 1, selection: $selectedScreen) {
                     Label("Registros de Logs", systemImage: "list.bullet.rectangle")
-                }.padding(.vertical, 5)
+                }
                 NavigationLink(destination: SettingsScreen(), tag: 2, selection: $selectedScreen) {
                     Label("Configuração", systemImage: "gearshape")
-                }.padding(.vertical, 5)
+                }
                 NavigationLink(destination: InstallationView(
                     currentFolder: .constant(""), onContinue: {}
                 ), tag: 3, selection: $selectedScreen) {
                     Label("Manutenção de Serviço", systemImage: "wrench.fill")
-                }.padding(.vertical, 5)
+                }
             }
             .listStyle(.sidebar)
-            .onAppear {
-                selectedScreen = 1
-            }
             
             Text(version)
                 .foregroundColor(.gray)
