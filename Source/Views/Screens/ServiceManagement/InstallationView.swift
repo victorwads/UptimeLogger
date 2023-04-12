@@ -22,6 +22,7 @@ struct InstallationView: View {
                 Text(Strings.installServiceTitle.value)
                     .font(.title)
                     .bold()
+                Spacer()
             }
             Text(Strings.installMessage.value)
             Text(currentFolder)
