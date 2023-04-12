@@ -1,18 +1,25 @@
 # App and Logger Changelog
 
-- 3.0 - Features Requested
-  - App
-    - Adds Service Uninstall Help Flow
-
 * [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-2.0.zip)
   * App
-    * Remove shutdown button
-    * Mark logs as "edited" when thet are updated
-    * Improve Logs Layout
     * Fix not saving file permision
+    * Removed system menus
+    * Logs Screen
+      * Remove shutdown button
+      * Mark logs as "edited" when thet are updated
+      * Improve Logs Layout
+    * Intall Screen
+      * Adds Service Uninstall Help Flow
+      * Adds Service Update Help Flow
+    * **-new-** Settings Screen
+      * Toggle Process monitorim
+      * Set seconds interval for process monitorim
+      * developer options
   * Logger Service
     * Logs Versioning - started v4
-        * Logs process running at shutdown time
+        * Add logprocess: true/false
+        * Add logprocessinterval: seconds
+        * Add .log file with list of running process when actived
     * Identifies unexpected shutdowns automatically using "trap" comand
 
 - [1.3](https://github.com/victorwads/UptimeLogger/releases/download/1.3/UptimeLogger-1.3.zip)

@@ -23,7 +23,7 @@ struct LogItemView: View {
         get { log.shutdownAllowed }
     }
     
-    var stack: some View {
+    var shutdownStatus: some View {
         HStack(alignment: .center, spacing: 4) {
             let info = (!allow ? Strings.logUnexpectedYes.value : Strings.logUnexpectedNo.value) + log.formattedEndtime
             Text(info)
@@ -36,19 +36,25 @@ struct LogItemView: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            VStack(alignment: .leading){
-                HStack(alignment: .center) {
-                    Image(systemName: LogItemView.iconScriptStartTime)
-                    Text(Strings.logStartup.value).bold()
-                    Text(log.formattedStartUptime)
-                        .font(.subheadline)
-                }.padding(.bottom, 2)
-                HStack(alignment: .center) {
-                    Image(systemName: LogItemView.iconUpTime)
-                    Text(Strings.logUptime.value).bold()
-                    Text(log.formattedUptime)
-                        .font(.subheadline)
-                }
+            HStack(alignment: .center) {
+                Image(systemName: LogItemView.iconScriptStartTime)
+                    .foregroundColor(.accentColor)
+                MonoText(text: log.formattedStartUptime)
+            }.padding(.bottom, 2)
+            HStack(alignment: .center) {
+                Image(systemName: LogItemView.iconShutdownTime)
+                    .foregroundColor(.accentColor)
+                MonoText(text: log.formattedShutdownTime ?? "null")
+            }
+            HStack(alignment: .center) {
+                Image(systemName: LogItemView.iconBootTime)
+                    .foregroundColor(.accentColor)
+                MonoText(text: log.formattedBoottime ?? "null")
+            }
+            HStack(alignment: .center) {
+                Image(systemName: LogItemView.iconUpTime)
+                    .foregroundColor(.accentColor)
+                MonoText(text: log.formattedUptime)
             }
             Spacer()
             Text(Strings.logUnexpected.value).bold()
@@ -56,7 +62,7 @@ struct LogItemView: View {
                 .foregroundColor(.gray)
 
             if let onToggleAction = onToggleAction {
-                stack.onTapGesture {
+                shutdownStatus.onTapGesture {
                     onToggleAction(log)
                 }.help(Strings.logHelp.value)
                 if(log.edited) {
@@ -66,10 +72,23 @@ struct LogItemView: View {
                 }
                 Divider()
             } else {
-                stack
+                shutdownStatus
             }
             Text("v\(log.version)")
                 .foregroundColor(.gray)
+        }
+    }
+}
+
+struct MonoText: View {
+    
+    let text: String
+    
+    var body: some View {
+        let text = Text(text)
+            .font(.headline)
+        if #available(macOS 13.0, *){
+            text.monospaced()
         }
     }
 }

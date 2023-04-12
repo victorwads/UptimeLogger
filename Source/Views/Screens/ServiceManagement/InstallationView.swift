@@ -18,13 +18,16 @@ struct InstallationView: View {
     
     @State var isRunning: Bool = false
     @State var command: String = InstallationView.installComand
+    @State var current: LogItemInfo = LogItemInfo()
 
+    private let wrapper = TimerWrapper()
 
     var ServiceInfoView: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
                 Image(systemName: "bolt.trianglebadge.exclamationmark.fill")
                     .font(.title)
+                    .foregroundColor(.accentColor)
                 Text(Strings.installServiceTitle.value)
                     .font(.title)
                     .bold()
@@ -33,6 +36,25 @@ struct InstallationView: View {
                     .foregroundColor(isRunning ? .green : .red)
             }
             Text(Strings.installMessage.value)
+            
+            if (isRunning) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(Strings.mainCurrentInfo.value)
+                        .font(.subheadline)
+                    Divider()
+                    LogItemView(
+                        log: $current
+                    )
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 10)
+                    Divider()
+                }.padding(.top, 20)
+                .onAppear(perform: self.initLogs)
+                .onDisappear(perform: {
+                    wrapper.timer?.invalidate()
+                    wrapper.timer = nil
+                })
+            }
         }.onAppear(perform: updateStatus)
     }
     
@@ -42,6 +64,7 @@ struct InstallationView: View {
                 HStack {
                     Image(systemName: "square.and.arrow.down")
                         .font(.title)
+                        .foregroundColor(.accentColor)
                     Text(Strings.installTitle.value)
                         .font(.title)
                         .bold()
@@ -72,15 +95,22 @@ struct InstallationView: View {
     
     var body: some View {
         VStack() {
-            ServiceInfoView.padding(.bottom, 20)
-            Divider().padding(.bottom, 60)
+            ServiceInfoView.padding(.bottom, 40)
             InstallView
             Spacer()
         }
         .padding()
     }
     
+    private func initLogs(){
+        wrapper.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            updateStatus()
+        }
+        wrapper.timer?.fire()
+    }
+
     private func updateStatus(){
+        current = provider.loadCurrentLog()
         isRunning = provider.isServiceInstalled
     }
 

@@ -127,6 +127,20 @@ extension LogItemInfo {
     var formattedStartUptime: String {
         return formatDate(scriptStartTime)
     }
+
+    var formattedBoottime: String? {
+        if let time = systemBootTime {
+            return formatDate(time)
+        }
+        return nil
+    }
+
+    var formattedShutdownTime: String? {
+        if let time = scriptEndTime {
+            return formatDate(time)
+        }
+        return nil
+    }
     
     var formattedEndtime: String {
         if let data = scriptEndTime {

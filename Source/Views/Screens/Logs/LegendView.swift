@@ -22,6 +22,7 @@ struct LegendView: View {
                         Text("Hora de Inicio do Serviço")
                     }.padding(2)
                 }
+                Spacer()
                 VStack(alignment: .leading) {
                     HStack {
                         Image(systemName: LogItemView.iconShutdownTime)
@@ -43,6 +44,7 @@ struct LegendView: View {
                         Text("Desligamento Inesperado")
                     }.padding(2)
                 }
+                Spacer()
                 VStack(alignment: .leading) {
                     HStack {
                         Image(systemName: LogItemView.iconEdited)
@@ -51,7 +53,7 @@ struct LegendView: View {
                 }
                 Spacer()
             }
-        }.padding(.bottom)
+        }
     }
 }
 

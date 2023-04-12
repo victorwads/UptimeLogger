@@ -29,17 +29,7 @@ struct UptimeLoggerApp: App {
 //                }
 //            }
 //            Menus(
-//                foldersHistory: $foldersHistory,
 //                reloadAction: {loadLogs},
-//                changeFolderAction: { folder in changeFolder(folder==nil, folder)},
-//                clearRecentsAction: {
-//                    logsFolder = LogsProvider.logsFolder
-//                    foldersHistory = [LogsProvider.logsFolder]
-//                    logsFolderHistory = LogsProvider.logsFolder
-//                    provider.folder = LogsProvider.logsFolder
-//                    loadLogs()
-//                },
-//                installAction: { showInstallation = true }
 //            )
         }
     }

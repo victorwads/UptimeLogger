@@ -48,7 +48,7 @@ struct MenuView: View {
                 NavigationLink(destination: LogsScreen(provider: provider, showInstallation: {
                     selectedScreen = installTag
                 }), tag: logsTag, selection: $selectedScreen) {
-                    Label("Registros de Logs", systemImage: "list.bullet.rectangle")
+                    Label(Strings.mainLogs.value, systemImage: "list.bullet.rectangle")
                 }
             }
 

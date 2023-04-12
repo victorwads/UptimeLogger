@@ -15,32 +15,25 @@ struct LogsScreen: View {
 
     @State private var serviceInstalled: Bool = false
     @State private var logs: [LogItemInfo] = []
-    @State private var currentLog: LogItemInfo = LogItemInfo()
 
     @AppStorage("logsFolder") var logsFolder: String = LogsProvider.defaultLogsFolder
     
     let provider: LogsProvider
     let showInstallation: () -> Void
 
-    private let wrapper = TimerWrapper()
-
     var body: some View {
-            VStack {
-                ContentView(
-                    logs: $logs,
-                    logsFolder: $logsFolder,
-                    current: $currentLog,
-                    toggleItemAction: {item in
-                        provider.toggleShutdownAllowed(item)
-                        loadLogs()
-                    }
-                )
-                LegendView()
-            }.onAppear(perform: self.initLogs)
-            .onDisappear(perform: {
-                wrapper.timer?.invalidate()
-                wrapper.timer = nil
-            })
+        LegendView().padding()
+        LogsListView(
+            onToggleAction: toggleItemAction,
+            items: $logs
+        ).onAppear(perform: initLogs)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .navigationTitle(Strings.mainLogs.value)
+    }
+    
+    private func toggleItemAction(item: LogItemInfo) {
+        provider.toggleShutdownAllowed(item)
+        loadLogs()
     }
     
     private func initLogs(){
@@ -52,20 +45,9 @@ struct LogsScreen: View {
         }
         
         serviceInstalled = provider.isServiceInstalled
-        
-        wrapper.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            loadCurrent()
-        }
-        wrapper.timer?.fire()
     }
     
-    private func loadCurrent() {
-        var current = provider.loadCurrentLog()
-        currentLog = current
-    }
-
     private func loadLogs() {
-        loadCurrent()
         DispatchQueue.global().async {
             logs = provider.loadLogs()
             
