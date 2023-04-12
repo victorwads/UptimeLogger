@@ -46,18 +46,46 @@ struct SettingsScreen: View {
             }
             
             Spacer()
-            
-            Text("Opções de Desenvolvedor")
-                .font(.headline)
-            
-            HStack {
-                TextField("", text: .constant(storedFolder))
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+            VStack(alignment: .leading) {
+                Divider()
+                Text("Opções de Desenvolvedor")
+                    .font(.headline)
                 
-                Button(action: changeFolder) {
-                    Text(Strings.menuFoldersChange.value)
+                HStack {
+                    TextField("", text: .constant(storedFolder))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    Button(action: changeFolder) {
+                        Text(Strings.menuFoldersChange.value)
+                    }
                 }
-            }
+                
+                let history = foldersHistory.filter({ $0 != storedFolder})
+                
+                if(history.count > 0) {
+                    HStack {
+                        Text("Historico")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Button("Limpar Historico") {
+                            storedFolder = LogsProvider.defaultLogsFolder
+                            storedFoldersHistory = storedFolder
+                            foldersHistory = [storedFolder]
+                            provider.folder = storedFolder
+                        }
+                    }
+                    ForEach(history, id: \.self) { folder in
+                        HStack {
+                            Text(folder).font(.callout).padding(.vertical, 2)
+                            Spacer()
+                            Button("Usar") { changeFolder(folder, change: false) }
+                                .buttonStyle(.link)
+                        }
+                    }
+                }
+            }.padding(.bottom)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -95,7 +123,11 @@ struct SettingsScreen: View {
     }
 
     private func changeFolder() {
-        FilesProvider.shared.authorize(provider.folder, true) {
+        changeFolder(provider.folder)
+    }
+    
+    private func changeFolder(_ folder: String, change: Bool = true) {
+        FilesProvider.shared.authorize(folder, change) {
             provider.folder = $0
             storedFolder = $0
             updateRecents()

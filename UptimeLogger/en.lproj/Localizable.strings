@@ -37,10 +37,9 @@
 "log.unexpected.no" = "Shutdown";
 
 /* InstallationView */
-"install.service.title" = "Monitoring Service";
-"install.title" = "Installation Instructions";
-"install.message" = "Identified that the service is not installed, as there is no log record, you can change the log folder in the \"Logs\" menu or install the service by following the instructions below.";
-"install.1" = "To install the service it's pretty simple, just click the continue button and a window will open where you must paste the command below and press enter:";
+"install.title" = "Instructions";
+"install.message" = "The monitoring service is a lightweight script that runs in the background from the start-up of your system until the shutdown. The service is responsible for updating information on how the shutdown occurred.\n\nIn addition, after installation, you can enable process tracking to know which processes were running at the time of shutdown. Simply enable it on the \"Settings\" screen.";
+"install.1" = "To enable the service, simply click on the continue button and a window will open where you must paste the command below and press enter:";"install.1" = "To install the service it's pretty simple, just click the continue button and a window will open where you must paste the command below and press enter:";
 "install.1.tip" = "you must be an admin user";
 "install.2" = "After running the command in the opened window, you must enter your user password and press enter (it is normal for characters to be invisible)\n\nUpon completion, you can click continue again.";
 

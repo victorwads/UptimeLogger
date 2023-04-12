@@ -35,9 +35,9 @@
 
 /* InstallationView */
 "install.service.title" = "Serviço de Monitoramento";
-"install.title" = "Instruções de Instalação";
-"install.message" = "Identificamos que o serviço não esta instalado, pois não há registro de logs, você pode alterar a pasta de logs no menu \"Registros\" ou fazer a instalação do serviço seguindo as instruções abaixo.";
-"install.1" = "Para instalar o serviço é bem simples, basta clicar no botão continuar e será aberta uma janela onde você deve colar o comando abaixo e precionar enter:";
+"install.title" = "Instruções";
+"install.message" = "O serviço de monitoramento é uma script leve que roda em background desde o ligamento do seu sistema até a hora do desligamento. O Serviço fica responsável por atualizar as informações sobre como o desligamento ocorreu.\n\nAlem disso, após instalado, você pode habilitar o rastreio de processos para saber quais processos estavam rodando no momendo do desligamento. Basta habilitar na tela de \"Configuracões\".";
+"install.1" = "Para habilitar o serviço é bem simples, basta clicar no botão continuar e será aberta uma janela onde você deve colar o comando abaixo e precionar enter:";
 "install.1.tip" = "é necessário ser um usuário administrador";
 "install.2" = "Após executar o comando na janela aberta, você deve inserir a senha do seu usuário e precionar enter (é normal que os caracteres fiquem invisiveis)\n\nAo finalizar, você pode clicar em continuar novamente.";
 
