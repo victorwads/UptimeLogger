@@ -1,10 +1,35 @@
 #!/bin/sh
-rm -rf ../cache UptimeLogger.app "./UptimeLogger.pkg"
+BUNDLE_NAME="br.com.victorwads.UptimeLogger"
+INSTALLER_NAME="Install UptimeLogger App"
+UNINSTALLER_NAME="Uninstall"
+VERSION="2.0"
 
-xcodebuild -project ../UptimeLogger.xcodeproj -scheme UptimeLogger -configuration Release -derivedDataPath ../cache/
-cp -R ../cache/Build/Products/Release/UptimeLogger.app ./
+CACHE_FOLDER="cache"
+APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
+DMG_FOLDER="$CACHE_FOLDER/dmg"
 
-pkgbuild --root "UptimeLogger.app" --install-location "/Applications/UptimeLogger.app" --identifier "br.com.victorwads.UptimeLogger" --version "2.0" --scripts "./Scripts" "./UptimeLogger.pkg"
-pkgbuild --nopayload --scripts ./UninstallScripts --identifier "br.com.victorwads.UptimeLogger.uninstall" --version "2.0" UptimeLoggerUninstaller.pkg
 
-rm -rf ../cache UptimeLogger.app
+# Apaga caches anteriores
+echo "\033[32mBuildando app release\033[0m"
+xcodebuild -project ../UptimeLogger.xcodeproj -scheme UptimeLogger -configuration Release -derivedDataPath "$CACHE_FOLDER" > /dev/null
+
+mkdir "$DMG_FOLDER"
+
+echo "\033[32mCriando Instalador\033[0m"
+pkgbuild --root "$APP_FOLDER"  --install-location "/Applications/UptimeLogger.app" --scripts ./Install\
+    --identifier "$BUNDLE_NAME" --version "$VERSION"\
+    "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+
+echo "\033[32mCriando Desinstalador\033[0m"
+pkgbuild --nopayload  --scripts ./Uninstall\
+    --identifier "$BUNDLE_NAME.uninstall" --version "$VERSION"\
+    "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+
+echo "\033[32mCriando dmg de instalação\033[0m"
+hdiutil create -volname "UptimeLogger"\
+    -srcfolder "$DMG_FOLDER"\
+    -ov -format UDZO\
+    "UptimeLogger-$VERSION.dmg"
+
+echo "\033[32mApagando caches\033[0m"
+rm -rf "$CACHE_FOLDER"
