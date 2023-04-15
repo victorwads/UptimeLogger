@@ -1,5 +1,15 @@
 # App and Logger Changelog
 
+TODO
+Textos contando na tela inicial
+App
+  Instalador
+  Modal de Instalação / Desinstalação / Update
+  Componente de Botão copiar
+  Voltar do terminal pro programa sozinho
+Serviço
+  logar status de bateria % e se esta carregando/
+
 * [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-2.0.zip)
   * App
     * Fix not saving file permision

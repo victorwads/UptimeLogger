@@ -18,5 +18,8 @@
 
 
 .DS_Store
-Scripts/logs/
-Scripts/logs/*
+**/logs/
+**/logs/*
+cache/
+Pkg/*.app
+Pkg/*.pkg

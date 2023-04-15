@@ -1,0 +1,34 @@
+#!/bin/sh
+
+echo "Installer service at $SERVICE_FILE using sudo"
+
+SERVICE_NAME="br.com.victorwads.uptimelogger"
+INSTALL_FOLDER="$PKGROOT/Applications/UptimeLogger.app"
+SERVICE_FILE="/Library/LaunchDaemons/$SERVICE_NAME.plist"
+SERVICE_PLIST=$(cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+   <key>Label</key>
+   <string>$SERVICE_NAME</string>
+   <key>ProgramArguments</key>
+   <array>
+      <string>$INSTALL_FOLDER/Contents/Resources/Service/uptime_logger</string>
+   </array>
+   <key>KeepAlive</key>
+   <true/>
+</dict>
+</plist>
+EOF
+)
+
+if [ -f "/Library/LaunchDaemons/$SERVICE_NAME.plist" ]; then
+    sudo launchctl unload "/Library/LaunchDaemons/$SERVICE_NAME.plist"
+    sudo rm "/Library/LaunchDaemons/$SERVICE_NAME.plist"
+fi
+
+echo "Installer service at $SERVICE_FILE using sudo"
+echo "$SERVICE_PLIST" | sudo tee "$SERVICE_FILE" >/dev/null
+
+sudo launchctl load "/Library/LaunchDaemons/$SERVICE_NAME.plist"

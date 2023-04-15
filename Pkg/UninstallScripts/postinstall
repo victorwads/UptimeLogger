@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Remove o serviço do LaunchDaemon
+sudo launchctl unload /Library/LaunchDaemons/br.com.victorwads.uptimelogger.plist
+sudo rm /Library/LaunchDaemons/br.com.victorwads.uptimelogger.plist
+
+# Remove o diretório do programa
+sudo rm -rf /Applications/UptimeLogger.app
+
+# Remove o diretório de configuração
+sudo rm -rf /Library/Application\ Support/UptimeLogger

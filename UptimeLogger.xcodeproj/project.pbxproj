@@ -15,7 +15,7 @@
 		938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6129E3909000DACB7A /* LogsProvider.swift */; };
 		938F6D6429E3ACF400DACB7A /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6329E3ACF400DACB7A /* Menus.swift */; };
 		938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6529E3B02E00DACB7A /* LogItemView.swift */; };
-		939983FD29E4A31200631A20 /* Scripts in Resources */ = {isa = PBXBuildFile; fileRef = 939983FC29E4A31200631A20 /* Scripts */; };
+		939983FD29E4A31200631A20 /* Service in Resources */ = {isa = PBXBuildFile; fileRef = 939983FC29E4A31200631A20 /* Service */; };
 		9399840029E4AC1900631A20 /* InstallationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939983FF29E4AC1900631A20 /* InstallationView.swift */; };
 		9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9399840129E4D14B00631A20 /* AppDelegate.swift */; };
 		93A07CEC29E35501000EDA9C /* UptimeLoggerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */; };
@@ -55,7 +55,7 @@
 		938F6D6129E3909000DACB7A /* LogsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsProvider.swift; sourceTree = "<group>"; };
 		938F6D6329E3ACF400DACB7A /* Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menus.swift; sourceTree = "<group>"; };
 		938F6D6529E3B02E00DACB7A /* LogItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemView.swift; sourceTree = "<group>"; };
-		939983FC29E4A31200631A20 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
+		939983FC29E4A31200631A20 /* Service */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Service; sourceTree = "<group>"; };
 		939983FF29E4AC1900631A20 /* InstallationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationView.swift; sourceTree = "<group>"; };
 		9399840129E4D14B00631A20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93A07CE829E35501000EDA9C /* UptimeLogger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UptimeLogger.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,7 +160,7 @@
 		93A07CDF29E35501000EDA9C = {
 			isa = PBXGroup;
 			children = (
-				939983FC29E4A31200631A20 /* Scripts */,
+				939983FC29E4A31200631A20 /* Service */,
 				93BEA29029E4659300280DAC /* Source */,
 				93A07CEA29E35501000EDA9C /* UptimeLogger */,
 				93A07CE929E35501000EDA9C /* Products */,
@@ -327,7 +327,7 @@
 				93A07CF329E35502000EDA9C /* Preview Assets.xcassets in Resources */,
 				93BEA29329E46C4700280DAC /* Localizable.strings in Resources */,
 				93A07CF029E35502000EDA9C /* Assets.xcassets in Resources */,
-				939983FD29E4A31200631A20 /* Scripts in Resources */,
+				939983FD29E4A31200631A20 /* Service in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
