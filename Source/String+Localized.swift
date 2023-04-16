@@ -5,7 +5,7 @@
 //  Created by Victor Wads on 10/04/23.
 //
 
-import Foundation
+import SwiftUI
 
 enum Strings: String {
     case providerFilesOpenMessage = "provider.files.openmessage"
@@ -46,7 +46,11 @@ enum Strings: String {
     case dateToday = "date.today"
     case dateYesterday = "date.yesterday"
 
-    var value: String{
+    var result: String{
         get { NSLocalizedString(self.rawValue, comment: "") }
+    }
+    
+    var value: LocalizedStringKey{
+        get { LocalizedStringKey(self.rawValue) }
     }
 }

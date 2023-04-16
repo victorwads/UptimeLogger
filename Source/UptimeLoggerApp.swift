@@ -15,14 +15,16 @@ struct UptimeLoggerApp: App {
     @AppStorage("logsFolder") var storedFolder: String = LogsProvider.defaultLogsFolder
 
     var body: some Scene {
+        let provider = LogsProvider(folder: storedFolder)
         WindowGroup {
             MainView(
-                provider: LogsProvider(folder: storedFolder)
+                provider: provider
             )
-        }.commands {
-//            Menus(
-//                reloadAction: {loadLogs},
-//            )
+        }
+        WindowGroup {
+            SettingsScreen(
+                provider: provider
+            )
         }
     }
 }

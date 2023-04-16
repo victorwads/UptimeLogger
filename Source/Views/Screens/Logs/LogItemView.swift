@@ -25,8 +25,10 @@ struct LogItemView: View {
     
     var shutdownStatus: some View {
         HStack(alignment: .center, spacing: 4) {
-            let info = (!allow ? Strings.logUnexpectedYes.value : Strings.logUnexpectedNo.value) + log.formattedEndtime
+            let info = (!allow ? Strings.logUnexpectedYes.value : Strings.logUnexpectedNo.value)
             Text(info)
+                .foregroundColor(allow ? .green : .red)
+            Text(log.formattedEndtime)
                 .foregroundColor(allow ? .green : .red)
             Image(systemName: allow ? LogItemView.iconNormalShutDown : LogItemView.iconUnexpected)
                 .font(.headline)
@@ -57,9 +59,9 @@ struct LogItemView: View {
                 MonoText(text: log.formattedUptime)
             }
             Spacer()
-            Text(Strings.logUnexpected.value).bold()
-                .font(.subheadline)
-                .foregroundColor(.gray)
+//            Text(Strings.logUnexpected.value).bold()
+//                .font(.subheadline)
+//                .foregroundColor(.gray)
 
             if let onToggleAction = onToggleAction {
                 shutdownStatus.onTapGesture {

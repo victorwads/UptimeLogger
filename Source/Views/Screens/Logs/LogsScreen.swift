@@ -22,13 +22,13 @@ struct LogsScreen: View {
     let showInstallation: () -> Void
 
     var body: some View {
-        LegendView().padding()
-        LogsListView(
-            onToggleAction: toggleItemAction,
-            items: $logs
-        ).onAppear(perform: initLogs)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationTitle(Strings.mainLogs.value)
+            LegendView().padding()
+            LogsListView(
+                onToggleAction: toggleItemAction,
+                items: $logs
+            ).onAppear(perform: initLogs)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .navigationTitle(Strings.mainLogs.value)
     }
     
     private func toggleItemAction(item: LogItemInfo) {

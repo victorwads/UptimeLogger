@@ -13,12 +13,12 @@ struct MainView: View {
     
     var body: some View {
         NavigationView {
-            MenuView(
-                provider: provider,
-                name: name
-            ).navigationTitle("Menu")
-            .frame(minWidth: 250)
-        }
+                MenuView(
+                    provider: provider,
+                    name: name
+                ).navigationTitle("Menu")
+                .frame(minWidth: 250)
+            }
         .navigationTitle(name)
     }
 }
@@ -78,5 +78,8 @@ struct MenuView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView(provider: LogsProvider())
+            .environment(\.locale, .portuguese)
+        MainView(provider: LogsProvider())
+            .environment(\.locale, .english)
     }
 }

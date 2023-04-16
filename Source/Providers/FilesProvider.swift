@@ -30,7 +30,7 @@ class FilesProvider {
         openPanel.canCreateDirectories = false
         openPanel.canChooseFiles = false
         openPanel.directoryURL = URL(fileURLWithPath: path)
-        openPanel.message = Strings.providerFilesOpenMessage.value
+        openPanel.message = Strings.providerFilesOpenMessage.result
         openPanel.showsHiddenFiles = true
         openPanel.begin { (result) -> Void in
             if result == NSApplication.ModalResponse.OK, let url = openPanel.urls.first {

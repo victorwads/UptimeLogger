@@ -138,6 +138,10 @@ struct InstallationView_Previews: PreviewProvider {
         InstallationView(
             provider: LogsProvider(),
             navigateToLogs: {}
-        )
+        ).environment(\.locale, .english)
+        InstallationView(
+            provider: LogsProvider(),
+            navigateToLogs: {}
+        ).environment(\.locale, .portuguese)
     }
 }

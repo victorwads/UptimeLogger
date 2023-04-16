@@ -12,6 +12,7 @@
 		934DC48B29E636870072A25C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48A29E636870072A25C /* MainView.swift */; };
 		934DC48D29E638940072A25C /* LogsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48C29E638940072A25C /* LogsScreen.swift */; };
 		934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48E29E63B640072A25C /* SettingsScreen.swift */; };
+		937ED70E29EBB22200CFBAB4 /* Locales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED70D29EBB22200CFBAB4 /* Locales.swift */; };
 		938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6129E3909000DACB7A /* LogsProvider.swift */; };
 		938F6D6429E3ACF400DACB7A /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6329E3ACF400DACB7A /* Menus.swift */; };
 		938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6529E3B02E00DACB7A /* LogItemView.swift */; };
@@ -52,6 +53,7 @@
 		934DC48A29E636870072A25C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		934DC48C29E638940072A25C /* LogsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsScreen.swift; sourceTree = "<group>"; };
 		934DC48E29E63B640072A25C /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		937ED70D29EBB22200CFBAB4 /* Locales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locales.swift; sourceTree = "<group>"; };
 		938F6D6129E3909000DACB7A /* LogsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsProvider.swift; sourceTree = "<group>"; };
 		938F6D6329E3ACF400DACB7A /* Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menus.swift; sourceTree = "<group>"; };
 		938F6D6529E3B02E00DACB7A /* LogItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		937ED70C29EBB21000CFBAB4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				937ED70D29EBB22200CFBAB4 /* Locales.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		938F6D5F29E3905B00DACB7A /* Providers */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +217,7 @@
 		93BEA29029E4659300280DAC /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				937ED70C29EBB21000CFBAB4 /* Utilities */,
 				938F6D6029E3906E00DACB7A /* Views */,
 				938F6D5F29E3905B00DACB7A /* Providers */,
 				93AB39FA29E3771C006BF0B9 /* Models */,
@@ -359,6 +370,7 @@
 				934DC48D29E638940072A25C /* LogsScreen.swift in Sources */,
 				938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */,
 				938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */,
+				937ED70E29EBB22200CFBAB4 /* Locales.swift in Sources */,
 				938F6D6429E3ACF400DACB7A /* Menus.swift in Sources */,
 				934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */,
 				93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */,

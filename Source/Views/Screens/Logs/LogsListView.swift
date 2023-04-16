@@ -23,11 +23,11 @@ struct LogsListView: View {
             }
         } else {
             List(items, id: \.fileName) { logItem in
-                LogItemView(
-                    log: .constant(logItem),
-                    onToggleAction: onToggleAction
-                )
-                Divider()
+                        LogItemView(
+                            log: .constant(logItem),
+                            onToggleAction: onToggleAction
+                        )
+                        Divider()
             }
         }
     }
