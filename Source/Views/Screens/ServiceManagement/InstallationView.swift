@@ -75,12 +75,15 @@ struct InstallationView: View {
                     .foregroundColor(.gray)
             }
             Text(Strings.installStep1.value)
-            TextEditor(text: $command)
-                .font(.system(.body, design: .monospaced))
-                .foregroundColor(.primary)
-                .background(Color(NSColor.textBackgroundColor))
-                .cornerRadius(8)
-                .frame(height: 40)
+            
+            HStack(spacing: 0) {
+                TextEditor(text: $command)
+                    .font(.system(.body, design: .monospaced))
+                    .foregroundColor(.primary)
+                    .background(Color(NSColor.textBackgroundColor))
+                    .cornerRadius(8)
+                    .frame(height: 20)
+            }
             Text(Strings.installStep2.value)
             HStack {
                 Spacer()

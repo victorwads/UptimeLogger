@@ -18,6 +18,8 @@
 
 
 .DS_Store
-**/logs/*
+**/logs/*.txt
+**/logs/*.log
+**/logs/config
 Pkg/cache/
 Pkg/*.dmg

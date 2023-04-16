@@ -10,7 +10,7 @@ import AppKit
 
 class LogsProvider {
     
-    static let serviceFolder = "/Library/UptimeLogger/"
+    static let serviceFolder = "\(Bundle.main.resourcePath ?? "")/Service/"
     static let defaultLogsFolder = serviceFolder + "logs"
 
     public var folder = defaultLogsFolder

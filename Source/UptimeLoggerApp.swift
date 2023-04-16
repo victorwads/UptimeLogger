@@ -20,14 +20,6 @@ struct UptimeLoggerApp: App {
                 provider: LogsProvider(folder: storedFolder)
             )
         }.commands {
-//            CommandMenu("HelpTools") {
-//                Button(action: {
-//                    let domain = Bundle.main.bundleIdentifier!
-//                    UserDefaults.standard.removePersistentDomain(forName: domain)
-//                }) {
-//                    Text("Clean preferences")
-//                }
-//            }
 //            Menus(
 //                reloadAction: {loadLogs},
 //            )

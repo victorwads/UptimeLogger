@@ -28,7 +28,24 @@ if [ -f "/Library/LaunchDaemons/$SERVICE_NAME.plist" ]; then
     sudo rm "/Library/LaunchDaemons/$SERVICE_NAME.plist"
 fi
 
+LAST_LOG_LINK="$INSTALL_FOLDER/Contents/Resources/Service/logs/latest"
+if [ -f "$LAST_LOG_LINK" ]; then
+    UPDATE_FILE="$INSTALL_FOLDER/Contents/Resources/Service/logs/updated"
+
+    LASTLOGFILE="$(readlink "$LAST_LOG_LINK")"
+    FILENAME=$(basename "$LASTLOGFILE" _*.txt)
+    LATEST_STARTUP="${FILENAME#*_}"
+    LATEST_STARTUP="${LATEST_STARTUP%.txt}"
+    echo "$LATEST_STARTUP" > "$UPDATE_FILE"
+fi
+
 echo "Installer service at $SERVICE_FILE using sudo"
 echo "$SERVICE_PLIST" | sudo tee "$SERVICE_FILE" >/dev/null
+
+# LOGSDIR="/Library/Application Support/UptimeLogger/"
+# if [ ! -d "$LOGSDIR" ]; then
+#     mkdir "$LOGSDIR"
+#     chmod 777 "$LOGSDIR"
+# fi
 
 sudo launchctl load "/Library/LaunchDaemons/$SERVICE_NAME.plist"
