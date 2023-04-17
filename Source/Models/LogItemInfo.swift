@@ -11,6 +11,7 @@ struct LogItemInfo: Identifiable {
     static let shutdownAllowed = "shutdown allowed"
     static let shutdownUnexpected = "shutdown unexpected"
     static let editedLog = "manually: "
+    static let empty = LogItemInfo(fileName: "", content: "")
 
     let id = UUID()
     let fileName: String
@@ -77,7 +78,7 @@ struct LogItemInfo: Identifiable {
                 autoShuwDownAllowed = true
             case line.hasPrefix(LogItemInfo.editedLog):
                 edition = line.replacingOccurrences(of: LogItemInfo.editedLog, with: "")
-            default: true
+            default: break;
             }
         }
 

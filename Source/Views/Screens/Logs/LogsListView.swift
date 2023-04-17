@@ -25,6 +25,7 @@ struct LogsListView: View {
             List(items, id: \.fileName) { logItem in
                 LogItemView(
                     log: .constant(logItem),
+                    showDetails: true,
                     onToggleAction: onToggleAction
                 )
                 Divider()

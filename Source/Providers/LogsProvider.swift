@@ -36,11 +36,17 @@ class LogsProvider {
         return ""
     }
 
-    public func loadCurrentLog() -> LogItemInfo {
-        let filename = getCurrentFileName()
+    public func loadLogWith(filename: String? = nil) -> LogItemInfo {
+        let filename: String = filename ?? getCurrentFileName();
+        
         let contents = getFileContents(folder + "/" + filename) ?? ""
 
         return LogItemInfo(fileName: filename, content: contents)
+    }
+    
+    public func loadProccessLogFor(filename: String) -> [String] {
+        let contents = getFileContents(folder + "/" + filename.replacingOccurrences(of: ".txt", with: ".log")) ?? ""
+        return contents.components(separatedBy: "\n")
     }
     
     public func loadLogs() -> [LogItemInfo] {

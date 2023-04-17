@@ -16,9 +16,12 @@ struct LogItemView: View {
     static let iconUpTime = "bolt.badge.clock.fill"
     static let iconEdited = "square.and.pencil"
 
-    @Binding var log: LogItemInfo
-    var onToggleAction: ((LogItemInfo) -> Void)? = nil
+    @Environment(\.openURL) var openURL
     
+    @Binding var log: LogItemInfo
+    var showDetails: Bool = false
+    var onToggleAction: ((LogItemInfo) -> Void)? = nil
+
     private var allow: Bool {
         get { log.shutdownAllowed }
     }
@@ -63,21 +66,29 @@ struct LogItemView: View {
 //                .font(.subheadline)
 //                .foregroundColor(.gray)
 
-            if let onToggleAction = onToggleAction {
-                shutdownStatus.onTapGesture {
+            shutdownStatus.onTapGesture {
+                if let onToggleAction = onToggleAction {
                     onToggleAction(log)
-                }.help(Strings.logHelp.value)
-                if(log.edited) {
-                    Divider().padding(.leading, 5)
-                    Image(systemName: LogItemView.iconEdited)
-                        .help(Strings.logEditedTip.value)
                 }
-                Divider()
-            } else {
-                shutdownStatus
+            }.help(Strings.logHelp.value)
+            if(log.edited) {
+                Divider().padding(.leading, 5)
+                Image(systemName: LogItemView.iconEdited)
+                    .help(Strings.logEditedTip.value)
             }
+            Divider()
             Text("v\(log.version)")
                 .foregroundColor(.gray)
+            if(showDetails) {
+                Divider()
+                Button {
+                    if let url = URL(string: AppScheme.scheme + AppScheme.details + "/" + log.fileName){
+                        openURL(url)
+                    }
+                } label: {
+                    Text("detalhes")
+                }
+            }
         }
     }
 }

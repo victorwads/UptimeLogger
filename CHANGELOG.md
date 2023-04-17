@@ -8,6 +8,8 @@
       * Remove shutdown button
       * Mark logs as "edited" when thet are updated
       * Improve Logs Layout
+    * **-new-** Logs Datails
+      * A separeted window to show log details and progress
     * Intall Screen
       * Removed
       * Create a DMG with Install and Uninstall packages

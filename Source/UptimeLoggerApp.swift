@@ -21,16 +21,6 @@ struct UptimeLoggerApp: App {
             NavigationAppView(
                 provider: provider
             )
-            Button(action: {
-                if let url = URL(string: AppScheme.scheme + AppScheme.details + "/filename") {
-                    openURL(url)
-                }
-            }) { Text("teste log") }
-            Button(action: {
-                if let url = URL(string: AppScheme.scheme + AppScheme.permissionTutorial) {
-                    openURL(url)
-                }
-            }) { Text("teste tutorial") }
         }
         WindowGroup {
             LogDetail(
@@ -42,7 +32,7 @@ struct UptimeLoggerApp: App {
             VStack {
                 Text("Permission tutorial")
                     .font(.title)
-                    .handlesExternalEvents(preferring: [AppScheme.permissionTutorial], allowing: ["*"]) // activate existing window if exists
+                    .handlesExternalEvents(preferring: [AppScheme.permissionTutorial], allowing: ["*"])
             }
             .frame(minWidth: 200, maxWidth: 200, minHeight: 170, maxHeight: 170)
             .fixedSize()
