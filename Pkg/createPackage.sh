@@ -1,6 +1,6 @@
 #!/bin/sh
 BUNDLE_NAME="br.com.victorwads.UptimeLogger"
-INSTALLER_NAME="Install UptimeLogger App"
+INSTALLER_NAME="Install UptimeLogger"
 UNINSTALLER_NAME="Uninstall"
 VERSION="2.0"
 
