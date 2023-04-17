@@ -13,13 +13,11 @@ class TimerWrapper {
 
 struct LogsScreen: View {
 
-    @State private var serviceInstalled: Bool = false
-    @State private var logs: [LogItemInfo] = []
-
     @AppStorage("logsFolder") var logsFolder: String = LogsProvider.defaultLogsFolder
     
+    @State private var logs: [LogItemInfo] = []
+
     let provider: LogsProvider
-    let showInstallation: () -> Void
 
     var body: some View {
             LegendView().padding()
@@ -43,26 +41,17 @@ struct LogsScreen: View {
             logsFolder = $0
             loadLogs()
         }
-        
-        serviceInstalled = provider.isServiceInstalled
     }
     
     private func loadLogs() {
         DispatchQueue.global().async {
             logs = provider.loadLogs()
-            
-            if(!serviceInstalled && logs.count < 1) {
-                showInstallation()
-            }
         }
     }
 }
 
 struct LogsListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LogsScreen(
-            provider: LogsProvider(),
-            showInstallation: {}
-        )
+        LogsScreen(provider: LogsProvider())
     }
 }

@@ -47,15 +47,30 @@ logprocess: true
         XCTAssertEqual(logItemInfo.scriptEndTime, expectedEndTime)
     }
     
-    func testFromOldVersion() throws {
+    func testFromOldVersionWithoutDay() throws {
         let content = """
 version: 1
-last record: 0 days, 02:53:58
+last record: 02:53:58
 """
         let logItemInfo = LogItemInfo(fileName: "", content: content)
 
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemUptime, (2 * 60 * 60) + (53 * 60) + 58)
+    }
+    
+    func testFromOldVersion() throws {
+        let content = """
+version: 1
+last record: 1 days, 02:53:58
+"""
+        let logItemInfo = LogItemInfo(fileName: "", content: content)
+        let dayInSeconds = 1 * 24 * 60 * 60
+        let hourInSeconds = 2 * 60 * 60
+        let minutesInSeconds = 53 * 60
+        let seconds = dayInSeconds + hourInSeconds + minutesInSeconds + 58
+
+        XCTAssertEqual(logItemInfo.version, 1)
+        XCTAssertEqual(logItemInfo.systemUptime, TimeInterval(seconds))
     }
 
     func testLogItemInfoShutDownAllowedManually() throws {

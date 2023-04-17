@@ -114,7 +114,7 @@ struct LogItemInfo: Identifiable {
 
     private func fromOldVersion(_ uptimeString: String?) -> TimeInterval {
         let parts = uptimeString?.components(separatedBy: ", ")
-        let dayPart = parts?.first?.replacingOccurrences(of: " days", with: "") ?? "0"
+        let dayPart = parts?.first(where: {$0.contains("days")})?.replacingOccurrences(of: " days", with: "") ?? "0"
         let timeParts = parts?.last?.components(separatedBy: ":").compactMap({ Int($0) }) ?? []
         
         if timeParts.count < 3 {

@@ -45,9 +45,7 @@ struct MenuView: View {
             
             Divider()
             List() {
-                NavigationLink(destination: LogsScreen(provider: provider, showInstallation: {
-                    selectedScreen = installTag
-                }), tag: logsTag, selection: $selectedScreen) {
+                NavigationLink(destination: LogsScreen(provider: provider), tag: logsTag, selection: $selectedScreen) {
                     Label(Strings.mainLogs.value, systemImage: "list.bullet.rectangle")
                 }
             }

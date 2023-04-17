@@ -7,7 +7,7 @@
 */
 
 /* Files Provider */
-"provider.files.openmessage" = "No permission to access logs folder\nTo allow access, select the logs folder";
+"provider.files.openmessage" = "No permission to access logs folder\nTo allow access, just click";
 
 /* LogsView */
 "main.logs" = "Logs";
@@ -37,6 +37,7 @@
 "log.unexpected.no" = "Shutdown";
 
 /* InstallationView */
+"install.service.title" = "Monitoring Service";
 "install.title" = "Instructions";
 "install.message" = "The monitoring service is a lightweight script that runs in the background from the start-up of your system until the shutdown. The service is responsible for updating information on how the shutdown occurred.\n\nIn addition, after installation, you can enable process tracking to know which processes were running at the time of shutdown. Simply enable it on the \"Settings\" screen.";
 "install.1" = "To enable the service, simply click on the continue button and a window will open where you must paste the command below and press enter:";"install.1" = "To install the service it's pretty simple, just click the continue button and a window will open where you must paste the command below and press enter:";

@@ -87,10 +87,6 @@ struct InstallationView: View {
             Text(Strings.installStep2.value)
             HStack {
                 Spacer()
-                if(isRunning){
-                    Button("Desinstalar", action: { sendComand(InstallationView.deleteComand) })
-                    Button("Atualizar", action: { sendComand(InstallationView.updateComand) })
-                }
                 Button("Continuar", action: continueInstall)
             }
         }
@@ -114,22 +110,12 @@ struct InstallationView: View {
 
     private func updateStatus(){
         current = provider.loadCurrentLog()
-        isRunning = provider.isServiceInstalled
-    }
-
-    private func sendComand(_ command: String){
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(command, forType: .string)
-        provider.installService()
+        isRunning = true
     }
 
     private func continueInstall() {
         updateStatus()
-        if (!provider.isServiceInstalled) {
-            sendComand(InstallationView.installComand)
-        } else {
-            navigateToLogs()
-        }
+        navigateToLogs()
     }
 }
 

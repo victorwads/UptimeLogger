@@ -19,7 +19,6 @@ extension LogsProvider {
     }
 
     public func saveSettings(_ interval: Int?) -> Int? {
-        
         do {
             if let int = interval {
                 try String(int).write(toFile: configsFile, atomically: true, encoding: .utf8)

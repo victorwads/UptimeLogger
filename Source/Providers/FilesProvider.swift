@@ -14,14 +14,19 @@ func bookmarkKey(_ path: String) -> String{
 class FilesProvider {
     public static let shared = FilesProvider()
     
-    func authorize(_ path: String, _ change: Bool, callback: @escaping (String) -> Void){
-        if !change {
-            if let bookmarkData = UserDefaults.standard.object(forKey: bookmarkKey(path)){
-                if self.resolveBookmark(data: bookmarkData as! Data){
-                    callback(path)
-                    return
-                }
+    func isAutorized(_ path: String) -> Bool {
+        if let bookmarkData = UserDefaults.standard.object(forKey: bookmarkKey(path)){
+            if self.resolveBookmark(data: bookmarkData as! Data){
+                return true
             }
+        }
+        return false
+    }
+    
+    func authorize(_ path: String, _ change: Bool, callback: @escaping (String) -> Void){
+        if !change && isAutorized(path) {
+            callback(path)
+            return
         }
         
         let openPanel = NSOpenPanel()
@@ -39,6 +44,8 @@ class FilesProvider {
                     UserDefaults.standard.setValue(bookmarkData, forKey:bookmarkKey(path))
                 } catch {}
                 callback(url.path)
+            } else if (!change) {
+                callback(path)
             }
         }
     }
