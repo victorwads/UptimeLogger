@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MainView: View {
+struct NavigationAppView: View {
     let provider: LogsProvider
     let name = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? ""
     
@@ -48,21 +48,10 @@ struct MenuView: View {
                 NavigationLink(destination: LogsScreen(provider: provider), tag: logsTag, selection: $selectedScreen) {
                     Label(Strings.mainLogs.value, systemImage: "list.bullet.rectangle")
                 }
-            }
-
-            Divider()
-            List() {
-                NavigationLink(destination: InstallationView(
-                    provider: provider,
-                    navigateToLogs: { selectedScreen = logsTag }
-                ), tag: 3, selection: $selectedScreen) {
-                    Label("Manutenção de Serviço", systemImage: "wrench.fill")
-                }
                 NavigationLink(destination: SettingsScreen(provider: provider), tag: 2, selection: $selectedScreen) {
                     Label("Configurações", systemImage: "gearshape")
                 }
             }
-            .frame(height: 80)
 
             Divider()
             Text(version)
@@ -75,9 +64,9 @@ struct MenuView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(provider: LogsProvider())
+        NavigationAppView(provider: LogsProvider())
             .environment(\.locale, .portuguese)
-        MainView(provider: LogsProvider())
+        NavigationAppView(provider: LogsProvider())
             .environment(\.locale, .english)
     }
 }

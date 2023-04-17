@@ -1,15 +1,5 @@
 # App and Logger Changelog
 
-TODO
-Textos contando na tela inicial
-App
-  Instalador
-  Modal de Instalação / Desinstalação / Update
-  Componente de Botão copiar
-  Voltar do terminal pro programa sozinho
-Serviço
-  logar status de bateria % e se esta carregando/
-
 * [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-2.0.zip)
   * App
     * Fix not saving file permision
@@ -19,14 +9,19 @@ Serviço
       * Mark logs as "edited" when thet are updated
       * Improve Logs Layout
     * Intall Screen
-      * Adds Service Uninstall Help Flow
-      * Adds Service Update Help Flow
+      * Removed
+      * Create a DMG with Install and Uninstall packages
     * **-new-** Settings Screen
       * Toggle Process monitorim
       * Set seconds interval for process monitorim
       * developer options
+    * Xcode Project
+      * Unit Testing to prevent logs digesting bugs
   * Logger Service
     * Logs Versioning - started v4
+        * Add sysversion: String
+        * Add batery: \[0-100]%
+        * Add charging: true/false
         * Add logprocess: true/false
         * Add logprocessinterval: seconds
         * Add .log file with list of running process when actived
