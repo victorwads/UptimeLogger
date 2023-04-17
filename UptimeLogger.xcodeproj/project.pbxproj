@@ -19,6 +19,7 @@
 		939983FD29E4A31200631A20 /* Service in Resources */ = {isa = PBXBuildFile; fileRef = 939983FC29E4A31200631A20 /* Service */; };
 		9399840029E4AC1900631A20 /* InstallationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939983FF29E4AC1900631A20 /* InstallationView.swift */; };
 		9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9399840129E4D14B00631A20 /* AppDelegate.swift */; };
+		939E085F29ECF07000D7AA6D /* UptimeLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */; };
 		93A07CEC29E35501000EDA9C /* UptimeLoggerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */; };
 		93A07CF029E35502000EDA9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A07CEF29E35502000EDA9C /* Assets.xcassets */; };
 		93A07CF329E35502000EDA9C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A07CF229E35502000EDA9C /* Preview Assets.xcassets */; };
@@ -31,14 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		93A07CFA29E35502000EDA9C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 93A07CE029E35501000EDA9C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 93A07CE729E35501000EDA9C;
-			remoteInfo = UptimeLogger;
-		};
-		93A07D0429E35502000EDA9C /* PBXContainerItemProxy */ = {
+		939E086029ECF07000D7AA6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 93A07CE029E35501000EDA9C /* Project object */;
 			proxyType = 1;
@@ -60,13 +54,13 @@
 		939983FC29E4A31200631A20 /* Service */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Service; sourceTree = "<group>"; };
 		939983FF29E4AC1900631A20 /* InstallationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationView.swift; sourceTree = "<group>"; };
 		9399840129E4D14B00631A20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		939E085C29ECF07000D7AA6D /* UptimeLoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UptimeLoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerTests.swift; sourceTree = "<group>"; };
 		93A07CE829E35501000EDA9C /* UptimeLogger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UptimeLogger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerApp.swift; sourceTree = "<group>"; };
 		93A07CEF29E35502000EDA9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93A07CF229E35502000EDA9C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		93A07CF429E35502000EDA9C /* UptimeLogger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UptimeLogger.entitlements; sourceTree = "<group>"; };
-		93A07CF929E35502000EDA9C /* UptimeLoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UptimeLoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		93A07D0329E35502000EDA9C /* UptimeLoggerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UptimeLoggerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemInfo.swift; sourceTree = "<group>"; };
 		93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+Settings.swift"; sourceTree = "<group>"; };
 		93BEA29229E46C4700280DAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -77,21 +71,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		939E085929ECF07000D7AA6D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		93A07CE529E35501000EDA9C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		93A07CF629E35502000EDA9C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		93A07D0029E35502000EDA9C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -167,12 +154,21 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		939E085D29ECF07000D7AA6D /* UptimeLoggerTests */ = {
+			isa = PBXGroup;
+			children = (
+				939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */,
+			);
+			path = UptimeLoggerTests;
+			sourceTree = "<group>";
+		};
 		93A07CDF29E35501000EDA9C = {
 			isa = PBXGroup;
 			children = (
 				939983FC29E4A31200631A20 /* Service */,
 				93BEA29029E4659300280DAC /* Source */,
 				93A07CEA29E35501000EDA9C /* UptimeLogger */,
+				939E085D29ECF07000D7AA6D /* UptimeLoggerTests */,
 				93A07CE929E35501000EDA9C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -181,8 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				93A07CE829E35501000EDA9C /* UptimeLogger.app */,
-				93A07CF929E35502000EDA9C /* UptimeLoggerTests.xctest */,
-				93A07D0329E35502000EDA9C /* UptimeLoggerUITests.xctest */,
+				939E085C29ECF07000D7AA6D /* UptimeLoggerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -231,6 +226,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		939E085B29ECF07000D7AA6D /* UptimeLoggerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 939E086229ECF07000D7AA6D /* Build configuration list for PBXNativeTarget "UptimeLoggerTests" */;
+			buildPhases = (
+				939E085829ECF07000D7AA6D /* Sources */,
+				939E085929ECF07000D7AA6D /* Frameworks */,
+				939E085A29ECF07000D7AA6D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				939E086129ECF07000D7AA6D /* PBXTargetDependency */,
+			);
+			name = UptimeLoggerTests;
+			productName = UptimeLoggerTests;
+			productReference = 939E085C29ECF07000D7AA6D /* UptimeLoggerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		93A07CE729E35501000EDA9C /* UptimeLogger */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93A07D0D29E35502000EDA9C /* Build configuration list for PBXNativeTarget "UptimeLogger" */;
@@ -248,42 +261,6 @@
 			productReference = 93A07CE829E35501000EDA9C /* UptimeLogger.app */;
 			productType = "com.apple.product-type.application";
 		};
-		93A07CF829E35502000EDA9C /* UptimeLoggerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 93A07D1029E35502000EDA9C /* Build configuration list for PBXNativeTarget "UptimeLoggerTests" */;
-			buildPhases = (
-				93A07CF529E35502000EDA9C /* Sources */,
-				93A07CF629E35502000EDA9C /* Frameworks */,
-				93A07CF729E35502000EDA9C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				93A07CFB29E35502000EDA9C /* PBXTargetDependency */,
-			);
-			name = UptimeLoggerTests;
-			productName = UptimeLoggerTests;
-			productReference = 93A07CF929E35502000EDA9C /* UptimeLoggerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		93A07D0229E35502000EDA9C /* UptimeLoggerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 93A07D1329E35502000EDA9C /* Build configuration list for PBXNativeTarget "UptimeLoggerUITests" */;
-			buildPhases = (
-				93A07CFF29E35502000EDA9C /* Sources */,
-				93A07D0029E35502000EDA9C /* Frameworks */,
-				93A07D0129E35502000EDA9C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				93A07D0529E35502000EDA9C /* PBXTargetDependency */,
-			);
-			name = UptimeLoggerUITests;
-			productName = UptimeLoggerUITests;
-			productReference = 93A07D0329E35502000EDA9C /* UptimeLoggerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -294,16 +271,12 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					939E085B29ECF07000D7AA6D = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 93A07CE729E35501000EDA9C;
+					};
 					93A07CE729E35501000EDA9C = {
 						CreatedOnToolsVersion = 14.3;
-					};
-					93A07CF829E35502000EDA9C = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 93A07CE729E35501000EDA9C;
-					};
-					93A07D0229E35502000EDA9C = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 93A07CE729E35501000EDA9C;
 					};
 				};
 			};
@@ -324,13 +297,19 @@
 			projectRoot = "";
 			targets = (
 				93A07CE729E35501000EDA9C /* UptimeLogger */,
-				93A07CF829E35502000EDA9C /* UptimeLoggerTests */,
-				93A07D0229E35502000EDA9C /* UptimeLoggerUITests */,
+				939E085B29ECF07000D7AA6D /* UptimeLoggerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		939E085A29ECF07000D7AA6D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		93A07CE629E35501000EDA9C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -342,23 +321,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		93A07CF729E35502000EDA9C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		93A07D0129E35502000EDA9C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		939E085829ECF07000D7AA6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				939E085F29ECF07000D7AA6D /* UptimeLoggerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		93A07CE429E35501000EDA9C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -383,32 +356,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		93A07CF529E35502000EDA9C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		93A07CFF29E35502000EDA9C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		93A07CFB29E35502000EDA9C /* PBXTargetDependency */ = {
+		939E086129ECF07000D7AA6D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 93A07CE729E35501000EDA9C /* UptimeLogger */;
-			targetProxy = 93A07CFA29E35502000EDA9C /* PBXContainerItemProxy */;
-		};
-		93A07D0529E35502000EDA9C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 93A07CE729E35501000EDA9C /* UptimeLogger */;
-			targetProxy = 93A07D0429E35502000EDA9C /* PBXContainerItemProxy */;
+			targetProxy = 939E086029ECF07000D7AA6D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -425,6 +379,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		939E086329ECF07000D7AA6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DU6489YN3U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLoggerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UptimeLogger.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/UptimeLogger";
+			};
+			name = Debug;
+		};
+		939E086429ECF07000D7AA6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DU6489YN3U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLoggerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UptimeLogger.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/UptimeLogger";
+			};
+			name = Release;
+		};
 		93A07D0B29E35502000EDA9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -606,81 +596,18 @@
 			};
 			name = Release;
 		};
-		93A07D1129E35502000EDA9C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DU6489YN3U;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLoggerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UptimeLogger.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/UptimeLogger";
-			};
-			name = Debug;
-		};
-		93A07D1229E35502000EDA9C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DU6489YN3U;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLoggerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UptimeLogger.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/UptimeLogger";
-			};
-			name = Release;
-		};
-		93A07D1429E35502000EDA9C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DU6489YN3U;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLoggerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = UptimeLogger;
-			};
-			name = Debug;
-		};
-		93A07D1529E35502000EDA9C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DU6489YN3U;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLoggerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = UptimeLogger;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		939E086229ECF07000D7AA6D /* Build configuration list for PBXNativeTarget "UptimeLoggerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				939E086329ECF07000D7AA6D /* Debug */,
+				939E086429ECF07000D7AA6D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		93A07CE329E35501000EDA9C /* Build configuration list for PBXProject "UptimeLogger" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -695,24 +622,6 @@
 			buildConfigurations = (
 				93A07D0E29E35502000EDA9C /* Debug */,
 				93A07D0F29E35502000EDA9C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		93A07D1029E35502000EDA9C /* Build configuration list for PBXNativeTarget "UptimeLoggerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				93A07D1129E35502000EDA9C /* Debug */,
-				93A07D1229E35502000EDA9C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		93A07D1329E35502000EDA9C /* Build configuration list for PBXNativeTarget "UptimeLoggerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				93A07D1429E35502000EDA9C /* Debug */,
-				93A07D1529E35502000EDA9C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

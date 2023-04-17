@@ -10,7 +10,7 @@ import Foundation
 struct LogItemInfo: Identifiable {
     static let shutdownAllowed = "shutdown allowed"
     static let shutdownUnexpected = "shutdown unexpected"
-    static let edited = "manually: "
+    static let editedLog = "manually: "
 
     let id = UUID()
     let fileName: String
@@ -26,7 +26,7 @@ struct LogItemInfo: Identifiable {
 
     var systemVersion: String? = nil
     var systemBootTime: Date? = nil
-    var systemUptime: TimeInterval = 0
+    var systemUptime: TimeInterval? = nil
     var batery: Int? = nil
     var charging: Bool? = nil
 
@@ -34,13 +34,15 @@ struct LogItemInfo: Identifiable {
         self.fileName = fileName
         let lines = content.components(separatedBy: "\n")
         let formatter = DateFormatter()
-        
+        var autoShuwDownAllowed = false
+        var edition: String? = nil
+
         //# init: %Y-%m-%d_%H-%M-%S
         formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"
         if let date = formatter.date(from: fileName) {
             self.scriptStartTime = date
         }
-
+        
         //# LOG V4
         lines.forEach { line in
             switch true {
@@ -58,7 +60,7 @@ struct LogItemInfo: Identifiable {
                 batery = extractNumber(line, 1)
             //# charging: true/false
             case line.hasPrefix("charging:"):
-                charging = line == "charging: true"
+                charging = line.contains("true")
             //# boottime: [0-9]+ (timestamp)
             case line.hasPrefix("boottime:"):
                 systemBootTime = Date.init(timeIntervalSince1970: Double(extractNumber(line, 1)))
@@ -70,23 +72,24 @@ struct LogItemInfo: Identifiable {
                 logProcessInterval = extractNumber(line, 1)
             //# logprocess: true/false
             case line.hasPrefix("logprocess:"):
-                charging = line == "logprocess: true"
+                hasProcess = line.contains("true")
+            case line == LogItemInfo.shutdownAllowed:
+                autoShuwDownAllowed = true
+            case line.hasPrefix(LogItemInfo.editedLog):
+                edition = line.replacingOccurrences(of: LogItemInfo.editedLog, with: "")
             default: true
             }
         }
 
-
         // Extract shutdown allowed
-        if lines.first(where: { $0.hasPrefix(LogItemInfo.edited + LogItemInfo.shutdownUnexpected) }) != nil {
+        if lines.first(where: { $0.hasPrefix(LogItemInfo.editedLog + LogItemInfo.shutdownUnexpected) }) != nil {
             self.shutdownAllowed = false
         } else {
             self.shutdownAllowed = lines.first(where: {$0.hasSuffix(LogItemInfo.shutdownAllowed)}) != nil
         }
         
         // Extract Edited
-        let autoShuwDownAllowed = lines.first(where: {$0.hasPrefix(LogItemInfo.shutdownAllowed)}) != nil
-        let edition = lines.first(where: { $0.hasPrefix(LogItemInfo.edited) })?.replacingOccurrences(of: LogItemInfo.edited, with: "")
-        self.edited = edition != nil && edition != (autoShuwDownAllowed ? LogItemInfo.shutdownAllowed : LogItemInfo.shutdownUnexpected)
+        edited = edition != nil && edition != (autoShuwDownAllowed ? LogItemInfo.shutdownAllowed : LogItemInfo.shutdownUnexpected)
 
         // Extract uptime older versions
         if let uptimeString = lines.first(where: {
@@ -130,7 +133,7 @@ struct LogItemInfo: Identifiable {
 
 extension LogItemInfo {
     var formattedUptime: String {
-        let totalSeconds = Int(self.systemUptime)
+        let totalSeconds = Int(self.systemUptime ?? 0)
         let days = totalSeconds / 86400
         let hours = (totalSeconds % 86400) / 3600
         let minutes = (totalSeconds % 3600) / 60

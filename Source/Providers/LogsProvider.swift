@@ -69,11 +69,11 @@ class LogsProvider {
         if let logData = FileManager.default.contents(atPath: folder+"/"+file.fileName),
            let log = String(data: logData, encoding: .utf8) {
             
-            var lines = log.components(separatedBy: "\n").filter { !$0.hasPrefix(LogItemInfo.edited) }
+            var lines = log.components(separatedBy: "\n").filter { !$0.hasPrefix(LogItemInfo.editedLog) }
             if allowed {
-                lines.append(LogItemInfo.edited + LogItemInfo.shutdownAllowed)
+                lines.append(LogItemInfo.editedLog + LogItemInfo.shutdownAllowed)
             } else {
-                lines.append(LogItemInfo.edited + LogItemInfo.shutdownUnexpected)
+                lines.append(LogItemInfo.editedLog + LogItemInfo.shutdownUnexpected)
             }
             do {
                 try lines.joined(separator: "\n").write(toFile: folder+"/"+file.fileName, atomically: true, encoding: .utf8)
