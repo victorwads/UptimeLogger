@@ -21,6 +21,6 @@
 **/logs/*.txt
 **/logs/*.log
 **/logs/config
-#**/logs/latest
+**/logs/latest
 Pkg/cache/
 Pkg/*.dmg

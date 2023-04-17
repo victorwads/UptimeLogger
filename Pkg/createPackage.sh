@@ -8,6 +8,8 @@ CACHE_FOLDER="cache"
 APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
 DMG_FOLDER="$CACHE_FOLDER/dmg"
 
+# Apagando logs de teste
+rm -f ../Service/logs/*
 
 # Apaga caches anteriores
 echo "\033[32mBuildando app release\033[0m"
