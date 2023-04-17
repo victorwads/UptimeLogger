@@ -82,12 +82,25 @@ if [[ "$X" =~ ^[0-9]+$ ]] && [ "$X" -gt 0 ]; then
     LOG_PROCCESS=true
 fi
 
+
+# LOG V4
+# version: [0-9]+
+# init: %Y-%m-%d_%H-%M-%S
+# ended: %Y-%m-%d_%H-%M-%S
+# sysversion: String
+# batery: [0-9]+%
+# charging: true/false
+# boottime: [0-9]+ (timestamp)
+# uptime: [0-9]+ (seconds interval)
+# logprocessinterval: [0-9]+
+# logprocess: true/false
+
 # Loop infinito para atualizar o uptime a cada 5 minutos
 COUNT=0
 while true; do
 
-    LOG="init: $STARTUP"$'\n'
-    LOG+="version: $VERSION"$'\n'
+    LOG="version: $VERSION"$'\n'
+    LOG+="init: $STARTUP"$'\n'
     LOG+="ended: $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
 
     # Verifica o tipo de sistema operacional
@@ -96,17 +109,24 @@ while true; do
         boottimestamp=$(echo $kernelboottime | sed 's/^.*sec = \([0-9]*\), usec.*$/\1/')
         currenttimestamp=$(date +%s)
         elapsedtime=$((currenttimestamp - boottimestamp))
+        battery=$(pmset -g batt)
+
+        LOG+="sysversion: $(sw_vers -productVersion)"$'\n'
+        LOG+="batery: $(echo $battery | grep -Eo '[0-9]+%')"$'\n'
+        if echo "$battery" | grep -q "discharging"; then
+            LOG+="charging: false"$'\n'
+        else
+            LOG+="charging: true"$'\n'
+        fi
 
         LOG+="boottime: $boottimestamp"$'\n'
         LOG+="uptime: $elapsedtime"$'\n'
     else
         # Define o comando para obter o tempo de inicialização no Linux
         UPTIME=$(uptime -p)
-        
+
         LOG+="lastrecord: $UPTIME"$'\n'
     fi
-
-    echo "$LOG" >"$LOG_FILE"
 
     LOGPROCESS=false
     if [ -r "$CONFIG_FILE" ]; then
@@ -122,9 +142,12 @@ while true; do
     fi
     LOG+="logprocess: $LOGPROCESS"$'\n'
 
+    echo "$LOG" >"$LOG_FILE"
+
     if [ $DEBUG = true ]; then
         echo "$LOG"
     fi
+
     sleep 1
     ((COUNT++))
 done

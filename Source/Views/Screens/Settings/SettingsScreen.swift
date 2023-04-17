@@ -47,45 +47,57 @@ struct SettingsScreen: View {
             
             Spacer()
 
-            VStack(alignment: .leading) {
-                Divider()
-                Text("Opções de Desenvolvedor")
-                    .font(.headline)
-                
-                HStack {
-                    TextField("", text: .constant(storedFolder))
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+            if _isDebugAssertConfiguration() {
+                VStack(alignment: .leading) {
+                    Divider()
+                    Text("Opções de Desenvolvedor")
+                        .font(.headline)
                     
-                    Button(action: changeFolder) {
-                        Text(Strings.menuFoldersChange.value)
-                    }
-                }
-                
-                let history = foldersHistory.filter({ $0 != storedFolder})
-                
-                if(history.count > 0) {
                     HStack {
-                        Text("Historico")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                        Spacer()
-                        Button("Limpar Historico") {
-                            storedFolder = LogsProvider.defaultLogsFolder
-                            storedFoldersHistory = storedFolder
-                            foldersHistory = [storedFolder]
-                            provider.folder = storedFolder
+                        Button(action: {
+                            let domain = Bundle.main.bundleIdentifier!
+                            UserDefaults.standard.removePersistentDomain(forName: domain)
+                            NSApp.terminate(nil)
+                        }) {
+                            Text("Limpar todas preferencias")
                         }
                     }
-                    ForEach(history, id: \.self) { folder in
+                    
+                    HStack {
+                        TextField("", text: .constant(storedFolder))
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        Button(action: changeFolder) {
+                            Text(Strings.menuFoldersChange.value)
+                        }
+                    }
+                    
+                    let history = foldersHistory.filter({ $0 != storedFolder})
+                    
+                    if(history.count > 0) {
                         HStack {
-                            Text(folder).font(.callout).padding(.vertical, 2)
+                            Text("Historico")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
                             Spacer()
-                            Button("Usar") { changeFolder(folder, change: false) }
-                                .buttonStyle(.link)
+                            Button("Limpar Historico") {
+                                storedFolder = LogsProvider.defaultLogsFolder
+                                storedFoldersHistory = storedFolder
+                                foldersHistory = [storedFolder]
+                                provider.folder = storedFolder
+                            }
+                        }
+                        ForEach(history, id: \.self) { folder in
+                            HStack {
+                                Text(folder).font(.callout).padding(.vertical, 2)
+                                Spacer()
+                                Button("Usar") { changeFolder(folder, change: false) }
+                                    .buttonStyle(.link)
+                            }
                         }
                     }
-                }
-            }.padding(.bottom)
+                }.padding(.bottom)
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

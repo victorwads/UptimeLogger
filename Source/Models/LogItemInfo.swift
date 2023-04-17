@@ -14,38 +14,67 @@ struct LogItemInfo: Identifiable {
 
     let id = UUID()
     let fileName: String
-    let version: Int
+    var version: Int = 1
 
     var edited: Bool = false
     var shutdownAllowed: Bool = false
     var scriptStartTime: Date = Date.distantPast
     var scriptEndTime: Date? = nil
+
+    var hasProcess: Bool = false
+    var logProcessInterval: Int? = nil
+
+    var systemVersion: String? = nil
     var systemBootTime: Date? = nil
     var systemUptime: TimeInterval = 0
+    var batery: Int? = nil
+    var charging: Bool? = nil
 
     init(fileName: String = "", content: String = "") {
         self.fileName = fileName
         let lines = content.components(separatedBy: "\n")
         let formatter = DateFormatter()
-
-        // Extract Version
-        let version = lines.first(where: { $0.hasPrefix("version: ") })?.components(separatedBy: " ").last ?? ""
-        self.version = Int(version) ?? 1
         
-        // Extract startUpTime
+        //# init: %Y-%m-%d_%H-%M-%S
         formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"
         if let date = formatter.date(from: fileName) {
             self.scriptStartTime = date
         }
 
-        // Extract endTime
-        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        if let endTimeString = lines.first(where: {
-            $0.hasPrefix("ended:") // V2
-        })?.components(separatedBy: ": ").last,
-        let date = formatter.date(from: endTimeString) {
-            self.scriptEndTime = date
+        //# LOG V4
+        lines.forEach { line in
+            switch true {
+            //# version: [0-9]+
+            case line.hasPrefix("version:"):
+                version = extractNumber(line, 1)
+            //# ended: %Y-%m-%d_%H-%M-%S
+            case line.hasPrefix("ended:"):
+                scriptEndTime = extractScriptEndTime(from: line, formatter: formatter)
+            //# sysversion: String
+            case line.hasPrefix("sysversion:"):
+                systemVersion = line.components(separatedBy: ": ").last
+            //# batery: [0-9]+%
+            case line.hasPrefix("batery:"):
+                batery = extractNumber(line, 1)
+            //# charging: true/false
+            case line.hasPrefix("charging:"):
+                charging = line == "charging: true"
+            //# boottime: [0-9]+ (timestamp)
+            case line.hasPrefix("boottime:"):
+                systemBootTime = Date.init(timeIntervalSince1970: Double(extractNumber(line, 1)))
+            //# uptime: [0-9]+ (seconds interval)
+            case line.hasPrefix("uptime:"):
+                systemUptime = TimeInterval(extractNumber(line, 0))
+            //# logprocessinterval: [0-9]+
+            case line.hasPrefix("logprocessinterval:"):
+                logProcessInterval = extractNumber(line, 1)
+            //# logprocess: true/false
+            case line.hasPrefix("logprocess:"):
+                charging = line == "logprocess: true"
+            default: true
+            }
         }
+
 
         // Extract shutdown allowed
         if lines.first(where: { $0.hasPrefix(LogItemInfo.edited + LogItemInfo.shutdownUnexpected) }) != nil {
@@ -59,30 +88,27 @@ struct LogItemInfo: Identifiable {
         let edition = lines.first(where: { $0.hasPrefix(LogItemInfo.edited) })?.replacingOccurrences(of: LogItemInfo.edited, with: "")
         self.edited = edition != nil && edition != (autoShuwDownAllowed ? LogItemInfo.shutdownAllowed : LogItemInfo.shutdownUnexpected)
 
-        // Extract uptime from file content
+        // Extract uptime older versions
         if let uptimeString = lines.first(where: {
-            $0.hasPrefix("uptime:") // V2
+            $0.hasPrefix("last record:") || // V0
+            $0.hasPrefix("lastrecord:")     // V1
         })?.components(separatedBy: ": ").last {
-            systemUptime = TimeInterval(Int(uptimeString) ?? 0)
-            return
-        } else {
-            // Extract uptime older versions
-            let uptimeString = lines.first(where: {
-                $0.hasPrefix("last record:") || // V0
-                $0.hasPrefix("lastrecord:")     // V1
-            })?.components(separatedBy: ": ").last
             self.systemUptime = fromOldVersion(uptimeString)
-        }
-
-        // Extract boot time from file content
-        if let bootTimeInt = lines.first(where: {
-            $0.hasPrefix("boottime:") // V3
-        })?.components(separatedBy: ": ").last,
-        let bootTimestamp = Double(bootTimeInt) {
-            self.systemBootTime = Date(timeIntervalSince1970: bootTimestamp)
         }
     }
     
+    private func extractNumber(_ line: String, _ defaultNumber: Int) -> Int {
+        let regex = try! NSRegularExpression(pattern: "[^0-9]+", options: .caseInsensitive)
+        let numbers = regex.stringByReplacingMatches(in: line, range: NSRange(location: 0, length: line.count), withTemplate: "")
+        return Int(numbers) ?? defaultNumber
+    }
+    
+    private func extractScriptEndTime(from line: String, formatter: DateFormatter) -> Date? {
+        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        let endTimeString = line.components(separatedBy: ": ").last
+        return formatter.date(from: endTimeString ?? "")
+    }
+
     private func fromOldVersion(_ uptimeString: String?) -> TimeInterval {
         let parts = uptimeString?.components(separatedBy: ", ")
         let dayPart = parts?.first?.replacingOccurrences(of: " days", with: "") ?? "0"
