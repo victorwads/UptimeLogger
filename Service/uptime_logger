@@ -1,5 +1,8 @@
 #!/bin/bash
 DEBUG=false
+if [[ "$*" == *"--debug"* ]]; then
+    DEBUG=true
+fi
 VERSION=4
 
 # Check for version option
@@ -39,6 +42,7 @@ fi
 function allowShutdown() {
     echo "shutdown allowed" >>"$LOG_LATEST"
     rm "$SHUTDOWN_FILE"
+    rm "$LOG_LATEST"
 }
 if test -f "$SHUTDOWN_FILE" && test -f "$LOG_LATEST"; then
     allowShutdown
@@ -56,17 +60,21 @@ fi
 # Set log files names
 LOG_FILE="$LOGS_DIR/log_$STARTUP.txt"
 PLOG_FILE="$LOGS_DIR/log_$STARTUP.log"
-ln -sf $LOG_FILE $LOG_LATEST
+if [ ! -f "$LOG_FILE" ]; then
+    echo "version: $VERSION"$'\n' > "$LOG_FILE"
+fi
+
+ln -sf "$LOG_FILE" "$LOG_LATEST"
 
 # Verifica se o modo de depuração está habilitado
 if [[ "$*" == *"--debug"* ]]; then
-    DEBUG=true
     echo ""
     echo "OSTYPE: $OSTYPE"
     echo "SCRIPT_DIR: $SCRIPT_DIR"
     echo "LOGS_DIR: $LOGS_DIR"
     echo "LOG_LATEST: $LOG_LATEST"
     echo "LOG_FILE: $LOG_FILE"
+    echo "PLOG_FILE: $PLOG_FILE"
     echo "STARTUP: $STARTUP"
 fi
 
@@ -80,14 +88,6 @@ if [ $DEBUG = true ] && [[ "$*" == *"--exit-with-update"* ]]; then
 else
     trap "allowShutdown; exit;" INT TERM
 fi
-
-# Define a contagem inicial
-LOG_PROCCESS=false
-
-if [[ "$X" =~ ^[0-9]+$ ]] && [ "$X" -gt 0 ]; then
-    LOG_PROCCESS=true
-fi
-
 
 # LOG V4
 # version: [0-9]+
@@ -118,7 +118,7 @@ while true; do
         battery=$(pmset -g batt)
 
         LOG+="sysversion: $(sw_vers -productVersion)"$'\n'
-        LOG+="batery: $(echo $battery | grep -Eo '[0-9]+%')"$'\n'
+        LOG+="batery: $(echo "$battery" | grep -Eo '[0-9]+%')"$'\n'
         if echo "$battery" | grep -q "discharging"; then
             LOG+="charging: false"$'\n'
         else
@@ -136,7 +136,7 @@ while true; do
 
     LOGPROCESS=false
     if [ -r "$CONFIG_FILE" ]; then
-        EACHSEC=$(cat $CONFIG_FILE)
+        EACHSEC=$(cat "$CONFIG_FILE")
         if [ $((COUNT % EACHSEC)) -eq 0 ]; then            
             ps -ax -o user,pid,pcpu,pmem,start,time,command > "$PLOG_FILE"
             if [ $DEBUG = true ]; then

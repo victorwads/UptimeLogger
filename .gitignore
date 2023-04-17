@@ -24,3 +24,4 @@
 **/logs/latest
 Pkg/cache/
 Pkg/*.dmg
+Pkg/*.pkg

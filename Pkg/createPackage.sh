@@ -34,4 +34,5 @@ hdiutil create -volname "UptimeLogger"\
     "UptimeLogger-$VERSION.dmg"
 
 echo "\033[32mApagando caches\033[0m"
+cp "$DMG_FOLDER/$INSTALLER_NAME.pkg" "./$INSTALLER_NAME.pkg"
 rm -rf "$CACHE_FOLDER"
