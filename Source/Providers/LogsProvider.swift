@@ -10,8 +10,7 @@ import AppKit
 
 class LogsProvider {
     
-    static let serviceFolder = "\(Bundle.main.resourcePath ?? "")/Service/"
-    static let defaultLogsFolder = serviceFolder + "logs"
+    static let defaultLogsFolder = "/Library/Application Support/UptimeLogger"
 
     public var folder = defaultLogsFolder
     
@@ -48,20 +47,23 @@ class LogsProvider {
         var results: [LogItemInfo] = []
         
         let currentFileName = getCurrentFileName()
-        
-        let logFiles = FileManager.default.enumerator(atPath: folder)?.allObjects as? [String] ?? []
-        let logFilePaths = logFiles.filter { $0.hasSuffix(".txt") && $0 != currentFileName }
-        
-        for logFilePath in logFilePaths {
-            if let log = getFileContents(folder+"/"+logFilePath) {
-                results.append(
-                    LogItemInfo(fileName: logFilePath, content: log)
-                )
+        do {
+            let allFiles: [String] = try FileManager.default.contentsOfDirectory(atPath: folder)
+            let logFiles = allFiles.filter { $0.hasPrefix("log_") && $0.hasSuffix(".txt") && $0 != currentFileName }
+            
+            for logPath in logFiles {
+                if let log = getFileContents(folder+"/"+logPath) {
+                    results.append(
+                        LogItemInfo(fileName: logPath, content: log)
+                    )
+                }
             }
+            results = results.sorted(by: { $0.scriptStartTime > $1.scriptStartTime })
+            
+            return results
+        } catch {
+            return []
         }
-        results = results.sorted(by: { $0.scriptStartTime > $1.scriptStartTime })
-        
-        return results
     }
 
     public func toggleShutdownAllowed(_ file: LogItemInfo) {

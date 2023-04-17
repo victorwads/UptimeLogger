@@ -10,7 +10,13 @@ fi
 
 # Define paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-LOGS_DIR="$SCRIPT_DIR/logs"
+
+if [ $DEBUG = true ]; then
+    LOGS_DIR="$SCRIPT_DIR/logs"
+else
+    LOGS_DIR="/Library/Application Support/UptimeLogger"
+fi
+
 LOG_LATEST="$LOGS_DIR/latest"
 CONFIG_FILE="$LOGS_DIR/config"
 if [[ ! -d "$LOGS_DIR" ]]; then

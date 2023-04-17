@@ -28,9 +28,10 @@ if [ -f "/Library/LaunchDaemons/$SERVICE_NAME.plist" ]; then
     sudo rm "/Library/LaunchDaemons/$SERVICE_NAME.plist"
 fi
 
-LAST_LOG_LINK="$INSTALL_FOLDER/Contents/Resources/Service/logs/latest"
+LOGS_DIR="/Library/Application Support/UptimeLogger"
+LAST_LOG_LINK="$LOGS_DIR/latest"
 if [ -f "$LAST_LOG_LINK" ]; then
-    UPDATE_FILE="$INSTALL_FOLDER/Contents/Resources/Service/logs/updated"
+    UPDATE_FILE="$LOGS_DIR/updated"
 
     LASTLOGFILE="$(readlink "$LAST_LOG_LINK")"
     FILENAME=$(basename "$LASTLOGFILE" _*.txt)
