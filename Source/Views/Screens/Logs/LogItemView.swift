@@ -107,9 +107,42 @@ struct MonoText: View {
 }
 
 struct LogItemView_Previews: PreviewProvider {
+
     static var previews: some View {
+        let fileName = "log_2023-04-17_00-13-40.txt"
+        let content = """
+version: 4
+init: 2023-04-17_00-13-40
+ended: 2023-04-17_00-13-43
+sysversion: 13.4
+batery: 72%
+charging: false
+boottime: 1681697439
+uptime: 3784
+logprocessinterval: 2
+logprocess: true
+"""
+
         LogItemView(
-            log: .constant(LogItemInfo(fileName: "", content: "")),
+            log: .constant(LogItemInfo(fileName: fileName, content: content)),
+            onToggleAction: {_ in }
+        )
+
+        let content2 = """
+version: 4
+init: 2023-04-17_00-13-40
+ended: 2023-04-17_00-13-43
+sysversion: 13.4
+batery: 72%
+charging: false
+boottime: 1681697439
+uptime: 3784
+logprocessinterval: 2
+logprocess: true
+"""
+        LogItemView(
+            log: .constant(LogItemInfo(fileName: fileName, content: content2)),
+            showDetails: true,
             onToggleAction: {_ in }
         )
     }

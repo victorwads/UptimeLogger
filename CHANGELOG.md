@@ -1,33 +1,41 @@
 # App and Logger Changelog
 
-* [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-2.0.zip)
+- Future Releases
+  - More visual info about the logs, like battery status icon and %
+  - TableView for seeing processes more easylly
+  - Choose with infos about the logs are showed on logs screen
+  - Filter logs
+  - improve logs details layout
+  - open original text log files
+  - archive logs for better analyses and performance
+
+* [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-2.0.dmg)
   * App
-    * Fix not saving file permision
-    * Removed system menus
-    * Logs Screen
-      * Remove shutdown button
-      * Mark logs as "edited" when thet are updated
-      * Improve Logs Layout
-    * **-new-** Logs Datails
-      * A separeted window to show log details and progress
-    * Intall Screen
-      * Removed
-      * Create a DMG with Install and Uninstall packages
-    * **-new-** Settings Screen
-      * Toggle Process monitorim
-      * Set seconds interval for process monitorim
-      * developer options
+    * Fixes
+      * Fixed file access issue
+    * New Features
+      * New logs details screen, in a separate window
+      * Settings screen, with options for process monitoring with time interval, and developer options
+      * Simple Install and Uninstaller on .DMG file for Download
+      * You can now change logs final status and edited logs will be marked (you can also undo)
+      * Improved ogs layout, and for next releases, it will be even better
+    * Removed
+      * System Menus Buttons
+      * Install Service Screen
+      * Now unecessary shutdown button from logs screen
     * Xcode Project
-      * Unit Testing to prevent logs digesting bugs
+      * Added unit testing to prevent log misspelling bugs
   * Logger Service
-    * Logs Versioning - started v4
-        * Add sysversion: String
-        * Add batery: \[0-100]%
-        * Add charging: true/false
-        * Add logprocess: true/false
-        * Add logprocessinterval: seconds
-        * Add .log file with list of running process when actived
-    * Identifies unexpected shutdowns automatically using "trap" comand
+    * New Features
+      * Identifies unexpected shutdowns automatically using the "trap" command
+      * Logs versioning v4
+        * Added sysversion: String
+        * Added batery: [0-100]%
+        * Added charging: true/false
+        * Added logprocess: true/false
+        * Added logprocessinterval: seconds
+        * Added .log file with list of running processes when activated
+
 
 - [1.3](https://github.com/victorwads/UptimeLogger/releases/download/1.3/UptimeLogger-1.3.zip)
   - App
