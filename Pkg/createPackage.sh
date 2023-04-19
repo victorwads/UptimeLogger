@@ -2,7 +2,6 @@
 BUNDLE_NAME="br.com.victorwads.UptimeLogger"
 INSTALLER_NAME="Install UptimeLogger"
 UNINSTALLER_NAME="Uninstall"
-VERSION="2.1"
 
 CACHE_FOLDER="cache"
 APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
@@ -18,9 +17,11 @@ xcodebuild  -project ../UptimeLogger.xcodeproj\
             -destination 'generic/platform=macOS'\
             -derivedDataPath "$CACHE_FOLDER" > /dev/null
 
-mkdir "$DMG_FOLDER"
+echo "\033[32mIdentificando Versão do Projeto\033[0m"
+VERSION=$(xcodebuild -project ../UptimeLogger.xcodeproj -showBuildSettings | awk '/MARKETING_VERSION/ { print $3 }' | sed 's/[[:space:]]//g')
 
 echo "\033[32mCriando Instalador\033[0m"
+mkdir "$DMG_FOLDER"
 pkgbuild --root "$APP_FOLDER"  --install-location "/Applications/UptimeLogger.app" --scripts ./Install\
     --identifier "$BUNDLE_NAME" --version "$VERSION"\
     "$DMG_FOLDER/$INSTALLER_NAME.pkg"
@@ -41,3 +42,17 @@ hdiutil create -volname "UptimeLogger"\
 
 echo "\033[32mApagando caches\033[0m"
 rm -rf "$CACHE_FOLDER"
+
+if [ "$1" != "loop" ]; then
+    echo "\033[32mCriando Tag do Git\033[0m"
+    read -p "Gostaria de criar a tag $VERSION no git? [s/N]" confirm
+    if [[ $confirm =~ ^[Ss]$ ]]; then
+        git tag $VERSION
+        git --no-pager tag
+    else
+        echo "A tag não foi criada."
+    fi
+fi
+
+echo "\033[32mListando Resultado\033[0m"
+ls -lha
