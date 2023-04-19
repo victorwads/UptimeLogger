@@ -6,14 +6,14 @@
   - open original text log files
   - archive logs for better analyses and performance
 
-* [2.1](https://github.com/victorwads/UptimeLogger/releases/download/2.0/UptimeLogger-2.0.dmg)
+* [2.1 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.1/UptimeLogger-2.1.dmg)
   * App
     * New Features
       * Logs List with more relevant information like, batery, connected power (or not) SO Version
       * Logs List with sorting, filtering by shutdown and charging status
       * Log Procces Details, with sorting, filtering, serach
 
-- [2.0.1 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.0.1/UptimeLogger-2.0.1.dmg)
+- [2.0.1](https://github.com/victorwads/UptimeLogger/releases/download/2.0.1/UptimeLogger-2.0.1.dmg)
   - Fix for x86_64 macs
   - Fix installator update service system (keep current log)
 
