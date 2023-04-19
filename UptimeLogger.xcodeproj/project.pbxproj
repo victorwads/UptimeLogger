@@ -24,6 +24,7 @@
 		93A8805729EF94CF005A4E1B /* ProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805629EF94CF005A4E1B /* ProcessView.swift */; };
 		93A8805929EF96AB005A4E1B /* ProcessItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805829EF96AB005A4E1B /* ProcessItemView.swift */; };
 		93A8805B29EF97E6005A4E1B /* LogDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805A29EF97E6005A4E1B /* LogDetailsScreen.swift */; };
+		93A8805D29EFA072005A4E1B /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805C29EFA072005A4E1B /* Battery.swift */; };
 		93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */; };
 		93BD359529E6F7A100CB30A9 /* LogsProvider+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */; };
 		93BEA29329E46C4700280DAC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93BEA29129E46C4700280DAC /* Localizable.strings */; };
@@ -65,6 +66,7 @@
 		93A8805629EF94CF005A4E1B /* ProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessView.swift; sourceTree = "<group>"; };
 		93A8805829EF96AB005A4E1B /* ProcessItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessItemView.swift; sourceTree = "<group>"; };
 		93A8805A29EF97E6005A4E1B /* LogDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailsScreen.swift; sourceTree = "<group>"; };
+		93A8805C29EFA072005A4E1B /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
 		93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemInfo.swift; sourceTree = "<group>"; };
 		93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+Settings.swift"; sourceTree = "<group>"; };
 		93BEA29229E46C4700280DAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				93057FD429E3589900D1FD50 /* LogsListView.swift */,
 				938F6D6529E3B02E00DACB7A /* LogItemView.swift */,
 				930D124E29E6746C00456416 /* LegendView.swift */,
+				93A8805C29EFA072005A4E1B /* Battery.swift */,
 			);
 			path = Logs;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */,
 				93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */,
 				93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */,
+				93A8805D29EFA072005A4E1B /* Battery.swift in Sources */,
 				93057FD529E3589900D1FD50 /* LogsListView.swift in Sources */,
 				93BD359529E6F7A100CB30A9 /* LogsProvider+Settings.swift in Sources */,
 				930D124F29E6746C00456416 /* LegendView.swift in Sources */,

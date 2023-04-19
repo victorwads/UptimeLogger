@@ -30,16 +30,10 @@ struct LogDetailsScreen: View {
             }
         } else {
             VStack {
-                HStack {
-                    Text(urlFileName)
-                        .font(.title)
-                    Spacer()
-                }
-                .padding(.horizontal)
-                .padding(.top)
                 LogItemView(log: $logFile)
                     .padding(.horizontal)
-                    .frame(maxHeight: 50)
+                    .padding(.top, 0)
+                    .frame(maxHeight: 80)
                 if(logFile.hasProcess) {
                     if(processes.count == 0){
                         Spacer()
@@ -62,7 +56,7 @@ struct LogDetailsScreen: View {
                 DispatchQueue.global().async {
                     processes = provider.loadProccessLogFor(filename: urlFileName)
                 }
-            }
+            }.navigationTitle(urlFileName)
         }
     }
 

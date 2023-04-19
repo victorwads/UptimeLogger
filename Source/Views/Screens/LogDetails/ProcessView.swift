@@ -38,7 +38,7 @@ struct ProcessView: View {
     
     var body: some View {
         Divider()
-            .padding(.top, 10)
+            .padding(.top, 0)
         HStack {
             Picker("Sort by", selection: $sortingOption) {
                 Text("Command").tag(SortingOption.command)
@@ -49,7 +49,7 @@ struct ProcessView: View {
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)
             HStack {
-                TextField("Search command", text: $searchText)
+                TextField("Search", text: $searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)

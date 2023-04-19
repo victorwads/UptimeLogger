@@ -41,15 +41,12 @@ struct LogItemView: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            HStack(alignment: .center) {
-                Image(systemName: LogItemView.iconScriptStartTime)
-                    .foregroundColor(.accentColor)
-                MonoText(text: log.formattedStartUptime)
-            }.padding(.bottom, 2)
-            HStack(alignment: .center) {
-                Image(systemName: LogItemView.iconShutdownTime)
-                    .foregroundColor(.accentColor)
-                MonoText(text: log.formattedShutdownTime ?? "null")
+            if(!showDetails) {
+                HStack(alignment: .center) {
+                    Image(systemName: LogItemView.iconScriptStartTime)
+                        .foregroundColor(.accentColor)
+                    MonoText(text: log.formattedStartUptime)
+                }.padding(.bottom, 2)
             }
             HStack(alignment: .center) {
                 Image(systemName: LogItemView.iconBootTime)
@@ -62,9 +59,7 @@ struct LogItemView: View {
                 MonoText(text: log.formattedUptime)
             }
             Spacer()
-//            Text(Strings.logUnexpected.value).bold()
-//                .font(.subheadline)
-//                .foregroundColor(.gray)
+
 
             shutdownStatus.onTapGesture {
                 if let onToggleAction = onToggleAction {
@@ -76,7 +71,23 @@ struct LogItemView: View {
                 Image(systemName: LogItemView.iconEdited)
                     .help(Strings.logEditedTip.value)
             }
-            Divider()
+            HStack {
+                if let sys = log.systemVersion {
+                    Divider()
+                    HStack {
+                        Image(systemName: "desktopcomputer")
+                            .foregroundColor(.accentColor)
+                        MonoText(text: sys)
+                    }.help("versão do SO")
+                }
+                if let battery = log.batery, let charging = log.charging {
+                    Divider()
+                    Battery(level: battery)
+                    Image(systemName: charging ? "bolt.fill" : "bolt.slash.fill")
+                        .help(charging ? "conectado a energia" : "desconectado da energia")
+                    Divider()
+                }
+            }
             Text("v\(log.version)")
                 .foregroundColor(.gray)
             if(showDetails) {
@@ -86,7 +97,7 @@ struct LogItemView: View {
                         openURL(url)
                     }
                 } label: {
-                    Text("detalhes")
+                    Image(systemName: "info.circle")
                 }
             }
         }
@@ -144,6 +155,6 @@ logprocess: true
             log: .constant(LogItemInfo(fileName: fileName, content: content2)),
             showDetails: true,
             onToggleAction: {_ in }
-        )
+        ).frame(minWidth: 1500, maxHeight: 60)
     }
 }
