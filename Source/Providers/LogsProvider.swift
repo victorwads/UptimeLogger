@@ -44,9 +44,9 @@ class LogsProvider {
         return LogItemInfo(fileName: filename, content: contents)
     }
     
-    public func loadProccessLogFor(filename: String) -> [String] {
+    public func loadProccessLogFor(filename: String) -> [ProcessLogInfo] {
         let contents = getFileContents(folder + "/" + filename.replacingOccurrences(of: ".txt", with: ".log")) ?? ""
-        return contents.components(separatedBy: "\n")
+        return ProcessLogInfo.processFile(content: contents)
     }
     
     public func loadLogs() -> [LogItemInfo] {

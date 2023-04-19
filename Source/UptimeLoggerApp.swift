@@ -23,7 +23,7 @@ struct UptimeLoggerApp: App {
             )
         }
         WindowGroup {
-            LogDetail(
+            LogDetailsScreen(
                 provider: provider
             )
         }

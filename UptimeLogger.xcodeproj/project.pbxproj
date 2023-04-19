@@ -21,13 +21,17 @@
 		93A07CEC29E35501000EDA9C /* UptimeLoggerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */; };
 		93A07CF029E35502000EDA9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A07CEF29E35502000EDA9C /* Assets.xcassets */; };
 		93A07CF329E35502000EDA9C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A07CF229E35502000EDA9C /* Preview Assets.xcassets */; };
+		93A8805729EF94CF005A4E1B /* ProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805629EF94CF005A4E1B /* ProcessView.swift */; };
+		93A8805929EF96AB005A4E1B /* ProcessItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805829EF96AB005A4E1B /* ProcessItemView.swift */; };
+		93A8805B29EF97E6005A4E1B /* LogDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805A29EF97E6005A4E1B /* LogDetailsScreen.swift */; };
 		93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */; };
 		93BD359529E6F7A100CB30A9 /* LogsProvider+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */; };
 		93BEA29329E46C4700280DAC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93BEA29129E46C4700280DAC /* Localizable.strings */; };
 		93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BEA29529E46E5900280DAC /* String+Localized.swift */; };
 		93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2748629E3D5DB0033AB01 /* FilesProvider.swift */; };
-		93ED9F9929ED1FF3009CBCED /* LogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED9F9829ED1FF3009CBCED /* LogDetail.swift */; };
 		93ED9F9B29ED2034009CBCED /* AppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED9F9A29ED2034009CBCED /* AppScheme.swift */; };
+		93F4070629EF5BFA00EEDE7B /* ProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4070529EF5BFA00EEDE7B /* ProcessInfo.swift */; };
+		93F4070829EF5CE900EEDE7B /* ProcessInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4070729EF5CE900EEDE7B /* ProcessInfoTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +62,9 @@
 		93A07CEF29E35502000EDA9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93A07CF229E35502000EDA9C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		93A07CF429E35502000EDA9C /* UptimeLogger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UptimeLogger.entitlements; sourceTree = "<group>"; };
+		93A8805629EF94CF005A4E1B /* ProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessView.swift; sourceTree = "<group>"; };
+		93A8805829EF96AB005A4E1B /* ProcessItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessItemView.swift; sourceTree = "<group>"; };
+		93A8805A29EF97E6005A4E1B /* LogDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailsScreen.swift; sourceTree = "<group>"; };
 		93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemInfo.swift; sourceTree = "<group>"; };
 		93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+Settings.swift"; sourceTree = "<group>"; };
 		93BEA29229E46C4700280DAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -65,9 +72,10 @@
 		93BEA29529E46E5900280DAC /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		93C2748629E3D5DB0033AB01 /* FilesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesProvider.swift; sourceTree = "<group>"; };
 		93ED9F9629ED0691009CBCED /* UptimeLogger.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UptimeLogger.xctestplan; sourceTree = "<group>"; };
-		93ED9F9829ED1FF3009CBCED /* LogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
 		93ED9F9A29ED2034009CBCED /* AppScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScheme.swift; sourceTree = "<group>"; };
 		93ED9F9C29ED23FE009CBCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		93F4070529EF5BFA00EEDE7B /* ProcessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfo.swift; sourceTree = "<group>"; };
+		93F4070729EF5CE900EEDE7B /* ProcessInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfoTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */,
+				93F4070729EF5CE900EEDE7B /* ProcessInfoTests.swift */,
 			);
 			path = UptimeLoggerTests;
 			sourceTree = "<group>";
@@ -156,7 +165,6 @@
 		93A07CDF29E35501000EDA9C = {
 			isa = PBXGroup;
 			children = (
-				93ED9F9629ED0691009CBCED /* UptimeLogger.xctestplan */,
 				939983FC29E4A31200631A20 /* Service */,
 				93BEA29029E4659300280DAC /* Source */,
 				93A07CEA29E35501000EDA9C /* UptimeLogger */,
@@ -177,9 +185,10 @@
 		93A07CEA29E35501000EDA9C /* UptimeLogger */ = {
 			isa = PBXGroup;
 			children = (
-				93ED9F9C29ED23FE009CBCED /* Info.plist */,
-				93A07CEF29E35502000EDA9C /* Assets.xcassets */,
+				93ED9F9629ED0691009CBCED /* UptimeLogger.xctestplan */,
 				93A07CF429E35502000EDA9C /* UptimeLogger.entitlements */,
+				93A07CEF29E35502000EDA9C /* Assets.xcassets */,
+				93ED9F9C29ED23FE009CBCED /* Info.plist */,
 				93A07CF129E35502000EDA9C /* Preview Content */,
 				93BEA29129E46C4700280DAC /* Localizable.strings */,
 			);
@@ -198,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */,
+				93F4070529EF5BFA00EEDE7B /* ProcessInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,7 +229,9 @@
 		93ED9F9729ED1F85009CBCED /* LogDetails */ = {
 			isa = PBXGroup;
 			children = (
-				93ED9F9829ED1FF3009CBCED /* LogDetail.swift */,
+				93A8805A29EF97E6005A4E1B /* LogDetailsScreen.swift */,
+				93A8805629EF94CF005A4E1B /* ProcessView.swift */,
+				93A8805829EF96AB005A4E1B /* ProcessItemView.swift */,
 			);
 			path = LogDetails;
 			sourceTree = "<group>";
@@ -330,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				939E085F29ECF07000D7AA6D /* UptimeLoggerTests.swift in Sources */,
+				93F4070829EF5CE900EEDE7B /* ProcessInfoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,10 +353,13 @@
 				93ED9F9B29ED2034009CBCED /* AppScheme.swift in Sources */,
 				9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */,
 				934DC48B29E636870072A25C /* NavigationAppView.swift in Sources */,
+				93A8805929EF96AB005A4E1B /* ProcessItemView.swift in Sources */,
 				93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */,
 				934DC48D29E638940072A25C /* LogsScreen.swift in Sources */,
+				93A8805729EF94CF005A4E1B /* ProcessView.swift in Sources */,
 				938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */,
-				93ED9F9929ED1FF3009CBCED /* LogDetail.swift in Sources */,
+				93A8805B29EF97E6005A4E1B /* LogDetailsScreen.swift in Sources */,
+				93F4070629EF5BFA00EEDE7B /* ProcessInfo.swift in Sources */,
 				938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */,
 				937ED70E29EBB22200CFBAB4 /* Locales.swift in Sources */,
 				934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */,
@@ -386,6 +402,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DU6489YN3U;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 1.0;
@@ -404,6 +422,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DU6489YN3U;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 1.0;
@@ -540,7 +560,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"UptimeLogger/Preview Content\"";
 				DEVELOPMENT_TEAM = DU6489YN3U;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -555,7 +575,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -574,7 +594,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"UptimeLogger/Preview Content\"";
 				DEVELOPMENT_TEAM = DU6489YN3U;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -589,7 +609,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
