@@ -2,7 +2,7 @@
 BUNDLE_NAME="br.com.victorwads.UptimeLogger"
 INSTALLER_NAME="Install UptimeLogger"
 UNINSTALLER_NAME="Uninstall"
-VERSION="2.0.1"
+VERSION="2.1"
 
 CACHE_FOLDER="cache"
 APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"

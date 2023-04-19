@@ -16,17 +16,29 @@ struct LogsScreen: View {
     @AppStorage("logsFolder") var logsFolder: String = LogsProvider.defaultLogsFolder
     
     @State private var logs: [LogItemInfo] = []
+    @State var showFilters: Bool = false
 
     let provider: LogsProvider
 
     var body: some View {
+        HStack {
             LegendView().padding()
-            LogsListView(
-                onToggleAction: toggleItemAction,
-                items: $logs
-            ).onAppear(perform: initLogs)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .navigationTitle(Strings.mainLogs.value)
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    showFilters.toggle()
+                }
+            }) {
+                Image(systemName: showFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+            }
+            
+        }
+        LogsListView(
+            onToggleAction: toggleItemAction,
+            items: $logs,
+            showFilters: $showFilters
+        ).onAppear(perform: initLogs)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .navigationTitle(Strings.mainLogs.value)
     }
     
     private func toggleItemAction(item: LogItemInfo) {
