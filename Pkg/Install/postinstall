@@ -23,14 +23,10 @@ SERVICE_PLIST=$(cat <<EOF
 EOF
 )
 
-if [ -f "/Library/LaunchDaemons/$SERVICE_NAME.plist" ]; then
-    sudo launchctl unload "/Library/LaunchDaemons/$SERVICE_NAME.plist"
-    sudo rm "/Library/LaunchDaemons/$SERVICE_NAME.plist"
-fi
-
 LOGS_DIR="/Library/Application Support/UptimeLogger"
 LAST_LOG_LINK="$LOGS_DIR/latest"
 if [ -f "$LAST_LOG_LINK" ]; then
+    echo "Setuping service for update"
     UPDATE_FILE="$LOGS_DIR/updated"
 
     LASTLOGFILE="$(readlink "$LAST_LOG_LINK")"
@@ -38,6 +34,12 @@ if [ -f "$LAST_LOG_LINK" ]; then
     LATEST_STARTUP="${FILENAME#*_}"
     LATEST_STARTUP="${LATEST_STARTUP%.txt}"
     echo "$LATEST_STARTUP" > "$UPDATE_FILE"
+fi
+
+if [ -f "/Library/LaunchDaemons/$SERVICE_NAME.plist" ]; then
+    echo "Removing old service using sudo"
+    sudo launchctl unload "/Library/LaunchDaemons/$SERVICE_NAME.plist"
+    sudo rm "/Library/LaunchDaemons/$SERVICE_NAME.plist"
 fi
 
 echo "Installer service at $SERVICE_FILE using sudo"

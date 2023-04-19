@@ -9,7 +9,10 @@
   - open original text log files
   - archive logs for better analyses and performance
 
-* [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/1.4/UptimeLogger-2.0.dmg)
+- [2.0.1 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.0.1/UptimeLogger-2.0.1.dmg)
+  - Fix for x86_64 macs
+
+* [2.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.0/UptimeLogger-2.0.dmg)
   * App
     * Fixes
       * Fixed file access issue

@@ -2,7 +2,7 @@
 BUNDLE_NAME="br.com.victorwads.UptimeLogger"
 INSTALLER_NAME="Install UptimeLogger"
 UNINSTALLER_NAME="Uninstall"
-VERSION="2.0"
+VERSION="2.0.1"
 
 CACHE_FOLDER="cache"
 APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
@@ -13,7 +13,10 @@ rm -f ../Service/logs/*
 
 # Apaga caches anteriores
 echo "\033[32mBuildando app release\033[0m"
-xcodebuild -project ../UptimeLogger.xcodeproj -scheme UptimeLogger -configuration Release -derivedDataPath "$CACHE_FOLDER" > /dev/null
+xcodebuild  -project ../UptimeLogger.xcodeproj\
+            -scheme UptimeLogger -configuration Release\
+            -destination 'generic/platform=macOS'\
+            -derivedDataPath "$CACHE_FOLDER" > /dev/null
 
 mkdir "$DMG_FOLDER"
 
@@ -33,6 +36,8 @@ hdiutil create -volname "UptimeLogger"\
     -ov -format UDZO\
     "UptimeLogger-$VERSION.dmg"
 
+# cp "$DMG_FOLDER/$INSTALLER_NAME.pkg" "./$INSTALLER_NAME.pkg"
+# cp -R "$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app" ./
+
 echo "\033[32mApagando caches\033[0m"
-cp "$DMG_FOLDER/$INSTALLER_NAME.pkg" "./$INSTALLER_NAME.pkg"
 rm -rf "$CACHE_FOLDER"
