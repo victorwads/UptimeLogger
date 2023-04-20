@@ -18,6 +18,12 @@ struct SettingsScreen: View {
     let provider: LogsProvider
     
     var body: some View {
+        VStack(alignment: .leading) {
+            Label("Configurações", systemImage: "gearshape")
+                .font(.title)
+                .padding()
+            Divider()
+        }
         VStack(alignment: .leading, spacing: 20) {
             Text("Serviço de Monitoramento")
                 .font(.headline)

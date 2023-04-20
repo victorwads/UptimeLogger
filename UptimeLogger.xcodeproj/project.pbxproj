@@ -25,6 +25,10 @@
 		93A8805929EF96AB005A4E1B /* ProcessItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805829EF96AB005A4E1B /* ProcessItemView.swift */; };
 		93A8805B29EF97E6005A4E1B /* LogDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805A29EF97E6005A4E1B /* LogDetailsScreen.swift */; };
 		93A8805D29EFA072005A4E1B /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805C29EFA072005A4E1B /* Battery.swift */; };
+		93A8806229F0FFE1005A4E1B /* UpdateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806129F0FFE1005A4E1B /* UpdateScreen.swift */; };
+		93A8806429F10727005A4E1B /* VersionCompare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806329F10727005A4E1B /* VersionCompare.swift */; };
+		93A8806629F1076E005A4E1B /* VersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806529F1076E005A4E1B /* VersionTests.swift */; };
+		93A8806A29F10E46005A4E1B /* DownloadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806929F10E46005A4E1B /* DownloadProvider.swift */; };
 		93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */; };
 		93BD359529E6F7A100CB30A9 /* LogsProvider+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */; };
 		93BEA29329E46C4700280DAC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93BEA29129E46C4700280DAC /* Localizable.strings */; };
@@ -67,6 +71,10 @@
 		93A8805829EF96AB005A4E1B /* ProcessItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessItemView.swift; sourceTree = "<group>"; };
 		93A8805A29EF97E6005A4E1B /* LogDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailsScreen.swift; sourceTree = "<group>"; };
 		93A8805C29EFA072005A4E1B /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
+		93A8806129F0FFE1005A4E1B /* UpdateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateScreen.swift; sourceTree = "<group>"; };
+		93A8806329F10727005A4E1B /* VersionCompare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCompare.swift; sourceTree = "<group>"; };
+		93A8806529F1076E005A4E1B /* VersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionTests.swift; sourceTree = "<group>"; };
+		93A8806929F10E46005A4E1B /* DownloadProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadProvider.swift; sourceTree = "<group>"; };
 		93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemInfo.swift; sourceTree = "<group>"; };
 		93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+Settings.swift"; sourceTree = "<group>"; };
 		93BEA29229E46C4700280DAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -101,6 +109,7 @@
 		934DC48329E635AA0072A25C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				93A8806029F0FFCD005A4E1B /* Update */,
 				934DC48729E636080072A25C /* Settings */,
 				934DC48629E635FE0072A25C /* Logs */,
 				93ED9F9729ED1F85009CBCED /* LogDetails */,
@@ -133,6 +142,7 @@
 			children = (
 				937ED70D29EBB22200CFBAB4 /* Locales.swift */,
 				93ED9F9A29ED2034009CBCED /* AppScheme.swift */,
+				93A8806329F10727005A4E1B /* VersionCompare.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -140,6 +150,7 @@
 		938F6D5F29E3905B00DACB7A /* Providers */ = {
 			isa = PBXGroup;
 			children = (
+				93A8806929F10E46005A4E1B /* DownloadProvider.swift */,
 				93C2748629E3D5DB0033AB01 /* FilesProvider.swift */,
 				938F6D6129E3909000DACB7A /* LogsProvider.swift */,
 				93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */,
@@ -161,6 +172,7 @@
 			children = (
 				939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */,
 				93F4070729EF5CE900EEDE7B /* ProcessInfoTests.swift */,
+				93A8806529F1076E005A4E1B /* VersionTests.swift */,
 			);
 			path = UptimeLoggerTests;
 			sourceTree = "<group>";
@@ -204,6 +216,14 @@
 				93A07CF229E35502000EDA9C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		93A8806029F0FFCD005A4E1B /* Update */ = {
+			isa = PBXGroup;
+			children = (
+				93A8806129F0FFE1005A4E1B /* UpdateScreen.swift */,
+			);
+			path = Update;
 			sourceTree = "<group>";
 		};
 		93AB39FA29E3771C006BF0B9 /* Models */ = {
@@ -346,6 +366,7 @@
 			files = (
 				939E085F29ECF07000D7AA6D /* UptimeLoggerTests.swift in Sources */,
 				93F4070829EF5CE900EEDE7B /* ProcessInfoTests.swift in Sources */,
+				93A8806629F1076E005A4E1B /* VersionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +376,7 @@
 			files = (
 				93ED9F9B29ED2034009CBCED /* AppScheme.swift in Sources */,
 				9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */,
+				93A8806429F10727005A4E1B /* VersionCompare.swift in Sources */,
 				934DC48B29E636870072A25C /* NavigationAppView.swift in Sources */,
 				93A8805929EF96AB005A4E1B /* ProcessItemView.swift in Sources */,
 				93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */,
@@ -368,9 +390,11 @@
 				934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */,
 				93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */,
 				93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */,
+				93A8806229F0FFE1005A4E1B /* UpdateScreen.swift in Sources */,
 				93A8805D29EFA072005A4E1B /* Battery.swift in Sources */,
 				93057FD529E3589900D1FD50 /* LogsListView.swift in Sources */,
 				93BD359529E6F7A100CB30A9 /* LogsProvider+Settings.swift in Sources */,
+				93A8806A29F10E46005A4E1B /* DownloadProvider.swift in Sources */,
 				930D124F29E6746C00456416 /* LegendView.swift in Sources */,
 				93A07CEC29E35501000EDA9C /* UptimeLoggerApp.swift in Sources */,
 			);

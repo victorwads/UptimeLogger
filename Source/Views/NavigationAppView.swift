@@ -51,6 +51,9 @@ struct MenuView: View {
                 NavigationLink(destination: SettingsScreen(provider: provider), tag: 2, selection: $selectedScreen) {
                     Label("Configurações", systemImage: "gearshape")
                 }
+                NavigationLink(destination: UpdateScreen(), tag: installTag, selection: $selectedScreen) {
+                    Label("Atualizações", systemImage: "arrow.clockwise")
+                }
             }
 
             Divider()

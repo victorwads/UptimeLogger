@@ -5,6 +5,7 @@
   - Filter logs
   - open original text log files
   - archive logs for better analyses and performance
+  - warn new updates: https://api.github.com/repos/victorwads/UptimeLogger/tags
 
 * [2.1 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.1/UptimeLogger-2.1.dmg)
   * App
