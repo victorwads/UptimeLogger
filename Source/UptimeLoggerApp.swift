@@ -18,9 +18,12 @@ struct UptimeLoggerApp: App {
     var body: some Scene {
         let provider = LogsProvider(folder: storedFolder)
         WindowGroup {
-            NavigationAppView(
-                provider: provider
-            )
+            if let _ = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] {
+            } else {
+                NavigationAppView(
+                    provider: provider
+                )
+            }
         }
         WindowGroup {
             LogDetailsScreen(

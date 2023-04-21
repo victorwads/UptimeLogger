@@ -1,0 +1,31 @@
+name: Xcode - Build, Test and Coverage
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build and analyse default scheme using xcodebuild command
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build and Test
+        run: |
+        rm -rf coverage.xcresult
+        xcodebuild  -project UptimeLogger.xcodeproj -scheme UptimeLogger -enableCodeCoverage YES\
+                    -xcconfig build.xcconfig -resultBundlePath coverage.xcresult\
+                    test
+
+      - name: Generate Coverage Report
+        run: xcrun xccov view --report --json coverage.xcresult > report.json
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./report.json

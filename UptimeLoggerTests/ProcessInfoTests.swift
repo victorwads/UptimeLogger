@@ -5,7 +5,6 @@
 //  Created by Victor Wads on 18/04/23.
 //
 
-import Foundation
 import XCTest
 
 @testable import UptimeLogger
