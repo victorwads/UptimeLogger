@@ -9,9 +9,13 @@ import Foundation
 
 class DownloadProvider: NSObject, URLSessionDownloadDelegate {
     
-    let downloadURL: URL
-    let onComplete: (URL?, Error?) -> Void
-    let onProgress: (Double) -> Void
+    private let manager = FileManager.default
+    private var supportFolder: URL {
+        manager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+    }
+    private let downloadURL: URL
+    private let onComplete: (URL?, Error?) -> Void
+    private let onProgress: (Double) -> Void
 
     init?(
         _ stringUrl: String,
@@ -25,22 +29,33 @@ class DownloadProvider: NSObject, URLSessionDownloadDelegate {
         self.onProgress = onProgress
     }
     
+    public var destinationURL: URL {
+        supportFolder.appendingPathComponent(downloadURL.lastPathComponent)
+    }
+    
+    public var isDownloaded: Bool {
+        FileManager.default.fileExists(atPath: destinationURL.path)
+    }
+    
     func download() {
+        if(isDownloaded){
+            return onComplete(destinationURL, nil)
+        }
+
         let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         let downloadTask = session.downloadTask(with: downloadURL)
         downloadTask.resume()
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        guard let destinationURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent(downloadURL.lastPathComponent) else {
-            print("Error getting destination URL")
-            return
-        }
-        
         do {
+            if(!manager.fileExists(atPath: supportFolder.path)) {
+                try manager.createDirectory(at: supportFolder, withIntermediateDirectories: true)
+            }
+            
             try FileManager.default.moveItem(at: location, to: destinationURL)
             DispatchQueue.main.async {
-                self.onComplete(destinationURL, nil)
+                self.onComplete(self.destinationURL, nil)
             }
         } catch {
             DispatchQueue.main.async {

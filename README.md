@@ -1,41 +1,48 @@
 # UptimeLogger
 
-Started this project to log my MacOs restarting from nothing a lot of times.
-some time it can keep like 5min uptime, some times 15min.
+![Xcode 14.3](https://img.shields.io/badge/Xcode-14.3-blue.svg)
+![Swift Language](https://img.shields.io/badge/language-Swift-green.svg)
+![Platform Maos](https://img.shields.io/badge/platform-macOS-lightgrey.svg)
+![Shell Language](https://img.shields.io/badge/shell-Bash-orange.svg)
+![UptimeLogger 2.2](https://img.shields.io/badge/UptimeLogger-2.2-orange.svg)
 
-I started this script to help create a report of how much times restarts and for how long the system could keep up.
+![UptimeLogger Icon](UptimeLogger/Assets.xcassets/AppIcon.appiconset/64.png)
 
-## Runing 
 
-just run:
-```bash
-cd Scrtpits
+UptimeLogger is an app that helps you keep track of how long your Mac has been running without restarting. It was created after a MacBook suffered water damage and started shutting down unexpectedly, prompting the need to monitor system uptime. 😔
 
-# To Log
-bash uptime_logger
+## Features
 
-# To Log and Debbug [-d | --debug]
-bash uptime_logger --debug
-```
+- Installs as a service and runs on system load
+- Logs uptime to a file for historical tracking
+- Logs running proccesses to a file for troubleshooting
+- Displays current uptime in the app window
+- Checks for updates and prompts you to download them
 
-## Install as Service
+see more [CHANGELOG](CHANGELOG.md)
 
-The `install` provides a easy to intall service. This will install de files copying to a program folder according to the OS and create service to run on System Load.
+## Installation
 
-Every 1 system startUp it will create a file at `/PROGRAM_FOLDER/logs` and that file will be updated every second with de how long the SO have been alive.
+1. Download the latest version from the [releases page](https://github.com/victorwads/UptimeLogger/releases).
+2. Open the downloaded .dmg file and double-click the Install.pkg file to begin installation.
+3. Follow the installation instructions.
 
-`For now, it was only tested on MacOs.`
+## Usage
 
-```bash
-cd Scrtpits
+1. Open the UptimeLogger app.
+2. When prompted, click "Open" to grant the app permission to read and write logs folder.
+3. The app will display the historical logs.
+4. Click on the details icon to see more information about the log, including its processes.
+5. Use the settings to set process monitoring if desired.
 
-# To Install
-./install
+## Contributing
 
-# To Reinstall / Update
-./install --update
-# To Uninstall
-./install --uninstall
-# To Just Restart Services [--restart | --reload]
-./install --restart
-```
+Contributions are welcome! Please fork the repo and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgements
+
+- Thanks to [OpenAI](https://openai.com/) for training ChatGPT, the language model used to answer questions about this project and help me to learch SwiftUI from scratch.

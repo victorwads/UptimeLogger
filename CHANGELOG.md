@@ -6,6 +6,8 @@
   - open original text log files
   - archive logs for better analyses and performance
 
+----
+
 - [2.2 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.2/UptimeLogger-2.2.dmg)
   - App
     - New Update Screen to download new updates

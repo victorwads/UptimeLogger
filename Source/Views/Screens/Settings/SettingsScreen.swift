@@ -155,6 +155,10 @@ struct SettingsScreen: View {
 
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsScreen(provider: LogsProvider())
+        VStack {
+            SettingsScreen(
+                provider: LogsProvider()
+            )
+        }
     }
 }

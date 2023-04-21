@@ -29,23 +29,50 @@ struct UpdateScreen: View {
                 }
             }
             Divider()
-            if let downloadProgress = downloadProgress {
-                ProgressView(value: downloadProgress, total: 1)
-                    .progressViewStyle(.linear)
-            }
-            Spacer()
+                .padding(.bottom, 40)
             if updateAvailable == nil {
+                Spacer()
                 ProgressView()
-            } else if updateAvailable ?? false {
-                Text("Update available!")
-                if let body = releaseInfo?.body, !body.isEmpty {
-                    Text(body)
+            } else if let release = releaseInfo, updateAvailable ?? false {
+                HStack {
+                    Spacer()
+                    Text("Update available!")
+                        .font(.title2)
+                    Spacer()
+                    Button(action: download) {
+                        Image(systemName: "icloud.and.arrow.down")
+                            .font(.title)
+                        Text("Download v\(release.tag_name)")
+                    }
+                    .disabled(downloadProgress != nil)
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 5)
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    Spacer()
                 }
-                Button(action: download) {
-                    Text("Download")
+                if !release.body.isEmpty {
+                    Text(release.body)
+                        .font(.body)
+                        .padding(25)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(10)
                 }
             } else {
-                Text("No updates available.")
+                Text("No updates available")
+                    .font(.title2)
+                Text("last version \(releaseInfo?.tag_name ?? "")")
+                    .font(.subheadline)
+                    .padding()
+            }
+            if let downloadProgress = downloadProgress {
+                HStack {
+                    ProgressView(value: downloadProgress, total: 1)
+                        .progressViewStyle(.linear)
+                    Text(String(format: "%.2f%%", downloadProgress * 100))
+                }.padding()
             }
             Spacer()
         }
@@ -84,13 +111,13 @@ struct UpdateScreen: View {
         DownloadProvider(
             downloadURL,
             onComplete: { url, error in
-                downloadProgress = nil
                 guard let url = url else { return }
                 initUpdate(url)
             }
         ){ progress in
             downloadProgress = progress
         }?.download()        
+        downloadProgress = 0
     }
     
     func initUpdate(_ url: URL) {
@@ -98,11 +125,15 @@ struct UpdateScreen: View {
         alert.messageText = "Download concluído"
         alert.informativeText = "O download foi concluído com sucesso. Clique em OK para abrir o arquivo baixado e fechar o programa."
         alert.alertStyle = .informational
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
-        
-        NSWorkspace.shared.open(url)
-        NSApplication.shared.terminate(self)
+        alert.addButton(withTitle: "Atualizar Agora")
+        alert.addButton(withTitle: "Cancel")
+
+        let modalResult = alert.runModal()
+        if modalResult == .alertFirstButtonReturn {
+            NSWorkspace.shared.open(url)
+            NSApplication.shared.terminate(self)
+        }
+        downloadProgress = nil
     }
 }
 

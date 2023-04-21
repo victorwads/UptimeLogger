@@ -8,4 +8,4 @@ sudo rm /Library/LaunchDaemons/br.com.victorwads.uptimelogger.plist
 sudo rm -rf /Applications/UptimeLogger.app
 
 # Remove o diretório de configuração
-#sudo rm -rf /Library/Application\ Support/UptimeLogger
+sudo rm -rf /Users/*/Library/Containers/br.com.victorwads.UptimeLogger/
