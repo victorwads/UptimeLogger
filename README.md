@@ -1,10 +1,15 @@
 # UptimeLogger
 
+[![Xcode - Build and Analyze](https://github.com/victorwads/UptimeLogger/actions/workflows/objective-c-xcode.yml/badge.svg)](https://github.com/victorwads/UptimeLogger/actions/workflows/objective-c-xcode.yml)
+![Coverage](https://codecov.io/gh/victorwads/UptimeLogger/branch/master/graph/badge.svg)
+![UptimeLogger 2.2](https://img.shields.io/badge/UptimeLogger-2.2-orange.svg)
+
+
+
 ![Xcode 14.3](https://img.shields.io/badge/Xcode-14.3-blue.svg)
 ![Swift Language](https://img.shields.io/badge/language-Swift-green.svg)
 ![Platform Maos](https://img.shields.io/badge/platform-macOS-lightgrey.svg)
 ![Shell Language](https://img.shields.io/badge/shell-Bash-orange.svg)
-![UptimeLogger 2.2](https://img.shields.io/badge/UptimeLogger-2.2-orange.svg)
 
 ![UptimeLogger Icon](UptimeLogger/Assets.xcassets/AppIcon.appiconset/64.png)
 
