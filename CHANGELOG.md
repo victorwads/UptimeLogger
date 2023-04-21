@@ -11,6 +11,7 @@
 - [2.2 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.2/UptimeLogger-2.2.dmg)
   - App
     - New Update Screen to download new updates
+    - Uninstall remover app caches for all users
 
 * [2.1](https://github.com/victorwads/UptimeLogger/releases/download/2.1/UptimeLogger-2.1.dmg)
   * App
