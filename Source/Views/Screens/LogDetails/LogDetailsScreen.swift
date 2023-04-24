@@ -41,12 +41,15 @@ struct LogDetailsScreen: View {
                             }.help("versão do SO")
                         }
                         logView.energyStatus
-                        Text("\(processes.count) processes")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                    }
+                        if(processes.count > 0){
+                            Text("\(processes.count) processes")
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                                .transition(.scale)
+                        }
+                    }.animation(.default)
                 }
-                HStack {
+                HStack(spacing: 20) {
                     logView.bootTimeView
                     logView.upTimeView
                     logView.initScriptView
