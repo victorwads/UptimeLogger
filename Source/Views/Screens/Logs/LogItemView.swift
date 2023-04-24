@@ -116,7 +116,7 @@ struct LogItemView: View {
                     Divider().padding(.leading, 5)
                     editedView
                 }
-                if let sys = log.systemVersion {
+                if log.systemVersion != nil {
                     Divider()
                     sysVersionView
                 }
@@ -134,6 +134,8 @@ struct LogItemView: View {
                 } label: {
                     Image(systemName: "info.circle")
                 }
+                .buttonStyle(.plain)
+                .help("clique para ver mais detalhes")
             }
         }.frame(maxHeight: 60)
     }
