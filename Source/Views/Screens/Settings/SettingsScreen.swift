@@ -9,10 +9,11 @@ import SwiftUI
 
 struct SettingsScreen: View {
     
+    @AppStorage("logsFolder") var storedFolder: String = LogsProviderFilesSystem.defaultLogsFolder
+    @AppStorage("foldersHistory") var storedFoldersHistory: String = LogsProviderFilesSystem.defaultLogsFolder
+
     @AppStorage("monitoringEnabled") private var monitoringEnabled = false
     @AppStorage("monitoringInterval") private var monitoringInterval = 1.0
-    @AppStorage("logsFolder") var storedFolder: String = LogsProvider.defaultLogsFolder
-    @AppStorage("foldersHistory") var storedFoldersHistory: String = LogsProvider.defaultLogsFolder
     @State private var foldersHistory: [String] = []
 
     let provider: LogsProvider
@@ -81,12 +82,7 @@ struct SettingsScreen: View {
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                             Spacer()
-                            Button("Limpar Historico") {
-                                storedFolder = LogsProvider.defaultLogsFolder
-                                storedFoldersHistory = storedFolder
-                                foldersHistory = [storedFolder]
-                                provider.folder = storedFolder
-                            }
+                            Button("Limpar Historico", action: cleanHistory)
                         }
                         ForEach(history, id: \.self) { folder in
                             HStack {
@@ -140,10 +136,17 @@ struct SettingsScreen: View {
     
     private func changeFolder(_ folder: String, change: Bool = true) {
         FilesProvider.shared.authorize(folder, change) {
-            provider.folder = $0
+            provider.setFolder($0)
             storedFolder = $0
             updateRecents()
         }
+    }
+    
+    private func cleanHistory() {
+        storedFolder = LogsProviderFilesSystem.defaultLogsFolder
+        foldersHistory = []
+        provider.setFolder(storedFolder)
+        updateRecents()
     }
 }
 
@@ -151,7 +154,7 @@ struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             SettingsScreen(
-                provider: LogsProvider()
+                provider: LogsProviderMock()
             )
         }
     }

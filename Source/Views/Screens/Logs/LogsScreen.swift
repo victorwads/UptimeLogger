@@ -13,16 +13,15 @@ class TimerWrapper {
 
 struct LogsScreen: View {
 
-    @State private var logs: [LogItemInfo]
+    @State private var logs: [LogItemInfo] = []
     @State var showFilters: Bool
 
-    let provider: LogsProvider
-    
-    init(provider: LogsProvider, showFilters: Bool = false, logs: [LogItemInfo] = []){
+    init(provider: LogsProvider, showFilters: Bool = false){
         self.provider = provider
-        self.showFilters = showFilters
-        self.logs = logs
+        _showFilters = State(initialValue: showFilters)
     }
+
+    let provider: LogsProvider
 
     var body: some View {
         HeaderView("Registros", icon: "list.bullet.rectangle") {
@@ -31,7 +30,7 @@ struct LogsScreen: View {
                     showFilters.toggle()
                 }
             }) {
-                Text("Filtros")
+                Text("Opções")
                 Image(systemName: showFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
             }
         }
@@ -50,7 +49,8 @@ struct LogsScreen: View {
     }
     
     private func initLogs(){
-        if(!logs.isEmpty) {
+        if(provider.isReadable) {
+            loadLogs()
             return
         }
         FilesProvider.shared.authorize(provider.folder, false) {_ in
@@ -69,33 +69,13 @@ struct LogsListScreen_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             LogsScreen(
-                provider: LogsProvider(),
-                logs: [
-                    LogItemInfo.fullNormal,
-                    LogItemInfo.empty,
-                    LogItemInfo.fullUnexpected,
-                    LogItemInfo.empty
-                ]
+                provider: LogsProviderMock()
             )
         }.frame(width: 1000, height: 700)
         VStack {
             LogsScreen(
-                provider: LogsProvider(),
-                showFilters: true,
-                logs: [
-                    LogItemInfo.fullNormal,
-                    LogItemInfo.empty,
-                    LogItemInfo.fullUnexpected,
-                    LogItemInfo.empty,
-                    LogItemInfo.fullNormal,
-                    LogItemInfo.empty,
-                    LogItemInfo.fullUnexpected,
-                    LogItemInfo.empty,
-                    LogItemInfo.fullNormal,
-                    LogItemInfo.empty,
-                    LogItemInfo.fullUnexpected,
-                    LogItemInfo.empty
-                ]
+                provider: LogsProviderMock(),
+                showFilters: true
             )
         }.frame(width: 1000, height: 700)
     }

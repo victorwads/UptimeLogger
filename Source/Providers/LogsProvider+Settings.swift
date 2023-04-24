@@ -9,13 +9,13 @@ import Foundation
 
 extension LogsProvider {
     
-    private static let configsName = "config"
-    private var configsFile: String { folder + "/" + LogsProvider.configsName }
+    private var configsFile: String { folder + "/config" }
     
     public func getSettings() -> Int? {
-        return Int(
-            getFileContents(configsFile) ?? ""
-        )
+        if let logData = FileManager.default.contents(atPath: configsFile) {
+            return Int(String(data: logData, encoding: .utf8) ?? "")
+        }
+        return nil
     }
 
     public func saveSettings(_ interval: Int?) -> Int? {

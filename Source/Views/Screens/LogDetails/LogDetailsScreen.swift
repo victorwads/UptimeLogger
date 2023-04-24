@@ -73,7 +73,7 @@ struct LogDetailsScreen: View {
 struct LogDetailsScreen_Previews: PreviewProvider {
     static var previews: some View {
         LogDetailsScreen(
-            provider: LogsProvider(),
+            provider: LogsProviderMock(),
             urlFileName: "fsdg"
         ).frame(width: 500, height: 200)    }
 }

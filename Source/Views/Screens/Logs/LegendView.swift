@@ -9,51 +9,27 @@ import SwiftUI
 
 struct LegendView: View {
     var body: some View {
-        VStack {
-            HStack(alignment: .top) {
-                Spacer()
-                VStack(alignment: .leading) {
-                    HStack {
-                        Image(systemName: LogItemView.iconBootTime)
-                        Text("Hora de Inicio do SO")
-                    }.padding(2)
-                    HStack {
-                        Image(systemName: LogItemView.iconScriptStartTime)
-                        Text("Hora de Inicio do Serviço")
-                    }.padding(2)
-                }
-                Spacer()
-                VStack(alignment: .leading) {
-                    HStack {
-                        Image(systemName: LogItemView.iconShutdownTime)
-                        Text("Hora de Desligamento")
-                    }.padding(2)
-                    HStack {
-                        Image(systemName: LogItemView.iconUpTime)
-                        Text("Periodo de tempo ligado")
-                    }.padding(2)
-                }
-                Spacer()
-                VStack(alignment: .leading) {
-                    HStack {
-                        Image(systemName: LogItemView.iconNormalShutDown).foregroundColor(.green)
-                        Text("Desligamento normal")
-                    }.padding(2)
-                    HStack {
-                        Image(systemName: LogItemView.iconUnexpected).foregroundColor(.red)
-                        Text("Desligamento Inesperado")
-                    }.padding(2)
-                }
-                Spacer()
-                VStack(alignment: .leading) {
-                    HStack {
-                        Image(systemName: LogItemView.iconEdited)
-                        Text("Registro editado")
-                    }.padding(2)
-                }
-                Spacer()
+        HStack(alignment: .center) {
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Hora de Inicio do SO", systemImage: LogItemView.iconBootTime)
+                Label("Periodo de tempo ligado", systemImage: LogItemView.iconUpTime)
             }
-        }
+            Spacer()
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Desligamento normal", systemImage: LogItemView.iconNormalShutDown).foregroundColor(.green)
+                Label("Desligamento Inesperado", systemImage: LogItemView.iconUnexpected).foregroundColor(.red)
+            }
+            Spacer()
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Conectado a Energia", systemImage: LogItemView.iconPowerConnected)
+                Label("Desconectado da Energia", systemImage: LogItemView.iconPowerDisconnected)
+            }
+            Spacer()
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Registro editado", systemImage: LogItemView.iconEdited)
+                Label("Hora de Inicio do Serviço", systemImage: LogItemView.iconScriptStartTime)
+            }
+        }.padding(.horizontal)
     }
 }
 
@@ -62,5 +38,6 @@ struct LegendView: View {
 struct LegendView_Previews: PreviewProvider {
     static var previews: some View {
         LegendView()
+            .frame(minWidth: 1000, minHeight: 80)
     }
 }

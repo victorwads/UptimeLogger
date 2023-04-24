@@ -13,6 +13,7 @@
 		934DC48D29E638940072A25C /* LogsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48C29E638940072A25C /* LogsScreen.swift */; };
 		934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48E29E63B640072A25C /* SettingsScreen.swift */; };
 		937ED70E29EBB22200CFBAB4 /* Locales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED70D29EBB22200CFBAB4 /* Locales.swift */; };
+		938CD47529F7201600A225A3 /* ThreeCaseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CD47429F7201600A225A3 /* ThreeCaseState.swift */; };
 		938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6129E3909000DACB7A /* LogsProvider.swift */; };
 		938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6529E3B02E00DACB7A /* LogItemView.swift */; };
 		939983FD29E4A31200631A20 /* Service in Resources */ = {isa = PBXBuildFile; fileRef = 939983FC29E4A31200631A20 /* Service */; };
@@ -36,6 +37,8 @@
 		93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2748629E3D5DB0033AB01 /* FilesProvider.swift */; };
 		93CCB83E29F70422001B6080 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CCB83D29F70422001B6080 /* HeaderView.swift */; };
 		93CCB84029F70E14001B6080 /* MonoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CCB83F29F70E14001B6080 /* MonoText.swift */; };
+		93CCB84229F713E9001B6080 /* LogsProvider+WithFileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CCB84129F713E9001B6080 /* LogsProvider+WithFileSystem.swift */; };
+		93CCB84429F71400001B6080 /* LogsProvider+WithMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CCB84329F71400001B6080 /* LogsProvider+WithMock.swift */; };
 		93ED9F9B29ED2034009CBCED /* AppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED9F9A29ED2034009CBCED /* AppScheme.swift */; };
 		93F4070629EF5BFA00EEDE7B /* ProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4070529EF5BFA00EEDE7B /* ProcessInfo.swift */; };
 		93F4070829EF5CE900EEDE7B /* ProcessInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4070729EF5CE900EEDE7B /* ProcessInfoTests.swift */; };
@@ -58,6 +61,7 @@
 		934DC48C29E638940072A25C /* LogsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsScreen.swift; sourceTree = "<group>"; };
 		934DC48E29E63B640072A25C /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		937ED70D29EBB22200CFBAB4 /* Locales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locales.swift; sourceTree = "<group>"; };
+		938CD47429F7201600A225A3 /* ThreeCaseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeCaseState.swift; sourceTree = "<group>"; };
 		938F6D6129E3909000DACB7A /* LogsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsProvider.swift; sourceTree = "<group>"; };
 		938F6D6529E3B02E00DACB7A /* LogItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemView.swift; sourceTree = "<group>"; };
 		939983FC29E4A31200631A20 /* Service */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Service; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 		93C2748629E3D5DB0033AB01 /* FilesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesProvider.swift; sourceTree = "<group>"; };
 		93CCB83D29F70422001B6080 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		93CCB83F29F70E14001B6080 /* MonoText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoText.swift; sourceTree = "<group>"; };
+		93CCB84129F713E9001B6080 /* LogsProvider+WithFileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+WithFileSystem.swift"; sourceTree = "<group>"; };
+		93CCB84329F71400001B6080 /* LogsProvider+WithMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+WithMock.swift"; sourceTree = "<group>"; };
 		93ED9F9629ED0691009CBCED /* UptimeLogger.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UptimeLogger.xctestplan; sourceTree = "<group>"; };
 		93ED9F9A29ED2034009CBCED /* AppScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScheme.swift; sourceTree = "<group>"; };
 		93ED9F9C29ED23FE009CBCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -157,6 +163,8 @@
 				93A8806929F10E46005A4E1B /* DownloadProvider.swift */,
 				93C2748629E3D5DB0033AB01 /* FilesProvider.swift */,
 				938F6D6129E3909000DACB7A /* LogsProvider.swift */,
+				93CCB84129F713E9001B6080 /* LogsProvider+WithFileSystem.swift */,
+				93CCB84329F71400001B6080 /* LogsProvider+WithMock.swift */,
 				93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */,
 			);
 			path = Providers;
@@ -236,6 +244,7 @@
 			children = (
 				93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */,
 				93F4070529EF5BFA00EEDE7B /* ProcessInfo.swift */,
+				938CD47429F7201600A225A3 /* ThreeCaseState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -388,9 +397,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93CCB84229F713E9001B6080 /* LogsProvider+WithFileSystem.swift in Sources */,
 				93ED9F9B29ED2034009CBCED /* AppScheme.swift in Sources */,
 				9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */,
 				93A8806429F10727005A4E1B /* VersionCompare.swift in Sources */,
+				93CCB84429F71400001B6080 /* LogsProvider+WithMock.swift in Sources */,
 				934DC48B29E636870072A25C /* NavigationAppView.swift in Sources */,
 				93A8805929EF96AB005A4E1B /* ProcessItemView.swift in Sources */,
 				93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */,
@@ -402,6 +413,7 @@
 				93F4070629EF5BFA00EEDE7B /* ProcessInfo.swift in Sources */,
 				93CCB84029F70E14001B6080 /* MonoText.swift in Sources */,
 				938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */,
+				938CD47529F7201600A225A3 /* ThreeCaseState.swift in Sources */,
 				937ED70E29EBB22200CFBAB4 /* Locales.swift in Sources */,
 				934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */,
 				93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */,

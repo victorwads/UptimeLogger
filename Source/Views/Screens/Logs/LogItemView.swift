@@ -15,6 +15,8 @@ struct LogItemView: View {
     static let iconBootTime = "power"
     static let iconUpTime = "bolt.badge.clock.fill"
     static let iconEdited = "square.and.pencil"
+    static let iconPowerConnected = "bolt.fill"
+    static let iconPowerDisconnected = "bolt.slash.fill"
 
     @Environment(\.openURL) var openURL
     
@@ -82,7 +84,7 @@ struct LogItemView: View {
                 if let battery = log.batery, let charging = log.charging {
                     Divider()
                     Battery(level: battery)
-                    Image(systemName: charging ? "bolt.fill" : "bolt.slash.fill")
+                    Image(systemName: charging ? LogItemView.iconPowerConnected : LogItemView.iconPowerDisconnected)
                         .help(charging ? "conectado a energia" : "desconectado da energia")
                 }
                 Divider()

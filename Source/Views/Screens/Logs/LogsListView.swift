@@ -7,19 +7,6 @@
 
 import SwiftUI
 
-struct TextIconView: View {
-    
-    let icon: String
-    let text: String
-    
-    var body: some View {
-        HStack {
-            Text(text)
-            Image(systemName: icon)
-        }
-    }
-
-}
 struct LogsListView: View {
     
     var onToggleAction: (LogItemInfo) -> Void = {_ in }
@@ -27,68 +14,59 @@ struct LogsListView: View {
 
     @Binding var showFilters: Bool
     @State private var sortOrder: LogSortOrder = .dateDescending
-    @State private var filterPowerStatus: TreeCase = .all
-    @State private var filterShutdownAllowed: TreeCase = .all
-    
-    enum LogSortOrder {
-        case dateDescending
-        case dateAscending
-        case uptimeDescending
-        case uptimeAscending
-    }
-
-    enum TreeCase {
-        case all
-        case yes
-        case no
-        
-        var state: Bool? {
-            switch self {
-            case .all:
-                return nil
-            case .yes:
-                return true
-            case .no:
-                return false
-            }
-        }
-    }
-
+    @State private var filterPowerStatus: ThreeCaseState = .all
+    @State private var filterShutdownAllowed: ThreeCaseState = .all
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if(showFilters) {
-                VStack {
-                    HStack {
-                        Text("Sort by:")
-                        Picker(selection: $sortOrder, label: Text("")) {
-                            Text("Date (newest first)").tag(LogSortOrder.dateDescending)
-                            Text("Date (oldest first)").tag(LogSortOrder.dateAscending)
-                            Text("Uptime (longest first)").tag(LogSortOrder.uptimeDescending)
-                            Text("Uptime (shortest first)").tag(LogSortOrder.uptimeAscending)
-                        }
-                        .pickerStyle(.segmented)
-                    }.padding(.horizontal)
-                    HStack {
-                        Picker(selection: $filterPowerStatus, label: Text("Charging Status:")) {
-                            Text("All").tag(TreeCase.all)
-                            Image(systemName: "bolt.fill")
-                                .tag(TreeCase.yes)
-                                .help("Power connected")
-                            Image(systemName: "bolt.slash.fill")
-                                .tag(TreeCase.no)
-                                .help("Power disconnected")
-                        }
-                        .pickerStyle(.segmented)
-                        Spacer()
-                        Picker(selection: $filterShutdownAllowed, label: Text("Shutdown:")) {
-                            Text("All").tag(TreeCase.all)
-                            Text("Normal").tag(TreeCase.yes)
-                            Text("Unexpected").tag(TreeCase.no)
-                        }
-                        .pickerStyle(.segmented)
-                    }.padding(.horizontal)
-                }
+                HStack {
+                    Picker(selection: $filterPowerStatus, label: Text("Power Status:")) {
+                        Text("All").tag(ThreeCaseState.all)
+                        Image(systemName: LogItemView.iconPowerConnected)
+                            .tag(ThreeCaseState.yes)
+                            .help("Power connected")
+                        Image(systemName: LogItemView.iconPowerDisconnected)
+                            .tag(ThreeCaseState.no)
+                            .help("Power disconnected")
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(maxWidth: 220)
+                    Picker(selection: $filterShutdownAllowed, label:
+                            Text("Shutdown Status:").padding(.leading)
+                    ) {
+                        Text("All").tag(ThreeCaseState.all)
+                        Text("Normal").foregroundColor(.green).tag(ThreeCaseState.yes)
+                        Text("Unexpected").foregroundColor(.red).tag(ThreeCaseState.no)
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(maxWidth: 350)
+
+                    Spacer()
+                    Picker(selection: $sortOrder, label: Text("Sort by:")) {
+                        HStack {
+                            Image(systemName: "calendar.circle")
+                            Text("Newest first")
+                        }.tag(LogSortOrder.dateDescending)
+                        
+                        HStack {
+                            Image(systemName: "calendar.circle.fill")
+                            Text("Oldest first")
+                        }.tag(LogSortOrder.dateAscending)
+                        
+                        HStack {
+                            Image(systemName: "hourglass.bottomhalf.fill")
+                            Text("Uptime (longest first)")
+                        }.tag(LogSortOrder.uptimeDescending)
+                        
+                        HStack {
+                            Image(systemName: "hourglass.tophalf.fill")
+                            Text("Uptime (shortest first)")
+                        }.tag(LogSortOrder.uptimeAscending)
+                    }
+                    .pickerStyle(.menu)
+                    .frame(maxWidth: 200)
+                }.padding()
             }
             if items.isEmpty {
                 List([0], id: \.self) { item in
@@ -111,6 +89,9 @@ struct LogsListView: View {
                     Divider()
                 }
             }
+            if(showFilters) {
+                LegendView().padding(.vertical)
+            }
         }
     }
     
@@ -130,10 +111,10 @@ struct LogsListView: View {
     
     private var filterFunction: (LogItemInfo) -> Bool {
         return { logItem in
-            if filterPowerStatus != .all && logItem.charging != filterPowerStatus.state {
+            if filterPowerStatus != .all && logItem.charging != filterPowerStatus.bool {
                 return false
             }
-            if filterShutdownAllowed != .all && logItem.shutdownAllowed != filterShutdownAllowed.state {
+            if filterShutdownAllowed != .all && logItem.shutdownAllowed != filterShutdownAllowed.bool {
                 return false
             }
             return true
@@ -142,12 +123,27 @@ struct LogsListView: View {
 
 }
 
+enum LogSortOrder {
+    case dateDescending
+    case dateAscending
+    case uptimeDescending
+    case uptimeAscending
+}
+
+
+
 struct LogsView_Previews: PreviewProvider {
     static var previews: some View {
-        LogsListView(items: .constant([
-            LogItemInfo(fileName: "", content: ""),
-        ]),
-             showFilters: .constant(true)
-        )
+        VStack {
+            LogsScreen(
+                provider: LogsProviderMock()
+            )
+        }.frame(width: 1000, height: 700)
+        VStack {
+            LogsScreen(
+                provider: LogsProviderMock(),
+                showFilters: true
+            )
+        }.frame(width: 1000, height: 700)
     }
 }

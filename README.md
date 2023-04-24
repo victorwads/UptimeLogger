@@ -20,6 +20,8 @@ UptimeLogger is an app that helps you keep track of how long your Mac has been r
 
 see more [CHANGELOG](CHANGELOG.md)
 
+For Indexing: Shutdown Detective, Failure Tracker, Power Watcher, Uptime Logger, Blackout Detector, Energy Loss or Power Interruption Tracker
+
 ## Installation
 
 1. Download the latest version from the [releases page](https://github.com/victorwads/UptimeLogger/releases).

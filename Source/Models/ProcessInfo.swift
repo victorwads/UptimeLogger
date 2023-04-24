@@ -8,6 +8,9 @@
 import Foundation
 
 struct ProcessLogInfo: Identifiable {
+    
+    static let example = ProcessLogInfo("root                 1   1,1  0,1 11:42     2:35.88 /sbin/launchd")!
+    
     let id = UUID()
     let user: String
     let pid: Int

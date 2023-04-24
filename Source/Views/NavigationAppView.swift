@@ -67,9 +67,9 @@ struct MenuView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationAppView(provider: LogsProvider())
+        NavigationAppView(provider: LogsProviderMock())
             .environment(\.locale, .portuguese)
-        NavigationAppView(provider: LogsProvider())
+        NavigationAppView(provider: LogsProviderMock())
             .environment(\.locale, .english)
     }
 }
