@@ -7,11 +7,24 @@
 
 import Foundation
 
+fileprivate let fullLog = """
+version: 4
+ended: 2023-04-17_00-13-43
+sysversion: 13.4
+batery: 72%
+charging: false
+boottime: 1681697439
+uptime: 3784
+
+"""
+
 struct LogItemInfo: Identifiable {
     static let shutdownAllowed = "shutdown allowed"
     static let shutdownUnexpected = "shutdown unexpected"
     static let editedLog = "manually: "
     static let empty = LogItemInfo(fileName: "", content: "")
+    static let fullUnexpected = LogItemInfo(fileName: "log_2023-04-17_00-13-40.txt", content: fullLog)
+    static let fullNormal = LogItemInfo(fileName: "log_2023-05-17_00-11-40.txt", content: fullLog + shutdownAllowed)
 
     let id = UUID()
     let fileName: String
@@ -38,7 +51,7 @@ struct LogItemInfo: Identifiable {
         var autoShuwDownAllowed = false
         var edition: String? = nil
 
-        //# init: %Y-%m-%d_%H-%M-%S
+        //# init from file name
         formatter.dateFormat = "'log_'yyyy-MM-dd_HH-mm-ss'.txt'"
         if let date = formatter.date(from: fileName) {
             self.scriptStartTime = date

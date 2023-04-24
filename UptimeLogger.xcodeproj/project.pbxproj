@@ -34,6 +34,8 @@
 		93BEA29329E46C4700280DAC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93BEA29129E46C4700280DAC /* Localizable.strings */; };
 		93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BEA29529E46E5900280DAC /* String+Localized.swift */; };
 		93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2748629E3D5DB0033AB01 /* FilesProvider.swift */; };
+		93CCB83E29F70422001B6080 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CCB83D29F70422001B6080 /* HeaderView.swift */; };
+		93CCB84029F70E14001B6080 /* MonoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CCB83F29F70E14001B6080 /* MonoText.swift */; };
 		93ED9F9B29ED2034009CBCED /* AppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED9F9A29ED2034009CBCED /* AppScheme.swift */; };
 		93F4070629EF5BFA00EEDE7B /* ProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4070529EF5BFA00EEDE7B /* ProcessInfo.swift */; };
 		93F4070829EF5CE900EEDE7B /* ProcessInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4070729EF5CE900EEDE7B /* ProcessInfoTests.swift */; };
@@ -81,6 +83,8 @@
 		93BEA29429E46C5500280DAC /* pt-br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-br"; path = "pt-br.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		93BEA29529E46E5900280DAC /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		93C2748629E3D5DB0033AB01 /* FilesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesProvider.swift; sourceTree = "<group>"; };
+		93CCB83D29F70422001B6080 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		93CCB83F29F70E14001B6080 /* MonoText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoText.swift; sourceTree = "<group>"; };
 		93ED9F9629ED0691009CBCED /* UptimeLogger.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UptimeLogger.xctestplan; sourceTree = "<group>"; };
 		93ED9F9A29ED2034009CBCED /* AppScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScheme.swift; sourceTree = "<group>"; };
 		93ED9F9C29ED23FE009CBCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 		938F6D6029E3906E00DACB7A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				93CCB83C29F7040D001B6080 /* Components */,
 				934DC48329E635AA0072A25C /* Screens */,
 				934DC48A29E636870072A25C /* NavigationAppView.swift */,
 			);
@@ -247,6 +252,15 @@
 				9399840129E4D14B00631A20 /* AppDelegate.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		93CCB83C29F7040D001B6080 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				93CCB83D29F70422001B6080 /* HeaderView.swift */,
+				93CCB83F29F70E14001B6080 /* MonoText.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		93ED9F9729ED1F85009CBCED /* LogDetails */ = {
@@ -381,10 +395,12 @@
 				93A8805929EF96AB005A4E1B /* ProcessItemView.swift in Sources */,
 				93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */,
 				934DC48D29E638940072A25C /* LogsScreen.swift in Sources */,
+				93CCB83E29F70422001B6080 /* HeaderView.swift in Sources */,
 				93A8805729EF94CF005A4E1B /* ProcessView.swift in Sources */,
 				938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */,
 				93A8805B29EF97E6005A4E1B /* LogDetailsScreen.swift in Sources */,
 				93F4070629EF5BFA00EEDE7B /* ProcessInfo.swift in Sources */,
+				93CCB84029F70E14001B6080 /* MonoText.swift in Sources */,
 				938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */,
 				937ED70E29EBB22200CFBAB4 /* Locales.swift in Sources */,
 				934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */,
@@ -603,7 +619,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -637,7 +653,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.victorwads.UptimeLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

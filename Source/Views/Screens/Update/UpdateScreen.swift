@@ -16,33 +16,31 @@ struct UpdateScreen: View {
     @State private var releaseInfo: GitHubRelease? = nil
 
     var body: some View {
+        HeaderView("Atualizações", icon: "arrow.clockwise") {
+            Text("A versão atual é: \(currentVersionName)")
+                .font(.footnote)
+        }
         VStack {
-            VStack(alignment: .leading) {
-                HStack {
-                    Label("Atualizações", systemImage: "arrow.clockwise")
-                        .font(.title)
-                        .padding()
-                    Spacer()
-                    Text("A versão atual é: \(currentVersionName)")
-                        .font(.footnote)
-                        .padding()
-                }
-            }
-            Divider()
-                .padding(.bottom, 40)
+            Spacer()
             if updateAvailable == nil {
-                Spacer()
                 ProgressView()
             } else if let release = releaseInfo, updateAvailable ?? false {
-                HStack {
-                    Spacer()
+                VStack {
                     Text("Update available!")
                         .font(.title2)
-                    Spacer()
+                    if !release.body.isEmpty {
+                        Text(release.body)
+                            .font(.body)
+                            .padding(25)
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(10)
+                            .padding(.vertical)
+                    }
                     Button(action: download) {
                         Image(systemName: "icloud.and.arrow.down")
                             .font(.title)
                         Text("Download v\(release.tag_name)")
+                            
                     }
                     .disabled(downloadProgress != nil)
                     .buttonStyle(.plain)
@@ -51,15 +49,7 @@ struct UpdateScreen: View {
                     .foregroundColor(.white)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    Spacer()
-                }
-                if !release.body.isEmpty {
-                    Text(release.body)
-                        .font(.body)
-                        .padding(25)
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(10)
-                }
+                }.padding(.bottom, 40)
             } else {
                 Text("No updates available")
                     .font(.title2)
@@ -151,5 +141,6 @@ struct GitHubAsset: Codable {
 struct UpdateScreen_Previews: PreviewProvider {
     static var previews: some View {
         UpdateScreen()
+            .frame(minWidth: 800, minHeight: 600)
     }
 }

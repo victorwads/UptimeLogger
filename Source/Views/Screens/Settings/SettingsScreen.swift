@@ -18,12 +18,7 @@ struct SettingsScreen: View {
     let provider: LogsProvider
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Label("Configurações", systemImage: "gearshape")
-                .font(.title)
-                .padding()
-            Divider()
-        }
+        HeaderView("Configurações", icon: "gearshape")
         VStack(alignment: .leading, spacing: 20) {
             Text("Serviço de Monitoramento")
                 .font(.headline)
@@ -106,7 +101,6 @@ struct SettingsScreen: View {
             }
         }
         .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationTitle("Configurações")
         .onChange(of: monitoringEnabled, perform: {_ in saveConfigs()})
         .onChange(of: monitoringInterval, perform: {_ in saveConfigs()})

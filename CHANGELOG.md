@@ -8,6 +8,11 @@
 ----
 
 * 2.3 - WIP
+  * App
+    * Logs Screen: new layout
+    * Code
+      * Fix App Localization and add French
+      * Swift UI Refactor
   * Monitoring Service
     * Minor improvements
     * Remove `init:` from log contract

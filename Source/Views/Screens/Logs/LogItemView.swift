@@ -45,39 +45,38 @@ struct LogItemView: View {
                 HStack(alignment: .center) {
                     Image(systemName: LogItemView.iconScriptStartTime)
                         .foregroundColor(.accentColor)
-                    MonoText(text: log.formattedStartUptime)
+                    MonoText(log.formattedStartUptime)
                 }.padding(.bottom, 2)
             }
             HStack(alignment: .center) {
                 Image(systemName: LogItemView.iconBootTime)
                     .foregroundColor(.accentColor)
-                MonoText(text: log.formattedBoottime ?? "null")
+                MonoText(log.formattedBoottime ?? "null")
             }
             HStack(alignment: .center) {
                 Image(systemName: LogItemView.iconUpTime)
                     .foregroundColor(.accentColor)
-                MonoText(text: log.formattedUptime)
+                MonoText(log.formattedUptime)
             }
             Spacer()
-
 
             shutdownStatus.onTapGesture {
                 if let onToggleAction = onToggleAction {
                     onToggleAction(log)
                 }
             }.help(Strings.logHelp.value)
-            if(log.edited) {
-                Divider().padding(.leading, 5)
-                Image(systemName: LogItemView.iconEdited)
-                    .help(Strings.logEditedTip.value)
-            }
             HStack {
+                if(log.edited) {
+                    Divider().padding(.leading, 5)
+                    Image(systemName: LogItemView.iconEdited)
+                        .help(Strings.logEditedTip.value)
+                }
                 if let sys = log.systemVersion {
                     Divider()
                     HStack {
                         Image(systemName: "desktopcomputer")
                             .foregroundColor(.accentColor)
-                        MonoText(text: sys)
+                        MonoText(sys)
                     }.help("versão do SO")
                 }
                 if let battery = log.batery, let charging = log.charging {
@@ -85,11 +84,11 @@ struct LogItemView: View {
                     Battery(level: battery)
                     Image(systemName: charging ? "bolt.fill" : "bolt.slash.fill")
                         .help(charging ? "conectado a energia" : "desconectado da energia")
-                    Divider()
                 }
+                Divider()
+                Text("v\(log.version)")
+                    .foregroundColor(.gray)
             }
-            Text("v\(log.version)")
-                .foregroundColor(.gray)
             if(showDetails) {
                 Divider()
                 Button {
@@ -100,61 +99,28 @@ struct LogItemView: View {
                     Image(systemName: "info.circle")
                 }
             }
-        }
-    }
-}
-
-struct MonoText: View {
-    
-    let text: String
-    
-    var body: some View {
-        let text = Text(text)
-            .font(.headline)
-        if #available(macOS 13.0, *){
-            text.monospaced()
-        }
+        }.frame(maxHeight: 60)
     }
 }
 
 struct LogItemView_Previews: PreviewProvider {
 
     static var previews: some View {
-        let fileName = "log_2023-04-17_00-13-40.txt"
-        let content = """
-version: 4
-init: 2023-04-17_00-13-40
-ended: 2023-04-17_00-13-43
-sysversion: 13.4
-batery: 72%
-charging: false
-boottime: 1681697439
-uptime: 3784
-logprocessinterval: 2
-logprocess: true
-"""
-
         LogItemView(
-            log: .constant(LogItemInfo(fileName: fileName, content: content)),
+            log: .constant(LogItemInfo.empty),
             onToggleAction: {_ in }
-        )
+        ).frame(minWidth: 1000)
 
-        let content2 = """
-version: 4
-init: 2023-04-17_00-13-40
-ended: 2023-04-17_00-13-43
-sysversion: 13.4
-batery: 72%
-charging: false
-boottime: 1681697439
-uptime: 3784
-logprocessinterval: 2
-logprocess: true
-"""
         LogItemView(
-            log: .constant(LogItemInfo(fileName: fileName, content: content2)),
+            log: .constant(LogItemInfo.fullNormal),
             showDetails: true,
             onToggleAction: {_ in }
-        ).frame(minWidth: 1500, maxHeight: 60)
+        ).frame(minWidth: 1000)
+
+        LogItemView(
+            log: .constant(LogItemInfo.fullUnexpected),
+            showDetails: true,
+            onToggleAction: {_ in }
+        ).frame(minWidth: 1000)
     }
 }
