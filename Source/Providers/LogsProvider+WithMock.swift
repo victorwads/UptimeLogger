@@ -42,7 +42,7 @@ class LogsProviderMock: LogsProvider {
     }
 
     func loadLogWith(filename: String?) -> LogItemInfo {
-        return LogItemInfo.empty
+        return LogItemInfo.fullNormal
     }
     
     func loadProccessLogFor(filename: String) -> [ProcessLogInfo] {

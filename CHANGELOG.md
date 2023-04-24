@@ -4,12 +4,16 @@
   - Choose with infos about the logs are showed on logs screen
   - open original text log files
   - archive logs for better analyses and performance
+  - create about section
+  - Screen to adress the folder access autorization
 
 ----
 
 * 2.3 - WIP
   * App
+    * Change App Name from `Uptime Logger` to `Power Vigilant`
     * Logs Screen: new layout
+    * Details Screen: improve layout
     * Code
       * Fix App Localization and add French
       * Swift UI Refactor

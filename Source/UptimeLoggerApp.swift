@@ -13,10 +13,10 @@ struct UptimeLoggerApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @Environment(\.openURL) var openURL
     
-    @AppStorage("logsFolder") var storedFolder: String = LogsProvider.defaultLogsFolder
+    @AppStorage("logsFolder") var storedFolder: String = LogsProviderFilesSystem.defaultLogsFolder
 
     var body: some Scene {
-        let provider = LogsProvider(folder: storedFolder)
+        let provider = LogsProviderFilesSystem(folder: storedFolder)
         WindowGroup {
             NavigationAppView(
                 provider: provider

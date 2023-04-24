@@ -17,6 +17,7 @@ struct LogItemView: View {
     static let iconEdited = "square.and.pencil"
     static let iconPowerConnected = "bolt.fill"
     static let iconPowerDisconnected = "bolt.slash.fill"
+    static let iconSysVersion = "desktopcomputer"
 
     @Environment(\.openURL) var openURL
     
@@ -26,6 +27,30 @@ struct LogItemView: View {
 
     private var allow: Bool {
         get { log.shutdownAllowed }
+    }
+    
+    var initScriptView: some View {
+        HStack(alignment: .center) {
+            Image(systemName: LogItemView.iconScriptStartTime)
+                .foregroundColor(.accentColor)
+            MonoText(log.formattedStartUptime)
+        }
+    }
+
+    var bootTimeView: some View  {
+        HStack(alignment: .center) {
+            Image(systemName: LogItemView.iconBootTime)
+                .foregroundColor(.accentColor)
+            MonoText(log.formattedBoottime ?? "null")
+        }
+    }
+    
+    var upTimeView: some View  {
+        HStack(alignment: .center) {
+            Image(systemName: LogItemView.iconUpTime)
+                .foregroundColor(.accentColor)
+            MonoText(log.formattedUptime)
+        }
     }
     
     var shutdownStatus: some View {
@@ -41,27 +66,46 @@ struct LogItemView: View {
         }
     }
     
+    var energyStatus: some View {
+        HStack {
+            if let battery = log.batery, let charging = log.charging {
+                Battery(level: battery)
+                Image(systemName: charging ? LogItemView.iconPowerConnected : LogItemView.iconPowerDisconnected)
+                    .help(charging ? "conectado a energia" : "desconectado da energia")
+            }
+        }
+    }
+
+    var sysVersionView: some View {
+        HStack {
+            if let sys = log.systemVersion {
+                HStack {
+                    Image(systemName: LogItemView.iconSysVersion)
+                        .foregroundColor(.accentColor)
+                    MonoText(sys)
+                }.help("versão do SO")
+            }
+        }
+    }
+
+    var versionView: some View {
+        Text("v\(log.version)")
+            .foregroundColor(.gray)
+    }
+
+    var editedView: some View {
+        Image(systemName: LogItemView.iconEdited)
+            .help(Strings.logEditedTip.value)
+    }
+
     var body: some View {
         HStack(alignment: .center) {
             if(!showDetails) {
-                HStack(alignment: .center) {
-                    Image(systemName: LogItemView.iconScriptStartTime)
-                        .foregroundColor(.accentColor)
-                    MonoText(log.formattedStartUptime)
-                }.padding(.bottom, 2)
+                initScriptView.padding(.bottom, 2)
             }
-            HStack(alignment: .center) {
-                Image(systemName: LogItemView.iconBootTime)
-                    .foregroundColor(.accentColor)
-                MonoText(log.formattedBoottime ?? "null")
-            }
-            HStack(alignment: .center) {
-                Image(systemName: LogItemView.iconUpTime)
-                    .foregroundColor(.accentColor)
-                MonoText(log.formattedUptime)
-            }
+            bootTimeView
+            upTimeView
             Spacer()
-
             shutdownStatus.onTapGesture {
                 if let onToggleAction = onToggleAction {
                     onToggleAction(log)
@@ -70,26 +114,16 @@ struct LogItemView: View {
             HStack {
                 if(log.edited) {
                     Divider().padding(.leading, 5)
-                    Image(systemName: LogItemView.iconEdited)
-                        .help(Strings.logEditedTip.value)
+                    editedView
                 }
                 if let sys = log.systemVersion {
                     Divider()
-                    HStack {
-                        Image(systemName: "desktopcomputer")
-                            .foregroundColor(.accentColor)
-                        MonoText(sys)
-                    }.help("versão do SO")
-                }
-                if let battery = log.batery, let charging = log.charging {
-                    Divider()
-                    Battery(level: battery)
-                    Image(systemName: charging ? LogItemView.iconPowerConnected : LogItemView.iconPowerDisconnected)
-                        .help(charging ? "conectado a energia" : "desconectado da energia")
+                    sysVersionView
                 }
                 Divider()
-                Text("v\(log.version)")
-                    .foregroundColor(.gray)
+                energyStatus
+                Divider()
+                versionView
             }
             if(showDetails) {
                 Divider()
@@ -111,18 +145,24 @@ struct LogItemView_Previews: PreviewProvider {
         LogItemView(
             log: .constant(LogItemInfo.empty),
             onToggleAction: {_ in }
-        ).frame(minWidth: 1000)
+        ).frame(minWidth: 1200)
 
         LogItemView(
             log: .constant(LogItemInfo.fullNormal),
             showDetails: true,
             onToggleAction: {_ in }
-        ).frame(minWidth: 1000)
+        ).frame(minWidth: 1200)
 
         LogItemView(
             log: .constant(LogItemInfo.fullUnexpected),
             showDetails: true,
             onToggleAction: {_ in }
-        ).frame(minWidth: 1000)
+        ).frame(minWidth: 1200)
+
+        LogItemView(
+            log: .constant(LogItemInfo.fullUnexpected),
+            showDetails: false,
+            onToggleAction: {_ in }
+        ).frame(minWidth: 1200)
     }
 }

@@ -37,8 +37,6 @@ struct ProcessView: View {
     }
     
     var body: some View {
-        Divider()
-            .padding(.top, 0)
         HStack {
             Picker("Sort by", selection: $sortingOption) {
                 Text("Command").tag(SortingOption.command)
@@ -55,9 +53,11 @@ struct ProcessView: View {
                     .foregroundColor(.gray)
             }
             .padding(.horizontal)
-            Text("\(sortedProccess.count) processes")
-                .font(.headline)
-                .foregroundColor(.secondary)
+            if(!searchText.isEmpty) {
+                Text("\(sortedProccess.count) de \(proccess.count) processes")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+            }
         }
         .padding(10)
         List(sortedProccess, id: \.id) { item in
@@ -85,8 +85,15 @@ struct ProcessView: View {
 
 struct ProcessView_Previews: PreviewProvider {
     static var previews: some View {
-        ProcessView(
-            proccess: .constant([])
-        )
+        VStack {
+            ProcessView(
+                proccess: .constant([])
+            )
+        }
+        LogDetailsScreen(
+            provider: LogsProviderMock(),
+            urlFileName: "mockFileName",
+            logFile: LogItemInfo.fullUnexpected
+        ).frame(width: 1000, height: 700)
     }
 }

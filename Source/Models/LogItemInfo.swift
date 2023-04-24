@@ -23,7 +23,7 @@ struct LogItemInfo: Identifiable {
     static let shutdownUnexpected = "shutdown unexpected"
     static let editedLog = "manually: "
     static let empty = LogItemInfo(fileName: "", content: "")
-    static let fullUnexpected = LogItemInfo(fileName: "log_2023-04-17_00-13-40.txt", content: fullLog)
+    static let fullUnexpected = LogItemInfo(fileName: "log_2023-04-17_00-13-40.txt", content: fullLog + "logprocess: true")
     static let fullNormal = LogItemInfo(fileName: "log_2023-05-17_00-11-40.txt", content: fullLog + shutdownAllowed)
 
     let id = UUID()

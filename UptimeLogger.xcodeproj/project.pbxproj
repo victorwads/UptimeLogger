@@ -134,7 +134,6 @@
 				93057FD429E3589900D1FD50 /* LogsListView.swift */,
 				938F6D6529E3B02E00DACB7A /* LogItemView.swift */,
 				930D124E29E6746C00456416 /* LegendView.swift */,
-				93A8805C29EFA072005A4E1B /* Battery.swift */,
 			);
 			path = Logs;
 			sourceTree = "<group>";
@@ -266,6 +265,7 @@
 		93CCB83C29F7040D001B6080 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				93A8805C29EFA072005A4E1B /* Battery.swift */,
 				93CCB83D29F70422001B6080 /* HeaderView.swift */,
 				93CCB83F29F70E14001B6080 /* MonoText.swift */,
 			);
