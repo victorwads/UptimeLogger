@@ -2,12 +2,11 @@
 
 ![Xcode 14.3](https://img.shields.io/badge/Xcode-14.3-blue.svg)
 ![Swift Language](https://img.shields.io/badge/language-Swift-green.svg)
-![Platform Maos](https://img.shields.io/badge/platform-macOS-lightgrey.svg)
-![Shell Language](https://img.shields.io/badge/shell-Bash-orange.svg)
-![UptimeLogger 2.2](https://img.shields.io/badge/UptimeLogger-2.2-orange.svg)
+![Shell Language](https://img.shields.io/badge/language-Bash-orange.svg)
 
 ![UptimeLogger Icon](UptimeLogger/Assets.xcassets/AppIcon.appiconset/64.png)
-
+![Platform Maos](https://img.shields.io/badge/platform-macOS-lightgrey.svg)
+![Version 2.2](https://img.shields.io/badge/Version-2.2-orange.svg)
 
 UptimeLogger is an app that helps you keep track of how long your Mac has been running without restarting. It was created after a MacBook suffered water damage and started shutting down unexpectedly, prompting the need to monitor system uptime. 😔
 

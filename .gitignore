@@ -15,7 +15,7 @@
 
 # Arquivos de compilação do Swift Package Manager
 .build/
-
+*.xcresult/
 
 .DS_Store
 **/logs/*.txt
