@@ -10,9 +10,3 @@ xcodebuild test -quiet -project "$PROJECT"\
                 -xcconfig "$SCRIPT_DIR/build.xcconfig"\
                 -enableCodeCoverage YES\
                 -destination "platform=macOS"
-
-# xcov    -p "$PROJECT"\
-#         -s UptimeLogger --html_report\
-#         -e FirebaseCrashlytics,FirebaseInstallations,\
-#         GULAppDelegateSwizzler,GULEnvironment,GULLogger,GULMethodSwizzler,GULMethodSwizzler,\
-#         GULNSData,GULNetwork,GULUserDefaults

@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "2033FF4C-BD6D-4ACB-A6BA-842912155B7C",
+      "id" : "4D23150D-1665-4C74-86A1-455C1581451B",
       "name" : "Test Scheme Action",
       "options" : {
 
@@ -9,16 +9,26 @@
     }
   ],
   "defaultOptions" : {
-    "language" : "pt-BR",
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:UptimeLogger.xcodeproj",
+          "identifier" : "93A07CE729E35501000EDA9C",
+          "name" : "UptimeLogger"
+        }
+      ]
+    },
+    "diagnosticCollectionPolicy" : "Always",
     "targetForVariableExpansion" : {
       "containerPath" : "container:UptimeLogger.xcodeproj",
       "identifier" : "939E085B29ECF07000D7AA6D",
       "name" : "UptimeLoggerTests"
-    }
+    },
+    "uiTestingScreenshotsLifetime" : "keepNever",
+    "userAttachmentLifetime" : "keepNever"
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:UptimeLogger.xcodeproj",
         "identifier" : "939E085B29ECF07000D7AA6D",

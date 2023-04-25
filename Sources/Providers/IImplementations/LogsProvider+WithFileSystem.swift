@@ -5,9 +5,9 @@
 //  Created by Victor Wads on 09/04/23.
 //
 
+import FirebaseCrashlytics
 import Foundation
 import AppKit
-import FirebaseCrashlytics
 
 class LogsProviderFilesSystem: LogsProvider {    
     
