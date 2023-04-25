@@ -27,6 +27,7 @@ victorwads       43333   0,0  0,0  4:57     0:00.37 -zsh
 root             25751   0,0  0,0  8:12     0:00.01 ps -ax -o user,pid,pcpu,pmem,start,time,command
 root             46727   0,0  0,0  4:59     0:00.01 login -pfl victorwads /bin/bash -c exec -la zsh /bin/zsh
 victorwads       46730   1,6  0,0  4:59     0:04.57 -zsh
+
 """
 
         let actualOutput = ProcessLogInfo.processFile(content: input)

@@ -60,7 +60,8 @@ last record: 02:53:58
     
     func testFromOldVersion() throws {
         let content = """
-version: 1
+version:
+ended:
 last record: 1 days, 02:53:58
 """
         let logItemInfo = LogItemInfo(fileName: "", content: content)

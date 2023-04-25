@@ -10,7 +10,7 @@ import XCTest
 
 @testable import UptimeLogger
 
-final class VersionTests: XCTestCase {
+final class VersionCompareTests: XCTestCase {
     
     
     func testVersionLower() {

@@ -146,6 +146,7 @@ struct LogItemInfo: Identifiable {
 }
 
 extension LogItemInfo {
+
     var formattedUptime: String {
         let totalSeconds = Int(self.systemUptime ?? 0)
         let days = totalSeconds / 86400
@@ -168,40 +169,28 @@ extension LogItemInfo {
     }
     
     var formattedStartUptime: String {
-        return formatDate(scriptStartTime)
+        formatDate(scriptStartTime)
     }
 
     var formattedBoottime: String? {
-        if let time = systemBootTime {
-            return formatDate(time)
-        }
-        return nil
+        guard let time = systemBootTime else { return nil }
+        return formatDate(time)
     }
 
-    var formattedShutdownTime: String? {
-        if let time = scriptEndTime {
-            return formatDate(time)
-        }
-        return nil
-    }
-    
     var formattedEndtime: String {
-        if let data = scriptEndTime {
-            return " " + formatDate(data)
-        } else {
-            return ""
-        }
+        guard let data = scriptEndTime else { return ""}
+        return " " + formatDate(data)
     }
-    
+
     private func formatDate(_ date: Date) -> String {
         let calendar = Calendar.current
         let formatter = DateFormatter()
         let at: String = .localized(.dateAt)
 
         if calendar.isDateInToday(scriptStartTime) {
-            formatter.dateFormat = "\(String.localized(.dateToday)) \(at) HH:mm:ss"
+            formatter.dateFormat = "'\(String.localized(.dateToday)) \(at)' HH:mm:ss"
         } else if calendar.isDateInYesterday(scriptStartTime) {
-            formatter.dateFormat = "\(String.localized(.dateYesterday)) \(at) HH:mm:ss"
+            formatter.dateFormat = "'\(String.localized(.dateYesterday)) \(at)' HH:mm:ss"
         } else {
             formatter.dateFormat = "dd/MM/yyyy '\(at)' HH:mm:ss"
         }

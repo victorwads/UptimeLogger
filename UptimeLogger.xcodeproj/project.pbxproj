@@ -19,13 +19,14 @@
 		934DC48B29E636870072A25C /* NavigationAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48A29E636870072A25C /* NavigationAppView.swift */; };
 		934DC48D29E638940072A25C /* LogsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48C29E638940072A25C /* LogsScreen.swift */; };
 		934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48E29E63B640072A25C /* SettingsScreen.swift */; };
+		936905BD29F8402E0074AA95 /* LogItemInfoTests+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936905BC29F8402E0074AA95 /* LogItemInfoTests+Extension.swift */; };
 		937ED70E29EBB22200CFBAB4 /* Locales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED70D29EBB22200CFBAB4 /* Locales.swift */; };
 		938CD47529F7201600A225A3 /* ThreeCaseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CD47429F7201600A225A3 /* ThreeCaseState.swift */; };
 		938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6129E3909000DACB7A /* LogsProvider.swift */; };
 		938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6529E3B02E00DACB7A /* LogItemView.swift */; };
 		939983FD29E4A31200631A20 /* Service in Resources */ = {isa = PBXBuildFile; fileRef = 939983FC29E4A31200631A20 /* Service */; };
 		9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9399840129E4D14B00631A20 /* AppDelegate.swift */; };
-		939E085F29ECF07000D7AA6D /* UptimeLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */; };
+		939E085F29ECF07000D7AA6D /* LogItemInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E085E29ECF07000D7AA6D /* LogItemInfoTests.swift */; };
 		93A07CEC29E35501000EDA9C /* UptimeLoggerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */; };
 		93A07CF029E35502000EDA9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A07CEF29E35502000EDA9C /* Assets.xcassets */; };
 		93A8805729EF94CF005A4E1B /* ProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805629EF94CF005A4E1B /* ProcessView.swift */; };
@@ -34,7 +35,7 @@
 		93A8805D29EFA072005A4E1B /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8805C29EFA072005A4E1B /* Battery.swift */; };
 		93A8806229F0FFE1005A4E1B /* UpdateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806129F0FFE1005A4E1B /* UpdateScreen.swift */; };
 		93A8806429F10727005A4E1B /* VersionCompare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806329F10727005A4E1B /* VersionCompare.swift */; };
-		93A8806629F1076E005A4E1B /* VersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806529F1076E005A4E1B /* VersionTests.swift */; };
+		93A8806629F1076E005A4E1B /* VersionCompareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806529F1076E005A4E1B /* VersionCompareTests.swift */; };
 		93A8806A29F10E46005A4E1B /* DownloadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806929F10E46005A4E1B /* DownloadProvider.swift */; };
 		93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */; };
 		93BD359529E6F7A100CB30A9 /* LogsProvider+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */; };
@@ -73,13 +74,14 @@
 		934DC48E29E63B640072A25C /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		9367120629F772FF004034B3 /* UptimeLoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UptimeLoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9367120929F7ACC3004034B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		936905BC29F8402E0074AA95 /* LogItemInfoTests+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogItemInfoTests+Extension.swift"; sourceTree = "<group>"; };
 		937ED70D29EBB22200CFBAB4 /* Locales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locales.swift; sourceTree = "<group>"; };
 		938CD47429F7201600A225A3 /* ThreeCaseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeCaseState.swift; sourceTree = "<group>"; };
 		938F6D6129E3909000DACB7A /* LogsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsProvider.swift; sourceTree = "<group>"; };
 		938F6D6529E3B02E00DACB7A /* LogItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemView.swift; sourceTree = "<group>"; };
 		939983FC29E4A31200631A20 /* Service */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Service; sourceTree = "<group>"; };
 		9399840129E4D14B00631A20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerTests.swift; sourceTree = "<group>"; };
+		939E085E29ECF07000D7AA6D /* LogItemInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemInfoTests.swift; sourceTree = "<group>"; };
 		93A07CE829E35501000EDA9C /* UptimeLogger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UptimeLogger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerApp.swift; sourceTree = "<group>"; };
 		93A07CEF29E35502000EDA9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,7 +92,7 @@
 		93A8805C29EFA072005A4E1B /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
 		93A8806129F0FFE1005A4E1B /* UpdateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateScreen.swift; sourceTree = "<group>"; };
 		93A8806329F10727005A4E1B /* VersionCompare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCompare.swift; sourceTree = "<group>"; };
-		93A8806529F1076E005A4E1B /* VersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionTests.swift; sourceTree = "<group>"; };
+		93A8806529F1076E005A4E1B /* VersionCompareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCompareTests.swift; sourceTree = "<group>"; };
 		93A8806929F10E46005A4E1B /* DownloadProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadProvider.swift; sourceTree = "<group>"; };
 		93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemInfo.swift; sourceTree = "<group>"; };
 		93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+Settings.swift"; sourceTree = "<group>"; };
@@ -236,9 +238,10 @@
 			isa = PBXGroup;
 			children = (
 				932998A129F825BE001B7448 /* UptimeLogger.xctestplan */,
-				939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */,
+				939E085E29ECF07000D7AA6D /* LogItemInfoTests.swift */,
+				936905BC29F8402E0074AA95 /* LogItemInfoTests+Extension.swift */,
 				93F4070729EF5CE900EEDE7B /* ProcessInfoTests.swift */,
-				93A8806529F1076E005A4E1B /* VersionTests.swift */,
+				93A8806529F1076E005A4E1B /* VersionCompareTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -428,9 +431,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				939E085F29ECF07000D7AA6D /* UptimeLoggerTests.swift in Sources */,
+				939E085F29ECF07000D7AA6D /* LogItemInfoTests.swift in Sources */,
 				93F4070829EF5CE900EEDE7B /* ProcessInfoTests.swift in Sources */,
-				93A8806629F1076E005A4E1B /* VersionTests.swift in Sources */,
+				93A8806629F1076E005A4E1B /* VersionCompareTests.swift in Sources */,
+				936905BD29F8402E0074AA95 /* LogItemInfoTests+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
