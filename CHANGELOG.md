@@ -17,6 +17,7 @@
       * Fix App Localization and add French
       * Swift UI Refactor
       * Add firebase for Analitycs and Crashlytics
+      * Add Script to check localization
   * Monitoring Service
     * Minor improvements
     * Remove `init:` from log contract

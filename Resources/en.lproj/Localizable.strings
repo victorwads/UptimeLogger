@@ -1,0 +1,66 @@
+"cancel" = "Cancel";
+/* Date */
+"date.at" = "at";
+"date.days" = "days";
+"date.hours" = "hours";
+"date.minutes" = "minutes";
+"date.seconds" = "seconds";
+"date.today" = "today";
+"date.yesterday" = "yesterday";
+/* Log Details */
+"details.notfound" = "This log has no process information, check the settings";
+"details.notfound.tip" = "validate if the monitoring is active in the settings";
+"log.boottime" = "System boot time";
+"log.edited" = "Record edited";
+/* Log Item */
+"log.help" = "click to change the shutdown record information";
+"log.normal" = "Normal Shutdown";
+"log.startup" = "Service start time";
+"log.sysversion" = "OS Version";
+"log.unexpected" = "Unexpected Shutdown";
+"log.uptime" = "Uptime";
+"logs.details.click" = "Click to view the details of the record";
+"logs.notfound" = "No records found";
+/* Logs */
+"logs.options" = "Options";
+"logs.options.power" = "Power: ";
+"logs.options.power.off" = "Power Disconnected";
+"logs.options.power.on" = "Power Connected";
+"logs.options.shutdown" = "State: ";
+"logs.options.shutdown.normal" = "Normal Shutdown";
+"logs.options.shutdown.unexpected" = "Unexpected Shutdown";
+"logs.options.sort.long" = "Uptime (largest first)";
+"logs.options.sort.new" = "Newest";
+"logs.options.sort.old" = "Oldest";
+"logs.options.sort.short" = "Uptime (smallest first)";
+"nav.current" = "Current";
+/* Navigation */
+"nav.logs" = "Logs";
+"nav.settings" = "Settings";
+"nav.update" = "Updates";
+"options.all" = "All";
+/* File Manager */
+"provider.files.openmessage" = "No permission to access the logs folder\nTo allow access, select the logs folder";
+"result.contains" = "contains the searched term";
+"result.contains.not" = "does not contain the searched term";
+"result.search" = "Search";
+/* General */
+"results.sort" = "Sort by:";
+"settings.developers.title" = "Developer Options";
+"settings.folders.change" = "Change Folder";
+"settings.folders.clean" = "Clear History";
+"settings.folders.history.title" = "History";
+"settings.folders.select" = "Select";
+"settings.interval" = "Interval: ";
+"settings.interval.tip" = "save processes every";
+"settings.monitoring.label" = "Activate process monitoring";
+/* Settings */
+"settings.monitoring.title" = "Monitoring Service";
+"update.available" = "Update Available";
+"update.available.no" = "There are no available updates.";
+/* Update */
+"update.current" = "Current version is ";
+"update.finish.alert.message" = "The download was completed successfully. Click OK to open the downloaded file and close the program.";
+"update.finish.alert.now" = "Update Now";
+"update.finish.alert.title" = "Download Completed";
+"update.last" = "The latest available version is ";

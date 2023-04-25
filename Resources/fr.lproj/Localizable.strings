@@ -1,0 +1,66 @@
+"cancel" = "Annuler";
+/* Date */
+"date.at" = "à";
+"date.days" = "jours";
+"date.hours" = "heures";
+"date.minutes" = "minutes";
+"date.seconds" = "secondes";
+"date.today" = "aujourd'hui";
+"date.yesterday" = "hier";
+/* Log Details */
+"details.notfound" = "Ce journal ne contient pas d'informations sur les processus";
+"details.notfound.tip" = "validez que la surveillance est active dans les paramètres";
+"log.boottime" = "Heure de démarrage du système";
+"log.edited" = "Journal modifié";
+/* Log Item */
+"log.help" = "cliquez pour modifier l'information du journal de l'arrêt";
+"log.normal" = "Arrêt normal";
+"log.startup" = "Heure de démarrage du service";
+"log.sysversion" = "Version du système d'exploitation";
+"log.unexpected" = "Arrêt inattendu";
+"log.uptime" = "Temps d'activité";
+"logs.details.click" = "Cliquez pour voir les détails du journal";
+"logs.notfound" = "Aucun journal trouvé";
+/* Logs */
+"logs.options" = "Options";
+"logs.options.power" = "Puissance : ";
+"logs.options.power.off" = "Puissance déconnectée";
+"logs.options.power.on" = "Puissance connectée";
+"logs.options.shutdown" = "État : ";
+"logs.options.shutdown.normal" = "Arrêt normal";
+"logs.options.shutdown.unexpected" = "Arrêt inattendu";
+"logs.options.sort.long" = "Temps d'activité (du plus grand au plus petit)";
+"logs.options.sort.new" = "Plus récents";
+"logs.options.sort.old" = "Plus anciens";
+"logs.options.sort.short" = "Temps d'activité (du plus petit au plus grand)";
+"nav.current" = "Actuel";
+/* Navigation */
+"nav.logs" = "Journaux";
+"nav.settings" = "Paramètres";
+"nav.update" = "Mises à jour";
+"options.all" = "Tous";
+/* File Manager */
+"provider.files.openmessage" = "Pas d'autorisation pour accéder au dossier des journaux\nPour autoriser l'accès, sélectionnez le dossier des journaux";
+"result.contains" = "contient le terme de recherche";
+"result.contains.not" = "ne contient pas le terme de recherche";
+"result.search" = "Rechercher";
+/* General */
+"results.sort" = "Trier par :";
+"settings.developers.title" = "Options des développeurs";
+"settings.folders.change" = "Changer le dossier";
+"settings.folders.clean" = "Effacer l'historique";
+"settings.folders.history.title" = "Historique";
+"settings.folders.select" = "Sélectionner";
+"settings.interval" = "Intervalle : ";
+"settings.interval.tip" = "enregistrer les processus toutes les";
+"settings.monitoring.label" = "Activer la surveillance des processus";
+/* Settings */
+"settings.monitoring.title" = "Service de surveillance";
+"update.available" = "Mise à jour disponible";
+"update.available.no" = "Aucune mise à jour disponible.";
+/* Update */
+"update.current" = "La version actuelle est ";
+"update.finish.alert.message" = "Le téléchargement a été effectué avec succès. Cliquez sur OK pour ouvrir le fichier téléchargé et fermer le programme.";
+"update.finish.alert.now" = "Mettre à jour maintenant";
+"update.finish.alert.title" = "Téléchargement terminé";
+"update.last" = "La dernière version disponible est ";
