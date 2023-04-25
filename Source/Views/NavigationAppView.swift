@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct NavigationAppView: View {
     let provider: LogsProvider
@@ -45,13 +46,37 @@ struct MenuView: View {
             
             Divider()
             List() {
-                NavigationLink(destination: LogsScreen(provider: provider), tag: logsTag, selection: $selectedScreen) {
+                NavigationLink(destination: LogsScreen(provider: provider).onAppear {
+                    Analytics.logEvent(
+                        AnalyticsEventScreenView,
+                        parameters: [
+                            AnalyticsParameterScreenName: "Logs",
+                            AnalyticsParameterScreenClass: "LogsScreen"
+                        ]
+                    )
+                }, tag: logsTag, selection: $selectedScreen) {
                     Label(Strings.mainLogs.value, systemImage: "list.bullet.rectangle")
                 }
-                NavigationLink(destination: SettingsScreen(provider: provider), tag: 2, selection: $selectedScreen) {
+                NavigationLink(destination: SettingsScreen(provider: provider).onAppear {
+                    Analytics.logEvent(
+                        AnalyticsEventScreenView,
+                        parameters: [
+                            AnalyticsParameterScreenName: "Settings",
+                            AnalyticsParameterScreenClass: "SettingsScreen"
+                        ]
+                    )
+                }, tag: 2, selection: $selectedScreen) {
                     Label("Configurações", systemImage: "gearshape")
                 }
-                NavigationLink(destination: UpdateScreen(), tag: installTag, selection: $selectedScreen) {
+                NavigationLink(destination: UpdateScreen().onAppear {
+                    Analytics.logEvent(
+                        AnalyticsEventScreenView,
+                        parameters: [
+                            AnalyticsParameterScreenName: "Find Update",
+                            AnalyticsParameterScreenClass: "UpdateScreen"
+                        ]
+                    )
+                }, tag: installTag, selection: $selectedScreen) {
                     Label("Atualizações", systemImage: "arrow.clockwise")
                 }
             }

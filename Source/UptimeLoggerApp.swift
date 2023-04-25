@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseAnalytics
 
 @main
 struct UptimeLoggerApp: App {
@@ -23,12 +24,28 @@ struct UptimeLoggerApp: App {
         WindowGroup {
             NavigationAppView(
                 provider: provider
-            )
+            ).onAppear {
+                Analytics.logEvent(
+                    AnalyticsEventScreenView,
+                    parameters: [
+                        AnalyticsParameterScreenName: "Main Window",
+                        AnalyticsParameterScreenClass: "UptimeLoggerApp"
+                    ]
+                )
+            }
         }
         WindowGroup {
             LogDetailsScreen(
                 provider: provider
-            )
+            ).onAppear {
+                Analytics.logEvent(
+                    AnalyticsEventScreenView,
+                    parameters: [
+                        AnalyticsParameterScreenName: "Log Details",
+                        AnalyticsParameterScreenClass: "LogDetailsScreen"
+                    ]
+                )
+            }
         }
         .handlesExternalEvents(matching: [AppScheme.details])
         WindowGroup {

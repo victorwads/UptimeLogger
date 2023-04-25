@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct LogsListView: View {
     
@@ -92,6 +93,25 @@ struct LogsListView: View {
             if(showFilters) {
                 LegendView().padding(.vertical)
             }
+        }.onChange(of: sortOrder){ order in
+            Analytics.logEvent("logs_sort", parameters: [
+              "name": "sort",
+              "full_text": String(describing: _sortOrder.wrappedValue)
+            ])
+        }.onChange(of: filterPowerStatus) { filter in
+            Analytics.logEvent("logs_filter_power_status", parameters: [
+              "name": "filter_power_status",
+              "full_text": String(describing: _filterPowerStatus.wrappedValue)
+            ])
+        }.onChange(of: filterShutdownAllowed) { filter in
+            Analytics.logEvent("logs_filter_shutdown_status", parameters: [
+              "name": "filter_shutdown_status",
+              "full_text": String(describing: _filterShutdownAllowed.wrappedValue)
+            ])
+        }.onChange(of: showFilters) { filter in
+            Analytics.logEvent("logs_show_filter", parameters: [
+              "name": "show_filter" as NSObject
+            ])
         }
     }
     
@@ -129,8 +149,6 @@ enum LogSortOrder {
     case uptimeDescending
     case uptimeAscending
 }
-
-
 
 struct LogsView_Previews: PreviewProvider {
     static var previews: some View {
