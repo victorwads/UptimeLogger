@@ -7,7 +7,6 @@
 
 import SwiftUI
 import FirebaseCore
-import FirebaseInstallations
 
 @main
 struct UptimeLoggerApp: App {
