@@ -65,13 +65,13 @@
 		934DC48A29E636870072A25C /* NavigationAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAppView.swift; sourceTree = "<group>"; };
 		934DC48C29E638940072A25C /* LogsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsScreen.swift; sourceTree = "<group>"; };
 		934DC48E29E63B640072A25C /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		9367120629F772FF004034B3 /* UptimeLoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UptimeLoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937ED70D29EBB22200CFBAB4 /* Locales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locales.swift; sourceTree = "<group>"; };
 		938CD47429F7201600A225A3 /* ThreeCaseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeCaseState.swift; sourceTree = "<group>"; };
 		938F6D6129E3909000DACB7A /* LogsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsProvider.swift; sourceTree = "<group>"; };
 		938F6D6529E3B02E00DACB7A /* LogItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemView.swift; sourceTree = "<group>"; };
 		939983FC29E4A31200631A20 /* Service */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Service; sourceTree = "<group>"; };
 		9399840129E4D14B00631A20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		939E085C29ECF07000D7AA6D /* UptimeLoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UptimeLoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerTests.swift; sourceTree = "<group>"; };
 		93A07CE829E35501000EDA9C /* UptimeLogger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UptimeLogger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptimeLoggerApp.swift; sourceTree = "<group>"; };
@@ -207,6 +207,7 @@
 				93ED9F9C29ED23FE009CBCED /* Info.plist */,
 				9305AF7C29F756390075A312 /* GoogleService-Info.plist */,
 				93BEA29129E46C4700280DAC /* Localizable.strings */,
+				93A07CEF29E35502000EDA9C /* Assets.xcassets */,
 				93ED9F9629ED0691009CBCED /* UptimeLogger.xctestplan */,
 				93A07CF429E35502000EDA9C /* UptimeLogger.entitlements */,
 			);
@@ -216,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				93A07CE829E35501000EDA9C /* UptimeLogger.app */,
+				9367120629F772FF004034B3 /* UptimeLoggerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,7 +250,6 @@
 				93A07CEB29E35501000EDA9C /* UptimeLoggerApp.swift */,
 				93BEA29529E46E5900280DAC /* String+Localized.swift */,
 				9399840129E4D14B00631A20 /* AppDelegate.swift */,
-				93A07CEF29E35502000EDA9C /* Assets.xcassets */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -291,7 +292,7 @@
 			);
 			name = UptimeLoggerTests;
 			productName = UptimeLoggerTests;
-			productReference = 939E085C29ECF07000D7AA6D /* UptimeLoggerTests.xctest */;
+			productReference = 9367120629F772FF004034B3 /* UptimeLoggerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		93A07CE729E35501000EDA9C /* UptimeLogger */ = {

@@ -9,7 +9,6 @@ import SwiftUI
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let allowedMenus: [String] = [
-        //Strings.menuLogs.value
     ]
     
     func applicationDidFinishLaunching(_ notification: Notification) {
