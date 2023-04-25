@@ -9,6 +9,10 @@
 
 ----
 
+* [2.3.1 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.3/UptimeLogger-2.3.1.dmg)
+  * App
+    * Minor fix for macs without baterry
+
 * [2.3 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.3/UptimeLogger-2.3.dmg)
   * App
     * Logs Screen: new layout
