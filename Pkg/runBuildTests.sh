@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 PROJECT="$SCRIPT_DIR/../UptimeLogger.xcodeproj"
-
 
 echo -e "\033[32mBuildando app release\033[0m"
 

@@ -71,7 +71,8 @@ struct LogItemInfo: Identifiable {
                 systemVersion = line.components(separatedBy: ": ").last
             //# batery: [0-9]+%
             case line.hasPrefix("batery:"):
-                batery = extractNumber(line, 1)
+                let level = extractNumber(line, -1)
+                batery = level == -1 ? nil : level
             //# charging: true/false
             case line.hasPrefix("charging:"):
                 charging = line.contains("true")

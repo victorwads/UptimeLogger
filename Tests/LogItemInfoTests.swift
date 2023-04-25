@@ -58,10 +58,12 @@ last record: 02:53:58
         XCTAssertEqual(logItemInfo.systemUptime, (2 * 60 * 60) + (53 * 60) + 58)
     }
     
-    func testFromOldVersion() throws {
+    func testFromOldVersionAndTestNotBateryMacs() throws {
         let content = """
 version:
 ended:
+batery:
+charging: false
 last record: 1 days, 02:53:58
 """
         let logItemInfo = LogItemInfo(fileName: "", content: content)
@@ -72,6 +74,8 @@ last record: 1 days, 02:53:58
 
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemUptime, TimeInterval(seconds))
+        XCTAssertEqual(logItemInfo.charging, false)
+        XCTAssertEqual(logItemInfo.batery, nil)
     }
 
     func testLogItemInfoShutDownAllowedManually() throws {
