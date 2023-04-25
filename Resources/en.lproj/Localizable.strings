@@ -64,3 +64,7 @@
 "update.finish.alert.now" = "Update Now";
 "update.finish.alert.title" = "Download Completed";
 "update.last" = "The latest available version is ";
+/* Permissioning */
+"authorize.title" = "File System Permission";
+"authorize.confirm" = "Authorize";
+"authorize.message" = "Permission to access the folder is necessary to read/write logs and configurations.\n\nClick \"Open\" in the following dialog box.\n";

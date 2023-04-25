@@ -64,3 +64,7 @@
 "update.finish.alert.now" = "Mettre à jour maintenant";
 "update.finish.alert.title" = "Téléchargement terminé";
 "update.last" = "La dernière version disponible est ";
+/* Permissioning */
+"authorize.title" = "Autorisation de Système de Fichiers";
+"authorize.message" = "L'accès au dossier est nécessaire pour lire/écrire les journaux et configurations.\n\nCliquez sur \"Ouvrir\" dans la boîte de dialogue suivante.\n";
+"authorize.confirm" = "Autoriser";

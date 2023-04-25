@@ -65,3 +65,7 @@
 "update.finish.alert.now" = "Atualizar agora";
 "update.finish.alert.title" = "Download concluído";
 "update.last" = "A ultima versão disponível é ";
+/* Permissioning */
+"authorize.title" = "Permissão do Sistema de Arquivos";
+"authorize.message" = "É necessário autorizar o accesso a pasta para ler/escrever na pasta de logs e configuracões.\n\nClique em \"abrir\" na caixa de dialogo a seguir.\n";
+"authorize.confirm" = "Autorizar";
