@@ -46,8 +46,8 @@ enum Strings: String {
     case logUnexpected = "log.unexpected"
     case logEdited = "log.edited"
     
-    case datailsNotFound = "details.notfound"
-    case datailsNotFoundTip = "details.notfound.tip"
+    case detailsNotFound = "details.notfound"
+    case detailsNotFoundTip = "details.notfound.tip"
 
     case settingsMonitoringService = "settings.monitoring.title"
     case settingsMonitoring = "settings.monitoring.label"
@@ -82,10 +82,7 @@ enum Strings: String {
 
 extension String {
     static func localized(_ key: Strings) -> String {
-        if let path = Bundle.main.path(forResource: Locale.current.languageCode, ofType: "lproj"), let bundle = Bundle(path: path) {
-            return NSLocalizedString(key.rawValue, bundle: bundle, comment: "")
-        }
-        return key.rawValue
+        return NSLocalizedString(key.rawValue, comment: "")
     }
 }
 

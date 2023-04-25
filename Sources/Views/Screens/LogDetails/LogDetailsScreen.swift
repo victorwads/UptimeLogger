@@ -71,8 +71,8 @@ struct LogDetailsScreen: View {
                     }
                 } else {
                     Spacer()
-                    Text(.key(.datailsNotFound))
-                    Text(.key(.datailsNotFoundTip))
+                    Text(.key(.detailsNotFound))
+                    Text(.key(.detailsNotFoundTip))
                         .font(.headline)
                         .foregroundColor(.gray)
                     Spacer()
