@@ -8,10 +8,9 @@
 *.mode1v3
 *.mode2v3
 *.perspectivev3
-*.xcworkspace
 *.xcuserstate
 **/xcuserdata/**
-**/xcshareddata/**
+**/xcschemes/**
 
 # Arquivos de compilação do Swift Package Manager
 .build/
@@ -22,6 +21,7 @@
 **/logs/*.log
 **/logs/config
 **/logs/latest
+**/xcov_report
 Pkg/cache/
 Pkg/*.dmg
 Pkg/*.pkg

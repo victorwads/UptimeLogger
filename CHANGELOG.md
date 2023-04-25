@@ -9,7 +9,7 @@
 
 ----
 
-* 2.3 - WIP
+* [2.3 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.3/UptimeLogger-2.3.dmg)
   * App
     * Logs Screen: new layout
     * Details Screen: improve layout
@@ -23,7 +23,7 @@
     * Minor improvements
     * Remove `init:` from log contract
 
-- [2.2 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.2/UptimeLogger-2.2.dmg)
+- [2.2](https://github.com/victorwads/UptimeLogger/releases/download/2.2/UptimeLogger-2.2.dmg)
   - App
     - New Update Screen to download new updates
     - Uninstall remover app caches for all users

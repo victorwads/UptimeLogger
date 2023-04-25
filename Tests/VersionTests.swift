@@ -13,54 +13,35 @@ import XCTest
 final class VersionTests: XCTestCase {
     
     
-    func testVersionCompare() {
+    func testVersionLower() {
         let version1 = "1.2.3"
         let version2 = "1.3.0"
         
         let comparisonResult = version1.compareVersion(version2)
         XCTAssertEqual(comparisonResult, -1)
-        
-        switch comparisonResult {
-        case 1:
-            print("\(version1) é maior que \(version2)")
-        case -1:
-            print("\(version1) é menor que \(version2)")
-        default:
-            print("\(version1) é igual a \(version2)")
-        }
     }
     
-    func testVersionCompare2() {
+    func testVersionLower2() {
         let version1 = "1.2"
         let version2 = "1.3.0"
         
         let comparisonResult = version1.compareVersion(version2)
         XCTAssertEqual(comparisonResult, -1)
-        
-        switch comparisonResult {
-        case 1:
-            print("\(version1) é maior que \(version2)")
-        case -1:
-            print("\(version1) é menor que \(version2)")
-        default:
-            print("\(version1) é igual a \(version2)")
-        }
     }
     
-    func testVersionCompare3() {
-        let version1 = "1.2.3"
+    func testVersionBigger() {
+        let version1 = "2.2.3"
         let version2 = "1.3"
         
         let comparisonResult = version1.compareVersion(version2)
-        XCTAssertEqual(comparisonResult, -1)
+        XCTAssertEqual(comparisonResult, 1)
+    }
+
+    func testVersionEqual() {
+        let version1 = "2.0.0"
+        let version2 = "2.0"
         
-        switch comparisonResult {
-        case 1:
-            print("\(version1) é maior que \(version2)")
-        case -1:
-            print("\(version1) é menor que \(version2)")
-        default:
-            print("\(version1) é igual a \(version2)")
-        }
+        let comparisonResult = version1.compareVersion(version2)
+        XCTAssertEqual(comparisonResult, 0)
     }
 }

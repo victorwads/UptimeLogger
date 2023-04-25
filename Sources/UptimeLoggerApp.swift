@@ -17,19 +17,21 @@ struct UptimeLoggerApp: App {
     
     @AppStorage("logsFolder") var storedFolder: String = LogsProviderFilesSystem.defaultLogsFolder
     
-    let firebaseConfiguration: Void = FirebaseApp.configure()
-
     var body: some Scene {
         let provider = LogsProviderFilesSystem(folder: storedFolder)
         WindowGroup {
-            NavigationAppView(provider: provider).onAppear {
-                Analytics.logEvent(
-                    AnalyticsEventScreenView,
-                    parameters: [
-                        AnalyticsParameterScreenName: "Main Window",
-                        AnalyticsParameterScreenClass: "UptimeLoggerApp"
-                    ]
-                )
+            if let _ = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] {
+            } else {
+                let _ = FirebaseApp.configure()
+                NavigationAppView(provider: provider).onAppear {
+                    Analytics.logEvent(
+                        AnalyticsEventScreenView,
+                        parameters: [
+                            AnalyticsParameterScreenName: "Main Window",
+                            AnalyticsParameterScreenClass: "UptimeLoggerApp"
+                        ]
+                    )
+                }
             }
         }
         WindowGroup {
