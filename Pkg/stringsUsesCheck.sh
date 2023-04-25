@@ -8,14 +8,15 @@ FOUND_FAILURE=0
 # Itera sobre cada string
 for STRING in $STRINGS; do
     # Obtém o número de ocorrências dessa string no código fonte
-    COUNT=$(grep -r -o "$STRING" "$SCRIPT_DIR/../Sources" | wc -l)
-    if [ "$COUNT" -lt 2 ]; then
-        echo -ne "\033[0;31m"
+    COUNT=$(grep -r -o "\.$STRING\b" "$SCRIPT_DIR/../Sources" | wc -l)
+    if [ "$COUNT" -lt 1 ]; then
         FOUND_FAILURE=$((FOUND_FAILURE+1))
+        echo -ne "\033[0;31m"
+        echo -e "unused:\t\t.$STRING"
     else
         echo -ne "\033[0;32m"
+        echo -e  "used $(($COUNT+0)) times:\t.$STRING"
     fi
-    echo "$COUNT -> $STRING"
     echo -ne "\033[0m"
 done
 
