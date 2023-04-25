@@ -7,6 +7,7 @@
 
 import Foundation
 import AppKit
+import FirebaseCrashlytics
 
 class LogsProviderFilesSystem: LogsProvider {    
     
@@ -45,6 +46,7 @@ class LogsProviderFilesSystem: LogsProvider {
             
             return results
         } catch {
+            Crashlytics.crashlytics().record(error: error)
             return []
         }
     }
@@ -80,7 +82,7 @@ class LogsProviderFilesSystem: LogsProvider {
             do {
                 try lines.joined(separator: "\n").write(toFile: folder+"/"+file.fileName, atomically: true, encoding: .utf8)
             } catch {
-                
+                Crashlytics.crashlytics().record(error: error)
             }
         }
     }
@@ -97,6 +99,7 @@ class LogsProviderFilesSystem: LogsProvider {
             let url = URL(fileURLWithPath: realPath)
             return url.lastPathComponent
         } catch {
+            Crashlytics.crashlytics().record(error: error)
             return ""
         }
     }

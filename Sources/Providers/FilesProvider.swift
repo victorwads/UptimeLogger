@@ -6,6 +6,7 @@
 //
 import Cocoa
 import Foundation
+import FirebaseCrashlytics
 
 func bookmarkKey(_ path: String) -> String{
     return "bm2:\(path)"
@@ -42,7 +43,9 @@ class FilesProvider {
                 do{
                     let bookmarkData = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
                     UserDefaults.standard.setValue(bookmarkData, forKey:bookmarkKey(path))
-                } catch {}
+                } catch {
+                    Crashlytics.crashlytics().record(error: error)
+                }
                 callback(url.path)
             } else if (!change) {
                 callback(path)
@@ -70,6 +73,7 @@ class FilesProvider {
             return  FileManager.default.fileExists(atPath: url.path ?? "") &&
                     FileManager.default.isReadableFile(atPath: url.path ?? "")
         } catch {
+            Crashlytics.crashlytics().record(error: error)
             return false
         }
     }

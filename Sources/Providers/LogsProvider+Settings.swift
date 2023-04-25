@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 extension LogsProvider {
     
@@ -25,7 +26,9 @@ extension LogsProvider {
             } else {
                 try FileManager.default.removeItem(atPath: configsFile)
             }
-        } catch {}
+        } catch {
+            Crashlytics.crashlytics().record(error: error)
+        }
 
         return getSettings()
     }

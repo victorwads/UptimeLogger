@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseCrashlytics
 
 struct UpdateScreen: View {
     let currentVersionName: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
@@ -81,7 +82,7 @@ struct UpdateScreen: View {
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                Crashlytics.crashlytics().record(error: error ?? NSError(domain: "Unknown error at update loading", code: -1, userInfo: nil))
                 return
             }
             
@@ -97,7 +98,7 @@ struct UpdateScreen: View {
                     updateAvailable = false
                 }
             } catch {
-                print("Error decoding JSON: \(error.localizedDescription)")
+                Crashlytics.crashlytics().record(error: error)
             }
         }.resume()
     }

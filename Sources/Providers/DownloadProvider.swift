@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 class DownloadProvider: NSObject, URLSessionDownloadDelegate {
     
@@ -58,6 +59,7 @@ class DownloadProvider: NSObject, URLSessionDownloadDelegate {
                 self.onComplete(self.destinationURL, nil)
             }
         } catch {
+            Crashlytics.crashlytics().record(error: error)
             DispatchQueue.main.async {
                 self.onComplete(nil, error)
             }
