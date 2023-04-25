@@ -22,9 +22,7 @@ struct UptimeLoggerApp: App {
     var body: some Scene {
         let provider = LogsProviderFilesSystem(folder: storedFolder)
         WindowGroup {
-            NavigationAppView(
-                provider: provider
-            ).onAppear {
+            NavigationAppView(provider: provider).onAppear {
                 Analytics.logEvent(
                     AnalyticsEventScreenView,
                     parameters: [
@@ -35,9 +33,7 @@ struct UptimeLoggerApp: App {
             }
         }
         WindowGroup {
-            LogDetailsScreen(
-                provider: provider
-            ).onAppear {
+            LogDetailsScreen(provider: provider).onAppear {
                 Analytics.logEvent(
                     AnalyticsEventScreenView,
                     parameters: [

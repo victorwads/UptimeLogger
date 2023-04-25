@@ -28,10 +28,12 @@ struct NavigationAppView: View {
 struct MenuView: View {
     
     static let iconLogs = "list.bullet.rectangle"
+    static let iconCurrent = "hourglass.badge.plus"
     static let iconSettings = "gearshape"
     static let iconUpdate = "arrow.clockwise"
 
     private let logsTag = 1
+    private let currentTag = 4
     private let settingsTag = 2
     private let installTag = 3
 
@@ -60,6 +62,20 @@ struct MenuView: View {
                     )
                 }, tag: logsTag, selection: $selectedScreen) {
                     Label(.key(.navLogs), systemImage: MenuView.iconLogs)
+                }
+                NavigationLink(destination: LogDetailsScreen(
+                    provider: provider,
+                    logFile: provider.loadCurrentLog()
+                ).onAppear {
+                    Analytics.logEvent(
+                        AnalyticsEventScreenView,
+                        parameters: [
+                            AnalyticsParameterScreenName: "Currentlog",
+                            AnalyticsParameterScreenClass: "LogDetailsScreen"
+                        ]
+                    )
+                }, tag: currentTag, selection: $selectedScreen) {
+                    Label(.key(.navCurrent), systemImage: MenuView.iconCurrent)
                 }
                 NavigationLink(destination: SettingsScreen(provider: provider).onAppear {
                     Analytics.logEvent(

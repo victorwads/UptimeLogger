@@ -10,6 +10,7 @@ import SwiftUI
 struct LogDetailsScreen: View {
 
     let provider: LogsProvider
+    let current: Bool = false
     @SceneStorage("windowDeepLink") var urlFileName: String = ""
 
     @State var processes: [ProcessLogInfo] = []
@@ -79,19 +80,28 @@ struct LogDetailsScreen: View {
                 LegendView().padding()
             }.handlesExternalEvents(
                 preferring: [AppScheme.details + "/" + urlFileName], allowing: [""]
-            ).onAppear {
-                DispatchQueue.global().async {
-                    processes = provider.loadProccessLogFor(filename: urlFileName)
-                }
-            }.navigationTitle(urlFileName)
+            )
+            .onAppear(perform: loadProcesses)
+            .navigationTitle(urlFileName)
         }
     }
 
-    
+    private func loadProcesses() {
+        DispatchQueue.global(qos: .background).async {
+            let all = provider.loadProccessLogFor(filename: logFile.fileName)
+            DispatchQueue.main.async {
+                processes = all
+            }
+        }
+    }
+
     private func loadLog(_ filename: String) {
-        DispatchQueue.global().async {
-            logFile = provider.loadLogWith(filename: filename)
-            urlFileName = filename
+        DispatchQueue.global(qos: .background).async {
+            let result = provider.loadLogWith(filename: filename)
+            DispatchQueue.main.async {
+                logFile = result
+                urlFileName = filename
+            }
         }
     }
 }

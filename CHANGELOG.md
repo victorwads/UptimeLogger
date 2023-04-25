@@ -13,6 +13,7 @@
   * App
     * Logs Screen: new layout
     * Details Screen: improve layout
+    * **New** Current Screen to see current log status
     * Code
       * Fix App Localization and add French
       * Swift UI Refactor
