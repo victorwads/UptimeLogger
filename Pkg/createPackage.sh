@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BUNDLE_NAME="br.com.victorwads.UptimeLogger"
 INSTALLER_NAME="Install UptimeLogger"
 UNINSTALLER_NAME="Uninstall"
@@ -7,42 +7,59 @@ CACHE_FOLDER="cache"
 APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
 DMG_FOLDER="$CACHE_FOLDER/dmg"
 GRELEASE="../../GoogleService-Info.plist"
+S=9
+I=1
 
+function header() {
+    echo -e "\n\033[32m ($I/$S) - $1\033[0m"
+    I=$((I+1))
+}
 
 # Apagando logs de teste
 rm -f ../Service/logs/*
+clear
 
 # Apagando logs de teste
 if [ ! -f "$GRELEASE" ]; then
-    echo "$GRELEASE not found"
+    echo -e "\033[31m$GRELEASE not found\033[0m"
     exit 1
 fi
 
-echo "\033[32mCopiando Google Release Configs\033[0m"
+header "Copiando Google Release Configs"
 cp "$GRELEASE" "../Resources/"
 
 # Apaga caches anteriores
-echo "\033[32mBuildando app release\033[0m"
+header "Buildando app release"
 xcodebuild  -project ../UptimeLogger.xcodeproj\
             -scheme UptimeLogger -configuration Release\
             -destination 'generic/platform=macOS'\
             -derivedDataPath "$CACHE_FOLDER" -quiet
 
-echo "\033[32mIdentificando Versão do Projeto\033[0m"
+header "Identificando Versão do Projeto"
 VERSION=$(xcodebuild -project ../UptimeLogger.xcodeproj -showBuildSettings | awk '/MARKETING_VERSION/ { print $3 }' | sed 's/[[:space:]]//g')
 
-echo "\033[32mCriando Instalador\033[0m"
+header "Assinando app"
+codesign --deep --force --verbose --options runtime \
+    --timestamp=none --all-architectures\
+    --entitlements "$APP_FOLDER/Contents/Resources/UptimeLogger.entitlements" \
+    --sign - "$APP_FOLDER"
+
+header "Criando Instalador"
 mkdir "$DMG_FOLDER"
 pkgbuild --root "$APP_FOLDER"  --install-location "/Applications/UptimeLogger.app" --scripts ./Install\
     --identifier "$BUNDLE_NAME" --version "$VERSION"\
     "$DMG_FOLDER/$INSTALLER_NAME.pkg"
 
-echo "\033[32mCriando Desinstalador\033[0m"
+header "Criando Desinstalador"
 pkgbuild --nopayload  --scripts ./Uninstall\
     --identifier "$BUNDLE_NAME.uninstall" --version "$VERSION"\
     "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
 
-echo "\033[32mCriando dmg de instalação\033[0m"
+# header "Assinando pacotes"
+# productsign --sign - "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+# productsign --sign - "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+
+header "Criando dmg de instalação"
 hdiutil create -volname "UptimeLogger"\
     -srcfolder "$DMG_FOLDER"\
     -ov -format UDZO\
@@ -51,19 +68,17 @@ hdiutil create -volname "UptimeLogger"\
 # cp "$DMG_FOLDER/$INSTALLER_NAME.pkg" "./$INSTALLER_NAME.pkg"
 # cp -R "$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app" ./
 
-echo "\033[32mApagando caches\033[0m"
+header "Apagando caches"
 rm -rf "$CACHE_FOLDER"
 
 if [ "$1" != "loop" ]; then
-    echo "\033[32mCriando Tag do Git\033[0m"
+    header "Criando Tag do Git"
     read -p "Gostaria de criar a tag $VERSION no git? [s/N]" confirm
     if [[ $confirm =~ ^[Ss]$ ]]; then
         git tag $VERSION
         git --no-pager tag
     else
-        echo "A tag não foi criada."
+        echo -e "\033[31mA tag não foi criada.\033[0m"
     fi
+    I=$((I+1))
 fi
-
-echo "\033[32mListando Resultado\033[0m"
-ls -lha

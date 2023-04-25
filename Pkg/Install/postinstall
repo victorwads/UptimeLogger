@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Installer service at $SERVICE_FILE using sudo"
 
@@ -45,10 +45,15 @@ fi
 echo "Installer service at $SERVICE_FILE using sudo"
 echo "$SERVICE_PLIST" | sudo tee "$SERVICE_FILE" >/dev/null
 
-# LOGSDIR="/Library/Application Support/UptimeLogger/"
-# if [ ! -d "$LOGSDIR" ]; then
-#     mkdir "$LOGSDIR"
-#     chmod 777 "$LOGSDIR"
-# fi
+LOGSDIR="/Library/Application Support/UptimeLogger/"
+if [ ! -d "$LOGSDIR" ]; then
+    mkdir "$LOGSDIR"
+    chmod 777 "$LOGSDIR"
+fi
+
+sudo codesign --deep --force --verbose --options runtime \
+    --timestamp=none --all-architectures\
+    --entitlements "$INSTALL_FOLDER/Contents/Resources/UptimeLogger.entitlements" \
+    --sign - "$INSTALL_FOLDER"
 
 sudo launchctl load "/Library/LaunchDaemons/$SERVICE_NAME.plist"

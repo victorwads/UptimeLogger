@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Remove o serviço do LaunchDaemon
 sudo launchctl unload /Library/LaunchDaemons/br.com.victorwads.uptimelogger.plist

@@ -11,7 +11,6 @@
 		9305AEE129F754250075A312 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9305AEE029F754250075A312 /* FirebaseAnalytics */; };
 		9305AEE329F754250075A312 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9305AEE229F754250075A312 /* FirebaseCrashlytics */; };
 		9305AEE529F754250075A312 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 9305AEE429F754250075A312 /* FirebaseInstallations */; };
-		9305AF7D29F756390075A312 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9305AF7C29F756390075A312 /* GoogleService-Info.plist */; };
 		930D124F29E6746C00456416 /* LegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930D124E29E6746C00456416 /* LegendView.swift */; };
 		933D146729F816C600A573B6 /* AnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D146629F816C600A573B6 /* AnalyticsProvider.swift */; };
 		933D146B29F8178C00A573B6 /* AnalyticsProvider+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D146A29F8178C00A573B6 /* AnalyticsProvider+Firebase.swift */; };
@@ -24,6 +23,8 @@
 		938CD47529F7201600A225A3 /* ThreeCaseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CD47429F7201600A225A3 /* ThreeCaseState.swift */; };
 		938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6129E3909000DACB7A /* LogsProvider.swift */; };
 		938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F6D6529E3B02E00DACB7A /* LogItemView.swift */; };
+		9398F93E29F861C200B865CD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93BEA29129E46C4700280DAC /* Localizable.strings */; };
+		9398F94029F8749300B865CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9305AF7C29F756390075A312 /* GoogleService-Info.plist */; };
 		939983FD29E4A31200631A20 /* Service in Resources */ = {isa = PBXBuildFile; fileRef = 939983FC29E4A31200631A20 /* Service */; };
 		9399840229E4D14B00631A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9399840129E4D14B00631A20 /* AppDelegate.swift */; };
 		939E085F29ECF07000D7AA6D /* LogItemInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E085E29ECF07000D7AA6D /* LogItemInfoTests.swift */; };
@@ -39,7 +40,6 @@
 		93A8806A29F10E46005A4E1B /* DownloadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8806929F10E46005A4E1B /* DownloadProvider.swift */; };
 		93AB39FC29E37737006BF0B9 /* LogItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AB39FB29E37737006BF0B9 /* LogItemInfo.swift */; };
 		93BD359529E6F7A100CB30A9 /* LogsProvider+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */; };
-		93BEA29329E46C4700280DAC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93BEA29129E46C4700280DAC /* Localizable.strings */; };
 		93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BEA29529E46E5900280DAC /* String+Localized.swift */; };
 		93C2748729E3D5DB0033AB01 /* FilesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2748629E3D5DB0033AB01 /* FilesProvider.swift */; };
 		93CCB83E29F70422001B6080 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CCB83D29F70422001B6080 /* HeaderView.swift */; };
@@ -417,10 +417,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93BEA29329E46C4700280DAC /* Localizable.strings in Resources */,
-				9305AF7D29F756390075A312 /* GoogleService-Info.plist in Resources */,
-				93A07CF029E35502000EDA9C /* Assets.xcassets in Resources */,
 				939983FD29E4A31200631A20 /* Service in Resources */,
+				9398F94029F8749300B865CD /* GoogleService-Info.plist in Resources */,
+				9398F93E29F861C200B865CD /* Localizable.strings in Resources */,
+				93A07CF029E35502000EDA9C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,9 +504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DU6489YN3U;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -524,9 +522,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DU6489YN3U;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -662,7 +658,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Resources/UptimeLogger.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
@@ -696,7 +691,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Resources/UptimeLogger.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
