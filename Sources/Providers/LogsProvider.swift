@@ -25,3 +25,13 @@ protocol LogsProvider {
 
     func toggleShutdownAllowed(_ log: LogItemInfo)
 }
+
+extension LogsProvider {
+    func ifCanWrite(callback: @escaping () -> Void){
+        FilesProvider.shared.authorizeIf(isWriteable, folder, callback: callback)
+    }
+    
+    func ifCanRead(finish: Bool = false, callback: @escaping () -> Void){
+        FilesProvider.shared.authorizeIf(isReadable, folder, finish: finish, callback: callback)
+    }
+}

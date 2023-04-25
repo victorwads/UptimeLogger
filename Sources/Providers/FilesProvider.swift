@@ -24,6 +24,29 @@ class FilesProvider {
         return false
     }
     
+    func authorizeIf(_ condition: Bool, _ path: String, finish: Bool = false, callback: @escaping () -> Void) {
+        if(!condition) {
+            let alert = NSAlert()
+            alert.messageText = .localized(.authorizeTitle)
+            alert.informativeText = .localized(.authorizeMessage)
+            alert.alertStyle = .informational
+            alert.addButton(withTitle: .localized(.authorizeConfirm))
+            alert.addButton(withTitle: .localized(.cancel))
+
+            let result = alert.runModal()
+            if result == .alertFirstButtonReturn {
+                authorize(path, false) { _ in
+                    callback()
+                }
+            }
+            if result == .alertSecondButtonReturn && finish {
+                NSApplication.shared.terminate(self)
+            }
+        } else {
+            callback()
+        }
+    }
+    
     func authorize(_ path: String, _ change: Bool, callback: @escaping (String) -> Void){
         if !change && isAutorized(path) {
             callback(path)

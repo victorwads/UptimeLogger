@@ -109,10 +109,12 @@ struct SettingsScreen: View {
     }
     
     func saveConfigs(){
-        if monitoringEnabled {
-            _ = provider.saveSettings(Int(monitoringInterval))
-        } else {
-            _ =  provider.saveSettings(nil)
+        provider.ifCanWrite {
+            if monitoringEnabled {
+                _ = provider.saveSettings(Int(monitoringInterval))
+            } else {
+                _ =  provider.saveSettings(nil)
+            }
         }
     }
     

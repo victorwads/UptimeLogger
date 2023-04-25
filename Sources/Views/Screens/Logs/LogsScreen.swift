@@ -44,16 +44,14 @@ struct LogsScreen: View {
     }
     
     private func toggleItemAction(item: LogItemInfo) {
-        provider.toggleShutdownAllowed(item)
-        loadLogs()
+        provider.ifCanWrite {
+            provider.toggleShutdownAllowed(item)
+            loadLogs()
+        }
     }
     
     private func initLogs(){
-        if(provider.isReadable) {
-            loadLogs()
-            return
-        }
-        FilesProvider.shared.authorize(provider.folder, false) {_ in
+        provider.ifCanRead(finish: true) {
             loadLogs()
         }
     }

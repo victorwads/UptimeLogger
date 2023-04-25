@@ -17,6 +17,7 @@ class LogsProviderFilesSystem: LogsProvider {
     let manager = FileManager.default
 
     init(folder: String = LogsProviderFilesSystem.defaultLogsFolder) {
+        _ = FilesProvider.shared.isAutorized(folder)
         self.folder = folder
     }
     
@@ -86,12 +87,7 @@ class LogsProviderFilesSystem: LogsProvider {
             }
         }
     }
-    
-    
-    
-    
-    
-    
+
     private func getCurrentFileName() -> String {
         do {
             let symlinkPath = folder + "/latest"

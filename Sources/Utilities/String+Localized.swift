@@ -49,6 +49,10 @@ enum Strings: String {
     case detailsNotFound = "details.notfound"
     case detailsNotFoundTip = "details.notfound.tip"
 
+    case authorizeTitle = "authorize.title"
+    case authorizeMessage = "authorize.message"
+    case authorizeConfirm = "authorize.confirm"
+
     case settingsMonitoringService = "settings.monitoring.title"
     case settingsMonitoring = "settings.monitoring.label"
     case settingsInterval = "settings.interval"
