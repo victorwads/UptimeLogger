@@ -1,0 +1,71 @@
+
+"cancel" = "Cancelar";
+/* Date */
+"date.at" = "ás";
+"date.days" = "dias";
+"date.hours" = "horas";
+"date.minutes" = "minutos";
+"date.seconds" = "segundos";
+"date.today" = "hoje";
+"date.yesterday" = "ontem";
+/* Log Details */
+"details.notfound" = "Esse log não tem informações de processos";
+"details.notfound.tip" = "valide se o monitoramento esta ativo em configurações";
+"log.boottime" = "Hora de boot do sistema";
+"log.edited" = "Registro editado";
+/* Log Item */
+"log.help" = "clique para alterar a informação do registro de desligamento";
+"log.normal" = "Desligamento Normal";
+"log.startup" = "Hora de inicio do Serviço";
+"log.sysversion" = "Versão do SO";
+"log.unexpected" = "Desligamento Inesperado";
+"log.uptime" = "Tempo de atividade";
+"logs.details.click" = "Click para ver os detalhes do registro";
+"logs.notfound" = "Nenhum registro encontrado";
+/* Logs */
+"logs.options" = "Opções";
+"logs.options.power" = "Energia: ";
+"logs.options.power.off" = "Energia Desconectada";
+"logs.options.power.on" = "Energia Conectada";
+"logs.options.shutdown" = "Estado: ";
+"logs.options.shutdown.normal" = "Desligamento Normal";
+"logs.options.shutdown.unexpected" = "Desligamento Inesperado";
+"logs.options.sort.long" = "Tempo de Atividade (maior primeiro)";
+"logs.options.sort.new" = "Mais Recentes";
+"logs.options.sort.old" = "Mais Antigos";
+"logs.options.sort.short" = "Tempo de Atividade (menor primeiro)";
+"nav.current" = "Atual";
+/* Navigation */
+"nav.logs" = "Registros";
+"nav.settings" = "Configurações";
+"nav.update" = "Atualizações";
+"options.all" = "Todos";
+/* File Manager */
+"provider.files.openmessage" = "Sem permissão para acessar a pasta de registros\nPara permitir o acesso, selecione a pasta de registros";
+"result.contains" = "contém o termo pesquisado";
+"result.contains.not" = "não contém o termo pesquisado";
+"result.search" = "Pesquisar";
+/* General */
+"results.sort" = "Ordernar por:";
+"settings.developers.title" = "Opções de Desenvolvedor";
+"settings.folders.change" = "Alterar Pasta";
+"settings.folders.clean" = "Limpar Hostórico";
+"settings.folders.history.title" = "Histórico";
+"settings.folders.select" = "Selecionar";
+"settings.interval" = "Intervalo: ";
+"settings.interval.tip" = "salvar processos a cada";
+"settings.monitoring.label" = "Ativar monitoramento de processos";
+/* Settings */
+"settings.monitoring.title" = "Serviço de Monitoramento";
+"update.available" = "Atualização disponível";
+"update.available.no" = "Não há atualizações diponiveis.";
+/* Update */
+"update.current" = "A versão atual é ";
+"update.finish.alert.message" = "O download foi concluído com sucesso. Clique em OK para abrir o arquivo baixado e fechar o programa.";
+"update.finish.alert.now" = "Atualizar agora";
+"update.finish.alert.title" = "Download concluído";
+"update.last" = "A ultima versão disponível é ";
+/* Permissioning */
+"authorize.title" = "Permissão do Sistema de Arquivos";
+"authorize.message" = "É necessário autorizar o accesso a pasta para ler/escrever na pasta de logs e configuracões.\n\nClique em \"abrir\" na caixa de dialogo a seguir.\n";
+"authorize.confirm" = "Autorizar";

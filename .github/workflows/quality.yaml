@@ -1,0 +1,40 @@
+name: Quality
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  localizable:
+    name: Check Localizable.strings
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run script
+        run: bash Pkg/stringsUsesCheck.sh
+
+  testCoverage:
+    name: Build, Test and Gather Coverage
+    runs-on: macos-13
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache Swift packages
+        uses: actions/cache@v3
+        with:
+          path: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: ${{ runner.os }}-xcode-spm-
+
+      - name: Build and UnitTest
+        run: bash Pkg/runBuildTests.sh
+
+      - name: Upload coverage reports to Codecov
+        run: bash <(curl -s https://codecov.io/bash) -J UptimeLogger -t "${{ secrets.CODECOV_TOKEN }}"

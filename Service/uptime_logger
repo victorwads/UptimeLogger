@@ -106,7 +106,6 @@ COUNT=0
 while true; do
 
     LOG="version: $VERSION"$'\n'
-    LOG+="init: $STARTUP"$'\n'
     LOG+="ended: $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
 
     # Verifica o tipo de sistema operacional
