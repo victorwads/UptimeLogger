@@ -13,6 +13,9 @@
 		9305AEE529F754250075A312 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 9305AEE429F754250075A312 /* FirebaseInstallations */; };
 		9305AF7D29F756390075A312 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9305AF7C29F756390075A312 /* GoogleService-Info.plist */; };
 		930D124F29E6746C00456416 /* LegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930D124E29E6746C00456416 /* LegendView.swift */; };
+		933D146729F816C600A573B6 /* AnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D146629F816C600A573B6 /* AnalyticsProvider.swift */; };
+		933D146B29F8178C00A573B6 /* AnalyticsProvider+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D146A29F8178C00A573B6 /* AnalyticsProvider+Firebase.swift */; };
+		933D146D29F817E400A573B6 /* AnalyticsProvider+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D146C29F817E400A573B6 /* AnalyticsProvider+Mock.swift */; };
 		934DC48B29E636870072A25C /* NavigationAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48A29E636870072A25C /* NavigationAppView.swift */; };
 		934DC48D29E638940072A25C /* LogsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48C29E638940072A25C /* LogsScreen.swift */; };
 		934DC48F29E63B640072A25C /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DC48E29E63B640072A25C /* SettingsScreen.swift */; };
@@ -61,6 +64,10 @@
 		93057FD429E3589900D1FD50 /* LogsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsListView.swift; sourceTree = "<group>"; };
 		9305AF7C29F756390075A312 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		930D124E29E6746C00456416 /* LegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegendView.swift; sourceTree = "<group>"; };
+		932998A129F825BE001B7448 /* UptimeLogger.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UptimeLogger.xctestplan; sourceTree = "<group>"; };
+		933D146629F816C600A573B6 /* AnalyticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsProvider.swift; sourceTree = "<group>"; };
+		933D146A29F8178C00A573B6 /* AnalyticsProvider+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyticsProvider+Firebase.swift"; sourceTree = "<group>"; };
+		933D146C29F817E400A573B6 /* AnalyticsProvider+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyticsProvider+Mock.swift"; sourceTree = "<group>"; };
 		934DC48A29E636870072A25C /* NavigationAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAppView.swift; sourceTree = "<group>"; };
 		934DC48C29E638940072A25C /* LogsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsScreen.swift; sourceTree = "<group>"; };
 		934DC48E29E63B640072A25C /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
@@ -95,7 +102,6 @@
 		93CCB83F29F70E14001B6080 /* MonoText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoText.swift; sourceTree = "<group>"; };
 		93CCB84129F713E9001B6080 /* LogsProvider+WithFileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+WithFileSystem.swift"; sourceTree = "<group>"; };
 		93CCB84329F71400001B6080 /* LogsProvider+WithMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogsProvider+WithMock.swift"; sourceTree = "<group>"; };
-		93ED9F9629ED0691009CBCED /* UptimeLogger.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UptimeLogger.xctestplan; sourceTree = "<group>"; };
 		93ED9F9A29ED2034009CBCED /* AppScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScheme.swift; sourceTree = "<group>"; };
 		93ED9F9C29ED23FE009CBCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93F4070529EF5BFA00EEDE7B /* ProcessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfo.swift; sourceTree = "<group>"; };
@@ -123,6 +129,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		933D146829F8174800A573B6 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				938F6D6129E3909000DACB7A /* LogsProvider.swift */,
+				933D146629F816C600A573B6 /* AnalyticsProvider.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		933D146929F8175600A573B6 /* IImplementations */ = {
+			isa = PBXGroup;
+			children = (
+				933D146A29F8178C00A573B6 /* AnalyticsProvider+Firebase.swift */,
+				93CCB84129F713E9001B6080 /* LogsProvider+WithFileSystem.swift */,
+				93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */,
+			);
+			path = IImplementations;
+			sourceTree = "<group>";
+		};
+		933D146E29F817EA00A573B6 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				933D146C29F817E400A573B6 /* AnalyticsProvider+Mock.swift */,
+				93CCB84329F71400001B6080 /* LogsProvider+WithMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		934DC48329E635AA0072A25C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,7 +195,6 @@
 				93A07CEF29E35502000EDA9C /* Assets.xcassets */,
 				93BEA29129E46C4700280DAC /* Localizable.strings */,
 				93A07CF429E35502000EDA9C /* UptimeLogger.entitlements */,
-				93ED9F9629ED0691009CBCED /* UptimeLogger.xctestplan */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -180,12 +213,11 @@
 		938F6D5F29E3905B00DACB7A /* Providers */ = {
 			isa = PBXGroup;
 			children = (
+				933D146E29F817EA00A573B6 /* Mocks */,
+				933D146929F8175600A573B6 /* IImplementations */,
+				933D146829F8174800A573B6 /* Protocols */,
 				93A8806929F10E46005A4E1B /* DownloadProvider.swift */,
 				93C2748629E3D5DB0033AB01 /* FilesProvider.swift */,
-				938F6D6129E3909000DACB7A /* LogsProvider.swift */,
-				93CCB84129F713E9001B6080 /* LogsProvider+WithFileSystem.swift */,
-				93CCB84329F71400001B6080 /* LogsProvider+WithMock.swift */,
-				93BD359429E6F7A100CB30A9 /* LogsProvider+Settings.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -203,6 +235,7 @@
 		939E085D29ECF07000D7AA6D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				932998A129F825BE001B7448 /* UptimeLogger.xctestplan */,
 				939E085E29ECF07000D7AA6D /* UptimeLoggerTests.swift */,
 				93F4070729EF5CE900EEDE7B /* ProcessInfoTests.swift */,
 				93A8806529F1076E005A4E1B /* VersionTests.swift */,
@@ -415,11 +448,14 @@
 				93BEA29629E46E5900280DAC /* String+Localized.swift in Sources */,
 				934DC48D29E638940072A25C /* LogsScreen.swift in Sources */,
 				93CCB83E29F70422001B6080 /* HeaderView.swift in Sources */,
+				933D146B29F8178C00A573B6 /* AnalyticsProvider+Firebase.swift in Sources */,
 				93A8805729EF94CF005A4E1B /* ProcessView.swift in Sources */,
 				938F6D6229E3909000DACB7A /* LogsProvider.swift in Sources */,
 				93A8805B29EF97E6005A4E1B /* LogDetailsScreen.swift in Sources */,
 				93F4070629EF5BFA00EEDE7B /* ProcessInfo.swift in Sources */,
+				933D146729F816C600A573B6 /* AnalyticsProvider.swift in Sources */,
 				93CCB84029F70E14001B6080 /* MonoText.swift in Sources */,
+				933D146D29F817E400A573B6 /* AnalyticsProvider+Mock.swift in Sources */,
 				938F6D6629E3B02E00DACB7A /* LogItemView.swift in Sources */,
 				938CD47529F7201600A225A3 /* ThreeCaseState.swift in Sources */,
 				937ED70E29EBB22200CFBAB4 /* Locales.swift in Sources */,

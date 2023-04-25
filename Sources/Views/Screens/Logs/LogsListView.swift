@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import FirebaseAnalytics
 
 struct LogsListView: View {
     
@@ -17,6 +16,8 @@ struct LogsListView: View {
     @State private var sortOrder: LogSortOrder = .dateDescending
     @State private var filterPowerStatus: ThreeCaseState = .all
     @State private var filterShutdownAllowed: ThreeCaseState = .all
+    
+    var analytics: AnalyticsProvider { UptimeLoggerApp.analytics }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -103,24 +104,13 @@ struct LogsListView: View {
                 LegendView().padding(.vertical)
             }
         }.onChange(of: sortOrder){ order in
-            Analytics.logEvent("logs_sort", parameters: [
-              "name": "sort",
-              "full_text": String(describing: _sortOrder.wrappedValue)
-            ])
+            analytics.event("logs_sort", "sort", _sortOrder.wrappedValue)
         }.onChange(of: filterPowerStatus) { filter in
-            Analytics.logEvent("logs_filter_power_status", parameters: [
-              "name": "filter_power_status",
-              "full_text": String(describing: _filterPowerStatus.wrappedValue)
-            ])
+            analytics.event("logs_filter_power_status", "filter_power_status", _filterPowerStatus.wrappedValue)
         }.onChange(of: filterShutdownAllowed) { filter in
-            Analytics.logEvent("logs_filter_shutdown_status", parameters: [
-              "name": "filter_shutdown_status",
-              "full_text": String(describing: _filterShutdownAllowed.wrappedValue)
-            ])
+            analytics.event("logs_filter_shutdown_status", "filter_shutdown_status", _filterShutdownAllowed.wrappedValue)
         }.onChange(of: showFilters) { filter in
-            Analytics.logEvent("logs_show_filter", parameters: [
-              "name": "show_filter" as NSObject
-            ])
+            analytics.event("logs_show_filter", "show_filter", _showFilters.wrappedValue)
         }
     }
     

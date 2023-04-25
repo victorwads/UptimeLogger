@@ -2,7 +2,7 @@ name: Quality
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main" ]
 
@@ -37,4 +37,4 @@ jobs:
         run: bash Pkg/runBuildTests.sh
 
       - name: Upload coverage reports to Codecov
-        run: bash <(curl -s https://codecov.io/bash) -J UptimeLogger -t "${{ secrets.CODECOV_TOKEN }}"
+        run: bash <(curl -s https://codecov.io/bash) -J UptimeLogger -t "${{ secrets.CODECOV_TOKEN }}" -B "${GITHUB_REF#refs/heads/}"

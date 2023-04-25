@@ -6,16 +6,27 @@ UNINSTALLER_NAME="Uninstall"
 CACHE_FOLDER="cache"
 APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
 DMG_FOLDER="$CACHE_FOLDER/dmg"
+GRELEASE="../../GoogleService-Info.plist"
+
 
 # Apagando logs de teste
 rm -f ../Service/logs/*
+
+# Apagando logs de teste
+if [ ! -f "$GRELEASE" ]; then
+    echo "$GRELEASE not found"
+    exit 1
+fi
+
+echo "\033[32mCopiando Google Release Configs\033[0m"
+cp "$GRELEASE" "../Resources/"
 
 # Apaga caches anteriores
 echo "\033[32mBuildando app release\033[0m"
 xcodebuild  -project ../UptimeLogger.xcodeproj\
             -scheme UptimeLogger -configuration Release\
             -destination 'generic/platform=macOS'\
-            -derivedDataPath "$CACHE_FOLDER" > /dev/null
+            -derivedDataPath "$CACHE_FOLDER" -quiet
 
 echo "\033[32mIdentificando Versão do Projeto\033[0m"
 VERSION=$(xcodebuild -project ../UptimeLogger.xcodeproj -showBuildSettings | awk '/MARKETING_VERSION/ { print $3 }' | sed 's/[[:space:]]//g')

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import FirebaseAnalytics
 
 struct NavigationAppView: View {
     let provider: LogsProvider
@@ -39,6 +38,7 @@ struct MenuView: View {
 
     @State private var selectedScreen: Int? = 1
 
+    var analytics: AnalyticsProvider { UptimeLoggerApp.analytics }
     let provider: LogsProvider
     let name: String
     let version: String
@@ -53,13 +53,7 @@ struct MenuView: View {
             Divider()
             List() {
                 NavigationLink(destination: LogsScreen(provider: provider).onAppear {
-                    Analytics.logEvent(
-                        AnalyticsEventScreenView,
-                        parameters: [
-                            AnalyticsParameterScreenName: "Logs",
-                            AnalyticsParameterScreenClass: "LogsScreen"
-                        ]
-                    )
+                    analytics.screen("Logs", "LogsScreen")
                 }, tag: logsTag, selection: $selectedScreen) {
                     Label(.key(.navLogs), systemImage: MenuView.iconLogs)
                 }
@@ -67,35 +61,17 @@ struct MenuView: View {
                     provider: provider,
                     logFile: provider.loadCurrentLog()
                 ).onAppear {
-                    Analytics.logEvent(
-                        AnalyticsEventScreenView,
-                        parameters: [
-                            AnalyticsParameterScreenName: "Currentlog",
-                            AnalyticsParameterScreenClass: "LogDetailsScreen"
-                        ]
-                    )
+                    analytics.screen("Currentlog", "LogDetailsScreen")
                 }, tag: currentTag, selection: $selectedScreen) {
                     Label(.key(.navCurrent), systemImage: MenuView.iconCurrent)
                 }
                 NavigationLink(destination: SettingsScreen(provider: provider).onAppear {
-                    Analytics.logEvent(
-                        AnalyticsEventScreenView,
-                        parameters: [
-                            AnalyticsParameterScreenName: "Settings",
-                            AnalyticsParameterScreenClass: "SettingsScreen"
-                        ]
-                    )
+                    analytics.screen("Settings", "SettingsScreen")
                 }, tag: 2, selection: $selectedScreen) {
                     Label(.key(.navSettings), systemImage: MenuView.iconSettings)
                 }
                 NavigationLink(destination: UpdateScreen().onAppear {
-                    Analytics.logEvent(
-                        AnalyticsEventScreenView,
-                        parameters: [
-                            AnalyticsParameterScreenName: "Find Update",
-                            AnalyticsParameterScreenClass: "UpdateScreen"
-                        ]
-                    )
+                    analytics.screen("Find Update", "UpdateScreen")
                 }, tag: installTag, selection: $selectedScreen) {
                     Label(.key(.navUpdate), systemImage: MenuView.iconUpdate)
                 }
