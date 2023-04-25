@@ -25,3 +25,4 @@
 Pkg/cache/
 Pkg/*.dmg
 Pkg/*.pkg
+GoogleService-Info.plist

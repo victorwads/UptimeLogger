@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseInstallations
 
 @main
 struct UptimeLoggerApp: App {
@@ -14,6 +16,8 @@ struct UptimeLoggerApp: App {
     @Environment(\.openURL) var openURL
     
     @AppStorage("logsFolder") var storedFolder: String = LogsProviderFilesSystem.defaultLogsFolder
+    
+    let firebaseConfiguration: Void = FirebaseApp.configure()
 
     var body: some Scene {
         let provider = LogsProviderFilesSystem(folder: storedFolder)

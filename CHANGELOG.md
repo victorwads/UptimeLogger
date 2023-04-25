@@ -11,12 +11,12 @@
 
 * 2.3 - WIP
   * App
-    * Change App Name from `Uptime Logger` to `Power Vigilant`
     * Logs Screen: new layout
     * Details Screen: improve layout
     * Code
       * Fix App Localization and add French
       * Swift UI Refactor
+      * Add firebase for Analitycs and Crashlytics
   * Monitoring Service
     * Minor improvements
     * Remove `init:` from log contract

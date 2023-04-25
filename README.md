@@ -1,4 +1,4 @@
-# Power Vigilant
+# Uptime Logger
 
 ![Xcode 14.3](https://img.shields.io/badge/Xcode-14.3-blue.svg)
 ![Swift Language](https://img.shields.io/badge/language-Swift-green.svg)

@@ -11,7 +11,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let allowedMenus: [String] = [
         //Strings.menuLogs.value
     ]
-
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        UserDefaults.standard.register(
+          defaults: ["NSApplicationCrashOnExceptions" : true]
+        )
+    }
+    
     func applicationWillUpdate(_ notification: Notification) {
         if let menus = NSApplication.shared.mainMenu {
             if(menus.items.count < (allowedMenus.count + 1)){
