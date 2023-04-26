@@ -19,6 +19,7 @@
       ]
     },
     "diagnosticCollectionPolicy" : "Always",
+    "language" : "pt-BR",
     "targetForVariableExpansion" : {
       "containerPath" : "container:UptimeLogger.xcodeproj",
       "identifier" : "939E085B29ECF07000D7AA6D",

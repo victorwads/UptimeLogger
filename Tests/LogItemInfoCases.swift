@@ -8,7 +8,7 @@
 import XCTest
 @testable import UptimeLogger
 
-final class LogItemInfoTests: XCTestCase {
+final class LogItemInfoCases: XCTestCase {
     
     func testLogItemInfoInitialization() throws {
         let fileName = "log_2023-04-17_00-13-40.txt"
@@ -47,6 +47,68 @@ logprocess: true
         XCTAssertEqual(logItemInfo.scriptEndTime, expectedEndTime)
     }
     
+    func testEmptyInfos() throws {
+        let content = """
+version:
+init:
+ended:
+sysversion:
+batery:
+charging:
+boottime:
+uptime:
+logprocessinterval:
+logprocess:
+last record:
+lastrecord:
+"""
+        let logItemInfo = LogItemInfo(fileName: "", content: content)
+        
+        XCTAssertEqual(logItemInfo.version, 1)
+        XCTAssertEqual(logItemInfo.systemVersion, nil)
+        XCTAssertEqual(logItemInfo.batery, nil)
+        XCTAssertEqual(logItemInfo.charging, nil)
+        XCTAssertEqual(logItemInfo.systemBootTime, nil)
+        XCTAssertEqual(logItemInfo.systemUptime, nil)
+        XCTAssertEqual(logItemInfo.logProcessInterval, nil)
+        XCTAssertEqual(logItemInfo.hasProcess, false)
+        XCTAssertEqual(logItemInfo.shutdownAllowed, false)
+        XCTAssertEqual(logItemInfo.edited, false)
+        XCTAssertEqual(logItemInfo.scriptStartTime, Date.distantPast)
+        XCTAssertEqual(logItemInfo.scriptEndTime, nil)
+    }
+    
+    func testInvalidInfos() throws {
+        let content = """
+version: invalidinfo
+init: invalidinfo
+ended: invalidinfo
+sysversion: invalidinfo
+batery: invalidinfo
+charging: invalidinfo
+boottime: invalidinfo
+uptime: invalidinfo
+logprocessinterval: invalidinfo
+logprocess: invalidinfo
+last record: invalidinfo
+lastrecord: invalidinfo
+"""
+        let logItemInfo = LogItemInfo(fileName: "", content: content)
+        
+        XCTAssertEqual(logItemInfo.version, 1)
+        XCTAssertEqual(logItemInfo.systemVersion, "invalidinfo")
+        XCTAssertEqual(logItemInfo.batery, nil)
+        XCTAssertEqual(logItemInfo.charging, nil)
+        XCTAssertEqual(logItemInfo.systemBootTime, nil)
+        XCTAssertEqual(logItemInfo.systemUptime, nil)
+        XCTAssertEqual(logItemInfo.logProcessInterval, nil)
+        XCTAssertEqual(logItemInfo.hasProcess, false)
+        XCTAssertEqual(logItemInfo.shutdownAllowed, false)
+        XCTAssertEqual(logItemInfo.edited, false)
+        XCTAssertEqual(logItemInfo.scriptStartTime, Date.distantPast)
+        XCTAssertEqual(logItemInfo.scriptEndTime, nil)
+    }
+
     func testFromOldVersionWithoutDay() throws {
         let content = """
 version: 1
@@ -58,12 +120,8 @@ last record: 02:53:58
         XCTAssertEqual(logItemInfo.systemUptime, (2 * 60 * 60) + (53 * 60) + 58)
     }
     
-    func testFromOldVersionAndTestNotBateryMacs() throws {
+    func testFromOldVersion() throws {
         let content = """
-version:
-ended:
-batery:
-charging: false
 last record: 1 days, 02:53:58
 """
         let logItemInfo = LogItemInfo(fileName: "", content: content)
@@ -74,51 +132,43 @@ last record: 1 days, 02:53:58
 
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemUptime, TimeInterval(seconds))
-        XCTAssertEqual(logItemInfo.charging, false)
-        XCTAssertEqual(logItemInfo.batery, nil)
     }
 
-    func testLogItemInfoShutDownAllowedManually() throws {
+    func testShutDownAllowedManually() throws {
         let fileName = "log_2023-04-17_00-13-40.txt"
         let content = """
 manually: shutdown allowed
 """
         let logItemInfo = LogItemInfo(fileName: fileName, content: content)
         
-        XCTAssertEqual(logItemInfo.fileName, fileName)
-        XCTAssertEqual(logItemInfo.version, 1)
-        XCTAssertEqual(logItemInfo.systemVersion, nil)
-        XCTAssertEqual(logItemInfo.batery, nil)
-        XCTAssertEqual(logItemInfo.charging, nil)
-        XCTAssertEqual(logItemInfo.systemBootTime, nil)
-        XCTAssertEqual(logItemInfo.systemUptime, nil)
-        XCTAssertEqual(logItemInfo.logProcessInterval, nil)
-        XCTAssertEqual(logItemInfo.hasProcess, false)
         XCTAssertEqual(logItemInfo.shutdownAllowed, true)
         XCTAssertEqual(logItemInfo.edited, true)
     }
+
+    func testShutDownAllowedManuallyAndAuto() throws {
+        let fileName = "log_2023-04-17_00-13-40.txt"
+        let content = """
+shutdown allowed
+manually: shutdown allowed
+"""
+        let logItemInfo = LogItemInfo(fileName: fileName, content: content)
+        
+        XCTAssertEqual(logItemInfo.shutdownAllowed, true)
+        XCTAssertEqual(logItemInfo.edited, false)
+    }
     
-    func testLogItemInfoShutDownAllowedUndo() throws {
+    func testShutDownAllowedUndo() throws {
         let fileName = "log_2023-04-17_00-13-40.txt"
         let content = """
 manually: shutdown unexpected
 """
         let logItemInfo = LogItemInfo(fileName: fileName, content: content)
         
-        XCTAssertEqual(logItemInfo.fileName, fileName)
-        XCTAssertEqual(logItemInfo.version, 1)
-        XCTAssertEqual(logItemInfo.systemVersion, nil)
-        XCTAssertEqual(logItemInfo.batery, nil)
-        XCTAssertEqual(logItemInfo.charging, nil)
-        XCTAssertEqual(logItemInfo.systemBootTime, nil)
-        XCTAssertEqual(logItemInfo.systemUptime, nil)
-        XCTAssertEqual(logItemInfo.logProcessInterval, nil)
-        XCTAssertEqual(logItemInfo.hasProcess, false)
         XCTAssertEqual(logItemInfo.shutdownAllowed, false)
         XCTAssertEqual(logItemInfo.edited, false)
     }
     
-    func testLogItemInfoShutDownDenyedManually() throws {
+    func testShutDownDenyedManually() throws {
         let fileName = "log_2023-04-17_00-13-40.txt"
         let content = """
 shutdown allowed
@@ -126,15 +176,6 @@ manually: shutdown unexpected
 """
         let logItemInfo = LogItemInfo(fileName: fileName, content: content)
         
-        XCTAssertEqual(logItemInfo.fileName, fileName)
-        XCTAssertEqual(logItemInfo.version, 1)
-        XCTAssertEqual(logItemInfo.systemVersion, nil)
-        XCTAssertEqual(logItemInfo.batery, nil)
-        XCTAssertEqual(logItemInfo.charging, nil)
-        XCTAssertEqual(logItemInfo.systemBootTime, nil)
-        XCTAssertEqual(logItemInfo.systemUptime, nil)
-        XCTAssertEqual(logItemInfo.logProcessInterval, nil)
-        XCTAssertEqual(logItemInfo.hasProcess, false)
         XCTAssertEqual(logItemInfo.shutdownAllowed, false)
         XCTAssertEqual(logItemInfo.edited, true)
     }

@@ -43,10 +43,10 @@ final class LogItemInfoTestsExtension: XCTestCase {
     }
 
     func testFormatedSeconds() throws {
-        let content = "uptime: 1"
+        let content = "uptime: 3"
         let logItemInfo = LogItemInfo(fileName: "", content: content)
         
-        XCTAssertEqual(logItemInfo.formattedUptime, "1 segundos")
+        XCTAssertEqual(logItemInfo.formattedUptime, "3 segundos")
     }
     
     func testStartUpFormat() {
@@ -75,18 +75,16 @@ final class LogItemInfoTestsExtension: XCTestCase {
 
     func testEndtimeFormat() {
         let logItemInfo = LogItemInfo(fileName: "", content: "ended: 2022-07-24_12-15-05")
-
         XCTAssertEqual(logItemInfo.formattedEndtime, " 24/07/2022 ás 12:15:05")
-    }
-
-    func testBootimeFormat() {
-        let logItemInfo = LogItemInfo(fileName: "", content: "boottime:")
-
-        XCTAssertEqual(logItemInfo.formattedBoottime, "31/12/1969 ás 21:00:01")
     }
 
     func testEndtimeFormatNull() {
         XCTAssertEqual(LogItemInfo.empty.formattedEndtime, "")
+    }
+
+    func testBootimeFormat() {
+        let logItemInfo = LogItemInfo(fileName: "", content: "boottime:")
+        XCTAssertEqual(logItemInfo.formattedBoottime, nil)
     }
 
     func testBootimeFormatNull() {
