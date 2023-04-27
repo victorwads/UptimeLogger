@@ -15,7 +15,6 @@ function header() {
         echo -e "\n\033[31mfalha\033[0m"
         exit 1
     fi
-    echo ""
     echo -e "\n\033[32m ($I/$S) - $1\033[0m"
     I=$((I + 1))
 }

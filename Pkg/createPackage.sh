@@ -9,22 +9,15 @@ APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
 GRELEASE="../GoogleService-Info.plist"
 if [ ! -f "$GRELEASE" ]; then echo -e "\033[31m$GRELEASE not found\033[0m"; exit 1; fi
 
-echo "CACHE_FOLDER: $CACHE_FOLDER"
-echo "DMG_FOLDER: $DMG_FOLDER"
-echo "APP_FOLDER: $APP_FOLDER"
-echo "GRELEASE: $GRELEASE"
-
 S=12;I=1;
 
 header "Identificando Certificados e Versão do Projeto"
-VERSION=$(awk -F': ' '/CFBundleShortVersionString/{print $2}' project.yml)
+VERSION=$(awk -F'\"' '/CFBundleShortVersionString/{print $2}' project.yml)
 TEAM_ID=$(awk -F': ' '/DEVELOPMENT_TEAM/{print $2}' project.yml)
-APP_CERT=$(security find-certificate -c "Developer ID Application" -Z | awk -F'"' '/alis/ {print $4}')
+#APP_CERT=$(security find-certificate -c "Developer ID Application" -Z | awk -F'"' '/alis/ {print $4}')
 INSTALLER_CERT=$(security find-certificate -c "Developer ID Installer" -Z | awk -F'"' '/alis/ {print $4}')
 echo "VERSION: $VERSION"
 echo "TEAM_ID: $TEAM_ID"
-echo "APP_CERT: $APP_CERT"
-echo "INSTALLER_CERT: $INSTALLER_CERT"
 
 header "Copiando Google Release Configs"
 cp "$GRELEASE" "Resources/"
@@ -33,7 +26,12 @@ mkdir "$DMG_FOLDER"
 
 header "Apangando dados anteriores e logs de teste"
 rm -rf Service/logs/
-rm -f **/*.dmg
+rm -f ./**/*.dmg
+
+header "Buildando service"
+shc -f Service/uptime_logger.sh -o Service/UptimeLoggerService
+ret=$?
+rm Service/uptime_logger.sh.*
 
 header "Gerando projeto"
 xcodegen
@@ -44,11 +42,11 @@ xcodebuild -project $PROJECT -scheme UptimeLogger -configuration Release \
     -derivedDataPath "$CACHE_FOLDER" -quiet
 ret=$?
 
-header "Assinando app"
-codesign --deep --force --verbose --options runtime \
-    --all-architectures --entitlements "Resources/Release.entitlements" \
-    --sign "$APP_CERT" "$APP_FOLDER"
-ret=$?
+# header "Assinando app"
+# codesign --deep --force --verbose --options runtime \
+#     --all-architectures --entitlements "Resources/Release.entitlements" \
+#     --sign "$APP_CERT" "$APP_FOLDER"
+# ret=$?
 
 header "Criando Instalador"
 pkgbuild --root "$APP_FOLDER" --install-location "/Applications/UptimeLogger.app" --scripts "$SCRIPT_DIR/Install"\

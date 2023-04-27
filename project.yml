@@ -26,10 +26,10 @@ targets:
     sources:
       - path: Sources
       - path: Resources
-      - path: Service
+      - path: Service/UptimeLoggerService
         buildPhase:
           copyFiles:
-            destination: resources
+            destination: executables
     scheme:
       language: pt-BR
       gatherCoverageData: true
@@ -48,13 +48,10 @@ targets:
           CODE_SIGN_STYLE: Automatic
           DEVELOPMENT_TEAM: DU6489YN3U
     info:
-      path: Info.plist
+      path: Resources/Info.plist
       properties:
         CFBundleDisplayName: Uptime Logger
-        CFBundleShortVersionString: 2.3.1
-        CFBundleVersion: 1
-        CFBundleExecutable: UptimeLogger
-        CFBundlePackageType: APPL
+        CFBundleShortVersionString: "2.4"
         CFBundleURLTypes:
           - CFBundleURLName: "uptimelogger"
             CFBundleURLSchemes:
