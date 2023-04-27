@@ -6,6 +6,7 @@ export BUNDLE_NAME="br.com.victorwads.UptimeLogger"
 export SCHEME="UptimeLogger"
 export PROJECT="$SCHEME.xcodeproj"
 export SCRIPT_DIR="Pkg"
+export ACCOUNT_PROFILE="notorytool"
 
 if [ -z "${ret+x}" ]; then
   ret=0

@@ -3,21 +3,28 @@
 source Pkg/projectConfig.sh
 clear
 
-CACHE_FOLDER="$SCRIPT_DIR/cache"
-DMG_FOLDER="$CACHE_FOLDER/dmg"
-APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
 GRELEASE="../GoogleService-Info.plist"
 if [ ! -f "$GRELEASE" ]; then echo -e "\033[31m$GRELEASE not found\033[0m"; exit 1; fi
 
-S=12;I=1;
+S=21;I=1;
 
-header "Identificando Certificados e Versão do Projeto"
+header "Identificando Certificados e Versão do Projeto e variaveis"
 VERSION=$(awk -F'\"' '/CFBundleShortVersionString/{print $2}' project.yml)
 TEAM_ID=$(awk -F': ' '/DEVELOPMENT_TEAM/{print $2}' project.yml)
 APP_CERT=$(security find-certificate -c "Developer ID Application" -Z | awk -F'"' '/alis/ {print $4}')
 INSTALLER_CERT=$(security find-certificate -c "Developer ID Installer" -Z | awk -F'"' '/alis/ {print $4}')
+CACHE_FOLDER="$SCRIPT_DIR/cache"
+APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/$SCHEME.app"
+DMG_FOLDER="$CACHE_FOLDER/dmg"
+DMG_NAME="UptimeLogger-$VERSION.dmg"
 echo "VERSION: $VERSION"
 echo "TEAM_ID: $TEAM_ID"
+echo "APP_CERT: $APP_CERT"
+echo "INSTALLER_CERT: $INSTALLER_CERT"
+echo "CACHE_FOLDER: $CACHE_FOLDER"
+echo "APP_FOLDER: $APP_FOLDER"
+echo "DMG_FOLDER: $DMG_FOLDER"
+echo "DMG_NAME: $DMG_NAME"
 
 header "Copiando Google Release Configs"
 cp "$GRELEASE" "Resources/"
@@ -28,11 +35,6 @@ header "Apangando dados anteriores e logs de teste"
 rm -rf Service/logs/
 rm -f ./**/*.dmg
 
-header "Buildando service"
-shc -f Service/uptime_logger.sh -o Service/UptimeLoggerService
-ret=$?
-rm Service/uptime_logger.sh.*
-
 header "Gerando projeto"
 xcodegen
 
@@ -42,9 +44,25 @@ xcodebuild -project $PROJECT -scheme UptimeLogger -configuration Release \
     -derivedDataPath "$CACHE_FOLDER" -quiet
 ret=$?
 
-header "Assinando Serviço"
-codesign --verbose --options runtime \
-    --sign "$APP_CERT" "$APP_FOLDER/Contents/MacOS/UptimeLoggerService"
+#header "Assinando app localmente"
+# codesign --timestamp --force --deep --verbose --all-architectures -o runtime \
+#     --entitlements "Resources/Release.entitlements" \
+#     --sign "$APP_CERT" -i "$BUNDLE_NAME" \
+#     "$APP_FOLDER"
+
+ret=$?
+codesign -dvv $APP_FOLDER
+
+header "Submentendo app para validação da Apple"
+ZIP_PATH="$CACHE_FOLDER/$SCHEME.app.zip"
+/usr/bin/ditto -c -k --keepParent "$APP_FOLDER" "$ZIP_PATH"
+xcrun notarytool submit "$ZIP_PATH" \
+    --keychain-profile "$ACCOUNT_PROFILE" \
+    --wait
+ret=$?
+
+header "Marcando validação no app"
+xcrun stapler staple "$APP_FOLDER"
 ret=$?
 
 header "Criando Instalador"
@@ -59,20 +77,60 @@ pkgbuild --nopayload --scripts "$SCRIPT_DIR/Uninstall"\
     "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg"
 ret=$?
 
-header "Assinando pacotes"
-productsign --sign "$INSTALLER_CERT" "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
-ret=$?
-productsign --sign "$INSTALLER_CERT" "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+header "Assinando pacotes de instalação pkg localmente"
+productsign --timestamp --sign \
+    "$INSTALLER_CERT" "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
 ret=$?
 
-header "Criando dmg de instalação"
+productsign --timestamp --sign \
+    "$INSTALLER_CERT" "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+ret=$?
+
+header "Submentendo Instalador para validação da Apple"
+xcrun notarytool submit "$DMG_FOLDER/$INSTALLER_NAME.pkg" \
+    --keychain-profile "$ACCOUNT_PROFILE" \
+    --wait
+ret=$?
+
+header "Marcando validação no instalador"
+xcrun stapler staple "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+ret=$?
+
+header "Submentendo Desinstalador para validação da Apple"
+xcrun notarytool submit "$DMG_FOLDER/$UNINSTALLER_NAME.pkg" \
+    --keychain-profile "$ACCOUNT_PROFILE" \
+    --wait
+ret=$?
+
+header "Marcando validação no desinstalador"
+xcrun stapler staple "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+ret=$?
+
+header "Criando imagem dmg"
 hdiutil create -volname "UptimeLogger" \
     -srcfolder "$DMG_FOLDER" \
     -ov -format UDZO\
-    "UptimeLogger-$VERSION.dmg"
+    "$DMG_NAME"
+ret=$?
+
+header "Assinando dmg localmente"
+codesign --verbose --options runtime \
+    --sign "$APP_CERT" "$DMG_NAME"
+ret=$?
+
+header "Submentendo imagem dmg para validação da Apple"
+xcrun notarytool submit "$DMG_NAME" \
+    --keychain-profile "$ACCOUNT_PROFILE" \
+    --wait
+ret=$?
+
+header "Marcando validação na imagem dmg"
+xcrun stapler staple "$DMG_NAME"
+ret=$?
 
 # cp "$DMG_FOLDER/$INSTALLER_NAME.pkg" "./$INSTALLER_NAME.pkg"
 # cp -R "$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app" ./
+# exit 0
 
 header "Criando Tag do Git"
 tag_exist=$(git --no-pager tag --list "$VERSION")
