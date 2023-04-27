@@ -110,8 +110,7 @@ while true; do
 
     # Verifica o tipo de sistema operacional
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        kernelboottime=$(sysctl -n kern.boottime)
-        boottimestamp=$(echo $kernelboottime | sed 's/^.*sec = \([0-9]*\), usec.*$/\1/')
+        boottimestamp=$(sysctl -n kern.boottime | awk -F'[, ]' '{print $4}')
         currenttimestamp=$(date +%s)
         elapsedtime=$((currenttimestamp - boottimestamp))
         battery=$(pmset -g batt)

@@ -15,8 +15,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run script
-        run: bash Pkg/stringsUsesCheck.sh
+      - name: Strings Check
+        run: bash Pkg/runStringsCheck.sh
 
   testCoverage:
     name: Build, Test and Gather Coverage
@@ -29,12 +29,18 @@ jobs:
       - name: Cache Swift packages
         uses: actions/cache@v3
         with:
-          path: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          path: /Users/runner/Library/Developer/Xcode/DerivedData/
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/project.yaml') }}
           restore-keys: ${{ runner.os }}-xcode-spm-
 
-      - name: Build and UnitTest
-        run: bash Pkg/runBuildTests.sh
+      - name: xcodegen
+        uses: xavierLowmiller/xcodegen-action@1.1.2
+
+      - name: Build
+        run: bash Pkg/runBuild.sh
+
+      - name: Run Tests
+        run: bash Pkg/runTests.sh
 
       - name: Upload coverage reports to Codecov
         run: bash <(curl -s https://codecov.io/bash) -J UptimeLogger -t "${{ secrets.CODECOV_TOKEN }}" -B "${GITHUB_REF#refs/heads/}"

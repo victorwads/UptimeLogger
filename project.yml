@@ -1,0 +1,69 @@
+name: UptimeLogger
+options:
+  xcodeVersion: 14.3
+  bundleIdPrefix: br.com.victorwads
+  groupOrdering: 
+    - order: [Service, Tests, Resources, Sources]
+    - pattern: '^.*Screen$'
+      order: [View, Presenter, Interactor, Entities, Assembly]
+packages:
+  firebase-ios-sdk:
+    url: https://github.com/firebase/firebase-ios-sdk
+    exactVersion: 10.8.1
+targets:
+  UptimeLogger:
+    type: application
+    platform: macOS
+    deploymentTarget:
+      macos: "11.0"
+    dependencies:
+      - package: firebase-ios-sdk
+        product: FirebaseAnalytics
+      - package: firebase-ios-sdk
+        product: FirebaseCrashlytics
+      - package: firebase-ios-sdk
+        product: FirebaseInstallations
+    sources:
+      - path: Sources
+      - path: Resources
+      - path: Service
+        buildPhase:
+          copyFiles:
+            destination: resources
+    scheme:
+      language: pt-BR
+      gatherCoverageData: true
+      coverageTargets:
+        - UptimeLogger
+      testTargets:
+        - UptimeLoggerTests
+    settings:
+      configs:
+        Debug:
+          CODE_SIGN_ENTITLEMENTS: Resources/Debug.entitlements
+          CODE_SIGN_IDENTITY: "-"
+        Release:
+          CODE_SIGN_ENTITLEMENTS: Resources/Release.entitlements
+          CODE_SIGN_IDENTITY: "Apple Development"
+          CODE_SIGN_STYLE: Automatic
+          DEVELOPMENT_TEAM: DU6489YN3U
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: Uptime Logger
+        CFBundleShortVersionString: 2.3.1
+        CFBundleVersion: 1
+        CFBundleExecutable: UptimeLogger
+        CFBundlePackageType: APPL
+        CFBundleURLTypes:
+          - CFBundleURLName: "uptimelogger"
+            CFBundleURLSchemes:
+              - uptimelogger
+  UptimeLoggerTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: UptimeLogger
+
