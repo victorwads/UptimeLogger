@@ -3,9 +3,6 @@
 source Pkg/projectConfig.sh
 clear
 
-GRELEASE="../GoogleService-Info.plist"
-if [ ! -f "$GRELEASE" ]; then echo -e "\033[31m$GRELEASE not found\033[0m"; exit 1; fi
-
 S=21;I=1;
 
 header "Identificando Certificados e Versão do Projeto e variaveis"
@@ -26,8 +23,8 @@ echo "APP_FOLDER: $APP_FOLDER"
 echo "DMG_FOLDER: $DMG_FOLDER"
 echo "DMG_NAME: $DMG_NAME"
 
-header "Copiando Google Release Configs"
-cp "$GRELEASE" "Resources/"
+header "Configurando"
+echo -n "$FIREBASE_PLIST" | base64 --decode -o "Resources/GoogleService-Info.plist"
 mkdir "$CACHE_FOLDER"
 mkdir "$DMG_FOLDER"
 
@@ -43,12 +40,6 @@ xcodebuild -project $PROJECT -scheme UptimeLogger -configuration Release \
     -destination 'generic/platform=macOS'\
     -derivedDataPath "$CACHE_FOLDER" -quiet
 ret=$?
-
-#header "Assinando app localmente"
-# codesign --timestamp --force --deep --verbose --all-architectures -o runtime \
-#     --entitlements "Resources/Release.entitlements" \
-#     --sign "$APP_CERT" -i "$BUNDLE_NAME" \
-#     "$APP_FOLDER"
 
 ret=$?
 codesign -dvv $APP_FOLDER
@@ -127,10 +118,6 @@ ret=$?
 header "Marcando validação na imagem dmg"
 xcrun stapler staple "$DMG_NAME"
 ret=$?
-
-# cp "$DMG_FOLDER/$INSTALLER_NAME.pkg" "./$INSTALLER_NAME.pkg"
-# cp -R "$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app" ./
-# exit 0
 
 header "Criando Tag do Git"
 tag_exist=$(git --no-pager tag --list "$VERSION")

@@ -9,18 +9,20 @@
 
 ----
 
-* [2.4 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.3/UptimeLogger-2.4.dmg)
+* [2.4 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.4/UptimeLogger-2.4.dmg)
+  * FIRST APPLE APROVED VERSION - no more warnings
   * App
     * logs list: change system kernel uptime for "active time" if available
     * legend view: change system kernel uptime for "active time"
   * Service
     * log script aproximated active uptime counting in background every 1 second
+    * log script update flows now cound active time too
   * Code
     * use xcodegen para gerar o projeto
     * Fix unit tests sign
     * Fix runing locally for comtributors without Apple Develper Account
 
-- [2.3.1](https://github.com/victorwads/UptimeLogger/releases/download/2.3/UptimeLogger-2.3.1.dmg)
+- [2.3.1](https://github.com/victorwads/UptimeLogger/releases/download/2.3.1/UptimeLogger-2.3.1.dmg)
   - App
     - Minor fix for macs without baterry
 
