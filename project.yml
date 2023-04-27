@@ -7,21 +7,21 @@ options:
     - pattern: '^.*Screen$'
       order: [View, Presenter, Interactor, Entities, Assembly]
 packages:
-  firebase-ios-sdk:
+  Firebase:
     url: https://github.com/firebase/firebase-ios-sdk
-    exactVersion: 10.8.1
+    exactVersion: 10.9.0
 targets:
   UptimeLogger:
     type: application
     platform: macOS
     deploymentTarget:
-      macos: "11.0"
+      macOS: 11.0
     dependencies:
-      - package: firebase-ios-sdk
+      - package: Firebase
         product: FirebaseAnalytics
-      - package: firebase-ios-sdk
+      - package: Firebase
         product: FirebaseCrashlytics
-      - package: firebase-ios-sdk
+      - package: Firebase
         product: FirebaseInstallations
     sources:
       - path: Sources
