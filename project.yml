@@ -38,6 +38,11 @@ targets:
       testTargets:
         - UptimeLoggerTests
     settings:
+      base:
+        CURRENT_PROJECT_VERSION: 7
+        MACOSX_DEPLOYMENT_TARGET: 11.0
+        MARKETING_VERSION: 2.4-beta
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
       configs:
         Debug:
           CODE_SIGN_ENTITLEMENTS: Resources/Debug.entitlements
@@ -51,7 +56,7 @@ targets:
       path: Resources/Info.plist
       properties:
         CFBundleDisplayName: Uptime Logger
-        CFBundleShortVersionString: "2.4"
+        CFBundleShortVersionString: "2.4-beta"
         CFBundleURLTypes:
           - CFBundleURLName: "uptimelogger"
             CFBundleURLSchemes:

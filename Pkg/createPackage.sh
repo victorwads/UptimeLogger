@@ -14,7 +14,7 @@ S=12;I=1;
 header "Identificando Certificados e Versão do Projeto"
 VERSION=$(awk -F'\"' '/CFBundleShortVersionString/{print $2}' project.yml)
 TEAM_ID=$(awk -F': ' '/DEVELOPMENT_TEAM/{print $2}' project.yml)
-#APP_CERT=$(security find-certificate -c "Developer ID Application" -Z | awk -F'"' '/alis/ {print $4}')
+APP_CERT=$(security find-certificate -c "Developer ID Application" -Z | awk -F'"' '/alis/ {print $4}')
 INSTALLER_CERT=$(security find-certificate -c "Developer ID Installer" -Z | awk -F'"' '/alis/ {print $4}')
 echo "VERSION: $VERSION"
 echo "TEAM_ID: $TEAM_ID"
@@ -42,11 +42,10 @@ xcodebuild -project $PROJECT -scheme UptimeLogger -configuration Release \
     -derivedDataPath "$CACHE_FOLDER" -quiet
 ret=$?
 
-# header "Assinando app"
-# codesign --deep --force --verbose --options runtime \
-#     --all-architectures --entitlements "Resources/Release.entitlements" \
-#     --sign "$APP_CERT" "$APP_FOLDER"
-# ret=$?
+header "Assinando Serviço"
+codesign --verbose --options runtime \
+    --sign "$APP_CERT" "$APP_FOLDER/Contents/MacOS/UptimeLoggerService"
+ret=$?
 
 header "Criando Instalador"
 pkgbuild --root "$APP_FOLDER" --install-location "/Applications/UptimeLogger.app" --scripts "$SCRIPT_DIR/Install"\
@@ -75,9 +74,6 @@ hdiutil create -volname "UptimeLogger" \
 # cp "$DMG_FOLDER/$INSTALLER_NAME.pkg" "./$INSTALLER_NAME.pkg"
 # cp -R "$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app" ./
 
-header "Apagando caches"
-rm -rf "$CACHE_FOLDER"
-
 header "Criando Tag do Git"
 tag_exist=$(git --no-pager tag --list "$VERSION")
 if [[ -n $tag_exist ]]; then
@@ -92,3 +88,6 @@ else
     fi
     I=$((I + 1))
 fi
+
+header "Apagando caches"
+rm -rf "$CACHE_FOLDER"

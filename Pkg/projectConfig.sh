@@ -1,5 +1,5 @@
 #!/bin/bash
-export INSTALLER_NAME="InstallUptimeLogger"
+export INSTALLER_NAME="Install UptimeLogger App"
 export UNINSTALLER_NAME="Uninstall"
 
 export BUNDLE_NAME="br.com.victorwads.UptimeLogger"
