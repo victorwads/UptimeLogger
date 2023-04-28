@@ -1,25 +1,59 @@
 # App and Logger Changelog
 
 - Future Releases
-  - Choose with infos about the logs are showed on logs screen
   - open original text log files
-  - archive logs for better analyses and performance
   - create about section
-  - Screen to adress the folder access autorization
+  - baterry grafic durant the log
 
 ----
 
-* 2.5 - Doing
+* 3.0 - Planning
   * App
-    * logs list: change system kernel uptime for "active time" if available
-    * legend view: change system kernel uptime for "active time"
-  * Service
-    * log script update flows now count active time too
+    * better performance
+      * make proccessed logs be stored on indexed database and exclude old logs
+    * Logs Screen:
+      * reload buttom
+    * Current screen read current from defaults instead of files
+    * Settings Screen:
+      * use only defaults
+      * save settings saved timestamp
+      * choose wich infos about the logs are showed on logs screen
+      * setting for create separeted logs when computer enter in supend mode, or no (default: true)
+    * Core
+      * reload settings from new configs file genereted by service on app opens
+      * remove files write permision cause is'not needed anymore
+  * Service 
+    * logs api v5
+      * remove logprocess: bool
+      * remove activetimebeta: number
+      * add configs file with:
+        * TODO
+    * create separeted logs when computer enter in supend mode, if not denyed in settings
+    * search defaults main user cheking the last user to update it
+    * get configs from user defaults instead of files
+    * save current log reference on defaults instead of symlink
+    * save curent configs to file, when changed, for multiuser sync preferences
+  * Installer
+    * update configs from v2.x to user defaults
+  * Ps.: "defaults" is a a macos feature for storing app preferences
+
+----
+
+- 2.5 - Doing
+  - App
+    - logs list: change system kernel uptime for "active time" if available
+    - legend view: change system kernel uptime for "active time"
+    - fix macOs 11 crash on loading settings
+  - Unistaller
+    - now remove app's preferences and caches
+  - Installer / Servive
+    - on update script, service continue activetime count
 
 * [2.4 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.4/UptimeLogger-2.4.dmg)
   * FIRST APPLE APROVED VERSION - no more warnings
   * Service
     * log script aproximated active uptime counting in background every 0,2 second with custom logic
+      activetime: number
   * Code
     * use xcodegen para gerar o projeto
     * Fix unit tests sign
@@ -34,6 +68,8 @@
     * Logs Screen: new layout
     * Details Screen: improve layout
     * **New** Current Screen to see current log status
+    * Screen to adress the folder access autorization 
+    * logs permisioning
     * Code
       * Fix App Localization and add French
       * Swift UI Refactor
