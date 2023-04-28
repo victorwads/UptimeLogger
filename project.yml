@@ -1,0 +1,77 @@
+name: UptimeLogger
+options:
+  xcodeVersion: 14.3
+  bundleIdPrefix: br.com.victorwads
+  groupOrdering: 
+    - order: [Service, Tests, Resources, Sources]
+    - pattern: '^.*Screen$'
+      order: [View, Presenter, Interactor, Entities, Assembly]
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    exactVersion: 10.9.0
+targets:
+  UptimeLogger:
+    type: application
+    platform: macOS
+    deploymentTarget:
+      macOS: 11.0
+    dependencies:
+      - package: Firebase
+        product: FirebaseAnalytics
+      - package: Firebase
+        product: FirebaseCrashlytics
+      - package: Firebase
+        product: FirebaseInstallations
+    sources:
+      - path: Sources
+      - path: Resources
+      - path: Service/UptimeLoggerService
+        buildPhase:
+          copyFiles:
+            destination: executables
+    scheme:
+      language: pt-BR
+      gatherCoverageData: true
+      coverageTargets:
+        - UptimeLogger
+      testTargets:
+        - UptimeLoggerTests
+    settings:
+      base:
+        CURRENT_PROJECT_VERSION: 8
+        MACOSX_DEPLOYMENT_TARGET: 11.0
+        MARKETING_VERSION: 2.4.0
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
+      configs:
+        Debug:
+          CODE_SIGNING_REQUIRED: NO
+          CODE_SIGN_ENTITLEMENTS: Resources/Debug.entitlements
+          CODE_SIGN_IDENTITY: "-"
+          PROVISIONING_PROFILE_SPECIFIER: 
+        Release:
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
+          CODE_SIGN_ENTITLEMENTS: Resources/Release.entitlements
+          CODE_SIGN_IDENTITY[sdk=macosx*]: Developer ID Application
+          DEVELOPMENT_TEAM[sdk=macosx*]: DU6489YN3U
+          PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]: UptimeLogger2027
+          CODE_SIGN_STYLE: Manual
+          ENABLE_HARDENED_RUNTIME: YES
+          OTHER_CODE_SIGN_FLAGS[sdk=*]: --deep --timestamp
+    info:
+      path: Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Uptime Logger
+        CFBundleShortVersionString: "2.4.0"
+        CFBundleURLTypes:
+          - CFBundleURLName: "uptimelogger"
+            CFBundleURLSchemes:
+              - uptimelogger
+  UptimeLoggerTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: UptimeLogger
+

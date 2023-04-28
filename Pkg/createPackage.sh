@@ -1,84 +1,138 @@
 #!/bin/bash
-BUNDLE_NAME="br.com.victorwads.UptimeLogger"
-INSTALLER_NAME="Install UptimeLogger"
-UNINSTALLER_NAME="Uninstall"
-
-CACHE_FOLDER="cache"
-APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app"
-DMG_FOLDER="$CACHE_FOLDER/dmg"
-GRELEASE="../../GoogleService-Info.plist"
-S=9
-I=1
-
-function header() {
-    echo -e "\n\033[32m ($I/$S) - $1\033[0m"
-    I=$((I+1))
-}
-
-# Apagando logs de teste
-rm -f ../Service/logs/*
+# shellcheck source=projectConfig.sh
+source Pkg/projectConfig.sh
 clear
 
-# Apagando logs de teste
-if [ ! -f "$GRELEASE" ]; then
-    echo -e "\033[31m$GRELEASE not found\033[0m"
-    exit 1
-fi
+S=21;I=1;
 
-header "Copiando Google Release Configs"
-cp "$GRELEASE" "../Resources/"
+header "Identificando Certificados e Versão do Projeto e variaveis"
+VERSION=$(awk -F'\"' '/CFBundleShortVersionString/{print $2}' project.yml)
+TEAM_ID=$(awk -F': ' '/DEVELOPMENT_TEAM/{print $2}' project.yml)
+APP_CERT=$(security find-certificate -c "Developer ID Application" -Z | awk -F'"' '/alis/ {print $4}')
+INSTALLER_CERT=$(security find-certificate -c "Developer ID Installer" -Z | awk -F'"' '/alis/ {print $4}')
+CACHE_FOLDER="$SCRIPT_DIR/cache"
+APP_FOLDER="$CACHE_FOLDER/Build/Products/Release/$SCHEME.app"
+DMG_FOLDER="$CACHE_FOLDER/dmg"
+DMG_NAME="UptimeLogger-$VERSION.dmg"
+echo "VERSION: $VERSION"
+echo "TEAM_ID: $TEAM_ID"
+echo "APP_CERT: $APP_CERT"
+echo "INSTALLER_CERT: $INSTALLER_CERT"
+echo "CACHE_FOLDER: $CACHE_FOLDER"
+echo "APP_FOLDER: $APP_FOLDER"
+echo "DMG_FOLDER: $DMG_FOLDER"
+echo "DMG_NAME: $DMG_NAME"
 
-# Apaga caches anteriores
+header "Configurando"
+echo -n "$FIREBASE_PLIST" | base64 --decode -o "Resources/GoogleService-Info.plist"
+mkdir "$CACHE_FOLDER"
+mkdir "$DMG_FOLDER"
+
+header "Apangando dados anteriores e logs de teste"
+rm -rf Service/logs/
+rm -f ./**/*.dmg
+
+header "Gerando projeto"
+xcodegen
+
 header "Buildando app release"
-xcodebuild  -project ../UptimeLogger.xcodeproj\
-            -scheme UptimeLogger -configuration Release\
-            -destination 'generic/platform=macOS'\
-            -derivedDataPath "$CACHE_FOLDER" -quiet
+xcodebuild -project $PROJECT -scheme UptimeLogger -configuration Release \
+    -destination 'generic/platform=macOS'\
+    -derivedDataPath "$CACHE_FOLDER" -quiet
+ret=$?
 
-header "Identificando Versão do Projeto"
-VERSION=$(xcodebuild -project ../UptimeLogger.xcodeproj -showBuildSettings | awk '/MARKETING_VERSION/ { print $3 }' | sed 's/[[:space:]]//g')
+ret=$?
+codesign -dvv $APP_FOLDER
 
-header "Assinando app"
-codesign --deep --force --verbose --options runtime \
-    --timestamp=none --all-architectures\
-    --entitlements "$APP_FOLDER/Contents/Resources/UptimeLogger.entitlements" \
-    --sign - "$APP_FOLDER"
+header "Submentendo app para validação da Apple"
+ZIP_PATH="$CACHE_FOLDER/$SCHEME.app.zip"
+/usr/bin/ditto -c -k --keepParent "$APP_FOLDER" "$ZIP_PATH"
+xcrun notarytool submit "$ZIP_PATH" \
+    --keychain-profile "$ACCOUNT_PROFILE" \
+    --wait
+ret=$?
+
+header "Marcando validação no app"
+xcrun stapler staple "$APP_FOLDER"
+ret=$?
 
 header "Criando Instalador"
-mkdir "$DMG_FOLDER"
-pkgbuild --root "$APP_FOLDER"  --install-location "/Applications/UptimeLogger.app" --scripts ./Install\
-    --identifier "$BUNDLE_NAME" --version "$VERSION"\
-    "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+pkgbuild --root "$APP_FOLDER" --install-location "/Applications/UptimeLogger.app" --scripts "$SCRIPT_DIR/Install"\
+    --identifier "$BUNDLE_NAME" --version "$VERSION" \
+    "$CACHE_FOLDER/$INSTALLER_NAME.pkg"
+ret=$?
 
 header "Criando Desinstalador"
-pkgbuild --nopayload  --scripts ./Uninstall\
-    --identifier "$BUNDLE_NAME.uninstall" --version "$VERSION"\
-    "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+pkgbuild --nopayload --scripts "$SCRIPT_DIR/Uninstall"\
+    --identifier "$BUNDLE_NAME.uninstall" --version "$VERSION" \
+    "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg"
+ret=$?
 
-# header "Assinando pacotes"
-# productsign --sign - "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
-# productsign --sign - "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+header "Assinando pacotes de instalação pkg localmente"
+productsign --timestamp --sign \
+    "$INSTALLER_CERT" "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+ret=$?
 
-header "Criando dmg de instalação"
-hdiutil create -volname "UptimeLogger"\
-    -srcfolder "$DMG_FOLDER"\
+productsign --timestamp --sign \
+    "$INSTALLER_CERT" "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+ret=$?
+
+header "Submentendo Instalador para validação da Apple"
+xcrun notarytool submit "$DMG_FOLDER/$INSTALLER_NAME.pkg" \
+    --keychain-profile "$ACCOUNT_PROFILE" \
+    --wait
+ret=$?
+
+header "Marcando validação no instalador"
+xcrun stapler staple "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+ret=$?
+
+header "Submentendo Desinstalador para validação da Apple"
+xcrun notarytool submit "$DMG_FOLDER/$UNINSTALLER_NAME.pkg" \
+    --keychain-profile "$ACCOUNT_PROFILE" \
+    --wait
+ret=$?
+
+header "Marcando validação no desinstalador"
+xcrun stapler staple "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+ret=$?
+
+header "Criando imagem dmg"
+hdiutil create -volname "UptimeLogger" \
+    -srcfolder "$DMG_FOLDER" \
     -ov -format UDZO\
-    "UptimeLogger-$VERSION.dmg"
+    "$DMG_NAME"
+ret=$?
 
-# cp "$DMG_FOLDER/$INSTALLER_NAME.pkg" "./$INSTALLER_NAME.pkg"
-# cp -R "$CACHE_FOLDER/Build/Products/Release/UptimeLogger.app" ./
+header "Assinando dmg localmente"
+codesign --verbose --options runtime \
+    --sign "$APP_CERT" "$DMG_NAME"
+ret=$?
 
-header "Apagando caches"
-rm -rf "$CACHE_FOLDER"
+header "Submentendo imagem dmg para validação da Apple"
+xcrun notarytool submit "$DMG_NAME" \
+    --keychain-profile "$ACCOUNT_PROFILE" \
+    --wait
+ret=$?
 
-if [ "$1" != "loop" ]; then
-    header "Criando Tag do Git"
+header "Marcando validação na imagem dmg"
+xcrun stapler staple "$DMG_NAME"
+ret=$?
+
+header "Criando Tag do Git"
+tag_exist=$(git --no-pager tag --list "$VERSION")
+if [[ -n $tag_exist ]]; then
+    echo "Tag já existe criada"
+else
     read -p "Gostaria de criar a tag $VERSION no git? [s/N]" confirm
     if [[ $confirm =~ ^[Ss]$ ]]; then
-        git tag $VERSION
-        git --no-pager tag
+        git tag "$VERSION"
+        echo "Tag Criada"
     else
         echo -e "\033[31mA tag não foi criada.\033[0m"
     fi
-    I=$((I+1))
+    I=$((I + 1))
 fi
+
+header "Apagando caches"
+rm -rf "$CACHE_FOLDER"

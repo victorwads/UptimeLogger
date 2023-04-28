@@ -61,32 +61,31 @@ struct LogItemInfo: Identifiable {
         lines.forEach { line in
             switch true {
             //# version: [0-9]+
-            case line.hasPrefix("version:"):
+            case line.hasPrefix("version: "):
                 version = extractNumber(line, 1)
             //# ended: %Y-%m-%d_%H-%M-%S
-            case line.hasPrefix("ended:"):
+            case line.hasPrefix("ended: "):
                 scriptEndTime = extractScriptEndTime(from: line, formatter: formatter)
             //# sysversion: String
-            case line.hasPrefix("sysversion:"):
+            case line.hasPrefix("sysversion: "):
                 systemVersion = line.components(separatedBy: ": ").last
             //# batery: [0-9]+%
-            case line.hasPrefix("batery:"):
-                let level = extractNumber(line, -1)
-                batery = level == -1 ? nil : level
+            case line.hasPrefix("batery: "):
+                extractNumber(line).guard { batery = $0 }
             //# charging: true/false
-            case line.hasPrefix("charging:"):
-                charging = line.contains("true")
+            case line.hasPrefix("charging: "):
+                charging = line.contains("true") ? true : line.contains("false") ? false : nil
             //# boottime: [0-9]+ (timestamp)
-            case line.hasPrefix("boottime:"):
-                systemBootTime = Date.init(timeIntervalSince1970: Double(extractNumber(line, 1)))
+            case line.hasPrefix("boottime: "):
+                extractNumber(line).guard { systemBootTime = Date.init(timeIntervalSince1970: Double($0)) }
             //# uptime: [0-9]+ (seconds interval)
-            case line.hasPrefix("uptime:"):
-                systemUptime = TimeInterval(extractNumber(line, 0))
+            case line.hasPrefix("uptime: "):
+                extractNumber(line).guard { systemUptime = TimeInterval($0) }
             //# logprocessinterval: [0-9]+
-            case line.hasPrefix("logprocessinterval:"):
-                logProcessInterval = extractNumber(line, 1)
+            case line.hasPrefix("logprocessinterval: "):
+                logProcessInterval = extractNumber(line)
             //# logprocess: true/false
-            case line.hasPrefix("logprocess:"):
+            case line.hasPrefix("logprocess: "):
                 hasProcess = line.contains("true")
             case line == LogItemInfo.shutdownAllowed:
                 autoShuwDownAllowed = true
@@ -116,24 +115,28 @@ struct LogItemInfo: Identifiable {
     }
     
     private func extractNumber(_ line: String, _ defaultNumber: Int) -> Int {
+        return extractNumber(line) ?? defaultNumber
+    }
+
+    private func extractNumber(_ line: String) -> Int? {
         let regex = try! NSRegularExpression(pattern: "[^0-9]+", options: .caseInsensitive)
         let numbers = regex.stringByReplacingMatches(in: line, range: NSRange(location: 0, length: line.count), withTemplate: "")
-        return Int(numbers) ?? defaultNumber
+        return Int(numbers)
     }
     
     private func extractScriptEndTime(from line: String, formatter: DateFormatter) -> Date? {
         formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        let endTimeString = line.components(separatedBy: ": ").last
-        return formatter.date(from: endTimeString ?? "")
+        guard let endTimeString = line.components(separatedBy: ": ").last else { return nil }
+        return formatter.date(from: endTimeString)
     }
 
-    private func fromOldVersion(_ uptimeString: String?) -> TimeInterval {
-        let parts = uptimeString?.components(separatedBy: ", ")
-        let dayPart = parts?.first(where: {$0.contains("days")})?.replacingOccurrences(of: " days", with: "") ?? "0"
-        let timeParts = parts?.last?.components(separatedBy: ":").compactMap({ Int($0) }) ?? []
+    private func fromOldVersion(_ uptimeString: String) -> TimeInterval? {
+        let parts = uptimeString.components(separatedBy: ", ")
+        let dayPart = parts.first(where: {$0.contains("days")})?.replacingOccurrences(of: " days", with: "") ?? "0"
+        guard let timeParts = parts.last?.components(separatedBy: ":").compactMap({ Int($0) }) else { return 0 }
         
         if timeParts.count < 3 {
-            return TimeInterval(0)
+            return nil
         }
         
         let day = Int(dayPart) ?? 0

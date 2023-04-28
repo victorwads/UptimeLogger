@@ -14,7 +14,7 @@ SERVICE_PLIST=$(cat <<EOF
    <string>$SERVICE_NAME</string>
    <key>ProgramArguments</key>
    <array>
-      <string>$INSTALL_FOLDER/Contents/Resources/Service/uptime_logger</string>
+      <string>$INSTALL_FOLDER/Contents/MacOS/UptimeLoggerService</string>
    </array>
    <key>KeepAlive</key>
    <true/>
@@ -50,10 +50,5 @@ if [ ! -d "$LOGSDIR" ]; then
     mkdir "$LOGSDIR"
     chmod 777 "$LOGSDIR"
 fi
-
-sudo codesign --deep --force --verbose --options runtime \
-    --timestamp=none --all-architectures\
-    --entitlements "$INSTALL_FOLDER/Contents/Resources/UptimeLogger.entitlements" \
-    --sign - "$INSTALL_FOLDER"
 
 sudo launchctl load "/Library/LaunchDaemons/$SERVICE_NAME.plist"

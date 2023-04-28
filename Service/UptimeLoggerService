@@ -3,7 +3,7 @@ DEBUG=false
 if [[ "$*" == *"--debug"* ]]; then
     DEBUG=true
 fi
-VERSION=4
+VERSION=5
 
 # Check for version option
 if [[ "$*" == *"-v"* ]] || [[ "$*" == *"--version"* ]]; then
@@ -61,7 +61,7 @@ fi
 LOG_FILE="$LOGS_DIR/log_$STARTUP.txt"
 PLOG_FILE="$LOGS_DIR/log_$STARTUP.log"
 if [ ! -f "$LOG_FILE" ]; then
-    echo "version: $VERSION"$'\n' > "$LOG_FILE"
+    echo "version: $VERSION"$'\n' >"$LOG_FILE"
 fi
 
 ln -sf "$LOG_FILE" "$LOG_LATEST"
@@ -80,7 +80,7 @@ fi
 
 if [ $DEBUG = true ] && [[ "$*" == *"--exit-with-update"* ]]; then
     function finishwithUpdate() {
-        echo "$STARTUP" > "$UPDATE_FILE"
+        echo "$STARTUP" >"$UPDATE_FILE"
         cat "$UPDATE_FILE"
         exit
     }
@@ -89,7 +89,14 @@ else
     trap "allowShutdown; exit;" INT TERM
 fi
 
-# LOG V4
+cleanup() {
+    # Encerrar os processos em segundo plano
+    kill $(jobs -p) 2>/dev/null
+    exit 0
+}
+trap cleanup SIGINT SIGTERM
+
+# LOG V5
 # version: [0-9]+
 # init: %Y-%m-%d_%H-%M-%S
 # ended: %Y-%m-%d_%H-%M-%S
@@ -97,21 +104,49 @@ fi
 # batery: [0-9]+%
 # charging: true/false
 # boottime: [0-9]+ (timestamp)
+# activetime: [0-9]+ (seconds interval)
+# activetimeByCount: [0-9]+ (seconds interval)
+# activetimeByDiff: [0-9]+ (seconds interval)
 # uptime: [0-9]+ (seconds interval)
 # logprocessinterval: [0-9]+
 # logprocess: true/false
 
+activetimecount=0
+while true; do
+    activetimecount=$((activetimecount + 1))
+    echo $activetimecount >"$LOGS_DIR/activetimecount"
+    sleep 1
+done &
+
+activetime=0
+lasttimestep=$(date +%s)
+while true; do
+    now=$(date +%s)
+    diff=$((now - lasttimestep))
+
+    if [ $diff -gt 0 ] && [ $diff -le 5 ]; then
+        activetime=$((activetime + diff))
+        lasttimestep=$now
+        echo $activetime >"$LOGS_DIR/activetime"
+    elif [ $diff -gt 5 ]; then
+        lasttimestep=$now
+    fi
+    sleep 0.2
+done &
+
 # Loop infinito para atualizar o uptime a cada 5 minutos
 COUNT=0
+scriptinit=$(date +%s)
 while true; do
-
     LOG="version: $VERSION"$'\n'
     LOG+="ended: $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
-
+    LOG+="activetime: $(cat "$LOGS_DIR/activetime")"$'\n'
+    LOG+="activetimeByCount: $(cat "$LOGS_DIR/activetimecount")"$'\n'
+    LOG+="activetimeByDiff: $(($(date +%s) - scriptinit))"$'\n'
+    
     # Verifica o tipo de sistema operacional
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        kernelboottime=$(sysctl -n kern.boottime)
-        boottimestamp=$(echo $kernelboottime | sed 's/^.*sec = \([0-9]*\), usec.*$/\1/')
+        boottimestamp=$(sysctl -n kern.boottime | awk -F'[, ]' '{print $4}')
         currenttimestamp=$(date +%s)
         elapsedtime=$((currenttimestamp - boottimestamp))
         battery=$(pmset -g batt)
@@ -136,8 +171,8 @@ while true; do
     LOGPROCESS=false
     if [ -r "$CONFIG_FILE" ]; then
         EACHSEC=$(cat "$CONFIG_FILE")
-        if [ $((COUNT % EACHSEC)) -eq 0 ]; then            
-            ps -ax -o user,pid,pcpu,pmem,start,time,command > "$PLOG_FILE"
+        if [ $((COUNT % EACHSEC)) -eq 0 ]; then
+            ps -ax -o user,pid,pcpu,pmem,start,time,command >"$PLOG_FILE"
             if [ $DEBUG = true ]; then
                 echo "logged proceess to file"
             fi
