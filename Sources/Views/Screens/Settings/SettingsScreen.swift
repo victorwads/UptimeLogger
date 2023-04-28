@@ -14,9 +14,12 @@ struct SettingsScreen: View {
 
     @AppStorage("monitoringEnabled") private var monitoringEnabled = false
     @AppStorage("monitoringInterval") private var monitoringInterval = 1.0
+
     @State private var foldersHistory: [String] = []
+    @State var saveConfigsOnlyAfterLoad: (() -> Void)? = nil
 
     let provider: LogsProvider
+
     var interval: String {
         "\(String.localized(.settingsIntervalTip)) \(Int(monitoringInterval)) \(String.localized(.dateSeconds))"
     }
@@ -103,9 +106,9 @@ struct SettingsScreen: View {
         }
         .padding()
         .navigationTitle(.key(.navSettings))
-        .onChange(of: monitoringEnabled, perform: {_ in saveConfigs()})
-        .onChange(of: monitoringInterval, perform: {_ in saveConfigs()})
         .onAppear(perform: loadConfigs)
+        .onChange(of: monitoringEnabled, perform: {_ in saveConfigsOnlyAfterLoad?()})
+        .onChange(of: monitoringInterval, perform: {_ in saveConfigsOnlyAfterLoad?()})
     }
     
     func saveConfigs(){
@@ -127,6 +130,7 @@ struct SettingsScreen: View {
             monitoringEnabled = false
         }
         foldersHistory = storedFoldersHistory.components(separatedBy: ",").filter { !$0.isEmpty }
+        saveConfigsOnlyAfterLoad = saveConfigs
     }
     
     private func updateRecents() {
