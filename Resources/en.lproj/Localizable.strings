@@ -1,10 +1,10 @@
 "cancel" = "Cancel";
 /* Date */
 "date.at" = "at";
-"date.days" = "days";
-"date.hours" = "hours";
-"date.minutes" = "minutes";
-"date.seconds" = "seconds";
+"date.days" = "d";
+"date.hours" = "h";
+"date.minutes" = "m";
+"date.seconds" = "s";
 "date.today" = "today";
 "date.yesterday" = "yesterday";
 /* Log Details */
@@ -22,17 +22,17 @@
 "logs.details.click" = "Click to view the details of the record";
 "logs.notfound" = "No records found";
 /* Logs */
-"logs.options" = "Options";
-"logs.options.power" = "Power: ";
-"logs.options.power.off" = "Power Disconnected";
-"logs.options.power.on" = "Power Connected";
-"logs.options.shutdown" = "State: ";
-"logs.options.shutdown.normal" = "Normal Shutdown";
-"logs.options.shutdown.unexpected" = "Unexpected Shutdown";
-"logs.options.sort.long" = "Uptime (largest first)";
-"logs.options.sort.new" = "Newest";
-"logs.options.sort.old" = "Oldest";
-"logs.options.sort.short" = "Uptime (smallest first)";
+"logs.filters" = "Filters";
+"logs.filters.power" = "Power Source: ";
+"logs.filters.power.off" = "Power Disconnected / Battery";
+"logs.filters.power.on" = "Power Connected (AC)";
+"logs.filters.shutdown" = "Shutdown Status: ";
+"logs.filters.shutdown.normal" = "Normal Shutdown";
+"logs.filters.shutdown.unexpected" = "Unexpected Shutdown";
+"logs.sort.long" = "Uptime (largest first)";
+"logs.sort.new" = "Newest";
+"logs.sort.old" = "Oldest";
+"logs.sort.short" = "Uptime (smallest first)";
 "nav.current" = "Current";
 /* Navigation */
 "nav.logs" = "Logs";
@@ -68,3 +68,4 @@
 "authorize.title" = "File System Permission";
 "authorize.confirm" = "Authorize";
 "authorize.message" = "Permission to access the folder is necessary to read/write logs and configurations.\n\nClick \"Open\" in the following dialog box.\n";
+"icons.help"="Learn about icons";

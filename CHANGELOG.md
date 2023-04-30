@@ -41,8 +41,13 @@
 
 - 2.5 - Doing
   - App
-    - logs list: change system kernel uptime for "active time" if available
-    - legend view: change system kernel uptime for "active time"
+    - logs list:
+      - change system kernel uptime for "active time" if available WIP
+      - improve filters layout
+      - change "options" to "filters"
+    - legend view:
+      - change system kernel uptime for "active time"
+      - texts, colors, button to hide and show
     - fix macOs 11 crash on loading settings
   - Unistaller
     - now remove app's preferences and caches

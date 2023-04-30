@@ -2,38 +2,38 @@
 "cancel" = "Cancelar";
 /* Date */
 "date.at" = "ás";
-"date.days" = "dias";
-"date.hours" = "horas";
-"date.minutes" = "minutos";
-"date.seconds" = "segundos";
+"date.days" = "d";
+"date.hours" = "h";
+"date.minutes" = "m";
+"date.seconds" = "s";
 "date.today" = "hoje";
 "date.yesterday" = "ontem";
 /* Log Details */
 "details.notfound" = "Esse log não tem informações de processos";
 "details.notfound.tip" = "valide se o monitoramento esta ativo em configurações";
-"log.boottime" = "Hora de boot do sistema";
+"log.boottime" = "Inicialização do sistema";
 "log.edited" = "Registro editado";
 /* Log Item */
 "log.help" = "clique para alterar a informação do registro de desligamento";
 "log.normal" = "Desligamento Normal";
-"log.startup" = "Hora de inicio do Serviço";
+"log.startup" = "Início do Serviço de Monitoramento";
 "log.sysversion" = "Versão do SO";
 "log.unexpected" = "Desligamento Inesperado";
 "log.uptime" = "Tempo de atividade";
 "logs.details.click" = "Click para ver os detalhes do registro";
 "logs.notfound" = "Nenhum registro encontrado";
 /* Logs */
-"logs.options" = "Opções";
-"logs.options.power" = "Energia: ";
-"logs.options.power.off" = "Energia Desconectada";
-"logs.options.power.on" = "Energia Conectada";
-"logs.options.shutdown" = "Estado: ";
-"logs.options.shutdown.normal" = "Desligamento Normal";
-"logs.options.shutdown.unexpected" = "Desligamento Inesperado";
-"logs.options.sort.long" = "Tempo de Atividade (maior primeiro)";
-"logs.options.sort.new" = "Mais Recentes";
-"logs.options.sort.old" = "Mais Antigos";
-"logs.options.sort.short" = "Tempo de Atividade (menor primeiro)";
+"logs.filters" = "Filtros";
+"logs.filters.power" = "Fonte de Energia: ";
+"logs.filters.power.off" = "Desconectado da Energia / Bateria";
+"logs.filters.power.on" = "Conectado à Energia (AC)";
+"logs.filters.shutdown" = "Status de Desligamento: ";
+"logs.filters.shutdown.normal" = "Desligamento Normal";
+"logs.filters.shutdown.unexpected" = "Desligamento Inesperado";
+"logs.sort.long" = "Tempo de Atividade (maior primeiro)";
+"logs.sort.new" = "Mais Recentes";
+"logs.sort.old" = "Mais Antigos";
+"logs.sort.short" = "Tempo de Atividade (menor primeiro)";
 "nav.current" = "Atual";
 /* Navigation */
 "nav.logs" = "Registros";
@@ -69,3 +69,4 @@
 "authorize.title" = "Permissão do Sistema de Arquivos";
 "authorize.message" = "É necessário autorizar o accesso a pasta para ler/escrever na pasta de logs e configuracões.\n\nClique em \"abrir\" na caixa de dialogo a seguir.\n";
 "authorize.confirm" = "Autorizar";
+"icons.help"="Entenda os icones";

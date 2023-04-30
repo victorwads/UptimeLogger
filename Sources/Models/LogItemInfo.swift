@@ -160,15 +160,15 @@ extension LogItemInfo {
         
         var result = ""
         if days > 0 {
-            result += "\(days) \(String.localized(.dateDays)), "
+            result += "\(days)\(String.localized(.dateDays)) "
         }
         if hours > 0 || days > 0 {
-            result += "\(hours) \(String.localized(.dateHours)), "
+            result += "\(padNumber(hours))\(String.localized(.dateHours)) "
         }
         if minutes > 0 || hours > 0 || days > 0 {
-            result += "\(minutes) \(String.localized(.dateMinutes)), "
+            result += "\(padNumber(minutes))\(String.localized(.dateMinutes)) "
         }
-        result += "\(seconds) \(String.localized(.dateSeconds))"
+        result += "\(padNumber(seconds))\(String.localized(.dateSeconds))"
         return result
     }
     
@@ -184,6 +184,10 @@ extension LogItemInfo {
     var formattedEndtime: String {
         guard let data = scriptEndTime else { return ""}
         return " " + formatDate(data)
+    }
+    
+    private func padNumber(_ number: Int) -> String {
+        return String(format: "%02d", number)
     }
 
     private func formatDate(_ date: Date) -> String {

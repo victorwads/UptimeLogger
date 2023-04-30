@@ -22,61 +22,66 @@ struct LogsListView: View {
     var body: some View {
         VStack(spacing: 0) {
             if(showFilters) {
-                HStack {
-                    Picker(
-                        selection: $filterPowerStatus,
-                        label: Text(.key(.logsOptionsPower))
-                    ) {
-                        Text(.key(.optionsAll)).tag(ThreeCaseState.all)
-                        Image(systemName: LogItemView.iconPowerConnected)
-                            .tag(ThreeCaseState.yes)
-                            .help(.key(.logsOptionsPowerOn))
-                        Image(systemName: LogItemView.iconPowerDisconnected)
-                            .tag(ThreeCaseState.no)
-                            .help(.key(.logsOptionsPowerOff))
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(maxWidth: 230)
+                HStack(spacing: 20) {
                     Picker(
                         selection: $filterShutdownAllowed,
-                        label: Text(.key(.logsOptionsShutdown)).padding(.leading)
+                        label: Text(.key(.logsFiltersShutdown))
                     ) {
                         Text(.key(.optionsAll))
                             .tag(ThreeCaseState.all)
-                        Text(.key(.logsOptionsShutdownN))
-                            .foregroundColor(.green)
-                            .tag(ThreeCaseState.yes)
-                        Text(.key(.logsOptionsShutdownU))
-                            .foregroundColor(.red)
-                            .tag(ThreeCaseState.no)
-                    }
-                    .pickerStyle(.segmented)
-                    //.frame(maxWidth: 365)
+                        HStack {
+                            Image(systemName: LogItemView.iconNormalShutDown)
+                            Text(.key(.logsFiltersShutdownN))
+                        }.tag(ThreeCaseState.yes)
+                        
+                        HStack {
+                            Image(systemName: LogItemView.iconUnexpected)
+                            Text(.key(.logsFiltersShutdownU))
+                        }.tag(ThreeCaseState.no)
+                        Label(.key(.logNormal), systemImage: LogItemView.iconNormalShutDown).foregroundColor(.green)
 
-                    Spacer()
+                    }
+                    .pickerStyle(.menu)
+
+                    Picker(
+                        selection: $filterPowerStatus,
+                        label: Text(.key(.logsFiltersPower))
+                    ) {
+                        Text(.key(.optionsAll)).tag(ThreeCaseState.all)
+                        HStack {
+                            Image(systemName: LogItemView.iconPowerConnected)
+                            Text(.key(.logsFiltersPowerOn))
+                        }.tag(ThreeCaseState.yes)
+                        HStack {
+                            Image(systemName: LogItemView.iconPowerDisconnected)
+                            Text(.key(.logsFiltersPowerOff))
+                        }.tag(ThreeCaseState.no)
+                    }
+                    .pickerStyle(.menu)
+
                     Picker(selection: $sortOrder, label: Text(.key(.resultsSort))) {
                         HStack {
                             Image(systemName: "calendar.circle")
-                            Text(.key(.logsOptionsSortNew))
+                            Text(.key(.logsSortNew))
                         }.tag(LogSortOrder.dateDescending)
                         
                         HStack {
                             Image(systemName: "calendar.circle.fill")
-                            Text(.key(.logsOptionsSortOld))
+                            Text(.key(.logsSortOld))
                         }.tag(LogSortOrder.dateAscending)
                         
                         HStack {
                             Image(systemName: "hourglass.bottomhalf.fill")
-                            Text(.key(.logsOptionsSortUpLong))
+                            Text(.key(.logsSortUpLong))
                         }.tag(LogSortOrder.uptimeDescending)
                         
                         HStack {
                             Image(systemName: "hourglass.tophalf.fill")
-                            Text(.key(.logsOptionsSortUpShort))
+                            Text(.key(.logsSortUpShort))
                         }.tag(LogSortOrder.uptimeAscending)
                     }
                     .pickerStyle(.menu)
-                    .frame(maxWidth: 280)
+                    //.frame(maxWidth: 280)
                 }.padding()
             }
             if items.isEmpty {
@@ -92,16 +97,15 @@ struct LogsListView: View {
                     items.filter(filterFunction).sorted(by: sortingFunction),
                     id: \.fileName
                 ) { logItem in
-                    LogItemView(
-                        log: .constant(logItem),
-                        showDetails: true,
-                        onToggleAction: onToggleAction
-                    )
-                    Divider()
+                    VStack {
+                        LogItemView(
+                            log: .constant(logItem),
+                            showDetails: true,
+                            onToggleAction: onToggleAction
+                        )
+                        Divider()
+                    }//.frame(maxHeight: 10)
                 }
-            }
-            if(showFilters) {
-                LegendView().padding(.vertical)
             }
         }.onChange(of: sortOrder){ order in
             analytics.event("logs_sort", "sort", _sortOrder.wrappedValue)
