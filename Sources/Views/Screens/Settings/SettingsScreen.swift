@@ -43,7 +43,7 @@ struct SettingsScreen: View {
                         in: 1...15,
                         step: 1
                     ) { Text(.key(.settingsInterval)).foregroundColor(monitoringEnabled ? .accentColor : .gray) }
-                    minimumValueLabel: { Text("0") }
+                    minimumValueLabel: { Text("1") }
                     maximumValueLabel: { Text("15") }
                         .disabled(!monitoringEnabled)
                     
