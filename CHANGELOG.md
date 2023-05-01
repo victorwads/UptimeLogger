@@ -1,58 +1,24 @@
 # App and Logger Changelog
 
-- Future Releases
-  - open original text log files
-  - create about section
-  - baterry grafic durant the log
-
-----
-
-* 3.0 - Planning
-  * App
-    * better performance
-      * make proccessed logs be stored on indexed database and exclude old logs
-    * Logs Screen:
-      * reload buttom
-    * Current screen read current from defaults instead of files
-    * Settings Screen:
-      * use only defaults
-      * save settings saved timestamp
-      * choose wich infos about the logs are showed on logs screen
-      * setting for create separeted logs when computer enter in supend mode, or no (default: true)
-    * Core
-      * reload settings from new configs file genereted by service on app opens
-      * remove files write permision cause is'not needed anymore
-  * Service 
-    * logs api v5
-      * remove logprocess: bool
-      * remove activetimebeta: number
-      * add configs file with:
-        * TODO
-    * create separeted logs when computer enter in supend mode, if not denyed in settings
-    * search defaults main user cheking the last user to update it
-    * get configs from user defaults instead of files
-    * save current log reference on defaults instead of symlink
-    * save curent configs to file, when changed, for multiuser sync preferences
-  * Installer
-    * update configs from v2.x to user defaults
-  * Ps.: "defaults" is a a macos feature for storing app preferences
-
-----
+* [3.0 - Planning](https://github.com/victorwads/UptimeLogger/issues/4)
 
 - 2.5 - Doing
   - App
     - logs list:
-      - change system kernel uptime for "active time" if available WIP
-      - improve filters layout
+      - change system kernel uptime for "active time" if available [x] WIP
       - change "options" to "filters"
+      - improve filters layout
+      - improve default showed info and format
     - legend view:
       - change system kernel uptime for "active time"
       - texts, colors, button to hide and show
-    - fix macOs 11 crash on loading settings
+    - fixes:
+      - macOs 11 crash on loading settings
+      - processes interval label at settings screen 
   - Unistaller
     - now remove app's preferences and caches
   - Installer / Servive
-    - on update script, service continue activetime count
+    - on update script, service continue activetime count [x] WIP
 
 * [2.4 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.4/UptimeLogger-2.4.dmg)
   * FIRST APPLE APROVED VERSION - no more warnings
