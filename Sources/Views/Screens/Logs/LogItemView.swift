@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct LogItemView: View {
-    static let iconNormalShutDown = "checkmark.seal.fill"
+    static let iconNormalShutDown = "checkmark.circle.fill"
     static let iconUnexpected = "bolt.trianglebadge.exclamationmark.fill"
     static let iconScriptStartTime = "gearshape.arrow.triangle.2.circlepath"
     static let iconShutdownTime = "powersleep"
     static let iconBootTime = "power"
-    static let iconUpTime = "bolt.badge.clock.fill"
+    static let iconUpTime = "timer"
+    static let iconSuspendedTime = "moon.zzz"
     static let iconEdited = "square.and.pencil"
     static let iconPowerConnected = "bolt.fill"
     static let iconPowerDisconnected = "bolt.slash.fill"
@@ -55,8 +56,8 @@ struct LogItemView: View {
     
     var shutdownStatus: some View {
         HStack(alignment: .center, spacing: 4) {
-            Text(log.formattedEndtime)
-                .foregroundColor(allow ? .green : .red)
+            MonoText(log.formattedEndtime)
+                //.foregroundColor(allow ? .green : .red)
             Image(systemName: allow ? LogItemView.iconNormalShutDown : LogItemView.iconUnexpected)
                 .font(.headline)
                 .foregroundColor(allow ? .green : .red)
@@ -68,7 +69,7 @@ struct LogItemView: View {
             if let battery = log.batery, let charging = log.charging {
                 Battery(level: battery)
                 Image(systemName: charging ? LogItemView.iconPowerConnected : LogItemView.iconPowerDisconnected)
-                    .help(.key(charging ? .logsOptionsPowerOn : .logsOptionsPowerOff))
+                    .help(.key(charging ? .logsFiltersPowerOn : .logsFiltersPowerOff))
             }
         }
     }
@@ -91,8 +92,11 @@ struct LogItemView: View {
     }
 
     var editedView: some View {
-        Image(systemName: LogItemView.iconEdited)
-            .help(.key(.logEdited))
+        Text(.key(.logEdited))
+            .font(.subheadline)
+            .foregroundColor(.gray)
+//        Image(systemName: LogItemView.iconEdited)
+//            .help(.key(.logEdited))
     }
 
     var body: some View {
@@ -103,38 +107,39 @@ struct LogItemView: View {
             bootTimeView
             upTimeView
             Spacer()
-            shutdownStatus.onTapGesture {
-                if let onToggleAction = onToggleAction {
-                    onToggleAction(log)
-                }
-            }.help(.key(.logHelp))
             HStack {
                 if(log.edited) {
-                    Divider().padding(.leading, 5)
+//                    Divider().padding(.leading, 5)
                     editedView
                 }
-                if log.systemVersion != nil {
-                    Divider()
-                    sysVersionView
+                shutdownStatus.onTapGesture {
+                    if let onToggleAction = onToggleAction {
+                        onToggleAction(log)
+                    }
                 }
-                Divider()
-                energyStatus
-                Divider()
-                versionView
+                .help(.key(.logHelp))
+//                if log.systemVersion != nil {
+//                    Divider()
+//                    sysVersionView
+//                }
+//                Divider()
+//                energyStatus
+//                Divider()
+//                versionView
             }
             if(showDetails) {
-                Divider()
                 Button {
                     if let url = URL(string: AppScheme.scheme + AppScheme.details + "/" + log.fileName){
                         openURL(url)
                     }
                 } label: {
-                    Image(systemName: "info.circle")
+                    Image(systemName: "chevron.forward")
                 }
                 .buttonStyle(.plain)
                 .help(.key(.logsDetails))
+                .padding()
             }
-        }.frame(maxHeight: 60)
+        }.frame(maxHeight: 45)
     }
 }
 

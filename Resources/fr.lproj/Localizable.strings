@@ -1,38 +1,40 @@
 "cancel" = "Annuler";
+"items" = "items";
 /* Date */
 "date.at" = "à";
-"date.days" = "jours";
-"date.hours" = "heures";
-"date.minutes" = "minutes";
-"date.seconds" = "secondes";
+"date.days" = "j";
+"date.hours" = "h";
+"date.minutes" = "m";
+"date.seconds" = "s";
 "date.today" = "aujourd'hui";
 "date.yesterday" = "hier";
 /* Log Details */
 "details.notfound" = "Ce journal ne contient pas d'informations sur les processus";
 "details.notfound.tip" = "validez que la surveillance est active dans les paramètres";
 "log.boottime" = "Heure de démarrage du système";
-"log.edited" = "Journal modifié";
+"log.edited" = "modifié";
 /* Log Item */
 "log.help" = "cliquez pour modifier l'information du journal de l'arrêt";
 "log.normal" = "Arrêt normal";
 "log.startup" = "Heure de démarrage du service";
 "log.sysversion" = "Version du système d'exploitation";
 "log.unexpected" = "Arrêt inattendu";
-"log.uptime" = "Temps d'activité";
+"log.uptime" = "Tempo desde o boot";
+"log.activetime" = "Tempo ativo";
 "logs.details.click" = "Cliquez pour voir les détails du journal";
 "logs.notfound" = "Aucun journal trouvé";
 /* Logs */
-"logs.options" = "Options";
-"logs.options.power" = "Puissance : ";
-"logs.options.power.off" = "Puissance déconnectée";
-"logs.options.power.on" = "Puissance connectée";
-"logs.options.shutdown" = "État : ";
-"logs.options.shutdown.normal" = "Arrêt normal";
-"logs.options.shutdown.unexpected" = "Arrêt inattendu";
-"logs.options.sort.long" = "Temps d'activité (du plus grand au plus petit)";
-"logs.options.sort.new" = "Plus récents";
-"logs.options.sort.old" = "Plus anciens";
-"logs.options.sort.short" = "Temps d'activité (du plus petit au plus grand)";
+"logs.filters" = "Filtres";
+"logs.filters.power" = "Source d'alimentation: ";
+"logs.filters.power.off" = "Déconnecté de l'alimentation / Batterie";
+"logs.filters.power.on" = "Connecté à l'alimentation (AC)";
+"logs.filters.shutdown" = "État de l'arrêt: ";
+"logs.filters.shutdown.normal" = "Arrêt normal";
+"logs.filters.shutdown.unexpected" = "Arrêt inattendu";
+"logs.sort.long" = "Temps d'activité (du plus grand au plus petit)";
+"logs.sort.new" = "Plus récents";
+"logs.sort.old" = "Plus anciens";
+"logs.sort.short" = "Temps d'activité (du plus petit au plus grand)";
 "nav.current" = "Actuel";
 /* Navigation */
 "nav.logs" = "Journaux";
@@ -68,3 +70,4 @@
 "authorize.title" = "Autorisation de Système de Fichiers";
 "authorize.message" = "L'accès au dossier est nécessaire pour lire/écrire les journaux et configurations.\n\nCliquez sur \"Ouvrir\" dans la boîte de dialogue suivante.\n";
 "authorize.confirm" = "Autoriser";
+"icons.help"="En savoir plus sur les icônes";

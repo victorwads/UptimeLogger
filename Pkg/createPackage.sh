@@ -6,8 +6,7 @@ clear
 S=21;I=1;
 
 header "Identificando Certificados e Versão do Projeto e variaveis"
-VERSION=$(awk -F'\"' '/CFBundleShortVersionString/{print $2}' project.yml)
-TEAM_ID=$(awk -F': ' '/DEVELOPMENT_TEAM/{print $2}' project.yml)
+VERSION=$(awk -F': ' '/MARKETING_VERSION/{print $2}' project.yml)
 APP_CERT=$(security find-certificate -c "Developer ID Application" -Z | awk -F'"' '/alis/ {print $4}')
 INSTALLER_CERT=$(security find-certificate -c "Developer ID Installer" -Z | awk -F'"' '/alis/ {print $4}')
 CACHE_FOLDER="$SCRIPT_DIR/cache"
@@ -69,12 +68,14 @@ pkgbuild --nopayload --scripts "$SCRIPT_DIR/Uninstall"\
 ret=$?
 
 header "Assinando pacotes de instalação pkg localmente"
-productsign --timestamp --sign \
-    "$INSTALLER_CERT" "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+productsign --keychain "$KEYCHAIN_PATH" --timestamp \
+    --sign "$INSTALLER_CERT" \
+    "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
 ret=$?
 
-productsign --timestamp --sign \
-    "$INSTALLER_CERT" "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+productsign --keychain "$KEYCHAIN_PATH" --timestamp \
+    --sign "$INSTALLER_CERT" \
+    "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
 ret=$?
 
 header "Submentendo Instalador para validação da Apple"
@@ -105,7 +106,7 @@ hdiutil create -volname "UptimeLogger" \
 ret=$?
 
 header "Assinando dmg localmente"
-codesign --verbose --options runtime \
+codesign --verbose --options runtime --keychain "$KEYCHAIN_PATH" \
     --sign "$APP_CERT" "$DMG_NAME"
 ret=$?
 

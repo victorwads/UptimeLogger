@@ -14,33 +14,56 @@ class TimerWrapper {
 struct LogsScreen: View {
 
     @State private var logs: [LogItemInfo] = []
-    @State var showFilters: Bool
+    @AppStorage("showFilters") var showFilters: Bool = true
+    @AppStorage("showLegend") var showLegend: Bool = false
 
-    init(provider: LogsProvider, showFilters: Bool = false){
+    init(provider: LogsProvider, showFilters: Bool = true){
         self.provider = provider
-        _showFilters = State(initialValue: showFilters)
+        _showFilters.wrappedValue = showFilters
     }
 
     let provider: LogsProvider
 
     var body: some View {
-        HeaderView(.key(.navLogs), icon: MenuView.iconLogs) {
-            Button(action: {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    showFilters.toggle()
+        VStack(spacing: 0){
+            HeaderView(.key(.navLogs), icon: MenuView.iconLogs) {
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        showFilters.toggle()
+                    }
+                }) {
+                    Text(.key(.logsFilters))
+                    Image(systemName: showFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
                 }
-            }) {
-                Text(.key(.logsOptions))
-                Image(systemName: showFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
             }
+            LogsListView(
+                onToggleAction: toggleItemAction,
+                items: $logs,
+                showFilters: $showFilters
+            ).onAppear(perform: initLogs)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .navigationTitle(.key(.navLogs))
+            if(showLegend) {
+                LegendView().padding(.vertical)
+            }
+            HStack {
+                Button(action: {withAnimation(.easeInOut(duration: 0.3)) {
+                    showLegend.toggle()
+                }}) {
+                    Text(.key(.iconsHelp))
+                    Image(systemName: "questionmark.circle")
+                }
+                Spacer()
+                HStack {
+                    Text("\(logs.count)")
+                    Text(.key(.items))
+                }
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            }
+            .padding(.horizontal)
+            .padding(.vertical)
         }
-        LogsListView(
-            onToggleAction: toggleItemAction,
-            items: $logs,
-            showFilters: $showFilters
-        ).onAppear(perform: initLogs)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .navigationTitle(.key(.navLogs))
     }
     
     private func toggleItemAction(item: LogItemInfo) {

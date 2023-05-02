@@ -1,22 +1,30 @@
 # App and Logger Changelog
 
-- Future Releases
-  - Choose with infos about the logs are showed on logs screen
-  - open original text log files
-  - archive logs for better analyses and performance
-  - create about section
-  - Screen to adress the folder access autorization
+* [3.0.0 - Planning](https://github.com/victorwads/UptimeLogger/issues/4)
 
-----
+- [2.5.0](https://github.com/victorwads/UptimeLogger/releases/download/2.5.0/UptimeLogger-2.5.0.dmg)
+  - App
+    - logs list:
+      - change system kernel uptime for "active time" if available
+      - change "options" to "filters"
+      - improve filters layout
+      - improve default showed info and format
+    - legend view:
+      - change system kernel uptime for "active time"
+      - texts, colors, button to hide and show
+    - fixes:
+      - macOs 11 crash on loading settings
+      - processes interval label at settings screen 
+  - Unistaller
+    - now remove app's preferences and caches
+  - Installer / Servive
+    - on update script, service continue activetime count
 
-* [2.4 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.4/UptimeLogger-2.4.dmg)
+* [2.4.0](https://github.com/victorwads/UptimeLogger/releases/download/2.4.0/UptimeLogger-2.4.0.dmg)
   * FIRST APPLE APROVED VERSION - no more warnings
-  * App
-    * logs list: change system kernel uptime for "active time" if available
-    * legend view: change system kernel uptime for "active time"
   * Service
-    * log script aproximated active uptime counting in background every 1 second
-    * log script update flows now cound active time too
+    * log script aproximated active uptime counting in background every 0,2 second with custom logic
+      activetime: number
   * Code
     * use xcodegen para gerar o projeto
     * Fix unit tests sign
@@ -31,6 +39,8 @@
     * Logs Screen: new layout
     * Details Screen: improve layout
     * **New** Current Screen to see current log status
+    * Screen to adress the folder access autorization 
+    * logs permisioning
     * Code
       * Fix App Localization and add French
       * Swift UI Refactor
