@@ -47,6 +47,7 @@ jobs:
         run: bash Pkg/createPackage.sh
         env:
           VERSION: ${{ env.VERSION }}
+          FIREBASE_PLIST: ${{ secrets.FIREBASE_PLIST }}
 
       - name: Create Release for ${{ env.VERSION }}
         id: create_release
