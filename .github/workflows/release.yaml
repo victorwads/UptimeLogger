@@ -28,13 +28,11 @@ jobs:
         uses: xavierLowmiller/xcodegen-action@1.1.2
 
       - name: Get Release body and Version
-        env:
-          VERSION: ${{ env.VERSION }}
         run: | 
           VERSION=$(awk -F'\"' '/CFBundleShortVersionString/{print $2}' project.yml)
 
           echo "VERSION<<EOF" >> $GITHUB_ENV
-          echo "v$VERSION" >> $GITHUB_ENV
+          echo "$VERSION" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
           RELEASEBODY=$(awk -v version="$VERSION" '$0~version{flag=1;next}/^[[:space:]]*$/{flag=0}flag' CHANGELOG.md)
