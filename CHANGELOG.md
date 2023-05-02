@@ -18,7 +18,7 @@
   - Unistaller
     - now remove app's preferences and caches
   - Installer / Servive
-    - on update script, service continue activetime count [x] WIP
+    - on update script, service continue activetime count
 
 * [2.4.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.4.0/UptimeLogger-2.4.0.dmg)
   * FIRST APPLE APROVED VERSION - no more warnings

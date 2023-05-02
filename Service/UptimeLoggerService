@@ -135,13 +135,10 @@ done &
 
 # Loop infinito para atualizar o uptime a cada 5 minutos
 COUNT=0
-scriptinit=$(date +%s)
 while true; do
     LOG="version: $VERSION"$'\n'
     LOG+="ended: $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
     LOG+="activetime: $(cat "$LOGS_DIR/activetime")"$'\n'
-    LOG+="activetimeByCount: $(cat "$LOGS_DIR/activetimecount")"$'\n'
-    LOG+="activetimeByDiff: $(($(date +%s) - scriptinit))"$'\n'
     
     # Verifica o tipo de sistema operacional
     if [[ "$OSTYPE" == "darwin"* ]]; then
