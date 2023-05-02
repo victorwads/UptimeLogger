@@ -62,6 +62,7 @@ targets:
       path: Resources/Info.plist
       properties:
         CFBundleDisplayName: Uptime Logger
+        CFBundleShortVersionString: "2.5.0"
         CFBundleURLTypes:
           - CFBundleURLName: "uptimelogger"
             CFBundleURLSchemes:

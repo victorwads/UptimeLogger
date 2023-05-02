@@ -1,9 +1,14 @@
 #!/bin/bash
 DEBUG=false
+UPDATE=false
 if [[ "$*" == *"--debug"* ]]; then
     DEBUG=true
+    if [[ "$*" == *"--exit-with-update"* ]]; then
+        UPDATE=true
+    fi
 fi
 VERSION=5
+activetime=0
 
 # Check for version option
 if [[ "$*" == *"-v"* ]] || [[ "$*" == *"--version"* ]]; then
@@ -40,7 +45,7 @@ if [[ "$*" == *"-s"* ]] || [[ "$*" == *"--allow-shutdown"* ]]; then
 fi
 
 function allowShutdown() {
-    echo "shutdown allowed" >>"$LOG_LATEST"
+    echo "shutdown allowed" >> "$LOG_LATEST"
     rm "$SHUTDOWN_FILE"
     rm "$LOG_LATEST"
 }
@@ -51,6 +56,7 @@ fi
 # Registra a data e hora de inicialização
 if [ -f "$UPDATE_FILE" ]; then
     STARTUP="$(cat "$UPDATE_FILE")"
+    activetime=$(cat "$LOGS_DIR/activetime")
     rm "$UPDATE_FILE"
     echo "Continuing from update of $STARTUP"
 else
@@ -76,22 +82,22 @@ if [[ "$*" == *"--debug"* ]]; then
     echo "LOG_FILE: $LOG_FILE"
     echo "PLOG_FILE: $PLOG_FILE"
     echo "STARTUP: $STARTUP"
+    echo ""
 fi
 
-if [ $DEBUG = true ] && [[ "$*" == *"--exit-with-update"* ]]; then
-    function finishwithUpdate() {
-        echo "$STARTUP" >"$UPDATE_FILE"
-        cat "$UPDATE_FILE"
-        exit
-    }
-    trap finishwithUpdate INT TERM
-else
-    trap "allowShutdown; exit;" INT TERM
-fi
+function finishwithUpdate() {
+    echo "$STARTUP" >"$UPDATE_FILE"
+    echo "allowing update on exit" 
+}
 
 cleanup() {
-    # Encerrar os processos em segundo plano
     kill $(jobs -p) 2>/dev/null
+    if [ $UPDATE = true ]; then
+        finishwithUpdate
+    else
+        allowShutdown
+    fi
+    # Encerrar os processos em segundo plano
     exit 0
 }
 trap cleanup SIGINT SIGTERM
@@ -111,15 +117,8 @@ trap cleanup SIGINT SIGTERM
 # logprocessinterval: [0-9]+
 # logprocess: true/false
 
-activetimecount=0
-while true; do
-    activetimecount=$((activetimecount + 1))
-    echo $activetimecount >"$LOGS_DIR/activetimecount"
-    sleep 1
-done &
-
-activetime=0
 lasttimestep=$(date +%s)
+echo "activetime before: $activetime"
 while true; do
     now=$(date +%s)
     diff=$((now - lasttimestep))
@@ -127,7 +126,7 @@ while true; do
     if [ $diff -gt 0 ] && [ $diff -le 5 ]; then
         activetime=$((activetime + diff))
         lasttimestep=$now
-        echo $activetime >"$LOGS_DIR/activetime"
+        echo -n $activetime >"$LOGS_DIR/activetime"
     elif [ $diff -gt 5 ]; then
         lasttimestep=$now
     fi

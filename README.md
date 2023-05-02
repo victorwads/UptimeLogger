@@ -48,5 +48,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgements
 
-- Thanks to @SimStm and @jenifernagasaki for speding some yours helping with improving the project
+- Thanks to [@SimStm](https://github.com/SimStm) and [@jenifernagasaki](https://github.com/jenifernagasaki) for speding some yours helping with improving the project
 - Thanks to [OpenAI](https://openai.com/) for training ChatGPT, the language model used to answer questions about this project and help me to learch SwiftUI from scratch.
