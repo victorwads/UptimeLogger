@@ -6,7 +6,7 @@ clear
 S=21;I=1;
 
 header "Identificando Certificados e Versão do Projeto e variaveis"
-VERSION=$(awk -F'\"' '/CFBundleShortVersionString/{print $2}' project.yml)
+VERSION=$(awk -F': ' '/MARKETING_VERSION/{print $2}' project.yml)
 APP_CERT=$(security find-certificate -c "Developer ID Application" -Z | awk -F'"' '/alis/ {print $4}')
 INSTALLER_CERT=$(security find-certificate -c "Developer ID Installer" -Z | awk -F'"' '/alis/ {print $4}')
 CACHE_FOLDER="$SCRIPT_DIR/cache"

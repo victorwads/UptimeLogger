@@ -41,7 +41,7 @@ targets:
       base:
         CURRENT_PROJECT_VERSION: 8
         MACOSX_DEPLOYMENT_TARGET: 11.0
-        MARKETING_VERSION: 2.4.0
+        MARKETING_VERSION: 2.5.0
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
         OTHER_CODE_SIGN_FLAGS: --deep --timestamp
       configs:
@@ -62,7 +62,6 @@ targets:
       path: Resources/Info.plist
       properties:
         CFBundleDisplayName: Uptime Logger
-        CFBundleShortVersionString: "2.4.0"
         CFBundleURLTypes:
           - CFBundleURLName: "uptimelogger"
             CFBundleURLSchemes:
