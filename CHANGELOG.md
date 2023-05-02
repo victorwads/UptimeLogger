@@ -2,10 +2,10 @@
 
 * [3.0.0 - Planning](https://github.com/victorwads/UptimeLogger/issues/4)
 
-- 2.5.0 - Doing
+- [2.5.0](https://github.com/victorwads/UptimeLogger/releases/download/2.5.0/UptimeLogger-2.5.0.dmg)
   - App
     - logs list:
-      - change system kernel uptime for "active time" if available [x] WIP
+      - change system kernel uptime for "active time" if available
       - change "options" to "filters"
       - improve filters layout
       - improve default showed info and format
@@ -20,7 +20,7 @@
   - Installer / Servive
     - on update script, service continue activetime count
 
-* [2.4.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/2.4.0/UptimeLogger-2.4.0.dmg)
+* [2.4.0](https://github.com/victorwads/UptimeLogger/releases/download/2.4.0/UptimeLogger-2.4.0.dmg)
   * FIRST APPLE APROVED VERSION - no more warnings
   * Service
     * log script aproximated active uptime counting in background every 0,2 second with custom logic

@@ -12,14 +12,15 @@
 "details.notfound" = "Ce journal ne contient pas d'informations sur les processus";
 "details.notfound.tip" = "validez que la surveillance est active dans les paramètres";
 "log.boottime" = "Heure de démarrage du système";
-"log.edited" = "Journal modifié";
+"log.edited" = "modifié";
 /* Log Item */
 "log.help" = "cliquez pour modifier l'information du journal de l'arrêt";
 "log.normal" = "Arrêt normal";
 "log.startup" = "Heure de démarrage du service";
 "log.sysversion" = "Version du système d'exploitation";
 "log.unexpected" = "Arrêt inattendu";
-"log.uptime" = "Temps d'activité";
+"log.uptime" = "Tempo desde o boot";
+"log.activetime" = "Tempo ativo";
 "logs.details.click" = "Cliquez pour voir les détails du journal";
 "logs.notfound" = "Aucun journal trouvé";
 /* Logs */

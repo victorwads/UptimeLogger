@@ -12,14 +12,15 @@
 "details.notfound" = "This log has no process information, check the settings";
 "details.notfound.tip" = "validate if the monitoring is active in the settings";
 "log.boottime" = "System boot time";
-"log.edited" = "Record edited";
+"log.edited" = "edited";
 /* Log Item */
 "log.help" = "click to change the shutdown record information";
 "log.normal" = "Normal Shutdown";
 "log.startup" = "Service start time";
 "log.sysversion" = "OS Version";
 "log.unexpected" = "Unexpected Shutdown";
-"log.uptime" = "Uptime";
+"log.uptime" = "Time since boot";
+"log.activetime" = "Active time";
 "logs.details.click" = "Click to view the details of the record";
 "logs.notfound" = "No records found";
 /* Logs */

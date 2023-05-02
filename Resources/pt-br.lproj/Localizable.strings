@@ -13,14 +13,15 @@
 "details.notfound" = "Esse log não tem informações de processos";
 "details.notfound.tip" = "valide se o monitoramento esta ativo em configurações";
 "log.boottime" = "Inicialização do sistema";
-"log.edited" = "Registro editado";
+"log.edited" = "editado";
 /* Log Item */
 "log.help" = "clique para alterar a informação do registro de desligamento";
 "log.normal" = "Desligamento Normal";
 "log.startup" = "Início do Serviço de Monitoramento";
 "log.sysversion" = "Versão do SO";
 "log.unexpected" = "Desligamento Inesperado";
-"log.uptime" = "Tempo de atividade";
+"log.uptime" = "Tempo desde o boot";
+"log.activetime" = "Tempo ativo";
 "logs.details.click" = "Click para ver os detalhes do registro";
 "logs.notfound" = "Nenhum registro encontrado";
 /* Logs */

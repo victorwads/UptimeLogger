@@ -14,7 +14,9 @@ sysversion: 13.4
 batery: 72%
 charging: false
 boottime: 1681697439
+activetime: 3600
 uptime: 3784
+logprocessinterval: 1
 
 """
 
@@ -41,6 +43,7 @@ struct LogItemInfo: Identifiable {
     var systemVersion: String? = nil
     var systemBootTime: Date? = nil
     var systemUptime: TimeInterval? = nil
+    var systemActivetime: TimeInterval? = nil
     var batery: Int? = nil
     var charging: Bool? = nil
 
@@ -81,6 +84,9 @@ struct LogItemInfo: Identifiable {
             //# uptime: [0-9]+ (seconds interval)
             case line.hasPrefix("uptime: "):
                 extractNumber(line).guard { systemUptime = TimeInterval($0) }
+            //# activetime: [0-9]+
+            case line.hasPrefix("activetime: "):
+                extractNumber(line).guard { systemActivetime = TimeInterval($0) }
             //# logprocessinterval: [0-9]+
             case line.hasPrefix("logprocessinterval: "):
                 logProcessInterval = extractNumber(line)

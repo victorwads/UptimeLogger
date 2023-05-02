@@ -104,15 +104,12 @@ trap cleanup SIGINT SIGTERM
 
 # LOG V5
 # version: [0-9]+
-# init: %Y-%m-%d_%H-%M-%S
 # ended: %Y-%m-%d_%H-%M-%S
 # sysversion: String
 # batery: [0-9]+%
 # charging: true/false
 # boottime: [0-9]+ (timestamp)
 # activetime: [0-9]+ (seconds interval)
-# activetimeByCount: [0-9]+ (seconds interval)
-# activetimeByDiff: [0-9]+ (seconds interval)
 # uptime: [0-9]+ (seconds interval)
 # logprocessinterval: [0-9]+
 # logprocess: true/false

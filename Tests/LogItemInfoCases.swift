@@ -23,6 +23,7 @@ boottime: 1681697439
 uptime: 3784
 logprocessinterval: 2
 logprocess: true
+activetime: 3600
 """
         let logItemInfo = LogItemInfo(fileName: fileName, content: content)
         
@@ -33,6 +34,7 @@ logprocess: true
         XCTAssertEqual(logItemInfo.charging, false)
         XCTAssertEqual(logItemInfo.systemBootTime, Date(timeIntervalSince1970: 1681697439))
         XCTAssertEqual(logItemInfo.systemUptime, 3784)
+        XCTAssertEqual(logItemInfo.systemActivetime, 3600)
         XCTAssertEqual(logItemInfo.logProcessInterval, 2)
         XCTAssertEqual(logItemInfo.hasProcess, true)
         XCTAssertEqual(logItemInfo.shutdownAllowed, false)
