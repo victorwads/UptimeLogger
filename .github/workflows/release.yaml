@@ -1,11 +1,15 @@
 name: App build
+
 on:
-    push:
-      tags:
-        - '*'
+  push:
+    branches: [ "main" ]
+
 jobs:
   build_with_signing:
+    name: Build and Create Release App
     runs-on: macos-13
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -16,52 +20,44 @@ jobs:
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
           BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.P12_PASSWORD }}
-        run: |
-          # create variables
-          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-          PP_PATH=$RUNNER_TEMP/UptimeLogger2027.mobileprovision
-          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-
-          # import certificate and provisioning profile from secrets
-          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
-          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
-
-          # create temporary keychain
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-          # import certificate to keychain
-          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
-
-          # apply provisioning profile
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APPPASS: ${{ secrets.APPLE_APPPASS }}
+        run: bash Pkg/storeAppleCredencials.sh
 
       - name: xcodegen
         uses: xavierLowmiller/xcodegen-action@1.1.2
 
-      - name: Build Release ${{ github.ref }}
-        run: bash Pkg/createPackage.sh
+      - name: Get Release body and Version
+        env:
+          VERSION: ${{ env.VERSION }}
+        run: | 
+          VERSION=$(awk -F'\"' '/CFBundleShortVersionString/{print $2}' project.yml)
 
-      - name: Create Release for ${{ github.ref }}
+          echo "VERSION<<EOF" >> $GITHUB_ENV
+          echo "v$VERSION" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          RELEASEBODY=$(awk -v version="$VERSION" '$0~version{flag=1;next}/^[[:space:]]*$/{flag=0}flag' CHANGELOG.md)
+
+          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
+          echo "$RELEASEBODY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+  
+      - name: Build Release ${{ env.VERSION }}
+        run: bash Pkg/createPackage.sh
+        env:
+          VERSION: ${{ env.VERSION }}
+
+      - name: Create Release for ${{ env.VERSION }}
         id: create_release
-        uses: actions/create-release@v1
+        uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
+          RELEASE_BODY: ${{ env.RELEASE_BODY }}
+          VERSION: ${{ env.VERSION }}
+        with: 
+          tag: ${{ env.VERSION }}
+          artifacts: "*.dmg"
+          body: ${{ env.RELEASE_BODY }}
+          draft: true
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./UptimeLogger-${{ github.ref }}.dmg
-          asset_name: UptimeLogger-${{ github.ref }}.dmg
-          asset_content_type: application/octet-stream
