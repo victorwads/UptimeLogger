@@ -26,7 +26,6 @@ else
 fi
 
 LOG_LATEST="$LOGS_DIR/latest"
-CONFIG_FILE="$LOGS_DIR/config"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi
@@ -35,23 +34,11 @@ chmod 777 "$LOGS_DIR"
 
 # Allowed Shutdown Features
 UPDATE_FILE="$LOGS_DIR/updated"
-SHUTDOWN_FILE="$LOGS_DIR/shutdown"
-
-# Allow Shutdown Script
-if [[ "$*" == *"-s"* ]] || [[ "$*" == *"--allow-shutdown"* ]]; then
-    touch "$SHUTDOWN_FILE"
-    chmod 766 "$SHUTDOWN_FILE"
-    exit 0
-fi
 
 function allowShutdown() {
-    echo "shutdown allowed" >> "$LOG_LATEST"
-    rm "$SHUTDOWN_FILE"
+    echo "shutdown allowed" >>"$LOG_LATEST"
     rm "$LOG_LATEST"
 }
-if test -f "$SHUTDOWN_FILE" && test -f "$LOG_LATEST"; then
-    allowShutdown
-fi
 
 # Registra a data e hora de inicialização
 if [ -f "$UPDATE_FILE" ]; then
@@ -64,13 +51,13 @@ else
 fi
 
 # Set log files names
-LOG_FILE="$LOGS_DIR/log_$STARTUP.txt"
-PLOG_FILE="$LOGS_DIR/log_$STARTUP.log"
-if [ ! -f "$LOG_FILE" ]; then
-    echo "version: $VERSION"$'\n' >"$LOG_FILE"
-fi
+    LOG_FILE="$LOGS_DIR/log_$STARTUP.txt"
+    PLOG_FILE="$LOGS_DIR/log_$STARTUP.log"
+    if [ ! -f "$LOG_FILE" ]; then
+        echo "version: $VERSION"$'\n' >"$LOG_FILE"
+    fi
 
-ln -sf "$LOG_FILE" "$LOG_LATEST"
+    ln -sf "$LOG_FILE" "$LOG_LATEST"
 
 # Verifica se o modo de depuração está habilitado
 if [[ "$*" == *"--debug"* ]]; then
@@ -87,7 +74,7 @@ fi
 
 function finishwithUpdate() {
     echo "$STARTUP" >"$UPDATE_FILE"
-    echo "allowing update on exit" 
+    echo "allowing update on exit"
 }
 
 cleanup() {
@@ -136,7 +123,7 @@ while true; do
     LOG="version: $VERSION"$'\n'
     LOG+="ended: $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
     LOG+="activetime: $(cat "$LOGS_DIR/activetime")"$'\n'
-    
+
     # Verifica o tipo de sistema operacional
     if [[ "$OSTYPE" == "darwin"* ]]; then
         boottimestamp=$(sysctl -n kern.boottime | awk -F'[, ]' '{print $4}')
