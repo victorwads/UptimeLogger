@@ -36,6 +36,6 @@ struct ProcessLogInfo: Identifiable {
     
     static func processFile(content: String) -> [ProcessLogInfo] {
         let lines = content.components(separatedBy: "\n").dropFirst()
-        return lines.map { line in ProcessLogInfo(line) }.compactMap { $0 }
+        return lines.map { line in ProcessLogInfo(line) }.filterNonNil()
     }
 }

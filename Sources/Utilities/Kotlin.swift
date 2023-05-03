@@ -20,3 +20,20 @@ extension Optional {
         }
     }
 }
+
+extension Sequence where Element: OptionalType {
+    func filterNonNil() -> [Element.Wrapped] {
+        return self.compactMap { $0.optional }
+    }
+}
+
+protocol OptionalType {
+    associatedtype Wrapped
+    var optional: Wrapped? { get }
+}
+
+extension Optional: OptionalType {
+    var optional: Wrapped? {
+        return self
+    }
+}
