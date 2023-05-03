@@ -2,6 +2,7 @@ name: UptimeLogger
 options:
   xcodeVersion: 14.3
   bundleIdPrefix: br.com.victorwads
+  postGenCommand: "[ -n \"$FIREBASE_PLIST\" ] && echo -n \"$FIREBASE_PLIST\" | base64 --decode -o \"Resources/GoogleService-Info.plist\""
   groupOrdering: 
     - order: [Service, Tests, Resources, Sources]
     - pattern: '^.*Screen$'
