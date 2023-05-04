@@ -13,14 +13,14 @@ class MocksProvider {
         return provider.loadLogWith(filename: file)
     }
 
-    static func getProcesses(of file: String) -> [ProcessLogInfo] {
+    static func getProcesses(of log: LogItemInfo) -> [ProcessLogInfo] {
         guard let path = Bundle(for: self).resourceURL?.path else {
             return []
         }
         
         let provider = LogsProviderFilesSystem(folder: path)
         
-        return provider.loadProccessLogFor(filename: file)
+        return provider.loadProccessLogFor(log: log)
     }
 
 }

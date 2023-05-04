@@ -12,7 +12,7 @@ import CoreData
 
 class CoreDataLogProviderTests: XCTestCase {
 
-    var coreDataLogProvider: CoreDataLogProvider!
+    var coreDataLogProvider: LogsProviderWithCoreData!
     var persistentContainer: NSPersistentContainer!
 
     override func setUp() {
@@ -35,7 +35,7 @@ class CoreDataLogProviderTests: XCTestCase {
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
 
         // Cria o provedor de dados do CoreData
-        coreDataLogProvider = CoreDataLogProvider(context: managedObjectContext)
+        coreDataLogProvider = LogsProviderWithCoreData(context: managedObjectContext)
     }
 
     override func tearDown() {
@@ -65,11 +65,10 @@ class CoreDataLogProviderTests: XCTestCase {
     }
     
     func testSaveAndFetchLogItemProccess() {
-        let fileName = "log_2023-04-17_00-13-40.txt"
-        let logItem = LogsProviderMock.empty
+        let logItem = LogItemInfo("log_2023-04-17_00-13-40.txt")
 
         // Salva o objeto LogItemInfo no CoreData
-        coreDataLogProvider.saveLogItem(logItem, processLogs: MocksProvider.getProcesses(of: fileName))
+        coreDataLogProvider.saveLogItem(logItem, processLogs: MocksProvider.getProcesses(of: logItem))
 
         // Recupera todos os objetos LogItemInfo do CoreData
         let logItems = coreDataLogProvider.fetchAllLogItems()
