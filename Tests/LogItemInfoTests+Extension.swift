@@ -87,8 +87,8 @@ final class LogItemInfoTestsExtension: XCTestCase {
     }
 
     func testBootimeFormat() {
-        let logItemInfo = LogItemInfo("", content: "boottime:")
-        XCTAssertEqual(logItemInfo.formattedBoottime, nil)
+        let logItemInfo = LogItemInfo("", content: "boottime: 1681697439")
+        XCTAssertEqual(logItemInfo.formattedBoottime, "16/04/2023 ás 23:10:39")
     }
 
     func testBootimeFormatNull() {

@@ -22,6 +22,12 @@ extension Optional {
     }
 }
 
+extension String {
+    func ifNotEmpty() -> String? {
+        return self.isEmpty ? nil : self
+    }
+}
+
 extension Sequence where Element: OptionalType {
     func filterNonNil() -> [Element.Wrapped] {
         return self.compactMap { $0.optional }

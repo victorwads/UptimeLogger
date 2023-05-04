@@ -42,25 +42,17 @@ class CoreDataLogProvider {
         }
         
         // Salvar as alterações no contexto
-        do {
-            try context.save()
-        } catch {
-            print("Erro ao salvar LogItemInfo e ProcessLogInfo: \(error)")
-        }
+        do { try context.save() }
+        catch { print("Erro ao salvar LogItemInfo e ProcessLogInfo: \(error)") }
     }
     
     func fetchAllLogItems() -> [LogItemInfo] {
-        let request: NSFetchRequest<LogItemEntity> = LogItemEntity.fetchRequest()
-
         do {
-            let logItemEntities = try context.fetch(request)
-            return logItemEntities.map { logItemEntity in
-                LogItemInfo(entity: logItemEntity)
-            }.filterNonNil()
-        } catch {
-            print("Erro ao buscar LogItemEntities: \(error)")
-            return []
-        }
+            let logItemEntities = try context.fetch(LogItemEntity.fetchRequest())
+            return logItemEntities
+                .map { logItemEntity in LogItemInfo(entity: logItemEntity) }
+                .filterNonNil()
+        } catch { return [] }
     }
 
     func fetchProcessLogs(for logItem: LogItemInfo) -> [ProcessLogInfo] {
@@ -69,13 +61,10 @@ class CoreDataLogProvider {
 
         do {
             let processLogEntities = try context.fetch(request)
-            return processLogEntities.map { processLogEntity in
-                ProcessLogInfo(entity: processLogEntity)
-            }.filterNonNil()
-        } catch {
-            print("Erro ao buscar ProcessLogEntities: \(error)")
-            return []
-        }
+            return processLogEntities
+                .map { processLogEntity in ProcessLogInfo(entity: processLogEntity) }
+                .filterNonNil()
+        } catch { return [] }
     }
 }
 

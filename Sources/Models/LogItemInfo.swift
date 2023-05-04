@@ -122,14 +122,13 @@ struct LogItemInfo: Identifiable {
     
     static private func extractScriptEndTime(from line: String, formatter: DateFormatter) -> Date? {
         formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        guard let endTimeString = line.components(separatedBy: ": ").last else { return nil }
-        return formatter.date(from: endTimeString)
+        return formatter.date(from: line.components(separatedBy: ": ").last!)
     }
 
     static private func fromOldVersion(_ uptimeString: String) -> TimeInterval? {
         let parts = uptimeString.components(separatedBy: ", ")
-        let dayPart = parts.first(where: {$0.contains("days")})?.replacingOccurrences(of: " days", with: "") ?? "0"
-        guard let timeParts = parts.last?.components(separatedBy: ":").compactMap({ Int($0) }) else { return 0 }
+        let dayPart = parts.first(where: {$0.contains("days")})?.replacingOccurrences(of: " days", with: "") ?? "-"
+        let timeParts = parts.last!.components(separatedBy: ":").compactMap({ Int($0) })
         
         if timeParts.count < 3 {
             return nil
