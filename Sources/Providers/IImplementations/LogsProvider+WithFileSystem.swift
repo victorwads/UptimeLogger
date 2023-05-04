@@ -39,7 +39,7 @@ class LogsProviderFilesSystem: LogsProvider {
             for logPath in logFiles {
                 if let log = getFileContents(folder+"/"+logPath) {
                     results.append(
-                        LogItemInfo(fileName: logPath, content: log)
+                        LogItemInfo(logPath, content: log)
                     )
                 }
             }
@@ -61,7 +61,7 @@ class LogsProviderFilesSystem: LogsProvider {
         
         let contents = getFileContents(folder + "/" + filename) ?? ""
 
-        return LogItemInfo(fileName: filename, content: contents)
+        return LogItemInfo(filename, content: contents)
     }
     
     func loadProccessLogFor(filename: String) -> [ProcessLogInfo] {

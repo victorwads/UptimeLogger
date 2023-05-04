@@ -147,24 +147,24 @@ struct LogItemView_Previews: PreviewProvider {
 
     static var previews: some View {
         LogItemView(
-            log: .constant(LogItemInfo.empty),
+            log: .constant(LogsProviderMock.empty),
             onToggleAction: {_ in }
         ).frame(minWidth: 1200)
 
         LogItemView(
-            log: .constant(LogItemInfo.fullNormal),
+            log: .constant(LogsProviderMock.fullNormal),
             showDetails: true,
             onToggleAction: {_ in }
         ).frame(minWidth: 1200)
 
         LogItemView(
-            log: .constant(LogItemInfo.fullUnexpected),
+            log: .constant(LogsProviderMock.fullUnexpected),
             showDetails: true,
             onToggleAction: {_ in }
         ).frame(minWidth: 1200)
 
         LogItemView(
-            log: .constant(LogItemInfo.fullUnexpected),
+            log: .constant(LogsProviderMock.fullUnexpected),
             showDetails: false,
             onToggleAction: {_ in }
         ).frame(minWidth: 1200)

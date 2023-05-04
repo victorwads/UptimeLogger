@@ -14,7 +14,7 @@ struct LogDetailsScreen: View {
     @SceneStorage("windowDeepLink") var urlFileName: String = ""
 
     @State var processes: [ProcessLogInfo] = []
-    @State var logFile: LogItemInfo = LogItemInfo.empty
+    @State var logFile: LogItemInfo = LogsProviderMock.empty
 
     var body: some View {
         if(logFile.fileName.isEmpty) {
@@ -112,12 +112,12 @@ struct LogDetailsScreen_Previews: PreviewProvider {
         LogDetailsScreen(
             provider: LogsProviderMock(),
             urlFileName: "mockFileName",
-            logFile: LogItemInfo.fullNormal
+            logFile: LogsProviderMock.fullNormal
         ).frame(width: 1000, height: 700)
         LogDetailsScreen(
             provider: LogsProviderMock(),
             urlFileName: "mockFileName",
-            logFile: LogItemInfo.fullUnexpected
+            logFile: LogsProviderMock.fullUnexpected
         ).frame(width: 1000, height: 700)
     }
 }

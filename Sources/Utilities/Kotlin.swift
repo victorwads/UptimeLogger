@@ -9,15 +9,16 @@ import Foundation
 
 // Implementins Kotlin Like ?.let to guard optional values
 extension Optional {
-    func `guard`(_ defaultValue: Wrapped? = nil, _ transform: (_ it: Wrapped) -> Any) {
+    func `let`<T>(_ defaultValue: Wrapped? = nil, _ transform: (_ it: Wrapped) -> T?) -> T? {
         switch self {
         case .some(let value):
-            _ = transform(value)
+            return transform(value)
         case .none:
             if let defaultValue = defaultValue {
-                _ = transform(defaultValue)
+                return transform(defaultValue)
             }
         }
+        return nil
     }
 }
 

@@ -125,7 +125,7 @@ struct ProcessView_Previews: PreviewProvider {
         LogDetailsScreen(
             provider: LogsProviderMock(),
             urlFileName: "mockFileName",
-            logFile: LogItemInfo.fullUnexpected
+            logFile: LogsProviderMock.fullUnexpected
         ).frame(width: 1000, height: 700)
     }
 }
