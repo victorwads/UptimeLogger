@@ -1,0 +1,11 @@
+version: 4
+init: 2023-04-17_00-13-40
+ended: 2023-04-17_00-13-43
+sysversion: 13.4
+batery: 72%
+charging: false
+boottime: 1681697439
+uptime: 3784
+logprocessinterval: 2
+logprocess: true
+activetime: 3600

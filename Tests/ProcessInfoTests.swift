@@ -13,24 +13,7 @@ import XCTest
 class ProcessInfoTests: XCTestCase {
 
     func testProcessFile() {
-        let input = """
-USER               PID  %CPU %MEM STARTED      TIME COMMAND
-root                 1   1,1  0,1 11:42     2:35.88 /sbin/launchd
-root                78   0,4  0,2 11:42     1:29.49 /usr/libexec/logd
-root                80   0,0  0,1 11:42     0:04.43 /usr/libexec/UserEventAgent (System)
-_windowserver      145   4,0  1,0 11:42    32:59.23 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer -daemon
-_cmiodalassistants   253   0,0  0,0 11:42     0:00.94 /usr/sbin/distnoted agent
-_installcoordinationd 16197   0,0  0,0  6:16     0:00.48 /usr/sbin/distnoted agent
-victorwads       25544   0,0  0,1  8:12     0:00.10 /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared
-root             43331   0,0  0,0  4:57     0:00.01 login -pf victorwads
-victorwads       43333   0,0  0,0  4:57     0:00.37 -zsh
-root             25751   0,0  0,0  8:12     0:00.01 ps -ax -o user,pid,pcpu,pmem,start,time,command
-root             46727   0,0  0,0  4:59     0:00.01 login -pfl victorwads /bin/bash -c exec -la zsh /bin/zsh
-victorwads       46730   1,6  0,0  4:59     0:04.57 -zsh
-
-"""
-
-        let actualOutput = ProcessLogInfo.processFile(content: input)
+        let actualOutput = ProcessLogInfo.processFile(content: MocksProvider.getContent(of: "processes.log"))
         
         XCTAssertEqual(actualOutput.count, 12)
         

@@ -71,8 +71,17 @@ targets:
   UptimeLoggerTests:
     type: bundle.unit-test
     platform: macOS
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
     sources:
       - path: Tests
+        excludes: 
+          - "**/*.txt"
+          - "**/*.log"
+      - path: Tests/Mocks
+        buildPhase:
+          copyFiles:
+            destination: resources
     dependencies:
       - target: UptimeLogger
-

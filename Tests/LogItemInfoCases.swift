@@ -12,20 +12,7 @@ final class LogItemInfoCases: XCTestCase {
     
     func testLogItemInfoInitialization() throws {
         let fileName = "log_2023-04-17_00-13-40.txt"
-        let content = """
-version: 4
-init: 2023-04-17_00-13-40
-ended: 2023-04-17_00-13-43
-sysversion: 13.4
-batery: 72%
-charging: false
-boottime: 1681697439
-uptime: 3784
-logprocessinterval: 2
-logprocess: true
-activetime: 3600
-"""
-        let logItemInfo = LogItemInfo(fileName: fileName, content: content)
+        let logItemInfo = LogItemInfo(fileName, content: MocksProvider.getContent(of: fileName))
         
         XCTAssertEqual(logItemInfo.fileName, fileName)
         XCTAssertEqual(logItemInfo.version, 4)
@@ -50,29 +37,16 @@ activetime: 3600
     }
     
     func testEmptyInfos() throws {
-        let content = """
-version:
-init:
-ended:
-sysversion:
-batery:
-charging:
-boottime:
-uptime:
-logprocessinterval:
-logprocess:
-last record:
-lastrecord:
-"""
-        let logItemInfo = LogItemInfo(fileName: "", content: content)
-        
+        let fileName = "empty.txt"
+        let logItemInfo = LogItemInfo(fileName, content: MocksProvider.getContent(of: fileName))
+
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemVersion, nil)
         XCTAssertEqual(logItemInfo.batery, nil)
         XCTAssertEqual(logItemInfo.charging, nil)
         XCTAssertEqual(logItemInfo.systemBootTime, nil)
         XCTAssertEqual(logItemInfo.systemUptime, nil)
-        XCTAssertEqual(logItemInfo.logProcessInterval, nil)
+        XCTAssertEqual(logItemInfo.logProcessInterval, 0)
         XCTAssertEqual(logItemInfo.hasProcess, false)
         XCTAssertEqual(logItemInfo.shutdownAllowed, false)
         XCTAssertEqual(logItemInfo.edited, false)
@@ -81,29 +55,16 @@ lastrecord:
     }
     
     func testInvalidInfos() throws {
-        let content = """
-version: invalidinfo
-init: invalidinfo
-ended: invalidinfo
-sysversion: invalidinfo
-batery: invalidinfo
-charging: invalidinfo
-boottime: invalidinfo
-uptime: invalidinfo
-logprocessinterval: invalidinfo
-logprocess: invalidinfo
-last record: invalidinfo
-lastrecord: invalidinfo
-"""
-        let logItemInfo = LogItemInfo(fileName: "", content: content)
-        
+        let fileName = "invalidinfo.txt"
+        let logItemInfo = LogItemInfo(fileName, content: MocksProvider.getContent(of: fileName))
+
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemVersion, "invalidinfo")
         XCTAssertEqual(logItemInfo.batery, nil)
         XCTAssertEqual(logItemInfo.charging, nil)
         XCTAssertEqual(logItemInfo.systemBootTime, nil)
         XCTAssertEqual(logItemInfo.systemUptime, nil)
-        XCTAssertEqual(logItemInfo.logProcessInterval, nil)
+        XCTAssertEqual(logItemInfo.logProcessInterval, 0)
         XCTAssertEqual(logItemInfo.hasProcess, false)
         XCTAssertEqual(logItemInfo.shutdownAllowed, false)
         XCTAssertEqual(logItemInfo.edited, false)
@@ -116,7 +77,7 @@ lastrecord: invalidinfo
 version: 1
 last record: 02:53:58
 """
-        let logItemInfo = LogItemInfo(fileName: "", content: content)
+        let logItemInfo = LogItemInfo("", content: content)
 
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemUptime, (2 * 60 * 60) + (53 * 60) + 58)
@@ -126,7 +87,7 @@ last record: 02:53:58
         let content = """
 last record: 1 days, 02:53:58
 """
-        let logItemInfo = LogItemInfo(fileName: "", content: content)
+        let logItemInfo = LogItemInfo("", content: content)
         let dayInSeconds = 1 * 24 * 60 * 60
         let hourInSeconds = 2 * 60 * 60
         let minutesInSeconds = 53 * 60
@@ -141,7 +102,7 @@ last record: 1 days, 02:53:58
         let content = """
 manually: shutdown allowed
 """
-        let logItemInfo = LogItemInfo(fileName: fileName, content: content)
+        let logItemInfo = LogItemInfo(fileName, content: content)
         
         XCTAssertEqual(logItemInfo.shutdownAllowed, true)
         XCTAssertEqual(logItemInfo.edited, true)
@@ -153,7 +114,7 @@ manually: shutdown allowed
 shutdown allowed
 manually: shutdown allowed
 """
-        let logItemInfo = LogItemInfo(fileName: fileName, content: content)
+        let logItemInfo = LogItemInfo(fileName, content: content)
         
         XCTAssertEqual(logItemInfo.shutdownAllowed, true)
         XCTAssertEqual(logItemInfo.edited, false)
@@ -164,7 +125,7 @@ manually: shutdown allowed
         let content = """
 manually: shutdown unexpected
 """
-        let logItemInfo = LogItemInfo(fileName: fileName, content: content)
+        let logItemInfo = LogItemInfo(fileName, content: content)
         
         XCTAssertEqual(logItemInfo.shutdownAllowed, false)
         XCTAssertEqual(logItemInfo.edited, false)
@@ -176,7 +137,7 @@ manually: shutdown unexpected
 shutdown allowed
 manually: shutdown unexpected
 """
-        let logItemInfo = LogItemInfo(fileName: fileName, content: content)
+        let logItemInfo = LogItemInfo(fileName, content: content)
         
         XCTAssertEqual(logItemInfo.shutdownAllowed, false)
         XCTAssertEqual(logItemInfo.edited, true)
