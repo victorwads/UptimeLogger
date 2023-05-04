@@ -12,7 +12,7 @@ final class LogItemInfoCases: XCTestCase {
     
     func testLogItemInfoInitialization() throws {
         let fileName = "log_2023-04-17_00-13-40.txt"
-        let logItemInfo = LogItemInfo(fileName, content: MocksProvider.getContent(of: fileName))
+        let logItemInfo = MocksProvider.getLog(of: fileName)
         
         XCTAssertEqual(logItemInfo.fileName, fileName)
         XCTAssertEqual(logItemInfo.version, 4)
@@ -38,7 +38,7 @@ final class LogItemInfoCases: XCTestCase {
     
     func testEmptyInfos() throws {
         let fileName = "empty.txt"
-        let logItemInfo = LogItemInfo(fileName, content: MocksProvider.getContent(of: fileName))
+        let logItemInfo = MocksProvider.getLog(of: fileName)
 
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemVersion, nil)
@@ -56,7 +56,7 @@ final class LogItemInfoCases: XCTestCase {
     
     func testInvalidInfos() throws {
         let fileName = "invalidinfo.txt"
-        let logItemInfo = LogItemInfo(fileName, content: MocksProvider.getContent(of: fileName))
+        let logItemInfo = MocksProvider.getLog(of: fileName)
 
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemVersion, "invalidinfo")

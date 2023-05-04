@@ -13,7 +13,7 @@ import XCTest
 class ProcessInfoTests: XCTestCase {
 
     func testProcessFile() {
-        let actualOutput = ProcessLogInfo.processFile(content: MocksProvider.getContent(of: "processes.log"))
+        let actualOutput = MocksProvider.getProcesses(of: "log_2023-04-17_00-13-40.txt")
         
         XCTAssertEqual(actualOutput.count, 12)
         
