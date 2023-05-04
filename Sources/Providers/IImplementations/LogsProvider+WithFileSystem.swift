@@ -11,12 +11,10 @@ import AppKit
 
 class LogsProviderFilesSystem: LogsProvider {    
     
-    static let defaultLogsFolder = "/Library/Application Support/UptimeLogger"
-    
     var folder: String
     let manager = FileManager.default
 
-    init(folder: String = LogsProviderFilesSystem.defaultLogsFolder) {
+    init(folder: String = AppDelegate.defaultFolder) {
         _ = FilesProvider.shared.isAutorized(folder)
         self.folder = folder
     }
@@ -44,12 +42,10 @@ class LogsProviderFilesSystem: LogsProvider {
                 }
             }
             results = results.sorted(by: { $0.scriptStartTime > $1.scriptStartTime })
-            
-            return results
         } catch {
             Crashlytics.crashlytics().record(error: error)
-            return []
         }
+        return results
     }
 
     func loadCurrentLog() -> LogItemInfo {
@@ -64,11 +60,25 @@ class LogsProviderFilesSystem: LogsProvider {
         return LogItemInfo(filename, content: contents)
     }
     
-    func loadProccessLogFor(filename: String) -> [ProcessLogInfo] {
-        let contents = getFileContents(folder + "/" + filename.replacingOccurrences(of: ".txt", with: ".log")) ?? ""
+    func getLogFileName(_ fileName: String) -> String {
+        return folder + "/" + fileName.replacingOccurrences(of: ".txt", with: ".log")
+    }
+    
+    func loadProccessLogFor(log: LogItemInfo) -> [ProcessLogInfo] {
+        let contents = getFileContents(getLogFileName(log.fileName)) ?? ""
         return ProcessLogInfo.processFile(content: contents)
     }
     
+    func removeLog(_ fileName: String) {
+        do {
+            try manager.removeItem(atPath: folder + "/" + fileName)
+            if (manager.fileExists(atPath: getLogFileName(fileName))) {
+                try manager.removeItem(atPath: getLogFileName(fileName))
+            }
+        } catch {
+            print("error: \(error)")
+        }
+    }
     func toggleShutdownAllowed(_ file: LogItemInfo) {
         let allowed = !file.shutdownAllowed
         if let logData = manager.contents(atPath: folder+"/"+file.fileName),

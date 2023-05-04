@@ -37,7 +37,7 @@ struct ProcessView: View {
         })
         switch sortingOption {
         case .none:
-            return processes
+            return processes.sorted { $0.pid < $1.pid }
         case .command:
             return processes.sorted { $0.command < $1.command }
         case .user:
@@ -84,7 +84,7 @@ struct ProcessView: View {
             .frame(maxWidth: 430)
         }
         .padding(10)
-        List(sortedProccess, id: \.id) { item in
+        List(sortedProccess, id: \.pid) { item in
             HStack {
                 Image(systemName: "number")
                 Text(String(item.pid))

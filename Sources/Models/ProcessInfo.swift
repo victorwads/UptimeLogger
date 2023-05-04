@@ -7,11 +7,10 @@
 
 import Foundation
 
-struct ProcessLogInfo: Identifiable {
+struct ProcessLogInfo {
     
     static let example = ProcessLogInfo("root                 1   1,1  0,1 11:42     2:35.88 /sbin/launchd")!
     
-    let id: UUID
     let user: String
     let pid: Int
     let cpu: Double
@@ -21,7 +20,6 @@ struct ProcessLogInfo: Identifiable {
     let command: String
 
     init?(_ line: String) {
-        id = UUID()
         let components = line.components(separatedBy: .whitespaces).filter { !$0.isEmpty }
         if (components.count < 7) {
             return nil

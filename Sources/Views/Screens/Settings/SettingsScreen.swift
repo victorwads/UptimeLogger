@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SettingsScreen: View {
     
-    @AppStorage("logsFolder") var storedFolder: String = LogsProviderFilesSystem.defaultLogsFolder
-    @AppStorage("foldersHistory") var storedFoldersHistory: String = LogsProviderFilesSystem.defaultLogsFolder
+    @AppStorage("logsFolder") var storedFolder: String = AppDelegate.defaultFolder
+    @AppStorage("foldersHistory") var storedFoldersHistory: String = AppDelegate.defaultFolder
 
     @AppStorage("monitoringEnabled") private var monitoringEnabled = false
     @AppStorage("monitoringInterval") private var monitoringInterval = 1.0
@@ -154,7 +154,7 @@ struct SettingsScreen: View {
     }
     
     private func cleanHistory() {
-        storedFolder = LogsProviderFilesSystem.defaultLogsFolder
+        storedFolder = AppDelegate.defaultFolder
         foldersHistory = []
         provider.setFolder(storedFolder)
         updateRecents()

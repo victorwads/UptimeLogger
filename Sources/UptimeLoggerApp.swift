@@ -17,13 +17,13 @@ struct UptimeLoggerApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @Environment(\.openURL) var openURL
     
-    @AppStorage("logsFolder") var storedFolder: String = LogsProviderFilesSystem.defaultLogsFolder
+    @AppStorage("logsFolder") var storedFolder: String = AppDelegate.defaultFolder
     
     var isTest: Bool { UptimeLoggerApp.isTest }
     var analytics: AnalyticsProvider { UptimeLoggerApp.analytics }
     
     var body: some Scene {
-        let provider: LogsProvider = isTest ? LogsProviderMock() : LogsProviderFilesSystem(folder: storedFolder)
+        let provider: LogsProvider = isTest ? LogsProviderMock() : LogsProviderHybrid(folder: storedFolder, delegate.persistentContainer)
         WindowGroup {
             if !isTest {
                 let _ = FirebaseApp.configure()

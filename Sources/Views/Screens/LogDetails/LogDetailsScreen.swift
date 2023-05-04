@@ -88,7 +88,7 @@ struct LogDetailsScreen: View {
 
     private func loadProcesses() {
         DispatchQueue.global(qos: .background).async {
-            let all = provider.loadProccessLogFor(filename: logFile.fileName)
+            let all = provider.loadProccessLogFor(log: logFile)
             DispatchQueue.main.async {
                 processes = all
             }

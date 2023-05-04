@@ -62,7 +62,7 @@ class LogsProviderMock: LogsProvider {
         return LogsProviderMock.fullNormal
     }
     
-    func loadProccessLogFor(filename: String) -> [ProcessLogInfo] {
+    func loadProccessLogFor(log: LogItemInfo) -> [ProcessLogInfo] {
         return [
             ProcessLogInfo.example,
             ProcessLogInfo.example,

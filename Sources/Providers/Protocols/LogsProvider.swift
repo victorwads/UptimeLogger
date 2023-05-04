@@ -21,7 +21,7 @@ protocol LogsProvider {
 
     func loadLogWith(filename: String?) -> LogItemInfo
     
-    func loadProccessLogFor(filename: String) -> [ProcessLogInfo]
+    func loadProccessLogFor(log: LogItemInfo) -> [ProcessLogInfo]
 
     func toggleShutdownAllowed(_ log: LogItemInfo)
 }
