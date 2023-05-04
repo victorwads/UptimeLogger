@@ -7,6 +7,5 @@ charging:
 boottime:
 uptime:
 logprocessinterval:
-logprocess:
 last record:
 lastrecord:

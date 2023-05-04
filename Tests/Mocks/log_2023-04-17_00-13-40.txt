@@ -7,5 +7,4 @@ charging: false
 boottime: 1681697439
 uptime: 3784
 logprocessinterval: 2
-logprocess: true
 activetime: 3600

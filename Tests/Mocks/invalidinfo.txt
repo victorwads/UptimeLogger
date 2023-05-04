@@ -7,6 +7,5 @@ charging: invalidinfo
 boottime: invalidinfo
 uptime: invalidinfo
 logprocessinterval: invalidinfo
-logprocess: invalidinfo
 last record: invalidinfo
 lastrecord: invalidinfo

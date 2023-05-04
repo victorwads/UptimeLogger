@@ -10,7 +10,7 @@ import Foundation
 class LogsProviderMock: LogsProvider {
     
     static let empty = LogItemInfo("", content: "")
-    static let fullUnexpected = LogItemInfo("log_2023-04-17_00-13-40.txt", content: LogsProviderMock.fullLogContent + "logprocess: true")
+    static let fullUnexpected = LogItemInfo("log_2023-04-17_00-13-40.txt", content: LogsProviderMock.fullLogContent)
     static let fullNormal = LogItemInfo("log_2023-05-17_00-11-40.txt", content: LogsProviderMock.fullLogContent + LogItemInfo.shutdownAllowed)
     static let fullLogContent = """
     version: 4

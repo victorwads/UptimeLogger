@@ -78,7 +78,6 @@ struct LogItemInfo: Identifiable {
             //# logprocessinterval: [0-9]+
             case line.hasPrefix("logprocessinterval: "):
                 _logProcessInterval = LogItemInfo.extractNumber(line, 0)
-            //# logprocess: true/false
             case line == LogItemInfo.shutdownAllowed:
                 autoShuwDownAllowed = true
             case line.hasPrefix(LogItemInfo.editedLog):

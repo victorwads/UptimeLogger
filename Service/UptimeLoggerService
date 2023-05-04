@@ -106,7 +106,6 @@ trap cleanup SIGINT SIGTERM
 # activetime: [0-9]+ (seconds interval)
 # uptime: [0-9]+ (seconds interval)
 # logprocessinterval: [0-9]+
-# logprocess: true/false
 
 lasttimestep=$(date +%s)
 while true; do
@@ -178,7 +177,6 @@ while true; do
         LOGPROCESS=true
         LOG+="logprocessinterval: $EACHSEC"$'\n'
     fi
-    LOG+="logprocess: $LOGPROCESS"$'\n'
 
     echo "$LOG" >"$LOG_FILE"
 
