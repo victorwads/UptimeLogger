@@ -2,7 +2,7 @@
 # shellcheck source=projectConfig.sh
 source Pkg/projectConfig.sh
 
-I=1;S=5
+S=5
 header "Gerando projeto"
 xcodegen
 ret=$?

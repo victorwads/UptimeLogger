@@ -3,7 +3,7 @@
 source Pkg/projectConfig.sh
 clear
 
-S=19;I=1;
+S=20;
 
 header "Identificando Certificados e Versão do Projeto e variaveis"
 VERSION=$(awk -F': ' '/MARKETING_VERSION/{print $2}' project.yml)

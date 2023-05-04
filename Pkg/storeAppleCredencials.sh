@@ -1,6 +1,7 @@
 #!/bin/bash
 # shellcheck source=projectConfig.sh
 source Pkg/projectConfig.sh
+S=5;
 
 header "import certificate and provisioning profile from secrets"
 echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o "$CERTIFICATE_PATH"

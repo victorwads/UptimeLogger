@@ -4,7 +4,7 @@
 
 ![UptimeLogger Icon](Resources/Assets.xcassets/AppIcon.appiconset/64.png)
 ![Platform Maos](https://img.shields.io/badge/platform-macOS-lightgrey.svg)
-![Version 2.5.0](https://img.shields.io/badge/Version-2.5.0-orange.svg)
+![Version 3.0.0](https://img.shields.io/badge/Version-3.0.0-orange.svg)
 
 ![Swift Language](https://img.shields.io/badge/language-Swift-green.svg)
 ![Shell Language](https://img.shields.io/badge/language-Bash-orange.svg)

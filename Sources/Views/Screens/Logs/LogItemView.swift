@@ -13,7 +13,8 @@ struct LogItemView: View {
     static let iconScriptStartTime = "gearshape.arrow.triangle.2.circlepath"
     static let iconShutdownTime = "powersleep"
     static let iconBootTime = "power"
-    static let iconUpTime = "timer"
+    static let iconActive = "timer"
+    static let iconUpTime = "power"//arrow.up.circle.badge.clock"
     static let iconSuspendedTime = "moon.zzz"
     static let iconEdited = "square.and.pencil"
     static let iconPowerConnected = "bolt.fill"
@@ -53,7 +54,23 @@ struct LogItemView: View {
             MonoText(log.formattedUptime)
         }
     }
-    
+
+    var suspendedTimeView: some View  {
+        HStack(alignment: .center) {
+            Image(systemName: LogItemView.iconSuspendedTime)
+                .foregroundColor(.accentColor)
+            MonoText(log.formattedSuspendedTime)
+        }
+    }
+
+    var activeTimeView: some View  {
+        HStack(alignment: .center) {
+            Image(systemName: LogItemView.iconActive)
+                .foregroundColor(.accentColor)
+            MonoText(log.formattedActiveTime)
+        }
+    }
+
     var shutdownStatus: some View {
         HStack(alignment: .center, spacing: 4) {
             MonoText(log.formattedEndtime)
@@ -104,8 +121,12 @@ struct LogItemView: View {
             if(!showDetails) {
                 initScriptView.padding(.bottom, 2)
             }
-            bootTimeView
+//            bootTimeView
             upTimeView
+            if(log.systemActivetime != nil) {
+                activeTimeView
+                suspendedTimeView
+            }
             Spacer()
             HStack {
                 if(log.edited) {

@@ -1,6 +1,6 @@
 # App and Logger Changelog
 
-* [3.0.0 - Planning](https://github.com/victorwads/UptimeLogger/issues/4)
+* [3.0.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/3.0.0/UptimeLogger-3.0.0.dmg)
 
 - [2.5.0](https://github.com/victorwads/UptimeLogger/releases/download/2.5.0/UptimeLogger-2.5.0.dmg)
   - App

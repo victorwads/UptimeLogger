@@ -16,6 +16,9 @@ export PP_PATH=$RUNNER_TEMP/UptimeLogger2027.mobileprovision
 if [ -z "${ret+x}" ]; then
   ret=0
 fi
+if [ -z "${I+x}" ]; then
+  I=1
+fi
 function header() {
     if [ "$ret" -ne 0 ]; then
         echo -e "\n\033[31mfalha\033[0m"

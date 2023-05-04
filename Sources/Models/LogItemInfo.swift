@@ -147,8 +147,30 @@ struct LogItemInfo: Identifiable {
 
 extension LogItemInfo {
 
-    var formattedUptime: String {
-        let totalSeconds = Int(self.systemUptime ?? 0)
+    var formattedUptime: String { formatInterval(self.systemUptime) }
+    var formattedActiveTime: String { formatInterval(self.systemActivetime) }
+    var formattedSuspendedTime: String { formatInterval((self.systemUptime ?? 0) - (self.systemActivetime ?? 0)) }
+
+    var formattedStartUptime: String {
+        formatDate(scriptStartTime)
+    }
+
+    var formattedBoottime: String? {
+        guard let time = systemBootTime else { return nil }
+        return formatDate(time)
+    }
+
+    var formattedEndtime: String {
+        guard let data = scriptEndTime else { return ""}
+        return " " + formatDate(data)
+    }
+    
+    private func padNumber(_ number: Int) -> String {
+        return String(format: "%02d", number)
+    }
+    
+    private func formatInterval(_ interval: TimeInterval?) -> String {
+        let totalSeconds = Int(interval ?? 0)
         let days = totalSeconds / 86400
         let hours = (totalSeconds % 86400) / 3600
         let minutes = (totalSeconds % 3600) / 60
@@ -166,24 +188,6 @@ extension LogItemInfo {
         }
         result += "\(padNumber(seconds))\(String.localized(.dateSeconds))"
         return result
-    }
-    
-    var formattedStartUptime: String {
-        formatDate(scriptStartTime)
-    }
-
-    var formattedBoottime: String? {
-        guard let time = systemBootTime else { return nil }
-        return formatDate(time)
-    }
-
-    var formattedEndtime: String {
-        guard let data = scriptEndTime else { return ""}
-        return " " + formatDate(data)
-    }
-    
-    private func padNumber(_ number: Int) -> String {
-        return String(format: "%02d", number)
     }
 
     private func formatDate(_ date: Date) -> String {
