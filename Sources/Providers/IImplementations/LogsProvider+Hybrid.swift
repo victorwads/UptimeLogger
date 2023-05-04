@@ -30,7 +30,11 @@ class LogsProviderHybrid: LogsProvider {
         return withCoreData.fetchAllLogItems()
     }
 
-    func loadCurrentLog() -> LogItemInfo { withFiles.loadCurrentLog() }
+    func loadCurrentLog() -> LogItemInfo {
+        var log = withFiles.loadCurrentLog()
+        log.current = true
+        return log
+    }
 
     func loadLogWith(filename: String?) -> LogItemInfo {
         guard let filename = filename else {
@@ -40,6 +44,9 @@ class LogsProviderHybrid: LogsProvider {
     }
     
     func loadProccessLogFor(log: LogItemInfo) -> [ProcessLogInfo] {
+        if (log.current) {
+            return withFiles.loadProccessLogFor(log: log)
+        }
         return withCoreData.fetchProcessLogs(for: log)
     }
 

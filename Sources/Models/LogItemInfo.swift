@@ -19,6 +19,7 @@ struct LogItemInfo: Identifiable {
     let scriptStartTime: Date
     var scriptEndTime: Date? = nil
 
+    var current: Bool = false
     var edited: Bool = false
     var shutdownAllowed: Bool = false
 
