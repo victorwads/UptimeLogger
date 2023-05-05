@@ -38,8 +38,6 @@ struct LogsListView: View {
                             Image(systemName: LogItemView.iconUnexpected)
                             Text(.key(.logsFiltersShutdownU))
                         }.tag(ThreeCaseState.no)
-                        Label(.key(.logNormal), systemImage: LogItemView.iconNormalShutDown).foregroundColor(.green)
-
                     }
                     .pickerStyle(.menu)
 
