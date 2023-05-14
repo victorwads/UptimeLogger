@@ -72,7 +72,7 @@ class CoreDataLogProviderTests: XCTestCase {
 
         // Recupera todos os objetos LogItemInfo do CoreData
         let logItems = coreDataLogProvider.fetchAllLogItems()
-        let processesItems = coreDataLogProvider.fetchProcessLogs(for: logItems[0])
+        let processesItems = coreDataLogProvider.fetchProcess(for: logItems[0])
 
         // Verifica se o objeto salvo está presente na lista
         XCTAssertEqual(processesItems.count, 12)

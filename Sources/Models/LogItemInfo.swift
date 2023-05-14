@@ -28,7 +28,7 @@ struct LogItemInfo: Identifiable {
     var systemUptime: TimeInterval? = nil
     var systemActivetime: TimeInterval? = nil
 
-    let suspensions: [Date:Int]
+    var suspensions: [Date:Int] = [:]
     var hasSuspensions: Bool { !suspensions.isEmpty }
 
     var batery: Int? = nil
@@ -51,7 +51,6 @@ struct LogItemInfo: Identifiable {
         
         var _version = 1
         var _logProcessInterval = 0
-        var _suspensions: [Date:Int] = [:]
 
         //# LOG V4
         for line in lines {
@@ -84,7 +83,7 @@ struct LogItemInfo: Identifiable {
             case line.hasPrefix("suspended: "):
                 let items = line.components(separatedBy: " ")
                 if let date = LogItemInfo.extractTime(from: items[2], formatter: formatter) {
-                    _suspensions[date] = LogItemInfo.extractNumber(items[1])
+                    suspensions[date] = LogItemInfo.extractNumber(items[1])
                 }
             //# logprocessinterval: [0-9]+
             case line.hasPrefix("logprocessinterval: "):
@@ -101,7 +100,6 @@ struct LogItemInfo: Identifiable {
         version = _version
         logProcessInterval = _logProcessInterval
         hasProcess = _logProcessInterval > 0
-        suspensions = _suspensions
 
         // Extract shutdown allowed
         if lines.first(where: { $0.hasPrefix(LogItemInfo.editedLog + LogItemInfo.shutdownUnexpected) }) != nil {

@@ -8,7 +8,7 @@
   * Service
     * remove logprocess: bool
     * remove activetimebeta: number
-    * create separeted logs when computer enter in supend mode
+    * store suspensions when computer enter in supend mode
   * Automation Scripts
     * create local package with createPackage.sh --debug
 

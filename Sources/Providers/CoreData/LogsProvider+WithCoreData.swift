@@ -2,42 +2,48 @@ import CoreData
 
 class LogsProviderWithCoreData {
     private let context: NSManagedObjectContext
-
+    
     init(context: NSManagedObjectContext) {
         self.context = context
     }
-
+    
     func saveLogItem(_ logItem: LogItemInfo, processLogs: [ProcessLogInfo]) -> Bool {
         var ok = true
         context.performAndWait {
             // Criar e configurar o objeto LogItemEntity
-            let logItemEntity = LogItemEntity(context: context)
-            logItemEntity.id = logItem.id
-            logItemEntity.fileName = logItem.fileName
-            logItemEntity.version = Int16(logItem.version)
-            logItemEntity.edited = logItem.edited
-            logItemEntity.shutdownAllowed = logItem.shutdownAllowed
-            logItemEntity.scriptStartTime = logItem.scriptStartTime
-            logItemEntity.scriptEndTime = logItem.scriptEndTime
-            logItemEntity.logProcessInterval = Int16(logItem.logProcessInterval)
-            logItemEntity.systemVersion = logItem.systemVersion
-            logItemEntity.systemBootTime = logItem.systemBootTime
-            logItemEntity.systemUptime = logItem.systemUptime.let { NSNumber(value: $0) }
-            logItemEntity.systemActivetime = logItem.systemActivetime.let { NSNumber(value: $0) }
-            logItemEntity.batery = logItem.batery.let { NSNumber(value: $0) }
-            logItemEntity.charging = logItem.charging.let { NSNumber(value: $0) }
-    
+            let storedItem = EntityLogs(context: context)
+            storedItem.id = logItem.id
+            storedItem.fileName = logItem.fileName
+            storedItem.version = Int16(logItem.version)
+            storedItem.edited = logItem.edited
+            storedItem.shutdownAllowed = logItem.shutdownAllowed
+            storedItem.scriptStartTime = logItem.scriptStartTime
+            storedItem.scriptEndTime = logItem.scriptEndTime
+            storedItem.logProcessInterval = Int16(logItem.logProcessInterval)
+            storedItem.systemVersion = logItem.systemVersion
+            storedItem.systemBootTime = logItem.systemBootTime
+            storedItem.systemUptime = logItem.systemUptime.let { NSNumber(value: $0) }
+            storedItem.systemActivetime = logItem.systemActivetime.let { NSNumber(value: $0) }
+            storedItem.batery = logItem.batery.let { NSNumber(value: $0) }
+            storedItem.charging = logItem.charging.let { NSNumber(value: $0) }
+            
             // Salvar processLogs associados
+            for suspension in logItem.suspensions {
+                let storedSuspension = EntityLogSuspensions(context: context)
+                storedSuspension.logID = storedItem.id
+                storedSuspension.count = Int64(suspension.value)
+                storedSuspension.date = suspension.key
+            }
             for processLog in processLogs {
-                let processLogEntity = ProcessLogEntity(context: context)
-                processLogEntity.logID = logItemEntity.id
-                processLogEntity.user = processLog.user
-                processLogEntity.pid = Int64(processLog.pid)
-                processLogEntity.cpu = processLog.cpu
-                processLogEntity.mem = processLog.mem
-                processLogEntity.started = processLog.started
-                processLogEntity.time = processLog.time
-                processLogEntity.command = processLog.command
+                let storedProcess = EntityLogProcesses(context: context)
+                storedProcess.logID = storedItem.id
+                storedProcess.user = processLog.user
+                storedProcess.pid = Int64(processLog.pid)
+                storedProcess.cpu = processLog.cpu
+                storedProcess.mem = processLog.mem
+                storedProcess.started = processLog.started
+                storedProcess.time = processLog.time
+                storedProcess.command = processLog.command
             }
             do {
                 try context.save()
@@ -50,27 +56,27 @@ class LogsProviderWithCoreData {
     }
     
     func fetchLog(fileName: String) -> LogItemInfo? {
-        let request: NSFetchRequest<LogItemEntity> = LogItemEntity.fetchRequest()
+        let request: NSFetchRequest<EntityLogs> = EntityLogs.fetchRequest()
         request.predicate = NSPredicate(format: "fileName == %@", fileName as CVarArg)
-
-        guard let logItemEntities = try? context.fetch(LogItemEntity.fetchRequest())
+        
+        guard let logItemEntities = try? context.fetch(EntityLogs.fetchRequest())
         else { return nil }
         return logItemEntities
             .map { logItemEntity in LogItemInfo(entity: logItemEntity) }
             .filterNonNil()
             .first
     }
-
+    
     func fetchAllLogItems() -> [LogItemInfo] {
-        guard let logItemEntities = try? context.fetch(LogItemEntity.fetchRequest())
+        guard let logItemEntities = try? context.fetch(EntityLogs.fetchRequest())
         else { return [] }
         return logItemEntities
             .map { logItemEntity in LogItemInfo(entity: logItemEntity) }
             .filterNonNil()
     }
-
-    func fetchProcessLogs(for logItem: LogItemInfo) -> [ProcessLogInfo] {
-        let request: NSFetchRequest<ProcessLogEntity> = ProcessLogEntity.fetchRequest()
+    
+    func fetchProcess(for logItem: LogItemInfo) -> [ProcessLogInfo] {
+        let request: NSFetchRequest<EntityLogProcesses> = EntityLogProcesses.fetchRequest()
         request.predicate = NSPredicate(format: "logID == %@", logItem.id as CVarArg)
         guard let processLogEntities = try? context.fetch(request)
         else { return [] }
@@ -78,10 +84,25 @@ class LogsProviderWithCoreData {
             .map { processLogEntity in ProcessLogInfo(entity: processLogEntity) }
             .filterNonNil()
     }
+    
+    func fetchSuspensions(for logItem: LogItemInfo) -> LogItemInfo {
+        var logItem = logItem
+        let request: NSFetchRequest<EntityLogSuspensions> = EntityLogSuspensions.fetchRequest()
+        request.predicate = NSPredicate(format: "logID == %@", logItem.id as CVarArg)
+        let storedSuspensions = (try? context.fetch(request)) ?? []
+
+        for suspension in storedSuspensions {
+            if let date = suspension.date {
+                logItem.suspensions[date] = Int(suspension.count)
+            }
+        }
+        
+        return logItem
+    }
 }
 
 extension LogItemInfo {
-    init?(entity: LogItemEntity) {
+    init?(entity: EntityLogs) {
         guard
             let _id = entity.id,
             let _fileName = entity.fileName,
@@ -105,12 +126,11 @@ extension LogItemInfo {
 
         logProcessInterval = Int(entity.logProcessInterval)
         hasProcess = logProcessInterval > 0
-        suspensions = [:]
     }
 }
 
 extension ProcessLogInfo {
-    init?(entity: ProcessLogEntity) {
+    init?(entity: EntityLogProcesses) {
         guard 
             let _user = entity.user,
             let _started = entity.started,

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F5037d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="LogItemEntity" representedClassName="LogItemEntity" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F5037d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="2">
+    <entity name="EntityLogProcesses" representedClassName="EntityLogProcesses" syncable="YES" codeGenerationType="class">
+        <attribute name="command" attributeType="String" defaultValueString=""/>
+        <attribute name="cpu" attributeType="Double" defaultValueString="0"/>
+        <attribute name="logID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="mem" attributeType="Double" defaultValueString="0"/>
+        <attribute name="pid" attributeType="Integer 64"/>
+        <attribute name="started" attributeType="String" defaultValueString=""/>
+        <attribute name="time" attributeType="String" defaultValueString=""/>
+        <attribute name="user" attributeType="String" defaultValueString=""/>
+    </entity>
+    <entity name="EntityLogs" representedClassName="EntityLogs" syncable="YES" codeGenerationType="class">
         <attribute name="batery" optional="YES" attributeType="Integer 16" usesScalarValueType="NO"/>
         <attribute name="charging" optional="YES" attributeType="Integer 16" usesScalarValueType="NO"/>
         <attribute name="edited" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -16,14 +26,9 @@
         <attribute name="systemVersion" optional="YES" attributeType="String"/>
         <attribute name="version" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
     </entity>
-    <entity name="ProcessLogEntity" representedClassName="ProcessLogEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="command" attributeType="String" defaultValueString=""/>
-        <attribute name="cpu" attributeType="Double" defaultValueString="0"/>
+    <entity name="EntityLogSuspensions" representedClassName="EntityLogSuspensions" syncable="YES" codeGenerationType="class">
+        <attribute name="count" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="logID" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="mem" attributeType="Double" defaultValueString="0"/>
-        <attribute name="pid" attributeType="Integer 64"/>
-        <attribute name="started" attributeType="String" defaultValueString=""/>
-        <attribute name="time" attributeType="String" defaultValueString=""/>
-        <attribute name="user" attributeType="String" defaultValueString=""/>
     </entity>
 </model>

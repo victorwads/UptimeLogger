@@ -47,7 +47,7 @@ class LogsProviderHybrid: LogsProvider {
         if (log.current) {
             return withFiles.loadProccessLogFor(log: log)
         }
-        return withCoreData.fetchProcessLogs(for: log)
+        return withCoreData.fetchProcess(for: log)
     }
 
     func toggleShutdownAllowed(_ log: LogItemInfo) {
