@@ -14,7 +14,7 @@ class LogsProviderHybrid: LogsProvider {
     func convertToCoreData(_ logs: [LogItemInfo]) {
         for log in logs {
             if(withCoreData.saveLogItem(log, processLogs: withFiles.loadProccessLogFor(log: log))) {
-                withFiles.removeLog(log.fileName)
+                withFiles.moveLog(log.fileName)
             }
         }
     }

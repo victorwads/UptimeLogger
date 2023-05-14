@@ -12,6 +12,7 @@ import AppKit
 class LogsProviderFilesSystem: LogsProvider {    
     
     var folder: String
+    var indexedFolder: String { folder + "/indexed/" }
     let manager = FileManager.default
 
     init(folder: String = AppDelegate.defaultFolder) {
@@ -69,11 +70,12 @@ class LogsProviderFilesSystem: LogsProvider {
         return ProcessLogInfo.processFile(content: contents)
     }
     
-    func removeLog(_ fileName: String) {
+    func moveLog(_ fileName: String) {
         do {
-            try manager.removeItem(atPath: folder + "/" + fileName)
-            if (manager.fileExists(atPath: getLogFileName(fileName))) {
-                try manager.removeItem(atPath: getLogFileName(fileName))
+            try manager.moveItem(atPath: folder + "/" + fileName, toPath: indexedFolder + fileName)
+            let processFile = getLogFileName(fileName)
+            if (manager.fileExists(atPath: processFile)) {
+                try manager.moveItem(atPath: processFile, toPath: indexedFolder + URL(fileURLWithPath: processFile).lastPathComponent)
             }
         } catch {
             print("error: \(error)")

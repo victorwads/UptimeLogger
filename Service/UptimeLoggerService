@@ -24,6 +24,7 @@ if [ $DEBUG = true ]; then
 else
     LOGS_DIR="/Library/Application Support/UptimeLogger"
 fi
+INDEXED_LOGS_DIR="$LOGS_DIR/indexed"
 
 ACTIVE_FILE="$LOGS_DIR/activetime"
 LOG_LATEST="$LOGS_DIR/latest"
@@ -32,7 +33,10 @@ SUSPENDED_FILE="$LOGS_DIR/suspended"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi
-chmod -R 766 "$LOGS_DIR"
+if [[ ! -d "$INDEXED_LOGS_DIR" ]]; then
+    mkdir "$INDEXED_LOGS_DIR"
+fi
+chmod -R 777 "$LOGS_DIR"
 chmod 777 "$LOGS_DIR"
 rm "$SUSPENDED_FILE"
 
