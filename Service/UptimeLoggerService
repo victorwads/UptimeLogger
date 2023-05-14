@@ -28,19 +28,20 @@ fi
 ACTIVE_FILE="$LOGS_DIR/activetime"
 LOG_LATEST="$LOGS_DIR/latest"
 INTERVAL_FILE="$LOGS_DIR/config"
-SUSPEND_FILE="$LOGS_DIR/suspend"
+SUSPENDED_FILE="$LOGS_DIR/suspended"
 if [[ ! -d "$LOGS_DIR" ]]; then
     mkdir "$LOGS_DIR"
 fi
 chmod -R 766 "$LOGS_DIR"
 chmod 777 "$LOGS_DIR"
+rm "$SUSPENDED_FILE"
 
 # Allowed Shutdown Features
 UPDATE_FILE="$LOGS_DIR/updated"
 
 function allowShutdown() {
     echo "shutdown allowed" >>"$LOG_LATEST"
-    rm "$SUSPEND_FILE"
+    rm "$SUSPENDED_FILE"
     rm "$ACTIVE_FILE"
     rm "$LOG_LATEST"
 }
@@ -63,21 +64,20 @@ function setFiles() {
     fi
     ln -sf "$LOG_FILE" "$LOG_LATEST"
     echo "#### INIT FILE $LOG_FILE #####"
+
+    if [ $DEBUG = true ]; then
+        echo ""
+        echo "OSTYPE: $OSTYPE"
+        echo "SCRIPT_DIR: $SCRIPT_DIR"
+        echo "LOGS_DIR: $LOGS_DIR"
+        echo "LOG_LATEST: $LOG_LATEST"
+        echo "LOG_FILE: $LOG_FILE"
+        echo "PLOG_FILE: $PLOG_FILE"
+        echo "STARTUP: $STARTUP"
+        echo ""
+    fi
 }
 setFiles
-
-# Verifica se o modo de depuração está habilitado
-if [[ "$*" == *"--debug"* ]]; then
-    echo ""
-    echo "OSTYPE: $OSTYPE"
-    echo "SCRIPT_DIR: $SCRIPT_DIR"
-    echo "LOGS_DIR: $LOGS_DIR"
-    echo "LOG_LATEST: $LOG_LATEST"
-    echo "LOG_FILE: $LOG_FILE"
-    echo "PLOG_FILE: $PLOG_FILE"
-    echo "STARTUP: $STARTUP"
-    echo ""
-fi
 
 function finishwithUpdate() {
     echo "$STARTUP" >"$UPDATE_FILE"
@@ -106,6 +106,7 @@ trap cleanup SIGINT SIGTERM
 # activetime: [0-9]+ (seconds interval)
 # uptime: [0-9]+ (seconds interval)
 # logprocessinterval: [0-9]+
+# suspended: [0-9]+ %Y-%m-%d_%H-%M-%S (miltiple lines)
 
 lasttimestep=$(date +%s)
 while true; do
@@ -116,26 +117,22 @@ while true; do
         activetime=$((activetime + diff))
         lasttimestep=$now
     elif [ $diff -gt 5 ]; then
-        if [ -f "$SUSPEND_FILE" ]; then
-            activetime=0
-            STARTUP="$(date +"%Y-%m-%d_%H-%M-%S")"
-            echo -n "true" > "$SUSPEND_FILE"
-        fi
+        echo -n "$diff" > "$SUSPENDED_FILE"
         lasttimestep=$now
     fi
-    echo -n $activetime >"$ACTIVE_FILE"
+    echo -n "$activetime" >"$ACTIVE_FILE"
     sleep 0.2
 done &
 
-# Loop infinito para atualizar o uptime a cada 5 minutos
+# Loop infinito para atualizar o uptime a cada 1 segundo
 COUNT=0
+ADDEDLOG=""
 while true; do
-    if [ -f "$SUSPEND_FILE" ] && [ "$(cat "$SUSPEND_FILE")" == "true" ]; then
-        activetime=0
-        STARTUP="$(date +"%Y-%m-%d_%H-%M-%S")"
-        setFiles
-        rm "$SUSPEND_FILE"
-        touch "$SUSPEND_FILE"
+    if [ -f "$SUSPENDED_FILE" ]; then
+        ADDEDLOG+="suspended: $(cat "$SUSPENDED_FILE") $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
+        echo "$LOG"
+        echo "$LOG" > "$LOG_FILE"
+        rm "$SUSPENDED_FILE"
     fi
     LOG="version: $VERSION"$'\n'
     LOG+="ended: $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
@@ -165,7 +162,6 @@ while true; do
         LOG+="lastrecord: $UPTIME"$'\n'
     fi
 
-    LOGPROCESS=false
     if [ -r "$INTERVAL_FILE" ]; then
         EACHSEC=$(cat "$INTERVAL_FILE")
         if [ $((COUNT % EACHSEC)) -eq 0 ]; then
@@ -174,11 +170,11 @@ while true; do
                 echo "logged proceess to file"
             fi
         fi
-        LOGPROCESS=true
         LOG+="logprocessinterval: $EACHSEC"$'\n'
     fi
 
-    echo "$LOG" >"$LOG_FILE"
+    LOG+="$ADDEDLOG"
+    echo "$LOG" > "$LOG_FILE"
 
     if [ $DEBUG = true ]; then
         echo "$LOG"

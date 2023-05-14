@@ -105,6 +105,7 @@ extension LogItemInfo {
 
         logProcessInterval = Int(entity.logProcessInterval)
         hasProcess = logProcessInterval > 0
+        suspensions = [:]
     }
 }
 

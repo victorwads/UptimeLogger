@@ -28,6 +28,9 @@ struct LogItemInfo: Identifiable {
     var systemUptime: TimeInterval? = nil
     var systemActivetime: TimeInterval? = nil
 
+    let suspensions: [Date:Int]
+    var hasSuspensions: Bool { !suspensions.isEmpty }
+
     var batery: Int? = nil
     var charging: Bool? = nil
 
@@ -48,6 +51,7 @@ struct LogItemInfo: Identifiable {
         
         var _version = 1
         var _logProcessInterval = 0
+        var _suspensions: [Date:Int] = [:]
 
         //# LOG V4
         for line in lines {
@@ -57,7 +61,7 @@ struct LogItemInfo: Identifiable {
                 _version = LogItemInfo.extractNumber(line, 1)
             //# ended: %Y-%m-%d_%H-%M-%S
             case line.hasPrefix("ended: "):
-                scriptEndTime = LogItemInfo.extractScriptEndTime(from: line, formatter: formatter)
+                scriptEndTime = LogItemInfo.extractTime(from: line, formatter: formatter)
             //# sysversion: String
             case line.hasPrefix("sysversion: "):
                 systemVersion = line.components(separatedBy: ": ").last
@@ -73,9 +77,15 @@ struct LogItemInfo: Identifiable {
             //# uptime: [0-9]+ (seconds interval)
             case line.hasPrefix("uptime: "):
                 systemUptime = LogItemInfo.extractNumber(line).let { TimeInterval($0) }
-            //# activetime: [0-9]+
+            //# activetime: [0-9]+ %Y-%m-%d_%H-%M-%S
             case line.hasPrefix("activetime: "):
                 systemActivetime = LogItemInfo.extractNumber(line).let { TimeInterval($0) }
+            //# suspended: [0-9]+
+            case line.hasPrefix("suspended: "):
+                let items = line.components(separatedBy: " ")
+                if let date = LogItemInfo.extractTime(from: items[2], formatter: formatter) {
+                    _suspensions[date] = LogItemInfo.extractNumber(items[1])
+                }
             //# logprocessinterval: [0-9]+
             case line.hasPrefix("logprocessinterval: "):
                 _logProcessInterval = LogItemInfo.extractNumber(line, 0)
@@ -86,11 +96,12 @@ struct LogItemInfo: Identifiable {
             default: break;
             }
         }
-
+        
         //version = _version
         version = _version
         logProcessInterval = _logProcessInterval
         hasProcess = _logProcessInterval > 0
+        suspensions = _suspensions
 
         // Extract shutdown allowed
         if lines.first(where: { $0.hasPrefix(LogItemInfo.editedLog + LogItemInfo.shutdownUnexpected) }) != nil {
@@ -121,7 +132,7 @@ struct LogItemInfo: Identifiable {
         return Int(numbers)
     }
     
-    static private func extractScriptEndTime(from line: String, formatter: DateFormatter) -> Date? {
+    static private func extractTime(from line: String, formatter: DateFormatter) -> Date? {
         formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
         return formatter.date(from: line.components(separatedBy: ": ").last!)
     }
