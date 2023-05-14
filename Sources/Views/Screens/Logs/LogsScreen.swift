@@ -15,7 +15,6 @@ struct LogsScreen: View {
 
     @State private var logs: [LogItemInfo] = []
     @AppStorage("showFilters") var showFilters: Bool = true
-    @AppStorage("showLegend") var showLegend: Bool = false
 
     init(provider: LogsProvider, showFilters: Bool = true){
         self.provider = provider
@@ -35,34 +34,17 @@ struct LogsScreen: View {
                     Text(.key(.logsFilters))
                     Image(systemName: showFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
                 }
+                Button(action: loadLogs) {
+                    Text(.key(.reload))
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                }
             }
             LogsListView(
                 onToggleAction: toggleItemAction,
                 items: $logs,
                 showFilters: $showFilters
             ).onAppear(perform: initLogs)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationTitle(.key(.navLogs))
-            if(showLegend) {
-                LegendView().padding(.vertical)
-            }
-            HStack {
-                Button(action: {withAnimation(.easeInOut(duration: 0.3)) {
-                    showLegend.toggle()
-                }}) {
-                    Text(.key(.iconsHelp))
-                    Image(systemName: "questionmark.circle")
-                }
-                Spacer()
-                HStack {
-                    Text("\(logs.count)")
-                    Text(.key(.items))
-                }
-                .font(.subheadline)
-                .foregroundColor(.gray)
-            }
-            .padding(.horizontal)
-            .padding(.vertical)
         }
     }
     

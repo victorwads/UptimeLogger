@@ -1,6 +1,16 @@
 # App and Logger Changelog
 
 * [3.0.0 - Current](https://github.com/victorwads/UptimeLogger/releases/download/3.0.0/UptimeLogger-3.0.0.dmg)
+  * App
+    * indexed database logs to improve performance
+    * fix logs item count
+    * logs reload buttom
+  * Service
+    * remove logprocess: bool
+    * remove activetimebeta: number
+    * create separeted logs when computer enter in supend mode
+  * Automation Scripts
+    * create local package with createPackage.sh --debug
 
 - [2.5.0](https://github.com/victorwads/UptimeLogger/releases/download/2.5.0/UptimeLogger-2.5.0.dmg)
   - App

@@ -17,6 +17,7 @@ enum Strings: String {
     case optionsAll = "options.all"
 
     case cancel = "cancel"
+    case reload = "reload"
     case items = "items"
 
     case navLogs = "nav.logs"

@@ -17,6 +17,7 @@ struct LogsListView: View {
     @State private var filterPowerStatus: ThreeCaseState = .all
     @State private var filterShutdownAllowed: ThreeCaseState = .all
     
+    @AppStorage("showLegend") var showLegend: Bool = false
     var analytics: AnalyticsProvider { UptimeLoggerApp.analytics }
 
     var body: some View {
@@ -82,7 +83,7 @@ struct LogsListView: View {
                     //.frame(maxWidth: 280)
                 }.padding()
             }
-            if items.isEmpty {
+            if filteredLogs.isEmpty {
                 List([0], id: \.self) { item in
                     HStack(alignment: .center) {
                         Spacer()
@@ -92,7 +93,7 @@ struct LogsListView: View {
                 }
             } else {
                 List(
-                    items.filter(filterFunction).sorted(by: sortingFunction),
+                    filteredLogs,
                     id: \.fileName
                 ) { logItem in
                     VStack {
@@ -114,6 +115,32 @@ struct LogsListView: View {
         }.onChange(of: showFilters) { filter in
             analytics.event("logs_show_filter", "show_filter", _showFilters.wrappedValue)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    
+        if(showLegend) {
+            LegendView().padding(.vertical)
+        }
+        HStack {
+            Button(action: {withAnimation(.easeInOut(duration: 0.3)) {
+                showLegend.toggle()
+            }}) {
+                Text(.key(.iconsHelp))
+                Image(systemName: "questionmark.circle")
+            }
+            Spacer()
+            HStack {
+                Text("\(filteredLogs.count)")
+                Text(.key(.items))
+            }
+            .font(.subheadline)
+            .foregroundColor(.gray)
+        }
+        .padding(.horizontal)
+        .padding(.vertical)
+    }
+    
+    private var filteredLogs: [LogItemInfo] {
+        items.filter(filterFunction).sorted(by: sortingFunction)
     }
     
     private var sortingFunction: (LogItemInfo, LogItemInfo) -> Bool {
