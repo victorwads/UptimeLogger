@@ -48,10 +48,12 @@ function allowShutdown() {
 
 # Registra a data e hora de inicialização
 if [ -f "$UPDATE_FILE" ]; then
+    ADDEDLOG="$(grep suspended "$LOG_LATEST")"
     STARTUP="$(cat "$UPDATE_FILE")"
     activetime=$(cat "$ACTIVE_FILE")
     rm "$UPDATE_FILE"
 else
+    ADDEDLOG=""
     STARTUP="$(date +"%Y-%m-%d_%H-%M-%S")"
 fi
 
@@ -126,7 +128,6 @@ done &
 
 # Loop infinito para atualizar o uptime a cada 1 segundo
 COUNT=0
-ADDEDLOG=""
 while true; do
     if [ -f "$SUSPENDED_FILE" ]; then
         ADDEDLOG+="suspended: $(cat "$SUSPENDED_FILE") $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
