@@ -2,8 +2,13 @@
 # shellcheck source=projectConfig.sh
 source Pkg/projectConfig.sh
 clear
+DEBUG=false
+S=19;
 
-S=20;
+if [[ "$*" == *"--debug"* ]]; then
+    S=5;
+    DEBUG=true
+fi
 
 header "Identificando Certificados e Versão do Projeto e variaveis"
 VERSION=$(awk -F': ' '/MARKETING_VERSION/{print $2}' project.yml)
@@ -25,9 +30,12 @@ echo "DMG_NAME: $DMG_NAME"
 mkdir "$CACHE_FOLDER"
 mkdir "$DMG_FOLDER"
 
-header "Apangando dados anteriores e logs de teste"
-rm -rf Service/logs/
-rm -f ./**/*.dmg
+if [ ! $DEBUG = true ]; then
+    header "Apagando caches e dados anteriores e logs de teste"
+    rm -rf "$CACHE_FOLDER"
+    rm -rf Service/logs
+    rm -f **/*.dmg
+fi
 
 header "Gerando projeto"
 xcodegen
@@ -39,19 +47,21 @@ xcodebuild -project $PROJECT -scheme UptimeLogger -configuration Release \
 ret=$?
 
 ret=$?
-codesign -dvv $APP_FOLDER
+if [ ! $DEBUG = true ]; then
+    codesign -dvv $APP_FOLDER
 
-header "Submentendo app para validação da Apple"
-ZIP_PATH="$CACHE_FOLDER/$SCHEME.app.zip"
-/usr/bin/ditto -c -k --keepParent "$APP_FOLDER" "$ZIP_PATH"
-xcrun notarytool submit "$ZIP_PATH" \
-    --keychain-profile "$ACCOUNT_PROFILE" \
-    --wait
-ret=$?
+    header "Submentendo app para validação da Apple"
+    ZIP_PATH="$CACHE_FOLDER/$SCHEME.app.zip"
+    /usr/bin/ditto -c -k --keepParent "$APP_FOLDER" "$ZIP_PATH"
+    xcrun notarytool submit "$ZIP_PATH" \
+        --keychain-profile "$ACCOUNT_PROFILE" \
+        --wait
+    ret=$?
 
-header "Marcando validação no app"
-xcrun stapler staple "$APP_FOLDER"
-ret=$?
+    header "Marcando validação no app"
+    xcrun stapler staple "$APP_FOLDER"
+    ret=$?
+fi
 
 header "Criando Instalador"
 pkgbuild --root "$APP_FOLDER" --install-location "/Applications/UptimeLogger.app" --scripts "$SCRIPT_DIR/Install"\
@@ -65,73 +75,72 @@ pkgbuild --nopayload --scripts "$SCRIPT_DIR/Uninstall"\
     "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg"
 ret=$?
 
-header "Assinando pacotes de instalação pkg localmente"
-productsign --keychain "$KEYCHAIN_PATH" --timestamp \
-    --sign "$INSTALLER_CERT" \
-    "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
-ret=$?
+if [ ! $DEBUG = true ]; then
+    header "Assinando pacotes de instalação pkg localmente"
+    productsign --keychain "$KEYCHAIN_PATH" --timestamp \
+        --sign "$INSTALLER_CERT" \
+        "$CACHE_FOLDER/$INSTALLER_NAME.pkg" "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+    ret=$?
 
-productsign --keychain "$KEYCHAIN_PATH" --timestamp \
-    --sign "$INSTALLER_CERT" \
-    "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
-ret=$?
+    productsign --keychain "$KEYCHAIN_PATH" --timestamp \
+        --sign "$INSTALLER_CERT" \
+        "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg" "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+    ret=$?
 
-header "Submentendo Instalador para validação da Apple"
-xcrun notarytool submit "$DMG_FOLDER/$INSTALLER_NAME.pkg" \
-    --keychain-profile "$ACCOUNT_PROFILE" \
-    --wait
-ret=$?
+    header "Submentendo Instalador para validação da Apple"
+    xcrun notarytool submit "$DMG_FOLDER/$INSTALLER_NAME.pkg" \
+        --keychain-profile "$ACCOUNT_PROFILE" \
+        --wait
+    ret=$?
 
-header "Marcando validação no instalador"
-xcrun stapler staple "$DMG_FOLDER/$INSTALLER_NAME.pkg"
-ret=$?
+    header "Marcando validação no instalador"
+    xcrun stapler staple "$DMG_FOLDER/$INSTALLER_NAME.pkg"
+    ret=$?
 
-header "Submentendo Desinstalador para validação da Apple"
-xcrun notarytool submit "$DMG_FOLDER/$UNINSTALLER_NAME.pkg" \
-    --keychain-profile "$ACCOUNT_PROFILE" \
-    --wait
-ret=$?
+    header "Submentendo Desinstalador para validação da Apple"
+    xcrun notarytool submit "$DMG_FOLDER/$UNINSTALLER_NAME.pkg" \
+        --keychain-profile "$ACCOUNT_PROFILE" \
+        --wait
+    ret=$?
 
-header "Marcando validação no desinstalador"
-xcrun stapler staple "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
-ret=$?
+    header "Marcando validação no desinstalador"
+    xcrun stapler staple "$DMG_FOLDER/$UNINSTALLER_NAME.pkg"
+    ret=$?
 
-header "Criando imagem dmg"
-hdiutil create -volname "UptimeLogger" \
-    -srcfolder "$DMG_FOLDER" \
-    -ov -format UDZO\
-    "$DMG_NAME"
-ret=$?
+    header "Criando imagem dmg"
+    hdiutil create -volname "UptimeLogger" \
+        -srcfolder "$DMG_FOLDER" \
+        -ov -format UDZO\
+        "$DMG_NAME"
+    ret=$?
 
-header "Assinando dmg localmente"
-codesign --verbose --options runtime --keychain "$KEYCHAIN_PATH" \
-    --sign "$APP_CERT" "$DMG_NAME"
-ret=$?
+    header "Assinando dmg localmente"
+    codesign --verbose --options runtime --keychain "$KEYCHAIN_PATH" \
+        --sign "$APP_CERT" "$DMG_NAME"
+    ret=$?
 
-header "Submentendo imagem dmg para validação da Apple"
-xcrun notarytool submit "$DMG_NAME" \
-    --keychain-profile "$ACCOUNT_PROFILE" \
-    --wait
-ret=$?
+    header "Submentendo imagem dmg para validação da Apple"
+    xcrun notarytool submit "$DMG_NAME" \
+        --keychain-profile "$ACCOUNT_PROFILE" \
+        --wait
+    ret=$?
 
-header "Marcando validação na imagem dmg"
-xcrun stapler staple "$DMG_NAME"
-ret=$?
+    header "Marcando validação na imagem dmg"
+    xcrun stapler staple "$DMG_NAME"
+    ret=$?
 
-header "Criando Tag do Git"
-tag_exist=$(git --no-pager tag --list "$VERSION")
-if [[ -n $tag_exist ]]; then
-    echo "Tag já existe criada"
-else
-    read -p "Gostaria de criar a tag $VERSION no git? [s/N]" confirm
-    if [[ $confirm =~ ^[Ss]$ ]]; then
-        git tag "$VERSION"
-        echo "Tag Criada"
+    header "Criando Tag do Git"
+    tag_exist=$(git --no-pager tag --list "$VERSION")
+    if [[ -n $tag_exist ]]; then
+        echo "Tag já existe criada"
     else
-        echo -e "\033[31mA tag não foi criada.\033[0m"
+        read -p "Gostaria de criar a tag $VERSION no git? [s/N]" confirm
+        if [[ $confirm =~ ^[Ss]$ ]]; then
+            git tag "$VERSION"
+            echo "Tag Criada"
+        else
+            echo -e "\033[31mA tag não foi criada.\033[0m"
+        fi
+        I=$((I + 1))
     fi
-    I=$((I + 1))
 fi
-
-header "Apagando caches"
-rm -rf "$CACHE_FOLDER"
