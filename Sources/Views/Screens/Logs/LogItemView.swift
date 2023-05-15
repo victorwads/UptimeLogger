@@ -83,7 +83,7 @@ struct LogItemView: View {
     
     var energyStatus: some View {
         HStack {
-            if let battery = log.batery, let charging = log.charging {
+            if let battery = log.battery, let charging = log.charging {
                 Battery(level: battery)
                 Image(systemName: charging ? LogItemView.iconPowerConnected : LogItemView.iconPowerDisconnected)
                     .help(.key(charging ? .logsFiltersPowerOn : .logsFiltersPowerOff))

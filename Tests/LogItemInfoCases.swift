@@ -17,7 +17,7 @@ final class LogItemInfoCases: XCTestCase {
         XCTAssertEqual(logItemInfo.fileName, fileName)
         XCTAssertEqual(logItemInfo.version, 4)
         XCTAssertEqual(logItemInfo.systemVersion, "13.4")
-        XCTAssertEqual(logItemInfo.batery, 72)
+        XCTAssertEqual(logItemInfo.battery, 72)
         XCTAssertEqual(logItemInfo.charging, false)
         XCTAssertEqual(logItemInfo.systemBootTime, Date(timeIntervalSince1970: 1681697439))
         XCTAssertEqual(logItemInfo.systemUptime, 3784)
@@ -42,7 +42,7 @@ final class LogItemInfoCases: XCTestCase {
 
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemVersion, nil)
-        XCTAssertEqual(logItemInfo.batery, nil)
+        XCTAssertEqual(logItemInfo.battery, nil)
         XCTAssertEqual(logItemInfo.charging, nil)
         XCTAssertEqual(logItemInfo.systemBootTime, nil)
         XCTAssertEqual(logItemInfo.systemUptime, nil)
@@ -60,7 +60,7 @@ final class LogItemInfoCases: XCTestCase {
 
         XCTAssertEqual(logItemInfo.version, 1)
         XCTAssertEqual(logItemInfo.systemVersion, "invalidinfo")
-        XCTAssertEqual(logItemInfo.batery, nil)
+        XCTAssertEqual(logItemInfo.battery, nil)
         XCTAssertEqual(logItemInfo.charging, nil)
         XCTAssertEqual(logItemInfo.systemBootTime, nil)
         XCTAssertEqual(logItemInfo.systemUptime, nil)

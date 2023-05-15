@@ -24,7 +24,7 @@ class LogsProviderWithCoreData {
             storedItem.systemBootTime = logItem.systemBootTime
             storedItem.systemUptime = logItem.systemUptime.let { NSNumber(value: $0) }
             storedItem.systemActivetime = logItem.systemActivetime.let { NSNumber(value: $0) }
-            storedItem.batery = logItem.batery.let { NSNumber(value: $0) }
+            storedItem.batery = logItem.battery.let { NSNumber(value: $0) }
             storedItem.charging = logItem.charging.let { NSNumber(value: $0) }
             
             // Salvar processLogs associados
@@ -33,6 +33,12 @@ class LogsProviderWithCoreData {
                 storedSuspension.logID = storedItem.id
                 storedSuspension.count = Int64(suspension.value)
                 storedSuspension.date = suspension.key
+            }
+            for state in logItem.suspensions {
+                let storedState = EntityLogBatteryLevel(context: context)
+                storedState.logID = storedItem.id
+                storedState.level = Int64(state.value)
+                storedState.date = state.key
             }
             for processLog in processLogs {
                 let storedProcess = EntityLogProcesses(context: context)
@@ -85,18 +91,27 @@ class LogsProviderWithCoreData {
             .filterNonNil()
     }
     
-    func fetchSuspensions(for logItem: LogItemInfo) -> LogItemInfo {
+    func fetchDetails(for logItem: LogItemInfo) -> LogItemInfo {
         var logItem = logItem
-        let request: NSFetchRequest<EntityLogSuspensions> = EntityLogSuspensions.fetchRequest()
-        request.predicate = NSPredicate(format: "logID == %@", logItem.id as CVarArg)
-        let storedSuspensions = (try? context.fetch(request)) ?? []
-
-        for suspension in storedSuspensions {
+        let predicate = NSPredicate(format: "logID == %@", logItem.id as CVarArg)
+        
+        let requestSuspensions: NSFetchRequest<EntityLogSuspensions> = EntityLogSuspensions.fetchRequest()
+        requestSuspensions.predicate = predicate
+        for suspension in ((try? context.fetch(requestSuspensions)) ?? []) {
             if let date = suspension.date {
                 logItem.suspensions[date] = Int(suspension.count)
             }
         }
-        
+
+        let request: NSFetchRequest<EntityLogBatteryLevel> = EntityLogBatteryLevel.fetchRequest()
+        request.predicate = NSPredicate(format: "logID == %@", logItem.id as CVarArg)
+
+        for state in ((try? context.fetch(request)) ?? []) {
+            if let date = state.date {
+                logItem.batteryHistory[date] = Int(state.level)
+            }
+        }
+
         return logItem
     }
 }
@@ -121,7 +136,7 @@ extension LogItemInfo {
         systemBootTime = entity.systemBootTime
         systemUptime = entity.systemUptime.let { TimeInterval(truncating: $0) }
         systemActivetime = entity.systemActivetime.let { TimeInterval(truncating: $0) }
-        batery = entity.batery.let { Int(truncating: $0) }
+        battery = entity.batery.let { Int(truncating: $0) }
         charging = entity.charging.let { $0 == 1 }
 
         logProcessInterval = Int(entity.logProcessInterval)

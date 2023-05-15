@@ -5,10 +5,12 @@
     * indexed database logs to improve performance
     * fix logs item count
     * logs reload buttom
-  * Service
+    * log battery level chart (% vs datetime)
+  * Service - * Logs versioning v5
     * remove logprocess: bool
     * remove activetimebeta: number
-    * store suspensions when computer enter in supend mode
+    * new: store suspensions when computer enter in supend mode
+    * new: store battery level log
   * Automation Scripts
     * create local package with createPackage.sh --debug
 

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F5037d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="2">
+    <entity name="EntityLogBatteryLevel" representedClassName="EntityLogBatteryLevel" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="level" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="logID" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
     <entity name="EntityLogProcesses" representedClassName="EntityLogProcesses" syncable="YES" codeGenerationType="class">
         <attribute name="command" attributeType="String" defaultValueString=""/>
         <attribute name="cpu" attributeType="Double" defaultValueString="0"/>

@@ -31,7 +31,9 @@ struct LogItemInfo: Identifiable {
     var suspensions: [Date:Int] = [:]
     var hasSuspensions: Bool { !suspensions.isEmpty }
 
-    var batery: Int? = nil
+    var batteryHistory: [Date:Int] = [:]
+    var hasBatteryHistory: Bool { !batteryHistory.isEmpty }
+    var battery: Int? = nil
     var charging: Bool? = nil
 
     let logProcessInterval: Int
@@ -65,8 +67,8 @@ struct LogItemInfo: Identifiable {
             case line.hasPrefix("sysversion: "):
                 systemVersion = line.components(separatedBy: ": ").last
             //# batery: [0-9]+%
-            case line.hasPrefix("batery: "):
-                batery = LogItemInfo.extractNumber(line)
+            case line.hasPrefix("batery: ") || line.hasPrefix("battery: "):
+                battery = LogItemInfo.extractNumber(line)
             //# charging: true/false
             case line.hasPrefix("charging: "):
                 charging = line.contains("true") ? true : line.contains("false") ? false : nil
@@ -80,10 +82,15 @@ struct LogItemInfo: Identifiable {
             case line.hasPrefix("activetime: "):
                 systemActivetime = LogItemInfo.extractNumber(line).let { TimeInterval($0) }
             //# suspended: [0-9]+
-            case line.hasPrefix("suspended: "):
+            case line.hasPrefix("addinfosuspended: "):
                 let items = line.components(separatedBy: " ")
                 if let date = LogItemInfo.extractTime(from: items[2], formatter: formatter) {
                     suspensions[date] = LogItemInfo.extractNumber(items[1])
+                }
+            case line.hasPrefix("addinfobattery: "):
+                let items = line.components(separatedBy: " ")
+                if let date = LogItemInfo.extractTime(from: items[2], formatter: formatter) {
+                    batteryHistory[date] = LogItemInfo.extractNumber(items[1])
                 }
             //# logprocessinterval: [0-9]+
             case line.hasPrefix("logprocessinterval: "):

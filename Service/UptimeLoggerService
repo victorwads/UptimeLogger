@@ -52,7 +52,7 @@ function allowShutdown() {
 
 # Registra a data e hora de inicialização
 if [ -f "$UPDATE_FILE" ]; then
-    ADDEDLOG="$(grep suspended "$LOG_LATEST")"
+    ADDEDLOG="$(grep addinfo "$LOG_LATEST")"$'\n'
     STARTUP="$(cat "$UPDATE_FILE")"
     activetime=$(cat "$ACTIVE_FILE")
     rm "$UPDATE_FILE"
@@ -106,13 +106,14 @@ trap cleanup SIGINT SIGTERM
 # version: [0-9]+
 # ended: %Y-%m-%d_%H-%M-%S
 # sysversion: String
-# batery: [0-9]+%
+# battery: [0-9]+%
 # charging: true/false
 # boottime: [0-9]+ (timestamp)
 # activetime: [0-9]+ (seconds interval)
 # uptime: [0-9]+ (seconds interval)
 # logprocessinterval: [0-9]+
-# suspended: [0-9]+ %Y-%m-%d_%H-%M-%S (miltiple lines)
+# addinfosuspended: [0-9]+ %Y-%m-%d_%H-%M-%S (miltiple lines)
+# addinfobattery: [0-9]+ %Y-%m-%d_%H-%M-%S (miltiple lines)
 
 lasttimestep=$(date +%s)
 while true; do
@@ -132,9 +133,10 @@ done &
 
 # Loop infinito para atualizar o uptime a cada 1 segundo
 COUNT=0
+BATTERY_HISTORY=-1
 while true; do
     if [ -f "$SUSPENDED_FILE" ]; then
-        ADDEDLOG+="suspended: $(cat "$SUSPENDED_FILE") $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
+        ADDEDLOG+="addinfosuspended: $(cat "$SUSPENDED_FILE") $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
         echo "$LOG"
         echo "$LOG" > "$LOG_FILE"
         rm "$SUSPENDED_FILE"
@@ -149,9 +151,15 @@ while true; do
         currenttimestamp=$(date +%s)
         elapsedtime=$((currenttimestamp - boottimestamp))
         battery=$(pmset -g batt)
+        level="$(echo "$battery" | grep -Eo '[0-9]+%')"
+
+        if [ "$BATTERY_HISTORY" != "$level" ]; then
+            ADDEDLOG+="addinfobattery: $level $(date +"%Y-%m-%d_%H-%M-%S")"$'\n'
+        fi
+        BATTERY_HISTORY="$level"
 
         LOG+="sysversion: $(sw_vers -productVersion)"$'\n'
-        LOG+="batery: $(echo "$battery" | grep -Eo '[0-9]+%')"$'\n'
+        LOG+="battery: $level"$'\n'
         if echo "$battery" | grep -q "discharging"; then
             LOG+="charging: false"$'\n'
         else

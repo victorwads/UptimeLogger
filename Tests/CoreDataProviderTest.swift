@@ -60,7 +60,7 @@ class CoreDataLogProviderTests: XCTestCase {
         XCTAssertEqual(logItems[0].shutdownAllowed, false)
         XCTAssertEqual(logItems[0].logProcessInterval, 2)
         XCTAssertEqual(logItems[0].systemVersion, "13.4")
-        XCTAssertEqual(logItems[0].batery, 72)
+        XCTAssertEqual(logItems[0].battery, 72)
         XCTAssertEqual(logItems[0].charging, false)
     }
     
