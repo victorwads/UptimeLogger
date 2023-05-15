@@ -5,7 +5,12 @@
     * indexed database logs to improve performance
     * fix logs item count
     * logs reload buttom
-    * log battery level chart (% vs datetime)
+    * new: Logs Details
+      * separeted sections for log details like:
+      * log battery level chart (% vs datetime)
+      * log suspensions time list
+      * log processes
+      * log summary details
   * Service - * Logs versioning v5
     * remove logprocess: bool
     * remove activetimebeta: number

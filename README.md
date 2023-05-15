@@ -15,14 +15,34 @@ UptimeLogger is an app that helps you keep track of how long your Mac has been r
 ## Features
 
 - Installs as a service and runs on system load
-- Logs uptime to a file for historical tracking
-- Logs running proccesses to a file for troubleshooting
-- Displays current uptime in the app window
+- Store Logs of uptime, suspensions time, battery levels
+- Identify Unexpected shutdowns
+- Can log runnings system processes to trouboushoting Unexpected shutdowns
+- Logs are now indexed and can be sorted, searched and filtered
 - Checks for updates and prompts you to download them
 
 see more [CHANGELOG](CHANGELOG.md)
 
-For Indexing: Shutdown Detective, Failure Tracker, Power Watcher, Uptime Logger, Blackout Detector, Energy Loss or Power Interruption Tracker
+<table style="width: 100%;">
+  <tr>
+    <td style="width: 11%;"></td>
+    <td style="width: 33%;">
+      <img src="screenshots/dark1.png" style="width: 100%;">
+      <img src="screenshots/dark2.png" style="width: 100%;">
+      <img src="screenshots/dark3.png" style="width: 100%;">
+      <img src="screenshots/dark4.png" style="width: 100%;">
+    </td>
+    <td style="width: 33%;">
+      <img src="screenshots/light1.png" style="width: 100%;">
+      <img src="screenshots/light2.png" style="width: 100%;">
+      <img src="screenshots/light3.png" style="width: 100%;">
+      <img src="screenshots/light4.png" style="width: 100%;">
+    </td>
+    <td style="width: 11%;"></td>
+  </tr>
+</table>
+
+For Indexing: Shutdown Detective, Failure Tracker, Power Watcher, Uptime Logger, Blackout Detector, Energy Loss Power Interruption Tracker, Battery Logger, Battery History, Battery Chart Graph, MacOs, MacBook
 
 ## Installation
 
