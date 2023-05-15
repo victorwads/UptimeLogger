@@ -77,7 +77,7 @@ struct BatteryGraph: View {
             BatteryGraphText(
                 date: dateString,
                 level: level, x: x + offsetL, y: y + offsetT,
-                hover: .init(_showDetails.wrappedValue)
+                hover: showDetails
             )
         }
     }

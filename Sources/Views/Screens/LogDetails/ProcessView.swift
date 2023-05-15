@@ -64,13 +64,6 @@ struct ProcessView: View {
                 .frame(maxWidth: 80)
                 TextField(.key(.resultsSearch), text: $searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                if(!searchText.isEmpty) {
-                    Text("\(sortedProccess.count) / \(proccess.count)")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal)
-                        .transition(.scale)
-                }
             }.animation(.default)
             Picker(.key(.resultsSort), selection: $sortingOption) {
                 Text("ID").tag(SortingOption.none)
@@ -82,6 +75,10 @@ struct ProcessView: View {
             .pickerStyle(.segmented)
             .padding(.horizontal)
             .frame(maxWidth: 430)
+            Text("\(sortedProccess.count) / \(proccess.count)")
+                .font(.headline)
+                .foregroundColor(.secondary)
+                .transition(.scale)
         }
         .padding(10)
         List(sortedProccess, id: \.pid) { item in
