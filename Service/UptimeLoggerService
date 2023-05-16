@@ -45,9 +45,6 @@ UPDATE_FILE="$LOGS_DIR/updated"
 
 function allowShutdown() {
     echo "shutdown allowed" >>"$LOG_LATEST"
-    rm "$SUSPENDED_FILE"
-    rm "$ACTIVE_FILE"
-    rm "$LOG_LATEST"
 }
 
 # Registra a data e hora de inicialização
@@ -94,9 +91,8 @@ cleanup() {
     kill $(jobs -p) 2>/dev/null
     if [ $UPDATE = true ]; then
         finishwithUpdate
-    else
-        allowShutdown
     fi
+    allowShutdown
     # Encerrar os processos em segundo plano
     exit 0
 }
