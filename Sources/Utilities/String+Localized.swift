@@ -45,6 +45,8 @@ enum Strings: String {
     case logSysVersion = "log.sysversion"
     case logBoottime = "log.boottime"
     case logUptime = "log.uptime"
+    case logActiveTime = "log.active"
+    case logSuspendedTime = "log.suspended"
     case logStartup = "log.startup"
     case logNormal = "log.normal"
     case logUnexpected = "log.unexpected"

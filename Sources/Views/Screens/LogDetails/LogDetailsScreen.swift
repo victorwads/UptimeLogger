@@ -42,6 +42,9 @@ struct LogDetailsScreen: View {
             VStack {
                 HeaderView(LocalizedStringKey(logFile.formattedEndtime), icon: "info") {
                     HStack(spacing: 15) {
+                        if(logFile.edited) {
+                            logView.editedView
+                        }
                         if let sys = logFile.systemVersion {
                             HStack {
                                 Image(systemName: "desktopcomputer")
@@ -49,7 +52,7 @@ struct LogDetailsScreen: View {
                                 MonoText(sys)
                             }.help(.key(.logSysVersion))
                         }
-                        logView.energyStatus
+                        logView.energyStatusView
                     }.animation(.default)
                 }
                 if (logFile.hasProcess || logFile.hasBatteryHistory || logFile.hasSuspensions) {
@@ -71,17 +74,24 @@ struct LogDetailsScreen: View {
                 switch showing {
                 case .details:
                     Spacer()
-                    Text("TODO")
-                    HStack(spacing: 20) {
-                        logView.bootTimeView
-                        logView.upTimeView
-                        logView.initScriptView
-                        Spacer()
-                        logView.shutdownStatus
-                        if(logFile.edited) {
-                            logView.editedView
+                    VStack(spacing: 20) {
+                        Text("TODO")
+                        HStack(spacing: 20) {
+                            logView.bootTimeView
+                            Spacer()
+                            logView.upTimeView
                         }
-                    }.padding()
+                        HStack(spacing: 20) {
+                            logView.initScriptView
+                            Spacer()
+                            logView.activeTimeView
+                        }
+                        HStack(spacing: 20) {
+                            logView.shutdownStatusView
+                            Spacer()
+                            logView.suspendedTimeView
+                        }
+                    }.frame(maxWidth: 400)
                     Spacer()
                     LegendView().padding()
                 case .battery:
@@ -96,9 +106,19 @@ struct LogDetailsScreen: View {
                         ProcessView(proccess: $processes)
                     }
                 case .suspensions:
-                    Spacer()
+                    List(logFile.suspensions.keys.enumerated().map { $0.element }, id: \.self) { date in
+                        HStack {
+                            Image(systemName: LogItemView.iconSuspendedTime)
+                                .foregroundColor(.accentColor)
+                            Text(logFile.suspensions[date]!.formatInterval())
+                            Spacer()
+                            Text("\(date)")
+                        }
+                        .font(.caption)
+                        Divider()
+                    }
+                    .listStyle(InsetListStyle())
                     Text("TODO")
-                    Spacer()
                 }
             }.handlesExternalEvents(
                 preferring: [AppScheme.details + "/" + urlFileName], allowing: [""]

@@ -14,7 +14,7 @@ struct LogItemView: View {
     static let iconShutdownTime = "powersleep"
     static let iconBootTime = "power"
     static let iconActive = "timer"
-    static let iconUpTime = "power"//arrow.up.circle.badge.clock"
+    static let iconUpTime = "arrow.up.circle.badge.clock"
     static let iconSuspendedTime = "moon.zzz"
     static let iconEdited = "square.and.pencil"
     static let iconPowerConnected = "bolt.fill"
@@ -71,17 +71,17 @@ struct LogItemView: View {
         }
     }
 
-    var shutdownStatus: some View {
+    var shutdownStatusView: some View {
         HStack(alignment: .center, spacing: 4) {
-            MonoText(log.formattedEndtime)
-                //.foregroundColor(allow ? .green : .red)
             Image(systemName: allow ? LogItemView.iconNormalShutDown : LogItemView.iconUnexpected)
                 .font(.headline)
                 .foregroundColor(allow ? .green : .red)
+            MonoText(log.formattedEndtime)
+                //.foregroundColor(allow ? .green : .red)
         }
     }
     
-    var energyStatus: some View {
+    var energyStatusView: some View {
         HStack {
             if let battery = log.battery, let charging = log.charging {
                 Battery(level: battery)
@@ -133,7 +133,7 @@ struct LogItemView: View {
 //                    Divider().padding(.leading, 5)
                     editedView
                 }
-                shutdownStatus.onTapGesture {
+                shutdownStatusView.onTapGesture {
                     if let onToggleAction = onToggleAction {
                         onToggleAction(log)
                     }

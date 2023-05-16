@@ -17,15 +17,20 @@ struct LegendView: View {
             Spacer()
             VStack(alignment: .leading, spacing: 10) {
                 Label(.key(.logStartup), systemImage: LogItemView.iconScriptStartTime)
+                Label(.key(.logActiveTime), systemImage: LogItemView.iconActive)
+            }
+            Spacer()
+            VStack(alignment: .leading, spacing: 10) {
+                Label(.key(.logEdited), systemImage: LogItemView.iconEdited)
+                Label(.key(.logSuspendedTime), systemImage: LogItemView.iconSuspendedTime)
+            }
+            Spacer()
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Image(systemName: LogItemView.iconNormalShutDown)
                         .foregroundColor(.green)
                     Text(.key(.logNormal))
                 }.tag(ThreeCaseState.no)
-            }
-            Spacer()
-            VStack(alignment: .leading, spacing: 10) {
-                Label(.key(.logEdited), systemImage: LogItemView.iconEdited)
                 HStack {
                     Image(systemName: LogItemView.iconUnexpected)
                         .foregroundColor(.red)
