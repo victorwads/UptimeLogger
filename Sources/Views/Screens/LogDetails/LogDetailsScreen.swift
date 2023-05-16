@@ -106,7 +106,7 @@ struct LogDetailsScreen: View {
                         ProcessView(proccess: $processes)
                     }
                 case .suspensions:
-                    List(logFile.suspensions.keys.enumerated().map { $0.element }, id: \.self) { date in
+                    List(logFile.suspensions.keys.sorted().enumerated().map { $0.element }, id: \.self) { date in
                         HStack {
                             Image(systemName: LogItemView.iconSuspendedTime)
                                 .foregroundColor(.accentColor)

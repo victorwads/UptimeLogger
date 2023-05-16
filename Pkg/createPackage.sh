@@ -6,7 +6,7 @@ DEBUG=false
 S=19;
 
 if [[ "$*" == *"--debug"* ]]; then
-    S=5;
+    S=6;
     DEBUG=true
 fi
 
@@ -74,6 +74,11 @@ pkgbuild --nopayload --scripts "$SCRIPT_DIR/Uninstall"\
     --identifier "$BUNDLE_NAME.uninstall" --version "$VERSION" \
     "$CACHE_FOLDER/$UNINSTALLER_NAME.pkg"
 ret=$?
+
+if [ $DEBUG = true ]; then
+    header "Instalando"
+    sudo installer -pkg "$CACHE_FOLDER/$INSTALLER_NAME.pkg" -target /
+fi
 
 if [ ! $DEBUG = true ]; then
     header "Assinando pacotes de instalação pkg localmente"

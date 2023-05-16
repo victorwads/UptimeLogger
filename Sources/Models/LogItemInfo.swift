@@ -165,7 +165,7 @@ extension LogItemInfo {
 
     var suspentedTime: Int { suspensions.values.reduce(0) { sum, value in sum + value } }
     var formattedUptime: String { systemUptime?.formatInterval() ?? "" }
-    var formattedActiveTime: String { systemActivetime?.formatInterval() ?? "" }
+    var formattedActiveTime: String { (Int(systemUptime ?? 0)-suspentedTime).formatInterval() }
     var formattedSuspendedTime: String { suspentedTime.formatInterval() }
 
     var formattedStartUptime: String {

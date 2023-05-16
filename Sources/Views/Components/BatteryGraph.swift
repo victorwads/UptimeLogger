@@ -79,7 +79,7 @@ struct BatteryGraph: View {
     
     private func splitChargingStates() -> [[Date]] {
         var subArrays: [[Date]] = []
-        if(sortedDates.count > 2) {
+        if(sortedDates.count >= 2) {
             let first = level(sortedDates[0])
             var currentSubArray: [Date] = [sortedDates[0]]
             var isCharging = first < level(sortedDates[1])
