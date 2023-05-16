@@ -1,6 +1,7 @@
 
 "cancel" = "Cancelar";
-"items" = "items";
+"items" = "itens";
+"reload" = "recarregar";
 /* Date */
 "date.at" = "ás";
 "date.days" = "d";
@@ -10,8 +11,6 @@
 "date.today" = "hoje";
 "date.yesterday" = "ontem";
 /* Log Details */
-"details.notfound" = "Esse log não tem informações de processos";
-"details.notfound.tip" = "valide se o monitoramento esta ativo em configurações";
 "log.boottime" = "Inicialização do sistema";
 "log.edited" = "editado";
 /* Log Item */
@@ -24,6 +23,8 @@
 "log.activetime" = "Tempo ativo";
 "logs.details.click" = "Click para ver os detalhes do registro";
 "logs.notfound" = "Nenhum registro encontrado";
+"log.active" = "Tempo ativo";
+"log.suspended" = "Tempo ativo";
 /* Logs */
 "logs.filters" = "Filtros";
 "logs.filters.power" = "Fonte de Energia: ";

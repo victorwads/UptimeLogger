@@ -1,0 +1,74 @@
+"cancel" = "يلغي";
+"items" = "أغراض";
+"reload" = "إعادة تحميل";
+/* Date */
+"date.at" = "في";
+"date.days" = "د";
+"date.hours" = "ح";
+"date.minutes" = "م";
+"date.seconds" = "س";
+"date.today" = "اليوم";
+"date.yesterday" = "أمس";
+/* Log Details */
+"log.boottime" = "وقت إقلاع النظام";
+"log.edited" = "تم تحريره";
+/* Log Item */
+"log.help" = "انقر لتغيير معلومات سجل الاغلاق";
+"log.normal" = "الاغلاق العادي";
+"log.startup" = "وقت بدء الخدمة";
+"log.sysversion" = "إصدار نظام التشغيل";
+"log.unexpected" = "اغلاق غير متوقع";
+"log.uptime" = "الوقت منذ التمهيد";
+"log.activetime" = "وقت نشط";
+"logs.details.click" = "انقر لعرض تفاصيل السجل";
+"logs.notfound" = "لا توجد سجلات";
+"log.active" = "الوقت المعلق";
+"log.suspended" = "وقت نشط";
+/* Logs */
+"logs.filters" = "المرشحات";
+"logs.filters.power" = "مصدر الطاقة:";
+"logs.filters.power.off" = "انقطاع التيار الكهربائي / البطارية";
+"logs.filters.power.on" = "توصيل الطاقة (AC)";
+"logs.filters.shutdown" = "حالة الاغلاق:";
+"logs.filters.shutdown.normal" = "الاغلاق العادي";
+"logs.filters.shutdown.unexpected" = "اغلاق غير متوقع";
+"logs.sort.long" = "الجهوزية (الأكبر أولاً)";
+"logs.sort.new" = "الأحدث";
+"logs.sort.old" = "الأقدم";
+"logs.sort.short" = "الجهوزية (الأصغر أولاً)";
+"nav.current" = "حاضِر";
+/* Navigation */
+"nav.logs" = "السجلات";
+"nav.settings" = "إعدادات";
+"nav.update" = "التحديثات";
+"options.all" = "الجميع";
+/* File Manager */
+"provider.files.openmessage" = "لا يوجد إذن للوصول إلى مجلد السجلات \ n للسماح بالوصول ، حدد مجلد السجلات";
+"result.contains" = "يحتوي على مصطلح البحث";
+"result.contains.not" = "لا يحتوي على مصطلح البحث";
+"result.search" = "يبحث";
+/* General */
+"results.sort" = "ترتيب حسب:";
+"settings.developers.title" = "خيارات للمطور";
+"settings.folders.change" = "تغير مجلد";
+"settings.folders.clean" = "تاريخ واضح";
+"settings.folders.history.title" = "تاريخ";
+"settings.folders.select" = "يختار";
+"settings.interval" = "فاصلة:";
+"settings.interval.tip" = "حفظ العمليات كل";
+"settings.monitoring.label" = "تفعيل مراقبة العملية";
+/* Settings */
+"settings.monitoring.title" = "خدمة المراقبة";
+"update.available" = "التحديث متاح";
+"update.available.no" = "لا توجد تحديثات متاحة.";
+/* Update */
+"update.current" = "الإصدار الحالي هو";
+"update.finish.alert.message" = "تم التحميل بنجاح. انقر فوق \"موافق\" لفتح الملف الذي تم تنزيله وإغلاق البرنامج.";
+"update.finish.alert.now" = "تحديث الان";
+"update.finish.alert.title" = "انتها التحميل";
+"update.last" = "أحدث إصدار متاح هو";
+/* Permissioning */
+"authorize.title" = "إذن نظام الملفات";
+"authorize.confirm" = "تفويض";
+"authorize.message" = "إذن الوصول إلى المجلد ضروري لقراءة / كتابة السجلات والتكوينات.\n\nانقر فوق فتح في مربع الحوار التالي.\n";
+"icons.help" = "تعرف على المزيد حول الرموز";

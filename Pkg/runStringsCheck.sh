@@ -1,7 +1,7 @@
 #!/bin/bash
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 SFILE="$SCRIPT_DIR/../Sources/Utilities/String+Localized.swift"
-LFILES=$(find "$SCRIPT_DIR/.." -name "Localizable.strings")
+LFILES=$(find "$SCRIPT_DIR/../Resources" -name "Localizable.strings")
 
 # Obtém a lista de strings do arquivo String+Localized.swift
 CASES=$(grep -o "case [^= ]*" "$SFILE" | cut -c 6-)

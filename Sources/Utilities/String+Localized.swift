@@ -52,9 +52,6 @@ enum Strings: String {
     case logUnexpected = "log.unexpected"
     case logEdited = "log.edited"
     
-    case detailsNotFound = "details.notfound"
-    case detailsNotFoundTip = "details.notfound.tip"
-
     case authorizeTitle = "authorize.title"
     case authorizeMessage = "authorize.message"
     case authorizeConfirm = "authorize.confirm"

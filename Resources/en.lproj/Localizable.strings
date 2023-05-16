@@ -1,5 +1,6 @@
 "cancel" = "Cancel";
 "items" = "items";
+"reload" = "reload";
 /* Date */
 "date.at" = "at";
 "date.days" = "d";
@@ -9,8 +10,6 @@
 "date.today" = "today";
 "date.yesterday" = "yesterday";
 /* Log Details */
-"details.notfound" = "This log has no process information, check the settings";
-"details.notfound.tip" = "validate if the monitoring is active in the settings";
 "log.boottime" = "System boot time";
 "log.edited" = "edited";
 /* Log Item */
@@ -23,6 +22,8 @@
 "log.activetime" = "Active time";
 "logs.details.click" = "Click to view the details of the record";
 "logs.notfound" = "No records found";
+"log.active" = "Suspended time";
+"log.suspended" = "Active time";
 /* Logs */
 "logs.filters" = "Filters";
 "logs.filters.power" = "Power Source: ";
@@ -70,4 +71,4 @@
 "authorize.title" = "File System Permission";
 "authorize.confirm" = "Authorize";
 "authorize.message" = "Permission to access the folder is necessary to read/write logs and configurations.\n\nClick \"Open\" in the following dialog box.\n";
-"icons.help"="Learn about icons";
+"icons.help" = "Learn about icons";

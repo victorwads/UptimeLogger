@@ -1,5 +1,6 @@
 "cancel" = "Annuler";
 "items" = "items";
+"reload" = "recharger";
 /* Date */
 "date.at" = "à";
 "date.days" = "j";
@@ -9,8 +10,6 @@
 "date.today" = "aujourd'hui";
 "date.yesterday" = "hier";
 /* Log Details */
-"details.notfound" = "Ce journal ne contient pas d'informations sur les processus";
-"details.notfound.tip" = "validez que la surveillance est active dans les paramètres";
 "log.boottime" = "Heure de démarrage du système";
 "log.edited" = "modifié";
 /* Log Item */
@@ -23,6 +22,8 @@
 "log.activetime" = "Tempo ativo";
 "logs.details.click" = "Cliquez pour voir les détails du journal";
 "logs.notfound" = "Aucun journal trouvé";
+"log.active" = "Temps suspendu";
+"log.suspended" = "Temps actif";
 /* Logs */
 "logs.filters" = "Filtres";
 "logs.filters.power" = "Source d'alimentation: ";

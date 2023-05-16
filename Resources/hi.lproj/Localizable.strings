@@ -1,0 +1,74 @@
+"cancel" = "रद्द करना";
+"items" = "सामान";
+"reload" = "पुनः लोड करें";
+/* Date */
+"date.at" = "पर";
+"date.days" = "डी";
+"date.hours" = "एच";
+"date.minutes" = "एम";
+"date.seconds" = "एस";
+"date.today" = "आज";
+"date.yesterday" = "कल";
+/* Log Details */
+"log.boottime" = "सिस्टम बूट समय";
+"log.edited" = "संपादित";
+/* Log Item */
+"log.help" = "शटडाउन रिकॉर्ड जानकारी बदलने के लिए क्लिक करें";
+"log.normal" = "सामान्य शटडाउन";
+"log.startup" = "सेवा प्रारंभ समय";
+"log.sysversion" = "ओएस संस्करण";
+"log.unexpected" = "अनपेक्षित शटडाउन";
+"log.uptime" = "बूट के बाद से समय";
+"log.activetime" = "सक्रिय समय";
+"logs.details.click" = "रिकॉर्ड का विवरण देखने के लिए क्लिक करें";
+"logs.notfound" = "कोई रिकॉर्ड नहीं मिला";
+"log.active" = "रुका हुआ समय";
+"log.suspended" = "सक्रिय समय";
+/* Logs */
+"logs.filters" = "फिल्टर";
+"logs.filters.power" = "शक्ति का स्रोत:";
+"logs.filters.power.off" = "पावर डिस्कनेक्ट / बैटरी";
+"logs.filters.power.on" = "पावर कनेक्टेड (एसी)";
+"logs.filters.shutdown" = "शटडाउन स्थिति:";
+"logs.filters.shutdown.normal" = "सामान्य शटडाउन";
+"logs.filters.shutdown.unexpected" = "अनपेक्षित शटडाउन";
+"logs.sort.long" = "अपटाइम (सबसे बड़ा पहले)";
+"logs.sort.new" = "नवीनतम";
+"logs.sort.old" = "सबसे पुराने";
+"logs.sort.short" = "अपटाइम (सबसे छोटा पहले)";
+"nav.current" = "मौजूदा";
+/* Navigation */
+"nav.logs" = "लॉग्स";
+"nav.settings" = "समायोजन";
+"nav.update" = "अपडेट";
+"options.all" = "सभी";
+/* File Manager */
+"provider.files.openmessage" = "लॉग फोल्डर को एक्सेस करने की अनुमति नहीं\nएक्सेस की अनुमति देने के लिए, लॉग फोल्डर को चुनें";
+"result.contains" = "खोजा गया शब्द शामिल है";
+"result.contains.not" = "खोजा गया शब्द शामिल नहीं है";
+"result.search" = "खोज";
+/* General */
+"results.sort" = "इसके अनुसार क्रमबद्ध करें:";
+"settings.developers.title" = "डेवलपर विकल्प";
+"settings.folders.change" = "फ़ोल्डर परिवर्तन करें";
+"settings.folders.clean" = "इतिहास मिटा दें";
+"settings.folders.history.title" = "इतिहास";
+"settings.folders.select" = "चुनना";
+"settings.interval" = "मध्यान्तर:";
+"settings.interval.tip" = "प्रक्रियाओं को हर सहेजें";
+"settings.monitoring.label" = "प्रक्रिया निगरानी सक्रिय करें";
+/* Settings */
+"settings.monitoring.title" = "निगरानी सेवा";
+"update.available" = "उपलब्ध अद्यतन";
+"update.available.no" = "कोई अपडेट उपलब्ध नहीं है।";
+/* Update */
+"update.current" = "वर्तमान संस्करण है";
+"update.finish.alert.message" = "डाउनलोड सफलतापूर्वक पूरा हो गया था। डाउनलोड की गई फ़ाइल को खोलने और प्रोग्राम को बंद करने के लिए ओके पर क्लिक करें।";
+"update.finish.alert.now" = "अभी अद्यतन करें";
+"update.finish.alert.title" = "पूरा डाउनलोड";
+"update.last" = "नवीनतम उपलब्ध संस्करण है";
+/* Permissioning */
+"authorize.title" = "फ़ाइल सिस्टम अनुमति";
+"authorize.confirm" = "अधिकृत";
+"authorize.message" = "लॉग और कॉन्फ़िगरेशन को पढ़ने/लिखने के लिए फ़ोल्डर तक पहुंचने की अनुमति आवश्यक है।\n\nनिम्न संवाद बॉक्स में \"खोलें\" क्लिक करें।\n";
+"icons.help" = "आइकॉन के बारे में जानें";

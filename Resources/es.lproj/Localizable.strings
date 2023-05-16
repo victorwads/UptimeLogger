@@ -1,0 +1,74 @@
+"cancel" = "Cancelar";
+"items" = "elementos";
+"reload" = "recargar";
+/* Date */
+"date.at" = "en";
+"date.days" = "d";
+"date.hours" = "h";
+"date.minutes" = "metro";
+"date.seconds" = "s";
+"date.today" = "hoy";
+"date.yesterday" = "ayer";
+/* Log Details */
+"log.boottime" = "Tiempo de arranque del sistema";
+"log.edited" = "editado";
+/* Log Item */
+"log.help" = "haga clic para cambiar la información del registro de apagado";
+"log.normal" = "Apagado normal";
+"log.startup" = "hora de inicio del servicio";
+"log.sysversion" = "Versión del sistema operativo";
+"log.unexpected" = "Apagado inesperado";
+"log.uptime" = "Tiempo desde el arranque";
+"log.activetime" = "Tiempo activo";
+"logs.details.click" = "Haga clic para ver los detalles del registro";
+"logs.notfound" = "No se encontraron registros";
+"log.active" = "tiempo suspendido";
+"log.suspended" = "Tiempo activo";
+/* Logs */
+"logs.filters" = "filtros";
+"logs.filters.power" = "Fuente de alimentación:";
+"logs.filters.power.off" = "Alimentación desconectada/batería";
+"logs.filters.power.on" = "Alimentación conectada (CA)";
+"logs.filters.shutdown" = "Estado de apagado:";
+"logs.filters.shutdown.normal" = "Apagado normal";
+"logs.filters.shutdown.unexpected" = "Apagado inesperado";
+"logs.sort.long" = "Tiempo de actividad (más grande primero)";
+"logs.sort.new" = "El más nuevo";
+"logs.sort.old" = "Más antiguo";
+"logs.sort.short" = "Tiempo de actividad (más pequeño primero)";
+"nav.current" = "Actual";
+/* Navigation */
+"nav.logs" = "Registros";
+"nav.settings" = "Ajustes";
+"nav.update" = "Actualizaciones";
+"options.all" = "Todo";
+/* File Manager */
+"provider.files.openmessage" = "Sin permiso para acceder a la carpeta de registros\nPara permitir el acceso, seleccione la carpeta de registros";
+"result.contains" = "contiene el término buscado";
+"result.contains.not" = "no contiene el término buscado";
+"result.search" = "Buscar";
+/* General */
+"results.sort" = "Ordenar por:";
+"settings.developers.title" = "Opciones de desarrollador";
+"settings.folders.change" = "Cambiar carpeta";
+"settings.folders.clean" = "Borrar historial";
+"settings.folders.history.title" = "Historia";
+"settings.folders.select" = "Seleccionar";
+"settings.interval" = "Intervalo:";
+"settings.interval.tip" = "guardar procesos cada";
+"settings.monitoring.label" = "Activar la supervisión de procesos";
+/* Settings */
+"settings.monitoring.title" = "Servicio de Monitoreo";
+"update.available" = "Actualización disponible";
+"update.available.no" = "No hay actualizaciones disponibles.";
+/* Update */
+"update.current" = "La versión actual es";
+"update.finish.alert.message" = "La descarga se completó con éxito. Haga clic en Aceptar para abrir el archivo descargado y cerrar el programa.";
+"update.finish.alert.now" = "Actualizar ahora";
+"update.finish.alert.title" = "Descarga completa";
+"update.last" = "La última versión disponible es";
+/* Permissioning */
+"authorize.title" = "Permiso del sistema de archivos";
+"authorize.confirm" = "Autorizar";
+"authorize.message" = "Se necesita permiso para acceder a la carpeta para leer/escribir registros y configuraciones.\n\nHaga clic en \"Abrir\" en el siguiente cuadro de diálogo.\n";
+"icons.help" = "Más información sobre iconos";
